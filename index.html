@@ -1951,7 +1951,68 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
             <figcaption>Modelo do amp op com tensão de offset: uma fonte cc V<sub>OS</sub> em série com um dos terminais de entrada de um amp op idealizado.</figcaption>
           </figure>
 
-          <p>Para achar o efeito em malha fechada, curto-circuita-se a fonte de sinal (superposição) e resolve-se o circuito. Tanto a inversora quanto a não inversora dão o mesmo resultado:</p>
+          <h3 style="margin-top:34px;font-size:1.2rem">Dedução do efeito em malha fechada</h3>
+          <p>Para achar o efeito de V<sub>OS</sub>, aplica-se <strong>superposição</strong>: curto-circuita-se a fonte de sinal e sobra apenas a bateria V<sub>OS</sub>. O circuito resultante é o mesmo para a inversora e para a não inversora — em ambas, com o sinal anulado, R₁ liga o nó inversor ao terra e R₂ fecha a malha.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 -16 560 278" xmlns="http://www.w3.org/2000/svg">
+              <!-- R1 aterrado -->
+              <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+                <line x1="50" y1="90" x2="50" y2="62"/><line x1="50" y1="90" x2="80" y2="90"/>
+              </g>
+              <g stroke="var(--chalk)" stroke-width="2">
+                <line x1="39" y1="60" x2="61" y2="60"/><line x1="43" y1="53" x2="57" y2="53"/><line x1="47" y1="46" x2="53" y2="46"/>
+              </g>
+              <polyline points="80,90 90,90 97,78 111,102 125,78 139,102 146,90 160,90" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+              <text x="118" y="70" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">R1</text>
+              <line x1="160" y1="90" x2="250" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+              <circle cx="205" cy="90" r="4" fill="var(--chalk)"/>
+              <!-- corrente em R1 -->
+              <polygon points="180,84 192,90 180,96" fill="var(--yellow)"/>
+              <text x="186" y="118" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--yellow)">Vos/R1</text>
+              <!-- fonte Vos no + -->
+              <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+                <line x1="50" y1="180" x2="50" y2="208"/><line x1="50" y1="180" x2="118" y2="180"/>
+              </g>
+              <g stroke="var(--chalk)" stroke-width="2">
+                <line x1="39" y1="209" x2="61" y2="209"/><line x1="43" y1="216" x2="57" y2="216"/><line x1="47" y1="223" x2="53" y2="223"/>
+              </g>
+              <circle cx="140" cy="180" r="21" fill="none" stroke="var(--pink)" stroke-width="2.4"/>
+              <text x="131" y="186" font-family="Kalam" font-size="15" fill="var(--pink)">−</text>
+              <text x="146" y="186" font-family="Kalam" font-size="15" fill="var(--pink)">+</text>
+              <text x="140" y="228" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--pink)">Vos</text>
+              <line x1="161" y1="180" x2="250" y2="180" stroke="var(--chalk)" stroke-width="2.2"/>
+              <!-- amp op ideal -->
+              <polygon points="250,50 250,220 390,135" fill="none" stroke="var(--chalk)" stroke-width="2.5"/>
+              <text x="266" y="96" font-family="Kalam" font-size="19" fill="var(--chalk)">−</text>
+              <text x="266" y="188" font-family="Kalam" font-size="19" fill="var(--chalk)">+</text>
+              <text x="198" y="66" text-anchor="end" font-family="Kalam" font-size="14" fill="var(--pink)">v₋ = Vos</text>
+              <text x="232" y="204" text-anchor="end" font-family="Kalam" font-size="14" fill="var(--pink)">v₊ = Vos</text>
+              <!-- saida -->
+              <line x1="390" y1="135" x2="500" y2="135" stroke="var(--chalk)" stroke-width="2.2"/>
+              <circle cx="460" cy="135" r="4" fill="var(--yellow)"/>
+              <text x="508" y="141" font-family="Kalam" font-size="16" fill="var(--yellow)">VO</text>
+              <!-- R2 -->
+              <line x1="460" y1="135" x2="460" y2="26" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="460" y1="26" x2="380" y2="26" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polyline points="380,26 370,26 363,14 349,38 335,14 321,38 314,26 300,26" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+              <text x="342" y="10" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">R2</text>
+              <line x1="300" y1="26" x2="205" y2="26" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="205" y1="26" x2="205" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+            </svg>
+            <figcaption>Circuito para determinar V<sub>O</sub> devido a V<sub>OS</sub>: fonte de sinal curto-circuitada, sobrando a bateria de offset em série com o terminal positivo.</figcaption>
+          </figure>
+
+          <p><strong>1.</strong> O amp op interno é ideal (sem offset), então vale o curto virtual. A tensão no terminal positivo desse amp op ideal é a própria bateria:</p>
+          <div class="eq">v<sub>+</sub> = V<sub>OS</sub> &nbsp;&nbsp;⟹&nbsp;&nbsp; v<sub>−</sub> = v<sub>+</sub> = V<sub>OS</sub></div>
+
+          <p><strong>2.</strong> R₁ liga esse nó ao terra, então circula por ele</p>
+          <div class="eq">i<sub>1</sub> = (v<sub>−</sub> − 0)/R<sub>1</sub> = V<sub>OS</sub>/R<sub>1</sub></div>
+
+          <p><strong>3.</strong> Nada entra no terminal do amp op, logo essa mesma corrente vem da saída através de R₂. Percorrendo de v<sub>−</sub> até a saída:</p>
+          <div class="eq">V<sub>O</sub> = v<sub>−</sub> + i<sub>1</sub>·R<sub>2</sub> = V<sub>OS</sub> + (V<sub>OS</sub>/R<sub>1</sub>)·R<sub>2</sub></div>
+
+          <p><strong>4.</strong> Colocando V<sub>OS</sub> em evidência:</p>
           <div class="eq"><span class="hand-box">V<sub>O</sub> = V<sub>OS</sub>·(1 + R<sub>2</sub>/R<sub>1</sub>)</span> &nbsp;<span class="dim">(2.43)</span></div>
 
           <p>O fator é <strong>1 + R₂/R₁</strong> — o <em class="term">ganho de ruído</em> — e não o ganho de sinal. Por isso o erro de zero de um inversor de ganho −10 é multiplicado por 11, não por 10: o sinal e o offset entram em pontos diferentes do circuito.</p>
@@ -1968,10 +2029,49 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
           </div>
           <p>Valores típicos com transistores bipolares: <strong>I<sub>B</sub> ≈ 100 nA</strong> e <strong>I<sub>OS</sub> ≈ 10 nA</strong>. Com estágio de entrada a FET, as correntes caem para a ordem de picoampères.</p>
 
-          <p>Aterrando a fonte de sinal, a corrente I<sub>B1</sub> circula por R₂ e produz na saída</p>
-          <div class="eq">V<sub>O</sub> = I<sub>B1</sub>·R<sub>2</sub> ≈ I<sub>B</sub>·R<sub>2</sub> &nbsp;<span class="dim">(2.44)</span></div>
-          <p>o que impõe um teto ao valor de R₂. Há uma correção elegante: inserir um resistor R₃ em série com o terminal <strong>positivo</strong>. Do ponto de vista de sinal ele não faz nada; do ponto de vista cc, cancela o erro se</p>
-          <div class="eq"><span class="hand-box">R<sub>3</sub> = R<sub>1</sub> ∥ R<sub>2</sub> = R<sub>1</sub>R<sub>2</sub>/(R<sub>1</sub>+R<sub>2</sub>)</span> &nbsp;<span class="dim">(2.46)</span></div>
+          <h3 style="margin-top:34px;font-size:1.2rem">Dedução — o erro sem compensação</h3>
+          <p>Aterre a fonte de sinal e modele as correntes de polarização como duas fontes de corrente ligadas aos terminais de entrada.</p>
+
+          <p><strong>1.</strong> O terminal positivo está aterrado, então o curto virtual dá <code>v<sub>−</sub> = 0</code>.</p>
+          <p><strong>2.</strong> R₁ vai desse nó ao terra. Com 0 V nas duas pontas, <strong>a corrente em R₁ é nula</strong>:</p>
+          <div class="eq">i<sub>R1</sub> = (0 − 0)/R<sub>1</sub> = 0</div>
+          <p><strong>3.</strong> Pela lei dos nós, toda a corrente I<sub>B1</sub> drenada pelo terminal inversor tem de vir da saída, através de R₂. Percorrendo de v<sub>−</sub> até a saída:</p>
+          <div class="eq">V<sub>O</sub> = v<sub>−</sub> + I<sub>B1</sub>·R<sub>2</sub> = 0 + I<sub>B1</sub>·R<sub>2</sub></div>
+          <div class="eq"><span class="hand-box">V<sub>O</sub> = I<sub>B1</sub>·R<sub>2</sub> ≈ I<sub>B</sub>·R<sub>2</sub></span> &nbsp;<span class="dim">(2.44)</span></div>
+          <p class="note">Repare que I<sub>B2</sub> não aparece: ela é fornecida diretamente pelo terra, sem atravessar resistor nenhum. Quem estraga a saída é só a corrente do terminal <em>inversor</em>.</p>
+          <p>Isso impõe um teto a R₂: com I<sub>B</sub> = 100 nA, um R₂ de 1 MΩ já produz 0,1 V de erro; um de 10 MΩ produziria 1 V.</p>
+
+          <h3 style="margin-top:34px;font-size:1.2rem">Dedução — por que R₃ = R₁∥R₂ cancela o erro</h3>
+          <p>A correção é inserir um resistor R₃ em série com o terminal <strong>positivo</strong>. Do ponto de vista de sinal ele é inócuo (nenhuma corrente de sinal passa por ali); do ponto de vista cc, ele cria uma tensão negativa no terminal positivo que compensa exatamente a queda em R₂.</p>
+
+          <p><strong>1.</strong> I<sub>B2</sub> é drenada do terra através de R₃, produzindo no terminal positivo</p>
+          <div class="eq">v<sub>+</sub> = 0 − I<sub>B2</sub>·R<sub>3</sub> = −R<sub>3</sub>I<sub>B2</sub></div>
+
+          <p><strong>2.</strong> Curto virtual: <code>v<sub>−</sub> = v<sub>+</sub> = −R<sub>3</sub>I<sub>B2</sub></code>. Agora R₁ <em>não</em> está mais com 0 V nas duas pontas, e circula por ele</p>
+          <div class="eq">I<sub>1</sub> = (v<sub>−</sub> − 0)/R<sub>1</sub> = −R<sub>3</sub>I<sub>B2</sub>/R<sub>1</sub></div>
+
+          <p><strong>3.</strong> Lei dos nós no terminal inversor — a corrente que chega por R₂ alimenta R₁ e o terminal do amp op:</p>
+          <div class="eq">I<sub>2</sub> = I<sub>1</sub> + I<sub>B1</sub></div>
+
+          <p><strong>4.</strong> Percorrendo de v<sub>−</sub> até a saída, através de R₂:</p>
+          <div class="eq" style="font-size:1.1rem">
+            V<sub>O</sub> = v<sub>−</sub> + R<sub>2</sub>I<sub>2</sub> = −R<sub>3</sub>I<sub>B2</sub> + R<sub>2</sub>(I<sub>B1</sub> − R<sub>3</sub>I<sub>B2</sub>/R<sub>1</sub>) &nbsp;<span class="dim">(2.45)</span>
+          </div>
+
+          <p><strong>5.</strong> Suponha primeiro as correntes casadas, <code>I<sub>B1</sub> = I<sub>B2</sub> = I<sub>B</sub></code>. Colocando I<sub>B</sub> em evidência:</p>
+          <div class="eq">
+            V<sub>O</sub> = I<sub>B</sub>·(−R<sub>3</sub> − R<sub>2</sub>R<sub>3</sub>/R<sub>1</sub> + R<sub>2</sub>)<br>
+            V<sub>O</sub> = −I<sub>B</sub>·(R<sub>3</sub> − R<sub>2</sub> + R<sub>2</sub>R<sub>3</sub>/R<sub>1</sub>)
+          </div>
+
+          <p><strong>6.</strong> Anular V<sub>O</sub> é anular o parêntese. Resolvendo para R₃:</p>
+          <div class="eq">
+            R<sub>3</sub> − R<sub>2</sub> + R<sub>2</sub>R<sub>3</sub>/R<sub>1</sub> = 0<br>
+            R<sub>3</sub>·(1 + R<sub>2</sub>/R<sub>1</sub>) = R<sub>2</sub><br>
+            R<sub>3</sub>·(R<sub>1</sub> + R<sub>2</sub>)/R<sub>1</sub> = R<sub>2</sub>
+          </div>
+          <div class="eq"><span class="hand-box">R<sub>3</sub> = R<sub>1</sub>R<sub>2</sub>/(R<sub>1</sub>+R<sub>2</sub>) = R<sub>1</sub> ∥ R<sub>2</sub></span> &nbsp;<span class="dim">(2.46)</span></div>
+          <p class="note">Daí a regra prática: <em class="term">no terminal positivo, ponha uma resistência igual à resistência cc vista pelo terminal inversor</em> — que é justamente R₁ em paralelo com R₂, já que a saída, sendo fonte de tensão ideal, é um terra para essa conta.</p>
 
           <figure class="panel">
             <svg viewBox="0 -16 560 278" xmlns="http://www.w3.org/2000/svg">
@@ -2016,13 +2116,30 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
               <text x="342" y="10" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">R2</text>
               <line x1="300" y1="26" x2="205" y2="26" stroke="var(--chalk)" stroke-width="2.2"/>
               <line x1="205" y1="26" x2="205" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polygon points="288,20 276,26 288,32" fill="var(--yellow)"/>
+              <text x="270" y="52" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--yellow)">I2</text>
+              <polygon points="188,84 176,90 188,96" fill="var(--yellow)"/>
+              <text x="176" y="118" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--yellow)">I1</text>
             </svg>
             <figcaption>R₃ = R₁∥R₂ no terminal positivo reduz o erro cc devido às correntes de polarização. Regra geral: colocar no terminal positivo uma resistência igual à resistência cc vista pelo terminal inversor.</figcaption>
           </figure>
 
-          <p>Com R₃ escolhido assim, o erro residual passa a depender apenas do <em>descasamento</em> entre as correntes:</p>
-          <div class="eq">V<sub>O</sub> = I<sub>OS</sub>·R<sub>2</sub> &nbsp;<span class="dim">(2.47)</span></div>
-          <p>tipicamente <strong>uma ordem de grandeza menor</strong> que sem R₃ (I<sub>OS</sub> ≈ I<sub>B</sub>/10).</p>
+          <h3 style="margin-top:34px;font-size:1.2rem">Dedução — o que sobra quando as correntes não são iguais</h3>
+          <p>Na prática I<sub>B1</sub> ≠ I<sub>B2</sub>. Voltando à Equação 2.45 <em>sem</em> supor casamento, e já com R₃ = R₁∥R₂ — o que dá o atalho <code>R₃/R₁ = R₂/(R₁+R₂)</code>:</p>
+          <div class="eq" style="font-size:1.05rem">
+            V<sub>O</sub> = R<sub>2</sub>I<sub>B1</sub> − I<sub>B2</sub>·[ R<sub>3</sub> + R<sub>2</sub>R<sub>3</sub>/R<sub>1</sub> ]<br>
+            V<sub>O</sub> = R<sub>2</sub>I<sub>B1</sub> − I<sub>B2</sub>·R<sub>3</sub>·(1 + R<sub>2</sub>/R<sub>1</sub>)
+          </div>
+          <p>Substituindo R₃ e o fator (1 + R₂/R₁) = (R₁+R₂)/R₁, os dois se cancelam:</p>
+          <div class="eq" style="font-size:1.05rem">
+            R<sub>3</sub>·(1 + R<sub>2</sub>/R<sub>1</sub>) = [R<sub>1</sub>R<sub>2</sub>/(R<sub>1</sub>+R<sub>2</sub>)] · [(R<sub>1</sub>+R<sub>2</sub>)/R<sub>1</sub>] = R<sub>2</sub>
+          </div>
+          <p>e sobra apenas o <em>descasamento</em>:</p>
+          <div class="eq">
+            V<sub>O</sub> = R<sub>2</sub>I<sub>B1</sub> − R<sub>2</sub>I<sub>B2</sub> = R<sub>2</sub>(I<sub>B1</sub> − I<sub>B2</sub>)<br>
+            <span class="hand-box">V<sub>O</sub> = I<sub>OS</sub>·R<sub>2</sub></span> &nbsp;<span class="dim">(2.47)</span>
+          </div>
+          <p>tipicamente <strong>uma ordem de grandeza menor</strong> que sem R₃ (I<sub>OS</sub> ≈ I<sub>B</sub>/10). O resistor não elimina o erro — ele troca I<sub>B</sub> por I<sub>OS</sub>.</p>
 
           <div class="attn">
             <span class="tag">amplificadores com acoplamento ca</span>
@@ -2173,8 +2290,24 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
             <figcaption>Integrador Miller. A corrente que R impõe é constante para uma entrada constante — e carregar um capacitor com corrente constante produz uma <strong>rampa</strong> de tensão.</figcaption>
           </figure>
 
-          <p>A carga acumulada em C entre 0 e t é ∫i₁dt, então a tensão no capacitor vale V<sub>C</sub> + (1/C)∫i₁dt. Como v<sub>O</sub> = −v<sub>C</sub>:</p>
-          <div class="eq" style="font-size:1.25rem"><span class="hand-box">v<sub>O</sub>(t) = −(1/CR) ∫₀<sup>t</sup> v<sub>I</sub>(t) dt − V<sub>C</sub></span> &nbsp;<span class="dim">(2.49)</span></div>
+          <h3 style="margin-top:30px;font-size:1.2rem">Dedução, passo a passo</h3>
+          <p><strong>1.</strong> O terminal positivo está aterrado, então o curto virtual põe o nó inversor em <strong>0 V</strong>. Toda a tensão v<sub>I</sub>(t) cai sobre R:</p>
+          <div class="eq">i<sub>1</sub>(t) = v<sub>I</sub>(t)/R</div>
+
+          <p><strong>2.</strong> Nenhuma corrente entra no amp op, logo essa corrente atravessa inteira o capacitor:</p>
+          <div class="eq">i<sub>2</sub>(t) = i<sub>1</sub>(t) = v<sub>I</sub>(t)/R</div>
+
+          <p><strong>3.</strong> Carregando C com essa corrente a partir de t = 0, a tensão sobre ele — do nó inversor até a saída — vale a condição inicial mais a integral da corrente:</p>
+          <div class="eq">v<sub>C</sub>(t) = V<sub>C</sub>(0) + (1/C)∫₀<sup>t</sup> i<sub>2</sub>(t) dt</div>
+
+          <p><strong>4.</strong> A tensão de saída é o nó inversor <em>menos</em> a queda no capacitor:</p>
+          <div class="eq">
+            v<sub>O</sub>(t) = 0 − [ (1/C)∫₀<sup>t</sup> i<sub>2</sub>(t) dt + V<sub>C</sub>(0) ]<br>
+            v<sub>O</sub>(t) = −(1/C)∫₀<sup>t</sup> i<sub>2</sub>(t) dt − V<sub>C</sub>(0)
+          </div>
+
+          <p><strong>5.</strong> Substituindo i₂ = v<sub>I</sub>/R do passo 2:</p>
+          <div class="eq" style="font-size:1.25rem"><span class="hand-box">v<sub>O</sub>(t) = −(1/CR) ∫₀<sup>t</sup> v<sub>I</sub>(t) dt − V<sub>C</sub>(0)</span> &nbsp;<span class="dim">(2.49)</span></div>
           <p>A saída é proporcional à <strong>integral temporal</strong> da entrada; V<sub>C</sub> é a condição inicial e <code>CR</code> é a <em class="term">constante de tempo de integração</em>. O sinal de menos justifica o nome <strong>integrador inversor</strong> — também chamado <strong>integrador Miller</strong>, por seu inventor.</p>
 
           <p style="margin-top:1.4em">No domínio da frequência, basta fazer Z₁ = R e Z₂ = 1/sC na Equação 2.48:</p>
@@ -2353,9 +2486,22 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
             <figcaption>Circuito diferenciador: capacitor na entrada, resistor na realimentação — o espelho do integrador.</figcaption>
           </figure>
 
+          <h3 style="margin-top:26px;font-size:1.2rem">Dedução, passo a passo</h3>
+          <p><strong>1.</strong> Curto virtual: o nó inversor está em 0 V, então v<sub>I</sub>(t) cai inteira sobre o capacitor. A corrente num capacitor é C vezes a derivada da tensão sobre ele:</p>
+          <div class="eq">i<sub>1</sub>(t) = C · dv<sub>I</sub>(t)/dt</div>
+
+          <p><strong>2.</strong> Nada entra no amp op, logo a mesma corrente atravessa R:</p>
+          <div class="eq">i<sub>2</sub>(t) = i<sub>1</sub>(t) = C · dv<sub>I</sub>(t)/dt</div>
+
+          <p><strong>3.</strong> Percorrendo do nó inversor (0 V) até a saída, através de R:</p>
+          <div class="eq">v<sub>O</sub>(t) = 0 − R·i<sub>2</sub>(t)</div>
+
+          <div class="eq" style="font-size:1.2rem"><span class="hand-box">v<sub>O</sub>(t) = −RC · dv<sub>I</sub>(t)/dt</span> &nbsp;<span class="dim">(2.57)</span></div>
+
+          <p>No domínio da frequência, Z₁ = 1/sC e Z₂ = R na Equação 2.48:</p>
           <div class="eq">
-            <span class="hand-box">v<sub>O</sub>(t) = −CR · dv<sub>I</sub>(t)/dt</span> &nbsp;<span class="dim">(2.57)</span><br>
-            V<sub>o</sub>(s)/V<sub>i</sub>(s) = −sCR &nbsp;·&nbsp; |V<sub>o</sub>/V<sub>i</sub>| = ωCR &nbsp;<span class="dim">(2.59)</span> &nbsp;·&nbsp; φ = −90° &nbsp;<span class="dim">(2.60)</span>
+            V<sub>o</sub>(s)/V<sub>i</sub>(s) = −R/(1/sC) = −sCR<br>
+            |V<sub>o</sub>/V<sub>i</sub>| = ωCR &nbsp;<span class="dim">(2.59)</span> &nbsp;·&nbsp; φ = −90° &nbsp;<span class="dim">(2.60)</span>
           </div>
 
           <figure class="panel">
@@ -2380,6 +2526,142 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
           <div class="attn">
             <span class="tag">por que diferenciadores são evitados na prática</span>
             Por construção, o ganho <strong>cresce</strong> com a frequência: o circuito é um amplificador de ruído. Qualquer mudança brusca em v<sub>I</sub>(t) — inclusive uma interferência captada — produz na saída pulsos estreitos e de grande amplitude. Somado aos problemas de estabilidade (Capítulo 8), isso faz com que o diferenciador seja raramente usado. Quando é, costuma-se pôr um resistor de pequeno valor em série com o capacitor — o que, infelizmente, torna o circuito um diferenciador <em>não ideal</em>.
+          </div>
+
+          <h3 style="margin-top:44px;font-size:1.25rem">Aplicação — resolvendo uma equação diferencial</h3>
+          <p class="lead">É aqui que o nome "operacional" faz sentido. Encadeando integradores e um somador, monta-se um circuito cuja tensão de saída <strong>obedece</strong> a uma equação diferencial escolhida — um <em class="term">computador analógico</em>.</p>
+
+          <p>A ideia é montar uma malha fechada partindo da <strong>derivada mais alta</strong>. Um integrador inversor com resistor R e capacitor C tem saída −(1/RC)∫(entrada)dt. Portanto, se o primeiro nó carrega −(RC)³·y‴, cada integrador "desce" uma ordem de derivada:</p>
+
+          <div class="eq" style="font-size:1.05rem">
+            −(RC)³ y‴ &nbsp;→&nbsp; (RC)² y″ &nbsp;→&nbsp; −RC y′ &nbsp;→&nbsp; y(t)
+          </div>
+          <p class="note">Confira o primeiro passo: entrada −(RC)³y‴, saída = −(1/RC)·∫(−(RC)³y‴)dt = +(RC)²y″. ✓ O sinal alterna a cada estágio porque cada integrador é inversor.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 30 950 490" xmlns="http://www.w3.org/2000/svg">
+              <!-- ================= estágio 1 ================= -->
+              <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+                <line x1="40" y1="140" x2="60" y2="140"/>
+                <line x1="140" y1="140" x2="160" y2="140"/>
+                <line x1="265" y1="140" x2="300" y2="140"/>
+                <line x1="160" y1="172" x2="132" y2="172"/><line x1="132" y1="172" x2="132" y2="200"/>
+                <line x1="285" y1="140" x2="285" y2="70"/><line x1="285" y1="70" x2="228" y2="70"/>
+                <line x1="216" y1="70" x2="160" y2="70"/><line x1="160" y1="70" x2="160" y2="140"/>
+              </g>
+              <polyline points="60,140 70,140 77,128 91,152 105,128 119,152 126,140 140,140" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+              <text x="100" y="122" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">R</text>
+              <g stroke="var(--orange)" stroke-width="2.6"><line x1="216" y1="58" x2="216" y2="82"/><line x1="228" y1="58" x2="228" y2="82"/></g>
+              <text x="222" y="48" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">C</text>
+              <polygon points="160,85 160,195 265,140" fill="none" stroke="var(--chalk)" stroke-width="2.4"/>
+              <text x="174" y="124" font-family="Kalam" font-size="17" fill="var(--chalk)">−</text>
+              <text x="174" y="178" font-family="Kalam" font-size="17" fill="var(--chalk)">+</text>
+              <g stroke="var(--chalk)" stroke-width="2"><line x1="121" y1="201" x2="143" y2="201"/><line x1="125" y1="208" x2="139" y2="208"/><line x1="129" y1="215" x2="135" y2="215"/></g>
+              <circle cx="160" cy="140" r="4" fill="var(--chalk)"/>
+              <circle cx="300" cy="140" r="4" fill="var(--chalk)"/>
+
+              <!-- ================= estágio 2 ================= -->
+              <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+                <line x1="300" y1="140" x2="320" y2="140"/>
+                <line x1="400" y1="140" x2="420" y2="140"/>
+                <line x1="525" y1="140" x2="560" y2="140"/>
+                <line x1="420" y1="172" x2="392" y2="172"/><line x1="392" y1="172" x2="392" y2="200"/>
+                <line x1="545" y1="140" x2="545" y2="70"/><line x1="545" y1="70" x2="488" y2="70"/>
+                <line x1="476" y1="70" x2="420" y2="70"/><line x1="420" y1="70" x2="420" y2="140"/>
+              </g>
+              <polyline points="320,140 330,140 337,128 351,152 365,128 379,152 386,140 400,140" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+              <text x="360" y="122" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">R</text>
+              <g stroke="var(--orange)" stroke-width="2.6"><line x1="476" y1="58" x2="476" y2="82"/><line x1="488" y1="58" x2="488" y2="82"/></g>
+              <text x="482" y="48" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">C</text>
+              <polygon points="420,85 420,195 525,140" fill="none" stroke="var(--chalk)" stroke-width="2.4"/>
+              <text x="434" y="124" font-family="Kalam" font-size="17" fill="var(--chalk)">−</text>
+              <text x="434" y="178" font-family="Kalam" font-size="17" fill="var(--chalk)">+</text>
+              <g stroke="var(--chalk)" stroke-width="2"><line x1="381" y1="201" x2="403" y2="201"/><line x1="385" y1="208" x2="399" y2="208"/><line x1="389" y1="215" x2="395" y2="215"/></g>
+              <circle cx="420" cy="140" r="4" fill="var(--chalk)"/>
+              <circle cx="560" cy="140" r="4" fill="var(--chalk)"/>
+
+              <!-- ================= estágio 3 ================= -->
+              <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+                <line x1="560" y1="140" x2="580" y2="140"/>
+                <line x1="660" y1="140" x2="680" y2="140"/>
+                <line x1="785" y1="140" x2="860" y2="140"/>
+                <line x1="680" y1="172" x2="652" y2="172"/><line x1="652" y1="172" x2="652" y2="200"/>
+                <line x1="805" y1="140" x2="805" y2="70"/><line x1="805" y1="70" x2="748" y2="70"/>
+                <line x1="736" y1="70" x2="680" y2="70"/><line x1="680" y1="70" x2="680" y2="140"/>
+              </g>
+              <polyline points="580,140 590,140 597,128 611,152 625,128 639,152 646,140 660,140" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+              <text x="620" y="122" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">R</text>
+              <g stroke="var(--orange)" stroke-width="2.6"><line x1="736" y1="58" x2="736" y2="82"/><line x1="748" y1="58" x2="748" y2="82"/></g>
+              <text x="742" y="48" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">C</text>
+              <polygon points="680,85 680,195 785,140" fill="none" stroke="var(--chalk)" stroke-width="2.4"/>
+              <text x="694" y="124" font-family="Kalam" font-size="17" fill="var(--chalk)">−</text>
+              <text x="694" y="178" font-family="Kalam" font-size="17" fill="var(--chalk)">+</text>
+              <g stroke="var(--chalk)" stroke-width="2"><line x1="641" y1="201" x2="663" y2="201"/><line x1="645" y1="208" x2="659" y2="208"/><line x1="649" y1="215" x2="655" y2="215"/></g>
+              <circle cx="680" cy="140" r="4" fill="var(--chalk)"/>
+              <circle cx="820" cy="140" r="4" fill="var(--yellow)"/>
+              <text x="866" y="134" font-family="Kalam" font-size="18" fill="var(--yellow)">y(t)</text>
+
+              <!-- rótulos dos nós -->
+              <g font-family="Kalam" font-size="15" fill="var(--yellow)">
+                <text x="52" y="238">−(RC)³ y‴</text>
+                <text x="318" y="238">(RC)² y″</text>
+                <text x="578" y="238">−RC y′</text>
+              </g>
+
+              <!-- barramento do somador -->
+              <line x1="110" y1="270" x2="820" y2="270" stroke="var(--chalk)" stroke-width="2.2"/>
+              <g fill="var(--chalk)"><circle cx="300" cy="270" r="4"/><circle cx="560" cy="270" r="4"/><circle cx="820" cy="270" r="4"/><circle cx="110" cy="270" r="4"/></g>
+
+              <!-- R1, R2, R3 -->
+              <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+                <line x1="300" y1="140" x2="300" y2="180"/><line x1="300" y1="256" x2="300" y2="270"/>
+                <line x1="560" y1="140" x2="560" y2="180"/><line x1="560" y1="256" x2="560" y2="270"/>
+                <line x1="820" y1="140" x2="820" y2="180"/><line x1="820" y1="256" x2="820" y2="270"/>
+              </g>
+              <polyline points="300,180 300,190 288,197 312,211 288,225 312,239 300,246 300,256" fill="none" stroke="var(--pink)" stroke-width="2.3"/>
+              <polyline points="560,180 560,190 548,197 572,211 548,225 572,239 560,246 560,256" fill="none" stroke="var(--pink)" stroke-width="2.3"/>
+              <polyline points="820,180 820,190 808,197 832,211 808,225 832,239 820,246 820,256" fill="none" stroke="var(--pink)" stroke-width="2.3"/>
+              <g font-family="Kalam" font-size="15" fill="var(--pink)" text-anchor="end">
+                <text x="282" y="218">R1</text><text x="542" y="218">R2</text><text x="802" y="218">R3</text>
+              </g>
+
+              <!-- somador -->
+              <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+                <line x1="150" y1="270" x2="150" y2="355"/><line x1="150" y1="355" x2="200" y2="355"/>
+                <line x1="200" y1="416" x2="170" y2="416"/><line x1="170" y1="416" x2="170" y2="448"/>
+                <line x1="305" y1="385" x2="340" y2="385"/><line x1="340" y1="385" x2="340" y2="490"/>
+                <line x1="340" y1="490" x2="40" y2="490"/><line x1="40" y1="490" x2="40" y2="140"/>
+                <line x1="110" y1="270" x2="110" y2="340"/><line x1="110" y1="416" x2="110" y2="490"/>
+              </g>
+              <polygon points="200,330 200,440 305,385" fill="rgba(237,237,225,.04)" stroke="var(--chalk)" stroke-width="2.4"/>
+              <text x="214" y="362" font-family="Kalam" font-size="17" fill="var(--chalk)">−</text>
+              <text x="214" y="420" font-family="Kalam" font-size="17" fill="var(--chalk)">+</text>
+              <g stroke="var(--chalk)" stroke-width="2"><line x1="159" y1="449" x2="181" y2="449"/><line x1="163" y1="456" x2="177" y2="456"/><line x1="167" y1="463" x2="173" y2="463"/></g>
+              <polyline points="110,340 110,350 98,357 122,371 98,385 122,399 110,406 110,416" fill="none" stroke="var(--orange)" stroke-width="2.3"/>
+              <text x="90" y="378" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--orange)">R</text>
+              <circle cx="110" cy="490" r="4" fill="var(--chalk)"/>
+              <circle cx="150" cy="270" r="4" fill="var(--chalk)"/>
+              <text x="252" y="474" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">somador inversor</text>
+            </svg>
+            <figcaption>Três integradores em cascata e um somador ponderado fechando a malha. O somador lê as três derivadas, pondera por R/R₁, R/R₂ e R/R₃, e devolve o resultado ao primeiro nó — que, por construção, é a derivada de ordem mais alta.</figcaption>
+          </figure>
+
+          <p><strong>Fechando a malha.</strong> O somador inversor (Equação 2.7) recebe os três nós e produz</p>
+          <div class="eq" style="font-size:1.05rem">
+            −(RC)³ y‴ = −[ (R/R<sub>1</sub>)·R²C²·y″ − (R/R<sub>2</sub>)·RC·y′ + (R/R<sub>3</sub>)·y ]
+          </div>
+          <p class="note">O sinal de menos no termo do meio não é erro: o nó de onde ele vem já vale −RC·y′.</p>
+
+          <p>Multiplicando por −1 e passando tudo para o mesmo lado:</p>
+          <div class="eq" style="font-size:1.05rem">
+            <span class="hand-box">(RC)³ y‴ − (R/R<sub>1</sub>)(RC)² y″ + (R/R<sub>2</sub>)(RC) y′ − (R/R<sub>3</sub>) y = 0</span>
+          </div>
+
+          <p>A tensão y(t) na saída do último integrador é, portanto, a <strong>solução</strong> de uma equação diferencial linear de terceira ordem cujos coeficientes são fixados por R₁, R₂ e R₃. Mudar um resistor é mudar um coeficiente; as condições iniciais entram como as cargas iniciais V<sub>C</sub>(0) dos capacitores.</p>
+
+          <div class="attn">
+            <span class="tag">de onde vem o nome</span>
+            Era exatamente isso que as máquinas dos anos 1940–50 faziam: simular sistemas dinâmicos — trajetórias, circuitos, sistemas de controle — resolvendo suas equações em <em>tempo real</em> com blocos de ganho executando <strong>operações</strong> matemáticas. Daí "amplificador operacional". As limitações do capítulo reaparecem todas aqui: o offset de cada integrador vira uma rampa de erro que se acumula ao longo da cascata, e o slew rate limita a velocidade da simulação.
           </div>
 
           <table class="spec">
