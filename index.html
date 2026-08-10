@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amplificadores Operacionais — Guias · Poli USP</title>
+<title>Amplificadores · Amplificadores Operacionais — Guias · Poli USP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -213,10 +213,25 @@ details.reveal .ans p:last-child{ margin-bottom:0; }
 
 footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-size:.92rem; color:var(--chalk-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
 
+/* ---------- navegação interna de cada módulo ---------- */
+.mod-nav{ display:flex; gap:24px; flex-wrap:wrap; padding:14px 44px 16px; border-bottom:1px dashed var(--line-strong); }
+.mod-nav a{ font-family:var(--chalk-font); font-size:1rem; color:var(--chalk-dim); text-decoration:none; white-space:nowrap; }
+.mod-nav a:hover{ color:var(--yellow); }
+.module-break{ border-top:5px double var(--line-strong); margin-top:20px; }
+
+/* pares de figuras lado a lado */
+.fig-2col{ display:grid; grid-template-columns:1fr 1fr; gap:26px; margin:26px 0; }
+.fig-2col figure.panel{ margin:0; }
+@media (max-width:760px){ .fig-2col{ grid-template-columns:1fr; } }
+
+.note{ font-family:var(--serif); font-style:italic; font-size:.93rem; color:var(--chalk-faint); }
+.eq .neg{ color:var(--pink); }
+
 @media (max-width:900px){
   .shell{ grid-template-columns:1fr; }
   .sidebar{ position:static; height:auto; border-right:none; border-bottom:5px double var(--line-strong); }
   .topbar{ padding:20px 22px; }
+  .mod-nav{ padding:14px 22px 16px; }
   .hero-module{ padding:34px 22px 28px; }
   .content{ padding:0 22px 44px; }
   footer.page-footer{ padding:20px 22px 44px; }
@@ -238,7 +253,8 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
     <hr>
     <div class="group-label">ELETRÔNICA ANALÓGICA</div>
     <nav class="module-list">
-      <a class="module-item active" href="#top"><span class="num">01</span> Amplificadores Operacionais</a>
+      <a class="module-item active" href="#mod1"><span class="num">01</span> Amplificadores</a>
+      <a class="module-item" href="#mod2"><span class="num">02</span> Amplificadores Operacionais</a>
     </nav>
     <div class="more-soon">+ novos módulos em breve</div>
   </aside>
@@ -249,23 +265,744 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
   <div class="main-col">
 
     <div class="topbar" id="top">
-      <div class="crumb">ELETRÔNICA · AMPLIFICADORES OPERACIONAIS</div>
+      <div class="crumb">ELETRÔNICA ANALÓGICA · GUIAS</div>
       <nav class="tabs">
-        <a href="#intro">Introdução</a>
-        <a href="#funcionamento">Funcionamento</a>
-        <a href="#ideal">Amp Op ideal</a>
-        <a href="#inversora">Config. inversora</a>
-        <a href="#real">A real</a>
-        <a href="#exemplos">Exemplos</a>
-        <a href="#exercicios">Exercícios</a>
+        <a href="#mod1">01 · Amplificadores</a>
+        <a href="#mod2">02 · Amplificadores operacionais</a>
       </nav>
     </div>
 
-    <section class="hero-module">
-      <div class="hero-eyebrow">MÓDULO 01 · GUIA DE BANCADA</div>
-      <h1><span class="w1">Um bloco com ganho quase infinito chega às suas mãos.</span> <span class="w2">Como dois resistores o transformam num amplificador previsível?</span></h1>
-      <p class="dek">O amplificador operacional compara duas tensões de entrada e amplifica a diferença por um ganho enorme demais para usar sozinho. Este módulo cobre o modelo ideal (e por que o curto-circuito virtual funciona), a configuração inversora, as limitações de um CI real como o LM741, e exemplos numéricos resolvidos passo a passo.</p>
-      <div class="meta-row"><b>Curso</b> Eletrônica Analógica — Poli USP &nbsp;&nbsp;&nbsp; <b>Módulo</b> Amplificadores Operacionais</div>
+    <!-- ============================================================
+         MÓDULO 01 — AMPLIFICADORES (Sedra & Smith, Seção 1.4)
+         ============================================================ -->
+    <section class="hero-module" id="mod1">
+      <div class="hero-eyebrow">MÓDULO 01 · SEDRA & SMITH, SEÇÃO 1.4</div>
+      <h1><span class="w1">Um transdutor entrega microvolts.</span> <span class="w2">O que um amplificador precisa fazer com eles — e o que ele não pode fazer?</span></h1>
+      <p class="dek">Amplificar não é apenas "aumentar": é reproduzir a forma de onda de entrada em escala maior, sem inventar nada. Este módulo trata o amplificador como bloco construtivo — ganho de tensão, de corrente e de potência, a leitura em decibéis, de onde vem a energia extra, por que a saída satura, como a polarização resgata a linearidade de uma curva torta, e a convenção de símbolos usada no livro inteiro.</p>
+      <div class="meta-row"><b>Curso</b> PSI3024 — Eletrônica &nbsp;&nbsp;&nbsp; <b>Referência</b> Sedra &amp; Smith, <i>Microeletrônica</i>, Seções 1.4.1 a 1.4.9</div>
+
+      <svg class="hero-deco" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polyline points="30,470 130,470 130,300 250,300 250,120 380,120" fill="none" stroke="var(--chalk-faint)" stroke-width="1.6" stroke-dasharray="5,7"/>
+        <polygon points="120,150 120,330 300,240" fill="none" stroke="var(--yellow)" stroke-width="2.4"/>
+        <line x1="40" y1="200" x2="120" y2="200" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+        <line x1="40" y1="280" x2="120" y2="280" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+        <line x1="300" y1="240" x2="380" y2="240" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+        <text x="168" y="250" font-family="Kalam" font-size="34" fill="var(--yellow)">A</text>
+      </svg>
+    </section>
+
+    <nav class="mod-nav">
+      <a href="#m1-amplificacao">Amplificação de sinal</a>
+      <a href="#m1-simbolo">Símbolo</a>
+      <a href="#m1-ganhos">Ganhos e dB</a>
+      <a href="#m1-fontes">Fontes e eficiência</a>
+      <a href="#m1-saturacao">Saturação</a>
+      <a href="#m1-polarizacao">Polarização</a>
+      <a href="#m1-notacao">Notação</a>
+      <a href="#m1-exercicios">Exercícios</a>
+    </nav>
+
+    <div class="content">
+      <!-- ============================================================
+           1.4.1 AMPLIFICAÇÃO DE SINAL
+           ============================================================ -->
+      <section class="content-section" id="m1-amplificacao">
+        <div class="eyebrow">1.4.1 · AMPLIFICAÇÃO DE SINAL</div>
+        <h2>O que o amplificador precisa fazer</h2>
+        <p class="lead">Transdutores entregam sinais <em class="term">fracos</em> — microvolts ou milivolts, com pouca energia. Pequenos demais para processamento confiável. O bloco funcional que aumenta essa amplitude é o <strong>amplificador de sinal</strong>.</p>
+
+        <p>A exigência central não é o tamanho da saída, é a <em class="term">linearidade</em>. Ao amplificar, não se pode modificar a informação contida no sinal nem acrescentar informação nova: a saída deve ser uma réplica exata da entrada, exceto pela amplitude. As ondulações da forma de onda de saída têm de ser idênticas às da entrada. Qualquer alteração de forma é <strong>distorção</strong>.</p>
+
+        <p>Um amplificador que preserva a forma de onda é caracterizado pela relação</p>
+
+        <div class="eq"><span class="hand-box">v<sub>O</sub>(t) &nbsp;=&nbsp; A · v<sub>I</sub>(t)</span> &nbsp;<span class="dim">(1.4)</span></div>
+
+        <p>em que <code>A</code> é o <strong>ganho do amplificador</strong>. A Equação 1.4 é uma relação linear — o amplificador que ela descreve é um <em class="term">amplificador linear</em>. Se na relação entre v<sub>O</sub> e v<sub>I</sub> aparecerem potências de v<sub>I</sub> diferentes de 1, a forma de onda da saída deixa de ser idêntica à da entrada: é a <strong>distorção não linear</strong>.</p>
+
+        <div class="attn">
+          <span class="tag">dois tipos de amplificador</span>
+          O <strong>amplificador de tensão</strong> opera com sinais de entrada muito pequenos e existe para aumentar a amplitude — o pré-amplificador de um sistema de som é o exemplo clássico. O <strong>amplificador de potência</strong> pode ter ganho de tensão modesto, mas ganho de corrente substancial: drena pouca potência do estágio anterior e entrega muita potência à carga. É o que aciona o alto-falante.
+        </div>
+      </section>
+
+      <!-- ============================================================
+           1.4.2 SÍMBOLO DE CIRCUITO
+           ============================================================ -->
+      <section class="content-section" id="m1-simbolo">
+        <div class="eyebrow">1.4.2 · SÍMBOLO DE CIRCUITO</div>
+        <h2>O amplificador como quadripolo</h2>
+        <p class="lead">O amplificador de sinal é um <strong>quadripolo</strong>: dois terminais de entrada e dois de saída. O símbolo triangular distingue os pontos de entrada e de saída e indica, pela própria geometria, a direção do fluxo de sinal.</p>
+
+        <figure class="panel">
+          <svg viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg">
+            <!-- (a) quadripolo com 4 terminais -->
+            <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+              <line x1="40" y1="70" x2="90" y2="70"/>
+              <line x1="40" y1="160" x2="150" y2="160"/>
+              <line x1="210" y1="100" x2="255" y2="100"/>
+              <line x1="150" y1="160" x2="255" y2="160"/>
+            </g>
+            <polygon points="90,40 90,160 210,100" fill="rgba(237,237,225,.04)" stroke="var(--chalk)" stroke-width="2.5"/>
+            <g fill="none" stroke="var(--chalk)" stroke-width="2">
+              <circle cx="36" cy="70" r="4.5"/><circle cx="36" cy="160" r="4.5"/>
+              <circle cx="259" cy="100" r="4.5"/><circle cx="259" cy="160" r="4.5"/>
+            </g>
+            <text x="30" y="196" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">Entrada</text>
+            <text x="214" y="196" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">Saída</text>
+            <text x="140" y="240" font-family="Kalam" font-size="15" fill="var(--chalk-faint)" text-anchor="middle">(a)</text>
+
+            <!-- (b) terminal comum aterrado -->
+            <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+              <line x1="340" y1="70" x2="390" y2="70"/>
+              <line x1="340" y1="160" x2="530" y2="160"/>
+              <line x1="510" y1="100" x2="530" y2="100"/>
+            </g>
+            <polygon points="390,40 390,160 510,100" fill="rgba(237,237,225,.04)" stroke="var(--chalk)" stroke-width="2.5"/>
+            <g fill="none" stroke="var(--chalk)" stroke-width="2">
+              <circle cx="336" cy="70" r="4.5"/><circle cx="534" cy="100" r="4.5"/>
+              <circle cx="336" cy="160" r="4.5"/><circle cx="534" cy="160" r="4.5"/>
+            </g>
+            <circle cx="450" cy="160" r="3.5" fill="var(--chalk)"/>
+            <line x1="450" y1="160" x2="450" y2="180" stroke="var(--chalk)" stroke-width="2.2"/>
+            <g stroke="var(--yellow)" stroke-width="2">
+              <line x1="437" y1="181" x2="463" y2="181"/>
+              <line x1="441" y1="188" x2="459" y2="188"/>
+              <line x1="445" y1="195" x2="455" y2="195"/>
+            </g>
+            <text x="450" y="216" font-family="Kalam" font-size="14" fill="var(--yellow)" text-anchor="middle">terra do circuito</text>
+            <text x="330" y="196" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">Entrada</text>
+            <text x="500" y="196" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">Saída</text>
+            <text x="435" y="240" font-family="Kalam" font-size="15" fill="var(--chalk-faint)" text-anchor="middle">(b)</text>
+          </svg>
+          <figcaption>(a) Símbolo do amplificador, com terminais de entrada distintos dos de saída. (b) Situação normal: um terminal é <strong>comum</strong> à entrada e à saída e serve de referência — o terra do circuito. É por isso que, daqui em diante, basta desenhar um fio de entrada e um de saída.</figcaption>
+        </figure>
+      </section>
+
+      <!-- ============================================================
+           1.4.3 / 1.4.4 / 1.4.5 GANHOS
+           ============================================================ -->
+      <section class="content-section" id="m1-ganhos">
+        <div class="eyebrow">1.4.3 – 1.4.5 · GANHOS</div>
+        <h2>Tensão, corrente, potência — e decibéis</h2>
+        <p class="lead">Um amplificador linear recebe v<sub>I</sub>(t) e entrega, sobre a resistência de carga R<sub>L</sub>, um sinal v<sub>O</sub>(t) que é réplica ampliada da entrada.</p>
+
+        <div class="fig-2col">
+          <figure class="panel">
+            <svg viewBox="-48 0 508 250" xmlns="http://www.w3.org/2000/svg">
+              <!-- fonte -->
+              <circle cx="55" cy="120" r="22" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="55" y="112" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">+</text>
+              <text x="55" y="135" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">−</text>
+              <text x="-44" y="126" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">v</text>
+              <text x="-32" y="131" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">I</text>
+              <text x="-26" y="126" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">(t)</text>
+              <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+                <line x1="55" y1="98" x2="55" y2="65"/>
+                <line x1="55" y1="65" x2="180" y2="65"/>
+                <line x1="55" y1="142" x2="55" y2="205"/>
+                <line x1="55" y1="205" x2="390" y2="205"/>
+              </g>
+              <polygon points="180,40 180,150 300,95" fill="rgba(237,237,225,.04)" stroke="var(--chalk)" stroke-width="2.5"/>
+              <line x1="240" y1="150" x2="240" y2="205" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="300" y1="95" x2="390" y2="95" stroke="var(--chalk)" stroke-width="2.2"/>
+              <!-- carga -->
+              <polyline points="390,95 390,105 378,112 402,126 378,140 402,154 390,161 390,171" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+              <line x1="390" y1="171" x2="390" y2="205" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="410" y="134" font-family="Kalam" font-size="16" fill="var(--orange)">R</text>
+              <text x="424" y="139" font-family="Kalam" font-size="11" fill="var(--orange)">L</text>
+              <text x="345" y="86" font-family="Kalam" font-size="16" fill="var(--yellow)">v</text>
+              <text x="357" y="91" font-family="Kalam" font-size="11" fill="var(--yellow)">O</text>
+              <text x="365" y="86" font-family="Kalam" font-size="16" fill="var(--yellow)">(t)</text>
+              <!-- correntes -->
+              <polygon points="128,59 141,65 128,71" fill="var(--yellow)"/>
+              <text x="124" y="52" font-family="Kalam" font-size="15" fill="var(--yellow)">i</text>
+              <text x="131" y="56" font-family="Kalam" font-size="11" fill="var(--yellow)">I</text>
+              <polygon points="312,89 325,95 312,101" fill="var(--yellow)"/>
+              <text x="306" y="82" font-family="Kalam" font-size="15" fill="var(--yellow)">i</text>
+              <text x="313" y="86" font-family="Kalam" font-size="11" fill="var(--yellow)">O</text>
+              <g stroke="var(--chalk-faint)" stroke-width="2">
+                <line x1="229" y1="206" x2="251" y2="206"/>
+                <line x1="233" y1="213" x2="247" y2="213"/>
+                <line x1="237" y1="220" x2="243" y2="220"/>
+              </g>
+            </svg>
+            <figcaption>Amplificador com sinal v<sub>I</sub>(t) na entrada e carga R<sub>L</sub> na saída. Note que i<sub>O</sub> = v<sub>O</sub>/R<sub>L</sub> é entregue à carga; i<sub>I</sub> é drenada da fonte de sinal.</figcaption>
+          </figure>
+
+          <figure class="panel">
+            <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+              <line x1="200" y1="20" x2="200" y2="215" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <line x1="30" y1="120" x2="380" y2="120" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <text x="208" y="32" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">v</text>
+              <text x="220" y="37" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">O</text>
+              <text x="352" y="140" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">v</text>
+              <text x="364" y="145" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">I</text>
+              <text x="186" y="138" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">0</text>
+              <line x1="60" y1="212" x2="340" y2="28" fill="none" stroke="var(--yellow)" stroke-width="2.6"/>
+              <!-- triangulo de inclinacao -->
+              <g stroke="var(--chalk-dim)" stroke-width="1.6" stroke-dasharray="4,4">
+                <line x1="255" y1="84" x2="300" y2="84"/>
+                <line x1="300" y1="84" x2="300" y2="55"/>
+              </g>
+              <text x="272" y="102" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">1</text>
+              <text x="308" y="72" font-family="Kalam" font-size="16" fill="var(--yellow)">A</text>
+              <text x="320" y="77" font-family="Kalam" font-size="11" fill="var(--yellow)">v</text>
+            </svg>
+            <figcaption>Característica de transferência de um amplificador linear: uma reta pela origem, de inclinação A<sub>v</sub>. Uma senoide de amplitude V̂ na entrada sai com amplitude A<sub>v</sub>·V̂.</figcaption>
+          </figure>
+        </div>
+
+        <h3 style="margin-top:34px;font-size:1.25rem">Ganho de tensão</h3>
+        <div class="eq">A<sub>v</sub> &nbsp;≡&nbsp; v<sub>O</sub> / v<sub>I</sub> &nbsp;<span class="dim">(1.5)</span></div>
+
+        <h3 style="margin-top:30px;font-size:1.25rem">Ganho de potência e de corrente</h3>
+        <p>É o ganho de potência que distingue um amplificador de um <strong>transformador</strong>. No transformador, a tensão entregue à carga pode ser maior que a do primário, mas a potência entregue é, no máximo, igual à fornecida pela fonte. O amplificador entrega à carga <em class="term">mais</em> potência do que retira da fonte de sinal.</p>
+
+        <div class="eq">
+          A<sub>p</sub> ≡ P<sub>L</sub> / P<sub>I</sub> = (v<sub>O</sub> i<sub>O</sub>) / (v<sub>I</sub> i<sub>I</sub>) &nbsp;<span class="dim">(1.6 – 1.7)</span><br>
+          A<sub>i</sub> ≡ i<sub>O</sub> / i<sub>I</sub> &nbsp;<span class="dim">(1.8)</span><br>
+          <span class="hand-box">A<sub>p</sub> = A<sub>v</sub> · A<sub>i</sub></span> &nbsp;<span class="dim">(1.9)</span>
+        </div>
+
+        <h3 style="margin-top:30px;font-size:1.25rem">O ganho expresso em decibéis</h3>
+        <p>Os três ganhos são razões entre grandezas de mesma dimensão — números adimensionais, escritos como V/V, A/A e W/W para deixar claro de qual se trata. Por razões históricas e práticas, também se usa a medida logarítmica:</p>
+
+        <table class="spec">
+          <tr><th>Ganho</th><th>Em decibéis</th><th>Observação</th></tr>
+          <tr><td>Tensão</td><td class="sym">20 log |A<sub>v</sub>| dB</td><td>módulo: A<sub>v</sub> pode ser negativo</td></tr>
+          <tr><td>Corrente</td><td class="sym">20 log |A<sub>i</sub>| dB</td><td>idem</td></tr>
+          <tr><td>Potência</td><td class="sym">10 log A<sub>p</sub> dB</td><td>potência ∝ tensão² ⇒ fator 10, não 20</td></tr>
+        </table>
+
+        <div class="attn">
+          <span class="tag">o sinal negativo não é atenuação</span>
+          A<sub>v</sub> negativo significa apenas <strong>180° de defasagem</strong> entre entrada e saída — o amplificador continua amplificando. Atenuar é outra coisa: um ganho de <strong>−20 dB</strong> corresponde a A<sub>v</sub> = 0,1 V/V, e aí sim o sinal sai dez vezes menor.
+        </div>
+      </section>
+
+      <!-- ============================================================
+           1.4.6 FONTES DE ALIMENTAÇÃO
+           ============================================================ -->
+      <section class="content-section" id="m1-fontes">
+        <div class="eyebrow">1.4.6 · FONTES DE ALIMENTAÇÃO</div>
+        <h2>De onde vem a potência extra</h2>
+        <p class="lead">Se a potência entregue à carga é maior que a obtida da fonte de sinal, a diferença tem de vir de algum lugar. Vem das <strong>fontes cc</strong> — que fornecem tanto a potência adicional entregue à carga quanto a potência dissipada internamente no amplificador (convertida em calor).</p>
+
+        <figure class="panel">
+          <svg viewBox="-50 0 545 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- fonte de sinal -->
+            <circle cx="55" cy="150" r="20" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+            <text x="55" y="143" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">+</text>
+            <text x="55" y="166" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">−</text>
+            <text x="-46" y="156" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">v</text>
+            <text x="-34" y="161" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">I</text>
+            <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+              <line x1="55" y1="130" x2="55" y2="110"/>
+              <line x1="55" y1="110" x2="185" y2="110"/>
+              <line x1="55" y1="170" x2="55" y2="258"/>
+              <line x1="55" y1="258" x2="430" y2="258"/>
+            </g>
+            <polygon points="185,80 185,200 310,140" fill="rgba(237,237,225,.04)" stroke="var(--chalk)" stroke-width="2.5"/>
+            <line x1="270" y1="159" x2="270" y2="258" stroke="var(--chalk)" stroke-width="2.2"/>
+            <g stroke="var(--chalk-faint)" stroke-width="2">
+              <line x1="329" y1="259" x2="351" y2="259"/><line x1="333" y1="266" x2="347" y2="266"/><line x1="337" y1="273" x2="343" y2="273"/>
+            </g>
+            <line x1="340" y1="258" x2="340" y2="259" stroke="var(--chalk)" stroke-width="2"/>
+
+            <!-- alimentacao positiva -->
+            <line x1="215" y1="94" x2="215" y2="46" stroke="var(--pink)" stroke-width="2.2"/>
+            <polygon points="209,58 215,42 221,58" fill="var(--pink)"/>
+            <text x="228" y="50" font-family="Kalam" font-size="16" fill="var(--pink)">V</text>
+            <text x="241" y="55" font-family="Kalam" font-size="11" fill="var(--pink)">1</text>
+            <text x="228" y="96" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">V</text>
+            <text x="240" y="90" font-family="Kalam" font-size="12" fill="var(--chalk-dim)">+</text>
+            <polygon points="209,64 215,78 221,64" fill="var(--yellow)"/>
+            <text x="200" y="76" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--yellow)">I</text>
+            <text x="202" y="80" font-family="Kalam" font-size="11" fill="var(--yellow)">1</text>
+
+            <!-- alimentacao negativa -->
+            <line x1="215" y1="186" x2="215" y2="234" stroke="var(--pink)" stroke-width="2.2"/>
+            <polygon points="209,222 215,238 221,222" fill="var(--pink)"/>
+            <text x="228" y="242" font-family="Kalam" font-size="16" fill="var(--pink)">−V</text>
+            <text x="255" y="247" font-family="Kalam" font-size="11" fill="var(--pink)">2</text>
+            <text x="228" y="192" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">V</text>
+            <text x="240" y="186" font-family="Kalam" font-size="12" fill="var(--chalk-dim)">−</text>
+            <polygon points="209,200 215,214 221,200" fill="var(--yellow)"/>
+            <text x="200" y="212" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--yellow)">I</text>
+            <text x="202" y="216" font-family="Kalam" font-size="11" fill="var(--yellow)">2</text>
+
+            <!-- saida e carga -->
+            <line x1="310" y1="140" x2="430" y2="140" stroke="var(--chalk)" stroke-width="2.2"/>
+            <polyline points="430,140 430,150 418,157 442,171 418,185 442,199 430,206 430,216" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <line x1="430" y1="216" x2="430" y2="258" stroke="var(--chalk)" stroke-width="2.2"/>
+            <text x="452" y="178" font-family="Kalam" font-size="16" fill="var(--orange)">R</text>
+            <text x="466" y="183" font-family="Kalam" font-size="11" fill="var(--orange)">L</text>
+            <text x="352" y="130" font-family="Kalam" font-size="16" fill="var(--yellow)">v</text>
+            <text x="364" y="135" font-family="Kalam" font-size="11" fill="var(--yellow)">O</text>
+          </svg>
+          <figcaption>Convenção adotada no livro: o terminal V⁺ aparece como uma seta para cima e o V⁻ como uma seta para baixo, com a tensão indicada ao lado. Em muitos diagramas as conexões de alimentação nem são desenhadas — mas elas existem. Alguns amplificadores operam com uma única fonte.</figcaption>
+        </figure>
+
+        <p>Se I<sub>1</sub> e I<sub>2</sub> são as correntes drenadas de cada fonte, a potência cc entregue ao amplificador é</p>
+        <div class="eq">P<sub>cc</sub> &nbsp;=&nbsp; V<sub>1</sub>I<sub>1</sub> + V<sub>2</sub>I<sub>2</sub></div>
+
+        <p>e o balanço de potência do amplificador se escreve</p>
+        <div class="eq"><span class="hand-box">P<sub>cc</sub> + P<sub>I</sub> &nbsp;=&nbsp; P<sub>L</sub> + P<sub>dissipada</sub></span></div>
+
+        <p>Como P<sub>I</sub>, a potência drenada da fonte de sinal, é normalmente pequena, define-se a <strong>eficiência</strong> do amplificador por</p>
+        <div class="eq">η &nbsp;=&nbsp; (P<sub>L</sub> / P<sub>cc</sub>) × 100 &nbsp;<span class="dim">(1.10)</span></div>
+        <p class="note">A eficiência é um parâmetro de peso nos amplificadores de potência — os estágios de saída dos sistemas de som, por exemplo — porque é ela que determina quanto calor o circuito precisa dissipar.</p>
+
+        <div class="example">
+          <div class="ex-head">Exemplo 1.1 — o balanço completo de potência</div>
+          <p><strong>Dados:</strong> amplificador alimentado por fontes de ±10 V. Entrada senoidal de 1 V de pico; saída senoidal de 9 V de pico sobre carga de 1 kΩ. O amplificador drena 9,5 mA de cada fonte. A corrente de entrada é senoidal, com 0,1 mA de pico. Calcular A<sub>v</sub>, A<sub>i</sub>, A<sub>p</sub>, P<sub>cc</sub>, P<sub>dissipada</sub> e η.</p>
+
+          <div class="eq">
+            A<sub>v</sub> = 9 / 1 = <span class="y">9 V/V</span> &nbsp;→&nbsp; 20 log 9 ≈ <span class="y">19,1 dB</span><br>
+            Î<sub>o</sub> = 9 V / 1 kΩ = 9 mA &nbsp;⇒&nbsp; A<sub>i</sub> = 9 / 0,1 = <span class="y">90 A/A</span> &nbsp;→&nbsp; 20 log 90 ≈ <span class="y">39,1 dB</span>
+          </div>
+
+          <p style="margin-top:1em">As potências são calculadas com valores <strong>eficazes</strong> (pico dividido por √2):</p>
+          <div class="eq">
+            P<sub>L</sub> = (9/√2)·(9/√2) = 40,5 mW<br>
+            P<sub>I</sub> = (1/√2)·(0,1/√2) = 0,05 mW<br>
+            A<sub>p</sub> = 40,5 / 0,05 = <span class="y">810 W/W</span> &nbsp;→&nbsp; 10 log 810 ≈ <span class="y">29,1 dB</span>
+          </div>
+          <p class="note">Confira com a Equação 1.9: A<sub>v</sub>·A<sub>i</sub> = 9 × 90 = 810 ✓</p>
+
+          <div class="eq">
+            P<sub>cc</sub> = 10·9,5 + 10·9,5 = <span class="y">190 mW</span><br>
+            P<sub>dissipada</sub> = P<sub>cc</sub> + P<sub>I</sub> − P<sub>L</sub> = 190 + 0,05 − 40,5 = <span class="y">149,6 mW</span><br>
+            η = (40,5 / 190) × 100 = <span class="y">21,3 %</span>
+          </div>
+          <p style="margin-top:.8em">Leitura do resultado: o amplificador <strong>converte</strong> parte da potência cc que drena das fontes em potência entregue ao sinal. Quase 80 % vira calor.</p>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           1.4.7 SATURAÇÃO
+           ============================================================ -->
+      <section class="content-section" id="m1-saturacao">
+        <div class="eyebrow">1.4.7 · SATURAÇÃO</div>
+        <h2>A característica de transferência tem fim</h2>
+        <p class="lead">Na prática a característica permanece linear apenas em uma faixa limitada de tensões. A saída não pode exceder um limite positivo <code>L₊</code> nem ficar abaixo de um limite negativo <code>L₋</code>. Cada nível de saturação costuma ficar cerca de <strong>1 V dentro</strong> do valor da fonte de alimentação correspondente.</p>
+
+        <figure class="panel">
+          <svg viewBox="0 0 400 310" xmlns="http://www.w3.org/2000/svg">
+            <line x1="200" y1="20" x2="200" y2="285" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+            <line x1="25" y1="155" x2="385" y2="155" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+            <text x="208" y="32" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">v</text>
+            <text x="220" y="37" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">O</text>
+            <text x="358" y="176" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">v</text>
+            <text x="370" y="181" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">I</text>
+
+            <!-- niveis de saturacao -->
+            <g stroke="var(--pink)" stroke-width="1.2" stroke-dasharray="5,5">
+              <line x1="30" y1="60" x2="380" y2="60"/>
+              <line x1="30" y1="250" x2="380" y2="250"/>
+              <line x1="255" y1="60" x2="255" y2="250"/>
+              <line x1="145" y1="60" x2="145" y2="250"/>
+            </g>
+            <text x="176" y="56" font-family="Kalam" font-size="16" fill="var(--pink)" text-anchor="end">L</text>
+            <text x="180" y="61" font-family="Kalam" font-size="12" fill="var(--pink)">+</text>
+            <text x="176" y="266" font-family="Kalam" font-size="16" fill="var(--pink)" text-anchor="end">L</text>
+            <text x="180" y="271" font-family="Kalam" font-size="12" fill="var(--pink)">−</text>
+            <text x="255" y="298" font-family="Kalam" font-size="14" fill="var(--pink)" text-anchor="middle">L₊ / A</text>
+            <text x="145" y="298" font-family="Kalam" font-size="14" fill="var(--pink)" text-anchor="middle">L₋ / A</text>
+
+            <!-- caracteristica -->
+            <polyline points="35,250 145,250 255,60 365,60" fill="none" stroke="var(--yellow)" stroke-width="2.8" stroke-linejoin="round"/>
+            <text x="286" y="106" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">satura</text>
+            <text x="66" y="230" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">satura</text>
+          </svg>
+          <figcaption>Característica de transferência linear, exceto onde ocorre saturação na saída. A faixa útil de entrada fica entre L₋/A<sub>v</sub> e L₊/A<sub>v</sub>.</figcaption>
+        </figure>
+
+        <div class="eq"><span class="hand-box">L₋ / A<sub>v</sub> &nbsp;≤&nbsp; v<sub>I</sub> &nbsp;≤&nbsp; L₊ / A<sub>v</sub></span></div>
+
+        <p>Fora dessa faixa, os picos da forma de onda de saída são <strong>ceifados</strong>: a saída deixa de ser réplica da entrada. É distorção — e, note, distorção que aparece mesmo com o amplificador operando "dentro da banda", só por excesso de amplitude.</p>
+
+        <figure class="panel">
+          <svg viewBox="0 0 470 352" xmlns="http://www.w3.org/2000/svg">
+            <!-- linha 1: sinal pequeno -->
+            <line x1="20" y1="80" x2="215" y2="80" stroke="var(--chalk-faint)" stroke-width="1.2"/>
+            <polyline points="40,80 42,77 45,75 48,72 50,70 52,68 55,67 58,66 60,66 62,66 65,67 68,68 70,70 72,72 75,75 78,77 80,80 82,83 85,85 88,88 90,90 92,92 95,93 98,94 100,94 102,94 105,93 108,92 110,90 112,88 115,85 118,83 120,80 122,77 125,75 128,72 130,70 132,68 135,67 138,66 140,66 142,66 145,67 148,68 150,70 152,72 155,75 158,77 160,80 162,83 165,85 168,88 170,90 172,92 175,93 178,94 180,94 182,94 185,93 188,92 190,90 192,88 195,85 198,83 200,80" fill="none" stroke="var(--chalk-dim)" stroke-width="2.2"/>
+            <text x="22" y="112" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">entrada pequena</text>
+            <g stroke="var(--yellow)" stroke-width="2" fill="none"><line x1="215" y1="80" x2="243" y2="80"/></g>
+            <polygon points="240,74 252,80 240,86" fill="var(--yellow)"/>
+            <line x1="245" y1="80" x2="440" y2="80" stroke="var(--chalk-faint)" stroke-width="1.2"/>
+            <polyline points="255,80 258,71 261,62 263,54 266,47 269,42 272,38 275,35 278,34 280,35 283,38 286,42 289,47 292,54 294,62 297,71 300,80 303,89 306,98 308,106 311,113 314,118 317,122 320,125 322,126 325,125 328,122 331,118 334,113 337,106 339,98 342,89 345,80 348,71 351,62 353,54 356,47 359,42 362,38 365,35 368,34 370,35 373,38 376,42 379,47 382,54 384,62 387,71 390,80 393,89 396,98 398,106 401,113 404,118 407,122 410,125 412,126 415,125 418,122 421,118 424,113 427,106 429,98 432,89 435,80" fill="none" stroke="var(--yellow)" stroke-width="2.4"/>
+            <text x="252" y="150" font-family="Kalam" font-size="14" fill="var(--yellow)">saída fiel — réplica ampliada</text>
+
+            <!-- linha 2: sinal grande -->
+            <g transform="translate(0,52)">
+            <line x1="20" y1="200" x2="215" y2="200" stroke="var(--chalk-faint)" stroke-width="1.2"/>
+            <polyline points="40,200 42,195 45,190 48,186 50,182 52,178 55,176 58,174 60,174 62,174 65,176 68,178 70,182 72,186 75,190 78,195 80,200 82,205 85,210 88,214 90,218 92,222 95,224 98,226 100,226 102,226 105,224 108,222 110,218 112,214 115,210 118,205 120,200 122,195 125,190 128,186 130,182 132,178 135,176 138,174 140,174 142,174 145,176 148,178 150,182 152,186 155,190 158,195 160,200 162,205 165,210 168,214 170,218 172,222 175,224 178,226 180,226 182,226 185,224 188,222 190,218 192,214 195,210 198,205 200,200" fill="none" stroke="var(--chalk-dim)" stroke-width="2.2"/>
+            <text x="22" y="252" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">entrada grande</text>
+            <g stroke="var(--pink)" stroke-width="2" fill="none"><line x1="215" y1="200" x2="243" y2="200"/></g>
+            <polygon points="240,194 252,200 240,206" fill="var(--pink)"/>
+            <line x1="245" y1="200" x2="440" y2="200" stroke="var(--chalk-faint)" stroke-width="1.2"/>
+            <g stroke="var(--pink)" stroke-width="1.2" stroke-dasharray="5,5">
+              <line x1="245" y1="144" x2="440" y2="144"/>
+              <line x1="245" y1="256" x2="440" y2="256"/>
+            </g>
+            <text x="444" y="148" font-family="Kalam" font-size="13" fill="var(--pink)">L₊</text>
+            <text x="444" y="260" font-family="Kalam" font-size="13" fill="var(--pink)">L₋</text>
+            <polyline points="255,200 258,183 261,167 263,152 266,144 269,144 272,144 275,144 278,144 280,144 283,144 286,144 289,144 292,152 294,167 297,183 300,200 303,217 306,233 308,248 311,256 314,256 317,256 320,256 322,256 325,256 328,256 331,256 334,256 337,248 339,233 342,217 345,200 348,183 351,167 353,152 356,144 359,144 362,144 365,144 368,144 370,144 373,144 376,144 379,144 382,152 384,167 387,183 390,200 393,217 396,233 398,248 401,256 404,256 407,256 410,256 412,256 415,256 418,256 421,256 424,256 427,248 429,233 432,217 435,200" fill="none" stroke="var(--pink)" stroke-width="2.4"/>
+            <text x="252" y="288" font-family="Kalam" font-size="14" fill="var(--pink)">picos ceifados — distorção</text>
+            </g>
+          </svg>
+          <figcaption>Duas formas de onda de entrada e as saídas correspondentes. Só a diferença de amplitude separa a amplificação fiel do ceifamento.</figcaption>
+        </figure>
+      </section>
+
+      <!-- ============================================================
+           1.4.8 POLARIZAÇÃO
+           ============================================================ -->
+      <section class="content-section" id="m1-polarizacao">
+        <div class="eyebrow">1.4.8 · NÃO LINEARIDADE E POLARIZAÇÃO</div>
+        <h2>Como extrair uma reta de uma curva torta</h2>
+        <p class="lead">Até aqui, tirando a saturação, tratamos a característica como perfeitamente linear. Na prática ela exibe não linearidades de proporções variadas. A característica típica de um amplificador com <strong>fonte de alimentação simples</strong> nem passa pela origem.</p>
+
+        <p>Há uma técnica simples para obter amplificação linear de um circuito com curva característica torta: <strong>polarizar</strong> o circuito para operar próximo ao ponto médio da característica. Isso é feito acrescentando uma fonte cc <code>V<sub>I</sub></code> na entrada. O ponto de operação resultante é chamado <em class="term">Q</em>, e a tensão cc correspondente na saída é <code>V<sub>O</sub></code>.</p>
+
+        <p class="note">Q é conhecido como ponto quiescente, ponto de polarização ou simplesmente ponto de operação.</p>
+
+        <figure class="panel">
+          <svg viewBox="0 0 470 356" xmlns="http://www.w3.org/2000/svg">
+            <!-- eixos -->
+            <line x1="60" y1="30" x2="60" y2="285" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+            <line x1="60" y1="285" x2="450" y2="285" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+            <text x="26" y="40" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">v</text>
+            <text x="38" y="45" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">O</text>
+            <text x="432" y="306" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">v</text>
+            <text x="444" y="311" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">I</text>
+            <text x="48" y="290" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">0</text>
+
+            <!-- niveis -->
+            <g stroke="var(--chalk-faint)" stroke-width="1.1" stroke-dasharray="4,4">
+              <line x1="60" y1="70" x2="380" y2="70"/>
+              <line x1="60" y1="258" x2="380" y2="258"/>
+              <line x1="60" y1="164" x2="196" y2="164"/>
+              <line x1="196" y1="164" x2="196" y2="285"/>
+            </g>
+            <text x="40" y="75" font-family="Kalam" font-size="15" fill="var(--pink)">L₊</text>
+            <text x="40" y="263" font-family="Kalam" font-size="15" fill="var(--pink)">L₋</text>
+            <text x="34" y="169" font-family="Kalam" font-size="15" fill="var(--yellow)">V</text>
+            <text x="47" y="174" font-family="Kalam" font-size="11" fill="var(--yellow)">O</text>
+            <text x="196" y="304" font-family="Kalam" font-size="15" fill="var(--yellow)" text-anchor="middle">V</text>
+            <text x="206" y="309" font-family="Kalam" font-size="11" fill="var(--yellow)">I</text>
+
+            <!-- curva S -->
+            <polyline points="60,255 64,255 69,254 73,254 77,253 81,253 86,252 90,251 94,250 99,249 103,248 107,246 111,245 116,243 120,241 124,239 129,237 133,234 137,231 141,228 146,225 150,221 154,217 159,213 163,208 167,203 171,198 176,192 180,187 184,181 189,175 193,169 197,162 201,156 206,150 210,144 214,138 219,133 223,127 227,122 231,117 236,113 240,109 244,105 249,101 253,98 257,95 261,92 266,90 270,88 274,86 279,84 283,82 287,81 291,80 296,78 300,77 304,77 309,76 313,75 317,74 321,74 326,73 330,73 334,73 339,72 343,72 347,72 351,72 356,71 360,71" fill="none" stroke="var(--yellow)" stroke-width="2.8"/>
+
+            <!-- ponto Q e inclinacao -->
+            <circle cx="196" cy="164" r="5.5" fill="var(--yellow)"/>
+            <text x="176" y="152" font-family="Kalam" font-size="18" fill="var(--yellow)">Q</text>
+            <line x1="160" y1="215" x2="240" y2="113" stroke="var(--chalk)" stroke-width="1.8" stroke-dasharray="6,4"/>
+            <text x="246" y="118" font-family="Kalam" font-size="15" fill="var(--chalk)">inclinação = A</text>
+            <text x="352" y="123" font-family="Kalam" font-size="11" fill="var(--chalk)">v</text>
+
+            <!-- sinal de entrada, pequeno, em torno de VI -->
+            <line x1="166" y1="330" x2="226" y2="330" stroke="var(--chalk-faint)" stroke-width="1" stroke-dasharray="3,3"/>
+            <polyline points="166,330 168,327 170,324 172,322 174,321 175,322 177,324 179,327 181,330 183,333 185,336 187,338 188,339 190,338 192,336 194,333 196,330 198,327 200,324 202,322 204,321 205,322 207,324 209,327 211,330 213,333 215,336 217,338 218,339 220,338 222,336 224,333 226,330" fill="none" stroke="var(--orange)" stroke-width="2"/>
+            <text x="236" y="336" font-family="Kalam" font-size="14" fill="var(--orange)">v</text>
+            <text x="246" y="340" font-family="Kalam" font-size="10" fill="var(--orange)">i</text>
+            <text x="252" y="336" font-family="Kalam" font-size="14" fill="var(--orange)">(t) pequeno</text>
+
+            <!-- sinal de saida -->
+            <line x1="380" y1="164" x2="444" y2="164" stroke="var(--chalk-faint)" stroke-width="1" stroke-dasharray="3,3"/>
+            <polyline points="392,164 394,157 395,150 397,145 399,141 401,140 402,141 404,145 406,150 408,157 409,164 411,171 413,178 415,183 416,187 418,188 420,187 421,183 423,178 425,171 427,164 428,157 430,150 432,145 434,141 435,140 437,141 439,145 441,150 442,157 444,164" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <text x="392" y="128" font-family="Kalam" font-size="14" fill="var(--orange)">v</text>
+            <text x="402" y="132" font-family="Kalam" font-size="10" fill="var(--orange)">o</text>
+            <text x="408" y="128" font-family="Kalam" font-size="14" fill="var(--orange)">(t)</text>
+          </svg>
+          <figcaption>Característica com não linearidade considerável. Polarizado em Q e com o sinal mantido pequeno, o ponto de operação percorre um segmento quase reto da curva — e a operação volta a ser linear.</figcaption>
+        </figure>
+
+        <p>Com o sinal dependente do tempo sobreposto à polarização, a tensão de entrada instantânea total é</p>
+        <div class="eq">v<sub>I</sub>(t) = V<sub>I</sub> + v<sub>i</sub>(t) &nbsp;&nbsp;⟹&nbsp;&nbsp; v<sub>O</sub>(t) = V<sub>O</sub> + v<sub>o</sub>(t)</div>
+
+        <p>Mantendo a amplitude de v<sub>i</sub>(t) suficientemente pequena, o ponto de operação fica confinado a um segmento quase linear centrado em Q. A parcela variável no tempo da saída é então proporcional à da entrada:</p>
+
+        <div class="eq">
+          v<sub>o</sub>(t) = A<sub>v</sub> · v<sub>i</sub>(t) &nbsp;&nbsp;com&nbsp;&nbsp;
+          <span class="hand-box">A<sub>v</sub> = dv<sub>O</sub>/dv<sub>I</sub> |<sub>em Q</sub></span>
+        </div>
+
+        <p>Ou seja: o ganho de pequenos sinais é a <strong>inclinação da curva no ponto de polarização</strong>. Aumentar a amplitude do sinal de entrada tira a operação do segmento quase linear e volta a distorcer a saída — inserindo informações espúrias que não pertenciam ao sinal. Essa técnica, a <em class="term">aproximação para pequenos sinais</em>, é usada o tempo todo no projeto de amplificadores a transistor.</p>
+
+        <div class="example">
+          <div class="ex-head">Exemplo 1.2 — polarizando um amplificador a transistor</div>
+          <p><strong>Dados:</strong> a característica de transferência é</p>
+          <div class="eq">v<sub>O</sub> = 10 − 10<sup>−11</sup> · e<sup>40 v<sub>I</sub></sup> &nbsp;<span class="dim">(1.11)</span></div>
+          <p>válida para v<sub>I</sub> ≥ 0 V e v<sub>O</sub> ≥ 0,3 V. Encontrar L₋, L₊ e os v<sub>I</sub> correspondentes; a tensão cc de polarização V<sub>I</sub> que resulta em V<sub>O</sub> = 5 V; e o ganho nesse ponto.</p>
+
+          <p style="margin-top:1em"><strong>1.</strong> O limite L₋ é dado: 0,3 V. O v<sub>I</sub> correspondente sai da Equação 1.11 com v<sub>O</sub> = 0,3:</p>
+          <div class="eq">10<sup>−11</sup> e<sup>40v<sub>I</sub></sup> = 9,7 &nbsp;⟹&nbsp; v<sub>I</sub> = <span class="y">0,690 V</span></div>
+
+          <p><strong>2.</strong> O limite L₊ ocorre em v<sub>I</sub> = 0:</p>
+          <div class="eq">L₊ = 10 − 10<sup>−11</sup> ≈ <span class="y">10 V</span></div>
+
+          <p><strong>3.</strong> Para V<sub>O</sub> = 5 V, substituindo na Equação 1.11:</p>
+          <div class="eq">10<sup>−11</sup> e<sup>40V<sub>I</sub></sup> = 5 &nbsp;⟹&nbsp; V<sub>I</sub> = <span class="y">0,673 V</span></div>
+
+          <p><strong>4.</strong> O ganho é a derivada em v<sub>I</sub> = 0,673 V. Derivando 1.11 e reconhecendo que 10<sup>−11</sup>e<sup>40v<sub>I</sub></sup> = 10 − v<sub>O</sub> = 5:</p>
+          <div class="eq">A<sub>v</sub> = dv<sub>O</sub>/dv<sub>I</sub> = −40 · (10 − v<sub>O</sub>) = −40 · 5 = <span class="y">−200 V/V</span></div>
+
+          <p style="margin-top:.8em">O sinal negativo indica que este é um amplificador <strong>inversor</strong>: a saída está defasada de 180° em relação à entrada. Repare como o ganho depende do ponto escolhido — polarizar em outro V<sub>O</sub> dá outro A<sub>v</sub>.</p>
+
+          <figure class="panel" style="margin-top:14px">
+            <svg viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
+              <line x1="70" y1="20" x2="70" y2="210" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <line x1="70" y1="210" x2="380" y2="210" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <text x="30" y="20" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">v</text>
+              <text x="42" y="25" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">O</text>
+              <text x="52" y="20" font-family="Kalam" font-size="13" fill="var(--chalk-dim)">(V)</text>
+              <text x="352" y="232" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">v</text>
+              <text x="364" y="237" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">I</text>
+              <text x="372" y="232" font-family="Kalam" font-size="13" fill="var(--chalk-dim)">(V)</text>
+              <g font-family="Kalam" font-size="13" fill="var(--chalk-faint)" text-anchor="end">
+                <text x="64" y="45">10</text><text x="64" y="128">5</text><text x="64" y="196">0,3</text>
+              </g>
+              <g stroke="var(--chalk-faint)" stroke-width="1.1" stroke-dasharray="4,4">
+                <line x1="70" y1="123" x2="215" y2="123"/>
+                <line x1="215" y1="123" x2="215" y2="210"/>
+                <line x1="70" y1="191" x2="268" y2="191"/>
+                <line x1="268" y1="191" x2="268" y2="210"/>
+              </g>
+              <text x="212" y="228" font-family="Kalam" font-size="12" fill="var(--chalk-faint)" text-anchor="middle">0,673</text>
+              <text x="274" y="228" font-family="Kalam" font-size="12" fill="var(--chalk-faint)" text-anchor="middle">0,690</text>
+              <polyline points="80,40 120,40 150,40 170,41 185,44 195,50 203,60 209,74 214,92 219,113 224,136 229,157 234,173 240,185 247,192 256,196 268,198 290,199 320,199 360,199" fill="none" stroke="var(--yellow)" stroke-width="2.6"/>
+              <circle cx="215" cy="123" r="5" fill="var(--yellow)"/>
+              <text x="226" y="118" font-family="Kalam" font-size="17" fill="var(--yellow)">Q</text>
+            </svg>
+            <figcaption>Esboço (fora de escala) da característica do Exemplo 1.2. A inclinação negativa em Q é a assinatura de um amplificador inversor.</figcaption>
+          </figure>
+        </div>
+
+        <p>Uma vez devidamente polarizado e com o sinal de entrada mantido pequeno, o amplificador é considerado <strong>linear</strong> — e a partir daí valem todas as técnicas de análise de circuitos lineares.</p>
+      </section>
+
+      <!-- ============================================================
+           1.4.9 CONVENÇÃO DE NOTAÇÃO
+           ============================================================ -->
+      <section class="content-section" id="m1-notacao">
+        <div class="eyebrow">1.4.9 · CONVENÇÃO DE NOTAÇÃO</div>
+        <h2>Ler os índices corretamente</h2>
+        <p class="lead">A notação a seguir é usada no livro inteiro. Confundir <code>v<sub>C</sub></code> com <code>V<sub>C</sub></code> ou com <code>v<sub>c</sub></code> é fonte garantida de erro nos capítulos de transistores.</p>
+
+        <table class="spec">
+          <tr><th>Grandeza</th><th>Símbolo</th><th>Exemplo</th></tr>
+          <tr><td>Instantânea <strong>total</strong> (cc + sinal)</td><td class="sym">minúscula, índice maiúsculo</td><td>i<sub>A</sub>(t), v<sub>C</sub>(t)</td></tr>
+          <tr><td>Componente <strong>cc</strong> (polarização)</td><td class="sym">maiúscula, índice maiúsculo</td><td>I<sub>A</sub>, V<sub>C</sub></td></tr>
+          <tr><td>Tensão da <strong>fonte de alimentação</strong></td><td class="sym">maiúscula, índice repetido</td><td>V<sub>DD</sub>, I<sub>DD</sub></td></tr>
+          <tr><td>Componente de <strong>sinal</strong> (incremental)</td><td class="sym">minúscula, índice minúsculo</td><td>i<sub>a</sub>(t), v<sub>c</sub>(t)</td></tr>
+          <tr><td><strong>Amplitude</strong> do sinal senoidal</td><td class="sym">maiúscula, índice minúsculo</td><td>I<sub>a</sub>, V<sub>c</sub></td></tr>
+        </table>
+
+        <figure class="panel">
+          <svg viewBox="0 0 470 250" xmlns="http://www.w3.org/2000/svg">
+            <line x1="55" y1="30" x2="55" y2="225" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+            <line x1="55" y1="225" x2="450" y2="225" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+            <text x="30" y="42" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">i</text>
+            <text x="38" y="47" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">C</text>
+            <text x="436" y="245" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">t</text>
+            <text x="44" y="230" font-family="Kalam" font-size="13" fill="var(--chalk-faint)" text-anchor="end">0</text>
+
+            <!-- nivel cc -->
+            <line x1="55" y1="150" x2="440" y2="150" stroke="var(--chalk-dim)" stroke-width="1.4" stroke-dasharray="6,5"/>
+            <polyline points="70,150 75,140 81,130 86,121 92,113 97,107 103,102 108,99 114,98 119,99 125,102 130,107 136,113 141,121 147,130 152,140 158,150 163,160 168,170 174,179 179,187 185,193 190,198 196,201 201,202 207,201 212,198 218,193 223,187 229,179 234,170 240,160 245,150 250,140 256,130 261,121 267,113 272,107 278,102 283,99 289,98 294,99 300,102 305,107 311,113 316,121 322,130 327,140 332,150 338,160 343,170 349,179 354,187 360,193 365,198 371,201 376,202 382,201 387,198 393,193 398,187 404,179 409,170 415,160 420,150" fill="none" stroke="var(--yellow)" stroke-width="2.6"/>
+
+            <!-- setas -->
+            <g stroke="var(--orange)" stroke-width="1.6">
+              <line x1="114" y1="225" x2="114" y2="102"/>
+              <line x1="140" y1="150" x2="140" y2="225"/>
+              <line x1="166" y1="150" x2="166" y2="102"/>
+            </g>
+            <g fill="var(--orange)">
+              <polygon points="110,106 114,96 118,106"/>
+              <polygon points="136,219 140,229 144,219"/>
+              <polygon points="162,106 166,96 170,106"/><polygon points="162,146 166,156 170,146"/>
+            </g>
+            <text x="86" y="216" font-family="Kalam" font-size="15" fill="var(--orange)">i</text>
+            <text x="93" y="220" font-family="Kalam" font-size="11" fill="var(--orange)">C</text>
+            <text x="146" y="196" font-family="Kalam" font-size="15" fill="var(--orange)">I</text>
+            <text x="153" y="200" font-family="Kalam" font-size="11" fill="var(--orange)">C</text>
+            <text x="174" y="124" font-family="Kalam" font-size="15" fill="var(--orange)">I</text>
+            <text x="181" y="128" font-family="Kalam" font-size="11" fill="var(--orange)">c</text>
+            <text x="238" y="58" font-family="Kalam" font-size="15" fill="var(--pink)">i</text>
+            <text x="245" y="62" font-family="Kalam" font-size="11" fill="var(--pink)">c</text>
+            <text x="252" y="58" font-family="Kalam" font-size="14" fill="var(--pink)">(t) = i</text>
+            <text x="297" y="62" font-family="Kalam" font-size="11" fill="var(--pink)">C</text>
+            <text x="303" y="58" font-family="Kalam" font-size="14" fill="var(--pink)">(t) − I</text>
+            <text x="348" y="62" font-family="Kalam" font-size="11" fill="var(--pink)">C</text>
+          </svg>
+          <figcaption>i<sub>C</sub>(t) é o valor instantâneo total; I<sub>C</sub> é o nível cc em torno do qual ele oscila; I<sub>c</sub> é a amplitude da componente de sinal i<sub>c</sub>(t).</figcaption>
+        </figure>
+
+        <h2 style="margin-top:48px;font-size:1.5rem">Resumo — Seção 1.4</h2>
+        <table class="spec">
+          <tr><th>Conceito</th><th>Símbolo</th><th>Expressão</th></tr>
+          <tr><td>Amplificador linear</td><td class="sym">A</td><td>v<sub>O</sub>(t) = A·v<sub>I</sub>(t)</td></tr>
+          <tr><td>Ganho de tensão</td><td class="sym">A<sub>v</sub></td><td>v<sub>O</sub> / v<sub>I</sub></td></tr>
+          <tr><td>Ganho de corrente</td><td class="sym">A<sub>i</sub></td><td>i<sub>O</sub> / i<sub>I</sub></td></tr>
+          <tr><td>Ganho de potência</td><td class="sym">A<sub>p</sub></td><td>P<sub>L</sub>/P<sub>I</sub> = A<sub>v</sub>·A<sub>i</sub></td></tr>
+          <tr><td>Ganhos em dB</td><td class="sym">dB</td><td>20 log|A<sub>v</sub>| · 20 log|A<sub>i</sub>| · 10 log A<sub>p</sub></td></tr>
+          <tr><td>Potência cc</td><td class="sym">P<sub>cc</sub></td><td>V<sub>1</sub>I<sub>1</sub> + V<sub>2</sub>I<sub>2</sub></td></tr>
+          <tr><td>Balanço de potência</td><td class="sym">—</td><td>P<sub>cc</sub> + P<sub>I</sub> = P<sub>L</sub> + P<sub>dissipada</sub></td></tr>
+          <tr><td>Eficiência</td><td class="sym">η</td><td>(P<sub>L</sub>/P<sub>cc</sub>) × 100</td></tr>
+          <tr><td>Faixa linear de entrada</td><td class="sym">v<sub>I</sub></td><td>L₋/A<sub>v</sub> ≤ v<sub>I</sub> ≤ L₊/A<sub>v</sub></td></tr>
+          <tr><td>Ganho de pequenos sinais</td><td class="sym">A<sub>v</sub></td><td>dv<sub>O</sub>/dv<sub>I</sub> no ponto Q</td></tr>
+        </table>
+      </section>
+
+      <!-- ============================================================
+           EXERCÍCIOS — MÓDULO 01
+           ============================================================ -->
+      <section class="content-section" id="m1-exercicios">
+        <div class="eyebrow">EXERCÍCIOS</div>
+        <h2>Exercícios</h2>
+        <p class="lead">Os três primeiros são os Exercícios 1.8, 1.9 e 1.10 do livro, com a resolução aberta. Os demais checam se as definições da seção ficaram no lugar certo.</p>
+        <p class="quiz-intro">Nas de múltipla escolha, o comentário aparece depois de responder. Nas resolvidas, tente fazer a conta antes de abrir.</p>
+
+        <!-- 1.8 -->
+        <div class="q">
+          <div class="q-head">1.8 <span class="tagq">resolvido · decibéis</span></div>
+          <p class="q-stem">Um amplificador tem ganho de tensão de 100 V/V e ganho de corrente de 1.000 A/A. Expresse os dois em decibéis e calcule o ganho de potência.</p>
+          <details class="reveal">
+            <summary>Ver resolução</summary>
+            <div class="ans">
+              <div class="eq">
+                20 log 100 = <span class="y">40 dB</span><br>
+                20 log 1000 = <span class="y">60 dB</span>
+              </div>
+              <p>Pela Equação 1.9, A<sub>p</sub> = A<sub>v</sub>·A<sub>i</sub> = 100 × 1000 = 10⁵ W/W. Em decibéis, usando o fator 10:</p>
+              <div class="eq">10 log 10⁵ = <span class="y">50 dB</span></div>
+              <p>Atalho útil: em dB, o ganho de potência é a <strong>média</strong> dos ganhos de tensão e de corrente — (40 + 60)/2 = 50. Isso decorre direto de A<sub>p</sub> = A<sub>v</sub>A<sub>i</sub> com o fator 10 em vez de 20.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- 1.9 -->
+        <div class="q">
+          <div class="q-head">1.9 <span class="tagq">resolvido · potência e eficiência</span></div>
+          <p class="q-stem">Um amplificador com fonte de alimentação <strong>simples</strong> de 15 V entrega a uma carga de 1 kΩ um sinal senoidal de 12 V pico a pico, e drena da fonte de sinal uma corrente desprezível. A corrente cc drenada da fonte de 15 V é 8 mA. Qual a potência dissipada no amplificador e qual a eficiência?</p>
+          <details class="reveal">
+            <summary>Ver resolução</summary>
+            <div class="ans">
+              <p>12 V pico a pico ⇒ 6 V de pico ⇒ 6/√2 V eficazes. Na carga:</p>
+              <div class="eq">P<sub>L</sub> = (6/√2)² / 1 kΩ = 18 / 1 kΩ = <span class="y">18 mW</span></div>
+              <p>Da fonte cc:</p>
+              <div class="eq">P<sub>cc</sub> = 15 V × 8 mA = <span class="y">120 mW</span></div>
+              <p>Como P<sub>I</sub> ≈ 0, o balanço P<sub>cc</sub> + P<sub>I</sub> = P<sub>L</sub> + P<sub>dissipada</sub> dá</p>
+              <div class="eq">
+                P<sub>dissipada</sub> = 120 − 18 = <span class="y">102 mW</span><br>
+                η = (18 / 120) × 100 = <span class="y">15 %</span>
+              </div>
+              <p>Baixíssima — e típica de um estágio mal casado. É exatamente esse número que os projetos de amplificadores de potência atacam.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- 1.10 -->
+        <div class="q">
+          <div class="q-head">1.10 <span class="tagq">resolvido · limite dos pequenos sinais</span></div>
+          <p class="q-stem">Retome o amplificador do Exemplo 1.2, polarizado em V<sub>I</sub> = 0,673 V. Aplique sinais de entrada de 1 mV, 5 mV e 10 mV sobrepostos à polarização e determine a saída (a) usando o ganho A<sub>v</sub> = −200 V/V; (b) usando a característica de transferência exata. O objetivo é medir até onde a aproximação para pequenos sinais aguenta.</p>
+          <details class="reveal">
+            <summary>Ver resolução</summary>
+            <div class="ans">
+              <p><strong>(a) modelo linear</strong> — basta multiplicar por −200:</p>
+              <div class="eq">1 mV → <span class="y">−0,2 V</span> &nbsp;·&nbsp; 5 mV → <span class="y">−1 V</span> &nbsp;·&nbsp; 10 mV → <span class="y">−2 V</span></div>
+              <p><strong>(b) característica exata</strong> — com 10<sup>−11</sup>e<sup>40V<sub>I</sub></sup> = 5 no ponto Q, um acréscimo v<sub>i</sub> multiplica esse termo por e<sup>40v<sub>i</sub></sup>:</p>
+              <div class="eq">v<sub>O</sub> = 10 − 5·e<sup>40 v<sub>i</sub></sup> &nbsp;⟹&nbsp; v<sub>o</sub> = 5 − 5·e<sup>40 v<sub>i</sub></sup></div>
+              <div class="eq">
+                1 mV → 5 − 5e<sup>0,04</sup> = <span class="y">−0,204 V</span><br>
+                5 mV → 5 − 5e<sup>0,2</sup> = <span class="y">−1,107 V</span><br>
+                10 mV → 5 − 5e<sup>0,4</sup> = <span class="y">−2,459 V</span>
+              </div>
+              <p><strong>O que isso mostra:</strong> com 1 mV o erro é de 2 %; com 5 mV, 11 %; com 10 mV, 23 %. A aproximação para pequenos sinais não tem uma fronteira nítida — ela se degrada continuamente, e "pequeno" só significa alguma coisa em comparação com a escala de curvatura da característica (aqui, 1/40 V = 25 mV).</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- MC 1 -->
+        <div class="q">
+          <div class="q-head">04 <span class="tagq">múltipla escolha · linearidade</span></div>
+          <p class="q-stem">Um amplificador tem característica <code>v<sub>O</sub> = 5v<sub>I</sub> + 0,2v<sub>I</sub>²</code>. O que se pode afirmar?</p>
+          <div class="opts">
+            <button class="opt" data-ok="0"><span class="k">a)</span> É linear, pois o termo dominante é 5v<sub>I</sub>.</button>
+            <button class="opt" data-ok="1"><span class="k">b)</span> Não é linear: o termo quadrático altera a forma de onda, e a saída deixa de ser réplica da entrada.</button>
+            <button class="opt" data-ok="0"><span class="k">c)</span> É linear, porque a característica passa pela origem.</button>
+            <button class="opt" data-ok="0"><span class="k">d)</span> Não é amplificador, porque o ganho não é constante.</button>
+          </div>
+          <div class="q-fb" role="status"><b>b)</b> — A definição de amplificador linear é a Equação 1.4: v<sub>O</sub> = A·v<sub>I</sub>, com A constante. Qualquer potência de v<sub>I</sub> diferente de 1 produz <strong>distorção não linear</strong> — informação nova que não estava no sinal de entrada. Passar pela origem não garante linearidade. E ele continua sendo um amplificador: para v<sub>I</sub> pequeno, 0,2v<sub>I</sub>² é desprezível e a operação é quase linear com A<sub>v</sub> ≈ 5 — é a aproximação para pequenos sinais.</div>
+        </div>
+
+        <!-- MC 2 -->
+        <div class="q">
+          <div class="q-head">05 <span class="tagq">múltipla escolha · ganho de potência</span></div>
+          <p class="q-stem">Um transformador elevador entrega à carga uma tensão maior que a do primário. Por que ele não é um amplificador?</p>
+          <div class="opts">
+            <button class="opt" data-ok="0"><span class="k">a)</span> Porque não tem ganho de tensão.</button>
+            <button class="opt" data-ok="0"><span class="k">b)</span> Porque distorce a forma de onda.</button>
+            <button class="opt" data-ok="1"><span class="k">c)</span> Porque a potência entregue à carga é, no máximo, igual à fornecida pela fonte — não há ganho de potência.</button>
+            <button class="opt" data-ok="0"><span class="k">d)</span> Porque só funciona em corrente alternada.</button>
+          </div>
+          <div class="q-fb" role="status"><b>c)</b> — É o ganho de <strong>potência</strong> que define o amplificador. O transformador troca tensão por corrente: se a tensão sobe N vezes, a corrente cai N vezes, e P<sub>saída</sub> ≤ P<sub>entrada</sub>. O amplificador entrega mais potência do que retira da fonte de sinal — e a diferença vem das fontes cc (Seção 1.4.6), que o transformador não tem.</div>
+        </div>
+
+        <!-- MC 3 -->
+        <div class="q">
+          <div class="q-head">06 <span class="tagq">múltipla escolha · saturação</span></div>
+          <p class="q-stem">Um amplificador com A<sub>v</sub> = 50 V/V opera com fontes de ±12 V, saturando em L₊ = +11 V e L₋ = −11 V. Qual a maior amplitude de entrada senoidal admissível sem ceifamento?</p>
+          <div class="opts">
+            <button class="opt" data-ok="0"><span class="k">a)</span> 11 V</button>
+            <button class="opt" data-ok="1"><span class="k">b)</span> 220 mV</button>
+            <button class="opt" data-ok="0"><span class="k">c)</span> 240 mV</button>
+            <button class="opt" data-ok="0"><span class="k">d)</span> 550 mV</button>
+          </div>
+          <div class="q-fb" role="status"><b>b)</b> — A faixa linear é L₋/A<sub>v</sub> ≤ v<sub>I</sub> ≤ L₊/A<sub>v</sub>, ou seja ±11/50 = ±0,22 V. A alternativa (c) é a armadilha de usar a alimentação (12 V) em vez do nível de saturação — os níveis reais ficam cerca de 1 V <em>dentro</em> da alimentação, e é com eles que se faz a conta.</div>
+        </div>
+
+        <!-- MC 4 -->
+        <div class="q">
+          <div class="q-head">07 <span class="tagq">múltipla escolha · notação</span></div>
+          <p class="q-stem">Em um circuito polarizado, mede-se <code>i<sub>C</sub>(t) = 2 mA + 0,3·sen(ωt) mA</code>. Qual associação está correta?</p>
+          <div class="opts">
+            <button class="opt" data-ok="0"><span class="k">a)</span> I<sub>C</sub> = 2,3 mA e i<sub>c</sub>(t) = 2 mA</button>
+            <button class="opt" data-ok="1"><span class="k">b)</span> I<sub>C</sub> = 2 mA, i<sub>c</sub>(t) = 0,3·sen(ωt) mA e I<sub>c</sub> = 0,3 mA</button>
+            <button class="opt" data-ok="0"><span class="k">c)</span> i<sub>C</sub> é a componente cc e I<sub>C</sub> é a amplitude do sinal</button>
+            <button class="opt" data-ok="0"><span class="k">d)</span> I<sub>c</sub> = 0,6 mA, porque a amplitude é medida de pico a pico</button>
+          </div>
+          <div class="q-fb" role="status"><b>b)</b> — Minúscula com índice maiúsculo (i<sub>C</sub>) é o valor <strong>instantâneo total</strong>; maiúscula com índice maiúsculo (I<sub>C</sub>) é a <strong>componente cc</strong>; minúscula com índice minúsculo (i<sub>c</sub>) é o <strong>sinal</strong>; maiúscula com índice minúsculo (I<sub>c</sub>) é a <strong>amplitude</strong> desse sinal — de pico, não de pico a pico.</div>
+        </div>
+
+        <!-- Reveal final -->
+        <div class="q">
+          <div class="q-head">08 <span class="tagq">resposta revelável · síntese</span></div>
+          <p class="q-stem">Saturação (1.4.7) e distorção por não linearidade (1.4.8) são as duas formas de a saída deixar de ser réplica da entrada. Qual a diferença entre elas — e a solução para cada uma é a mesma?</p>
+          <details class="reveal">
+            <summary>Ver resposta</summary>
+            <div class="ans">
+              <p>A <strong>saturação</strong> é um limite <em>externo</em>, imposto pelas fontes de alimentação: a característica é linear até bater em L₊ ou L₋, e aí os picos são ceifados. A curva é reta; o problema é só onde ela termina.</p>
+              <p>A <strong>não linearidade</strong> é uma propriedade <em>intrínseca</em> da curva: ela é torta ao longo de toda a excursão, e mesmo longe da saturação a saída não é proporcional à entrada.</p>
+              <p>As soluções se parecem, mas não são iguais. Contra a saturação: reduzir a amplitude ou aumentar a alimentação — o ponto de operação não é o problema. Contra a não linearidade: <strong>polarizar</strong> em um ponto Q de boa inclinação <em>e</em> manter o sinal pequeno; aqui a escolha de Q importa, porque A<sub>v</sub> = dv<sub>O</sub>/dv<sub>I</sub> muda de ponto para ponto.</p>
+              <p>Ponto em comum: em ambos os casos o remédio universal é manter a amplitude do sinal pequena. Foi essa constatação que originou a aproximação para pequenos sinais, usada no resto do livro.</p>
+            </div>
+          </details>
+        </div>
+      </section>
+    </div>
+
+    <!-- ============================================================
+         MÓDULO 02 — AMPLIFICADORES OPERACIONAIS
+         ============================================================ -->
+    <section class="hero-module module-break" id="mod2">
+      <div class="hero-eyebrow">MÓDULO 02 · SEDRA &amp; SMITH, CAPÍTULO 2</div>
+      <h1><span class="w1">Um bloco com ganho grande demais para usar sozinho.</span> <span class="w2">Por que trocar esse ganho por precisão é o melhor negócio do circuito?</span></h1>
+      <p class="dek">O amp op sozinho é inútil: ganho de 10⁵ e nenhuma previsibilidade. Fechada a malha com dois resistores, o ganho passa a valer −R₂/R₁ — menor, mas estável e preciso. Este módulo segue o Capítulo 2 do livro: amp op ideal, configurações inversora e não inversora, amplificadores de diferenças, e o que muda quando o ganho é finito, a banda é limitada, o sinal é grande e o CI tem offset.</p>
+      <div class="meta-row"><b>Curso</b> PSI3024 — Eletrônica &nbsp;&nbsp;&nbsp; <b>Referência</b> Sedra &amp; Smith, <i>Microeletrônica</i>, Seções 2.1 a 2.7</div>
 
       <svg class="hero-deco" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <polyline points="20,460 130,460 270,60 380,60" fill="none" stroke="var(--chalk-faint)" stroke-width="1.6" stroke-dasharray="5,7"/>
@@ -284,17 +1021,26 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
       </svg>
     </section>
 
+    <nav class="mod-nav">
+      <a href="#m2-ideal">Amp op ideal</a>
+      <a href="#m2-inversora">Inversora</a>
+      <a href="#m2-naoinversora">Não inversora</a>
+      <a href="#m2-diferencas">Diferenças</a>
+      <a href="#m2-banda">Ganho finito e banda</a>
+      <a href="#m2-grandes">Grandes sinais</a>
+      <a href="#m2-cc">Imperfeições cc</a>
+      <a href="#exercicios">Exercícios</a>
+    </nav>
+
     <div class="content">
 
       <!-- ============================================================
-           INTRODUÇÃO
+           2.1 O AMP OP IDEAL
            ============================================================ -->
-      <section class="content-section" id="intro">
-        <div class="eyebrow">INTRODUÇÃO</div>
-        <h2>Amplificador Operacional</h2>
-        <p class="lead">Um amp op é um circuito integrado com dois terminais de entrada — <code>v1</code> (inversora) e <code>v2</code> (não-inversora) — e um terminal de saída <code>v0</code>, alimentado por uma fonte simétrica (+Vcc / −Vcc).</p>
-
-        <p>O nome vem dos primeiros computadores analógicos (décadas de 1940–50), onde esse bloco de ganho era usado para realizar "operações" — somar, subtrair, integrar tensões. O uso mais comum hoje é bem mais simples: amplificar e condicionar sinais.</p>
+      <section class="content-section" id="m2-ideal">
+        <div class="eyebrow">2.1 · O AMP OP IDEAL</div>
+        <h2>Três terminais de sinal e um ganho absurdo</h2>
+        <p class="lead">Do ponto de vista de sinal, o amp op tem <strong>três</strong> terminais: dois de entrada (1 e 2) e um de saída (3). Precisa ainda de alimentação — quase sempre uma fonte simétrica, nos terminais 4 e 5, ligados a <code>+V<sub>CC</sub></code> e <code>−V<sub>EE</sub></code>.</p>
 
         <figure class="panel">
           <svg viewBox="0 0 460 240" xmlns="http://www.w3.org/2000/svg">
@@ -312,36 +1058,32 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
             <text x="4" y="176" font-family="Kalam" font-size="17" fill="var(--chalk-dim)">v2</text>
             <text x="410" y="126" font-family="Kalam" font-size="18" fill="var(--yellow)">v0</text>
             <text x="228" y="14" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">+Vcc</text>
-            <text x="226" y="236" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">−Vcc</text>
+            <text x="226" y="236" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">−Vee</text>
+            <text x="104" y="74" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">1</text>
+            <text x="104" y="154" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">2</text>
+            <text x="330" y="114" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">3</text>
           </svg>
-          <figcaption>v1 (entrada inversora, "−") e v2 (entrada não-inversora, "+") — notação usada em todo o módulo.</figcaption>
+          <figcaption>Terminal 1 é a entrada <strong>inversora</strong> ("−") e o terminal 2 a <strong>não inversora</strong> ("+"). Repare num detalhe fácil de esquecer: <em class="term">nenhum terminal do encapsulamento está fisicamente ligado ao terra</em> — o terra do circuito é o ponto comum das duas fontes.</figcaption>
         </figure>
 
-        <p>Um dos CIs mais usados em ensino é o <code>LM741</code> (1968) — vamos usá-lo como referência de valores "prática" ao longo do guia.</p>
-        <p><strong>Aplicações:</strong> amplificadores de tensão, somadores/subtratores, buffers, filtros ativos, integradores/diferenciadores, conversores corrente–tensão, comparadores, amplificadores de instrumentação.</p>
-      </section>
+        <p>A função do bloco é ler a <strong>diferença</strong> entre os sinais aplicados nos terminais 1 e 2 e multiplicá-la por um número A:</p>
+        <div class="eq"><span class="hand-box">v<sub>O</sub> &nbsp;=&nbsp; A · (v<sub>2</sub> − v<sub>1</sub>)</span></div>
+        <p class="note">"Tensão em um terminal" significa sempre tensão entre esse terminal e o terra.</p>
 
-      <!-- ============================================================
-           FUNCIONAMENTO BÁSICO
-           ============================================================ -->
-      <section class="content-section" id="funcionamento">
-        <div class="eyebrow">FUNCIONAMENTO BÁSICO</div>
-        <h2>O modelo do amp op</h2>
-        <p class="lead">O comportamento do bloco inteiro é resumido pela relação entre a saída e a diferença das entradas:</p>
-
-        <div class="eq"><span class="hand-box">v0 &nbsp;=&nbsp; A · (v2 − v1)</span></div>
-
-        <p>Essa é a forma simplificada. A forma completa também inclui um termo de <em class="term">modo comum</em> — a parte do sinal igual nas duas entradas:</p>
-
-        <div class="eq"><span class="crossed">v0 = Ad(v2 − v1) + Acm·(v1 + v2)/2</span></div>
-        <p style="margin-top:-.4em">Assumimos <code>Acm ≈ 0</code> (CMRR → ∞, ver Amp Op ideal), sobrando <code>v0 = Ad(v2−v1) = A(v2−v1)</code>.</p>
+        <h3 style="margin-top:40px;font-size:1.3rem">As cinco características do amp op ideal</h3>
+        <table class="spec">
+          <tr><th>#</th><th>Característica ideal</th><th>Valor prático (CI real)</th></tr>
+          <tr><td class="sym">1</td><td>Impedância de entrada infinita — nenhuma corrente é drenada dos terminais 1 e 2</td><td>R<sub>id</sub> ≈ 2 MΩ (741)</td></tr>
+          <tr><td class="sym">2</td><td>Impedância de saída nula — o terminal 3 se comporta como fonte de tensão ideal A(v₂−v₁)</td><td>R<sub>o</sub> ≈ 75 Ω</td></tr>
+          <tr><td class="sym">3</td><td>Ganho de modo comum nulo (rejeição de modo comum infinita)</td><td>CMRR ≈ 90 dB</td></tr>
+          <tr><td class="sym">4</td><td>Ganho diferencial A infinito</td><td>A₀ ≈ 10⁵ V/V (100 dB)</td></tr>
+          <tr><td class="sym">5</td><td>Largura de faixa de resposta em frequência infinita</td><td>f<sub>b</sub> ≈ 10 Hz, f<sub>t</sub> ≈ 1 MHz</td></tr>
+        </table>
 
         <figure class="panel">
-          <figcaption style="margin-top:0;margin-bottom:10px">Modelo — circuito equivalente por dentro do símbolo</figcaption>
+          <figcaption style="margin-top:0;margin-bottom:10px">Circuito equivalente do amp op — o que o símbolo esconde</figcaption>
           <svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg">
             <polygon points="140,50 140,250 460,150" fill="none" stroke="var(--chalk-faint)" stroke-width="2" stroke-dasharray="6,5"/>
-
-            <!-- porta de entrada: Ri entre v1 e v2 (nada mais toca esse ramo) -->
             <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
               <line x1="40" y1="110" x2="200" y2="110"/>
               <line x1="40" y1="190" x2="200" y2="190"/>
@@ -351,14 +1093,12 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
             <circle cx="200" cy="110" r="3.5" fill="var(--chalk)"/>
             <circle cx="200" cy="190" r="3.5" fill="var(--chalk)"/>
             <polyline points="200,110 200,124 214,132 186,144 214,156 186,168 200,176 200,190" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
-            <text x="222" y="156" font-family="Kalam" font-size="16" fill="var(--orange)">Ri</text>
+            <text x="222" y="156" font-family="Kalam" font-size="16" fill="var(--orange)">Rid</text>
             <g font-family="Kalam" font-size="15" fill="var(--chalk-dim)">
               <text x="168" y="122">−</text>
               <text x="168" y="186">+</text>
               <text x="148" y="157">vd</text>
             </g>
-
-            <!-- porta de saída: fonte A·vd (referida ao terra) em série com Ro -->
             <line x1="250" y1="150" x2="250" y2="204" stroke="var(--chalk)" stroke-width="2"/>
             <g stroke="var(--chalk-faint)" stroke-width="2">
               <line x1="238" y1="204" x2="262" y2="204"/>
@@ -379,137 +1119,37 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
             <circle cx="490" cy="150" r="3.5" fill="var(--chalk)"/>
             <text x="518" y="156" font-family="Kalam" font-size="18" fill="var(--yellow)">v0</text>
           </svg>
-          <figcaption>Ri entre as entradas · fonte dependente A·vd (vd = v2−v1) · Ro em série até a saída — o mesmo modelo Thévenin usado em circuitos elétricos.</figcaption>
-        </figure>
-      </section>
-
-      <!-- ============================================================
-           AMP OP IDEAL
-           ============================================================ -->
-      <section class="content-section" id="ideal">
-        <div class="eyebrow">AMP OP IDEAL</div>
-        <h2>Amplificador Operacional Ideal</h2>
-        <p class="lead">Cinco hipóteses de idealização — cada uma comparada com o valor típico de um CI real:</p>
-
-        <div class="ideal-item"><span class="num">1</span>
-          <div class="claim">Ganho A infinito &nbsp; <span class="val">A = ∞</span></div>
-          <div class="pratica"><b>Prática</b> — A → 10⁴ a 10⁵ V/V</div>
-        </div>
-        <div class="ideal-item"><span class="num">2</span>
-          <div class="claim">Impedância de entrada infinita &nbsp; <span class="val">Rin = ∞</span></div>
-          <div class="pratica"><b>Prática</b> — Rin ≈ 20 MΩ</div>
-        </div>
-        <div class="ideal-item"><span class="num">3</span>
-          <div class="claim">Impedância de saída nula &nbsp; <span class="val">Rout = 0</span></div>
-          <div class="pratica"><b>Prática</b> — Rout ≈ 50 Ω</div>
-        </div>
-        <div class="ideal-item"><span class="num">4</span>
-          <div class="claim">Taxa de Rejeição de Modo Comum infinita &nbsp; <span class="val">CMRR = Ad/Acm = ∞</span></div>
-          <div class="pratica"><b>Prática</b> — CMRR tipicamente 70–90 dB</div>
-        </div>
-        <div class="ideal-item"><span class="num">5</span>
-          <div class="claim">Faixa de passagem infinita</div>
-          <div class="pratica"><b>Prática</b> — banda finita: GBW ≈ 1 MHz no LM741</div>
-        </div>
-
-        <figure class="panel">
-          <svg viewBox="0 0 440 300" xmlns="http://www.w3.org/2000/svg">
-            <line x1="40" y1="30" x2="40" y2="230" stroke="var(--chalk-faint)" stroke-width="1.5"/>
-            <line x1="40" y1="230" x2="420" y2="230" stroke="var(--chalk-faint)" stroke-width="1.5"/>
-            <text x="46" y="24" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">20 log |A(ω)|</text>
-            <g font-family="Kalam" font-size="13" fill="var(--chalk-faint)">
-              <text x="10" y="234">0</text><text x="10" y="189">20</text><text x="10" y="144">40</text><text x="10" y="99">60</text>
-            </g>
-            <g font-family="Kalam" font-size="12" fill="var(--chalk-faint)">
-              <text x="26" y="248">10⁻³</text><text x="66" y="248">10⁻²</text><text x="106" y="248">10⁻¹</text>
-              <text x="152" y="248">1</text><text x="192" y="248">10</text><text x="228" y="248">10²</text>
-              <text x="268" y="248">10³</text><text x="308" y="248">10⁴</text><text x="348" y="248">10⁵</text><text x="388" y="248">10⁶</text>
-            </g>
-            <text x="380" y="264" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">ω</text>
-            <polyline points="40,50 200,50 400,255" fill="none" stroke="var(--yellow)" stroke-width="2.6"/>
-          </svg>
-          <figcaption>5. Faixa de passagem infinita — na prática, o ganho cai a −20 dB/década após o polo dominante.</figcaption>
+          <figcaption>R<sub>id</sub> entre as duas entradas · fonte dependente A·v<sub>d</sub> referida ao terra · R<sub>o</sub> em série até a saída. No ideal, R<sub>id</sub> → ∞ e R<sub>o</sub> → 0.</figcaption>
         </figure>
 
-        <h3 style="margin-top:40px;font-size:1.3rem">Conceito de curto virtual</h3>
-        <p class="lead">Por que dá pra assumir v1 ≈ v2? Um exemplo concreto: A = 10⁴, Vcc = 10 V.</p>
-
-        <figure class="panel">
-          <svg viewBox="0 0 460 320" xmlns="http://www.w3.org/2000/svg">
-            <text x="10" y="24" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">A = 10⁴</text>
-            <text x="10" y="46" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">Vcc = 10 V</text>
-
-            <!-- níveis de saturação -->
-            <g stroke="var(--chalk-faint)" stroke-width="1" stroke-dasharray="4,4" opacity=".55">
-              <line x1="25" y1="70" x2="440" y2="70"/>
-              <line x1="25" y1="250" x2="440" y2="250"/>
-            </g>
-
-            <!-- eixos -->
-            <line x1="25" y1="160" x2="445" y2="160" stroke="var(--chalk-faint)" stroke-width="1.5"/>
-            <line x1="235" y1="40" x2="235" y2="272" stroke="var(--chalk-faint)" stroke-width="1.5"/>
-            <text x="243" y="36" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">v0 (V)</text>
-            <text x="404" y="190" font-family="Kalam" font-size="15" fill="var(--chalk-dim)" text-anchor="middle">v2 − v1</text>
-
-            <!-- eixo horizontal: escala log simétrica, uma década por passo -->
-            <g stroke="var(--chalk-faint)" stroke-width="1.2">
-              <line x1="45"  y1="156" x2="45"  y2="164"/><line x1="85"  y1="156" x2="85"  y2="164"/>
-              <line x1="125" y1="156" x2="125" y2="164"/><line x1="165" y1="156" x2="165" y2="164"/>
-              <line x1="205" y1="156" x2="205" y2="164"/><line x1="265" y1="156" x2="265" y2="164"/>
-              <line x1="305" y1="156" x2="305" y2="164"/><line x1="345" y1="156" x2="345" y2="164"/>
-              <line x1="385" y1="156" x2="385" y2="164"/><line x1="425" y1="156" x2="425" y2="164"/>
-            </g>
-            <g font-family="Kalam" font-size="12" fill="var(--chalk-faint)" text-anchor="middle">
-              <text x="45"  y="178">−10V</text><text x="85"  y="178">−1V</text><text x="125" y="178">−0,1V</text>
-              <text x="165" y="178">−10mV</text><text x="205" y="178">−1mV</text>
-              <text x="265" y="178">1mV</text><text x="305" y="178">10mV</text><text x="345" y="178">0,1V</text>
-              <text x="385" y="178">1V</text><text x="425" y="178">10V</text>
-            </g>
-
-            <!-- eixo vertical: níveis alinhados com a saturação -->
-            <g stroke="var(--chalk-faint)" stroke-width="1.2">
-              <line x1="231" y1="70" x2="239" y2="70"/><line x1="231" y1="250" x2="239" y2="250"/>
-            </g>
-            <g font-family="Kalam" font-size="13" fill="var(--chalk-dim)" text-anchor="end">
-              <text x="227" y="75">+10</text>
-              <text x="227" y="255">−10</text>
-              <text x="227" y="176">0</text>
-            </g>
-
-            <!-- característica de transferência -->
-            <polyline points="35,250 205,250 265,70 435,70" fill="none" stroke="var(--yellow)" stroke-width="2.6"/>
-
-            <path d="M 200,268 Q 235,288 270,268" fill="none" stroke="var(--pink)" stroke-width="2"/>
-            <text x="235" y="310" font-family="Kalam" font-size="15" fill="var(--pink)" text-anchor="middle">|v2 − v1| &lt; 1 mV</text>
-          </svg>
-          <figcaption>Vcc/A = 10 V / 10⁴ = 1 mV — para qualquer saída razoável, a diferença de entrada precisa ser menor que 1 mV. Ou seja: v1 ≈ v2.</figcaption>
-        </figure>
-
-        <p>Essa é a justificativa por trás das duas <em class="term">regras de ouro</em>, válidas sempre que houver realimentação negativa fechando a malha:</p>
-
+        <h3 style="margin-top:40px;font-size:1.3rem">Sinais diferencial e de modo comum</h3>
+        <p>Todo par de entradas (v₁, v₂) pode ser reescrito em duas parcelas: o que é <em class="term">diferente</em> entre elas e o que é <em class="term">igual</em>.</p>
         <div class="eq">
-          Regra 1 <span class="dim">(curto virtual)</span> — <span class="y">v1 = v2</span><br>
-          Regra 2 <span class="dim">(sem corrente de entrada)</span> — <span class="y">i1 = i2 = 0</span>
+          v<sub>Id</sub> = v<sub>2</sub> − v<sub>1</sub> &nbsp;<span class="dim">(2.1)</span> &nbsp;&nbsp;·&nbsp;&nbsp;
+          v<sub>Icm</sub> = ½ (v<sub>1</sub> + v<sub>2</sub>) &nbsp;<span class="dim">(2.2)</span><br>
+          v<sub>1</sub> = v<sub>Icm</sub> − v<sub>Id</sub>/2 &nbsp;<span class="dim">(2.3)</span> &nbsp;&nbsp;·&nbsp;&nbsp;
+          v<sub>2</sub> = v<sub>Icm</sub> + v<sub>Id</sub>/2 &nbsp;<span class="dim">(2.4)</span>
         </div>
+        <p>O amp op ideal responde apenas a v<sub>Id</sub> e ignora completamente v<sub>Icm</sub>. Por isso ele é um amplificador com <strong>entrada diferencial e saída simples</strong>.</p>
 
         <div class="attn">
-          <span class="tag">atenção</span>
-          As regras só valem <strong>com realimentação negativa</strong>. Sem malha fechada, o amp op não se equilibra — vira comparador saturado em +Vcc ou −Vcc.
+          <span class="tag">por que um ganho tão grande é útil?</span>
+          Sozinho, um ganho de 10⁵ é inutilizável: qualquer entrada de alguns milivolts satura a saída, e o próprio valor de A varia de peça para peça e com a temperatura. O ganho enorme só faz sentido como <strong>matéria-prima da realimentação negativa</strong> — quanto maior A, mais o ganho em malha fechada depende só dos resistores externos. É a troca central do capítulo: <em class="term">negocia-se ganho por precisão</em>.
         </div>
       </section>
 
       <!-- ============================================================
-           CONFIGURAÇÃO INVERSORA
+           2.2 A CONFIGURAÇÃO INVERSORA
            ============================================================ -->
-      <section class="content-section" id="inversora">
-        <div class="eyebrow">CONFIGURAÇÃO INVERSORA</div>
-        <h2>Configuração Inversora</h2>
-        <p class="lead">vi entra por R1 até o nó v1; R2 realimenta a saída de volta para o mesmo nó; v2 é aterrado.</p>
+      <section class="content-section" id="m2-inversora">
+        <div class="eyebrow">2.2 · A CONFIGURAÇÃO INVERSORA</div>
+        <h2>Terra virtual e G = −R₂/R₁</h2>
+        <p class="lead">R₂ liga a saída (terminal 3) de volta ao terminal <strong>inversor</strong> (1) — realimentação <em class="term">negativa</em>. O terminal 2 é aterrado e o sinal entra por R₁. Se R₂ voltasse para o terminal 2, seria realimentação positiva, e o circuito não se equilibraria.</p>
 
         <figure class="panel">
           <svg viewBox="0 0 620 280" xmlns="http://www.w3.org/2000/svg">
             <circle cx="80" cy="100" r="24" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
-            <text x="80" y="106" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk)">vi</text>
+            <text x="80" y="106" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk)">vI</text>
             <line x1="104" y1="100" x2="140" y2="100" stroke="var(--chalk)" stroke-width="2.2"/>
             <polyline points="140,100 150,100 157,88 171,112 185,88 199,112 206,100 220,100" fill="none" stroke="var(--orange)" stroke-width="2.3"/>
             <text x="178" y="78" text-anchor="middle" font-family="Kalam" font-size="16" fill="var(--orange)">R1</text>
@@ -517,7 +1157,7 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
 
             <line x1="220" y1="100" x2="240" y2="100" stroke="var(--chalk)" stroke-width="2.2"/>
             <circle cx="240" cy="100" r="4" fill="var(--chalk)"/>
-            <text x="230" y="124" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">v1</text>
+            <text x="222" y="124" font-family="Kalam" font-size="14" fill="var(--pink)">0 V</text>
             <line x1="240" y1="100" x2="300" y2="100" stroke="var(--chalk)" stroke-width="2.2"/>
 
             <polygon points="300,60 300,160 460,110" fill="none" stroke="var(--chalk)" stroke-width="2.5"/>
@@ -538,7 +1178,7 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
             <line x1="460" y1="110" x2="500" y2="110" stroke="var(--chalk)" stroke-width="2.2"/>
             <circle cx="500" cy="110" r="4" fill="var(--yellow)"/>
             <line x1="500" y1="110" x2="560" y2="110" stroke="var(--chalk)" stroke-width="2.2"/>
-            <text x="568" y="116" font-family="Kalam" font-size="16" fill="var(--yellow)">v0</text>
+            <text x="568" y="116" font-family="Kalam" font-size="16" fill="var(--yellow)">vO</text>
 
             <line x1="500" y1="110" x2="500" y2="30" stroke="var(--chalk)" stroke-width="2.2"/>
             <line x1="500" y1="30" x2="365" y2="30" stroke="var(--chalk)" stroke-width="2.2"/>
@@ -548,297 +1188,773 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
             <line x1="285" y1="30" x2="240" y2="30" stroke="var(--chalk)" stroke-width="2.2"/>
             <line x1="240" y1="30" x2="240" y2="100" stroke="var(--chalk)" stroke-width="2.2"/>
           </svg>
-          <figcaption>R1 traz o sinal (âmbar) · R2 fecha a realimentação negativa até o nó v1 · v2 aterrado.</figcaption>
+          <figcaption>Configuração inversora em malha fechada. R₂ fecha a malha em torno do amp op; a saída é tomada no terminal 3, onde a impedância é idealmente zero — logo v<sub>O</sub> não depende da carga.</figcaption>
         </figure>
 
-        <p><strong>1.</strong> Regra 1 (curto virtual): como v2 = 0, então <code>v1 = v2 = 0</code> — terra virtual.</p>
-        <p><strong>2.</strong> KCL no nó v1 (nenhuma corrente entra no amp op): <code>i1 = i2</code></p>
+        <h3 style="margin-top:34px;font-size:1.25rem">A dedução, em seis passos</h3>
+        <p><strong>1.</strong> Suponha que o circuito está "trabalhando", com v<sub>O</sub> <em>finito</em>. Como v<sub>O</sub> = A(v₂ − v₁) e A → ∞:</p>
+        <div class="eq">v<sub>2</sub> − v<sub>1</sub> = v<sub>O</sub>/A = 0 &nbsp;&nbsp;⟹&nbsp;&nbsp; v<sub>1</sub> = v<sub>2</sub></div>
 
-        <div class="eq">i1 &nbsp;=&nbsp; (vi − v1) / R1 &nbsp;=&nbsp; vi / R1</div>
+        <p><strong>2.</strong> Este é o <em class="term">curto-circuito virtual</em>: qualquer tensão presente em 2 aparece automaticamente em 1. Como o terminal 2 está aterrado, v₂ = 0 e portanto v₁ = 0 — um <strong>terra virtual</strong>, isto é, tensão zero <em>sem</em> conexão física ao terra.</p>
 
-        <p><strong>3.</strong> Relação em R2, do nó v1 até a saída:</p>
-        <div class="eq">v0 &nbsp;=&nbsp; v1 − R2·i2 &nbsp;=&nbsp; 0 − R2·i2</div>
+        <div class="attn">
+          <span class="tag">atenção ao "virtual"</span>
+          Nunca conclua que os terminais 1 e 2 estão fisicamente curto-circuitados ao analisar o circuito. Não há caminho de corrente entre eles — é justamente por isso que toda a corrente de R₁ é obrigada a seguir por R₂.
+        </div>
 
-        <p><strong>4.</strong> Substituindo i2 = i1 = vi/R1:</p>
-        <div class="eq" style="font-size:1.4rem"><span class="hand-box">v0 &nbsp;=&nbsp; −(R2/R1) · vi</span></div>
+        <p><strong>3.</strong> Com v₁ determinado, a lei de Ohm dá a corrente em R₁:</p>
+        <div class="eq">i<sub>1</sub> = (v<sub>I</sub> − v<sub>1</sub>) / R<sub>1</sub> = (v<sub>I</sub> − 0)/R<sub>1</sub> = v<sub>I</sub> / R<sub>1</sub></div>
 
-        <div class="eq">G &nbsp;=&nbsp; v0/vi &nbsp;=&nbsp; −<span class="hand-circle">R2/R1</span></div>
+        <p><strong>4.</strong> Para onde vai essa corrente? Não pode entrar no amp op, cuja impedância de entrada é infinita. Logo circula inteira por R₂.</p>
 
-        <p style="margin-top:1.2em">O sinal negativo é a inversão de 180°. O ganho depende só dos resistores externos — nada de A entra na conta, desde que A seja bem maior que R2/R1.</p>
+        <p><strong>5.</strong> Aplicando a lei de Ohm em R₂, do terra virtual até a saída:</p>
+        <div class="eq">v<sub>O</sub> = v<sub>1</sub> − i<sub>1</sub>R<sub>2</sub> = 0 − (v<sub>I</sub>/R<sub>1</sub>)·R<sub>2</sub></div>
+
+        <p><strong>6.</strong> Portanto o <strong>ganho em malha fechada</strong> é</p>
+        <div class="eq" style="font-size:1.4rem"><span class="hand-box">G ≡ v<sub>O</sub>/v<sub>I</sub> = −<span class="y">R<sub>2</sub>/R<sub>1</sub></span></span></div>
+
+        <p style="margin-top:1.2em">O ganho depende <strong>inteiramente de componentes passivos externos</strong>. Podemos torná-lo tão preciso quanto a precisão dos resistores escolhidos — e ele é, idealmente, independente de A. Partimos de um amplificador com ganho enorme e, por realimentação negativa, obtivemos R₂/R₁: menor que A, porém estável e preciso. <em class="term">Negociamos ganho por precisão.</em></p>
+
+        <p>O sinal menos é a inversão de 180°: com R₂/R₁ = 10 e uma senoide de 1 V pico a pico na entrada, a saída é uma senoide de 10 V pico a pico defasada de 180°.</p>
+
+        <h3 style="margin-top:40px;font-size:1.25rem">2.2.2 · O efeito de um ganho A finito</h3>
+        <p>Refazendo a análise sem supor A → ∞: a tensão entre os terminais de entrada passa a ser v<sub>O</sub>/A, o terminal inversor fica em −v<sub>O</sub>/A e</p>
+        <div class="eq">i<sub>1</sub> = (v<sub>I</sub> + v<sub>O</sub>/A) / R<sub>1</sub></div>
+        <p>que, levada à saída, dá</p>
+        <div class="eq"><span class="hand-box">G = v<sub>O</sub>/v<sub>I</sub> = &minus;(R<sub>2</sub>/R<sub>1</sub>) / [1 + (1 + R<sub>2</sub>/R<sub>1</sub>)/A]</span> &nbsp;<span class="dim">(2.5)</span></div>
+        <p>Com A → ∞, G → −R₂/R₁ e v₁ → 0 — a hipótese de terra virtual se recupera. A Equação 2.5 também mostra o critério de projeto: para que G dependa pouco de A, é preciso</p>
+        <div class="eq">1 + R<sub>2</sub>/R<sub>1</sub> &nbsp;≪&nbsp; A</div>
+
+        <div class="example">
+          <div class="ex-head">Exemplo 2.1 — quanto o ganho finito realmente atrapalha</div>
+          <p><strong>Dados:</strong> configuração inversora com R₁ = 1 kΩ e R₂ = 100 kΩ (ganho ideal −100). Erro percentual definido por ε = [|G| − (R₂/R₁)] / (R₂/R₁) × 100. Calcular G e v₁ (com v<sub>I</sub> = 0,1 V) para A = 10³, 10⁴ e 10⁵.</p>
+          <table class="spec">
+            <tr><th>A</th><th>|G|</th><th>ε</th><th>v₁</th></tr>
+            <tr><td class="sym">10³</td><td>90,83</td><td>−9,17 %</td><td>−9,08 mV</td></tr>
+            <tr><td class="sym">10⁴</td><td>99,00</td><td>−1,00 %</td><td>−0,99 mV</td></tr>
+            <tr><td class="sym">10⁵</td><td>99,90</td><td>−0,10 %</td><td>−0,10 mV</td></tr>
+          </table>
+          <p style="margin-top:1em"><strong>(b)</strong> Se A cair de 100.000 para 50.000 — uma variação de <strong>−50 %</strong> —, a Equação 2.5 dá |G| = 99,80. Ou seja: uma variação de −50 % no ganho de malha aberta produz apenas <span class="y">−0,1 %</span> no ganho em malha fechada.</p>
+          <p class="note">É esta a demonstração numérica da troca do capítulo. Note também que v₁ só é "terra virtual" na medida em que A é grande: com A = 10³ ele já está a 9 mV do terra.</p>
+        </div>
+
+        <h3 style="margin-top:40px;font-size:1.25rem">2.2.3 · Resistências de entrada e de saída</h3>
+        <div class="eq">R<sub>i</sub> ≡ v<sub>I</sub>/i<sub>1</sub> = v<sub>I</sub>/(v<sub>I</sub>/R<sub>1</sub>) = <span class="y">R<sub>1</sub></span> &nbsp;&nbsp;·&nbsp;&nbsp; R<sub>o</sub> = <span class="y">0</span></div>
+        <p>A resistência de entrada do <strong>circuito</strong> é apenas R₁ — finita e frequentemente pequena. Isso é um defeito: forma um divisor com a resistência da fonte de sinal e atenua o sinal. E não dá para simplesmente aumentar R₁, porque o ganho exigido R₂/R₁ obrigaria R₂ a valores impraticáveis (dezenas de MΩ). A resistência de saída é zero porque a saída é tomada nos terminais de uma fonte de tensão ideal.</p>
+
+        <div class="example">
+          <div class="ex-head">Exemplo 2.2 — a rede T resolve o impasse</div>
+          <p><strong>Problema:</strong> projetar um amplificador inversor com ganho −100 e impedância de entrada de 1 MΩ, usando apenas resistores de até 1 MΩ.</p>
+          <p>Com a configuração inversora comum, R₁ = 1 MΩ exigiria R₂ = 100 MΩ — impraticável. A saída é substituir R₂ por uma <strong>rede T</strong>: R₂ do terra virtual até o nó x, R₃ de x ao terra, e R₄ de x até a saída. A análise (terra virtual, i₁ = v<sub>I</sub>/R₁, i₂ = i₁, v<sub>x</sub> = −(R₂/R₁)v<sub>I</sub>, i₃ = v<sub>x</sub>/(−R₃), i₄ = i₂ + i₃) leva a</p>
+          <div class="eq" style="font-size:1.1rem">v<sub>O</sub>/v<sub>I</sub> = −(R<sub>2</sub>/R<sub>1</sub>)·(1 + R<sub>4</sub>/R<sub>2</sub> + R<sub>4</sub>/R<sub>3</sub>)</div>
+          <p><strong>Projeto:</strong> R₁ = 1 MΩ (garante a impedância de entrada) e R₂ = 1 MΩ (máximo permitido) fazem o primeiro fator valer 1. Restam R₃ e R₄ para produzir 100 no segundo fator; com R₄ = 1 MΩ, resulta R₃ ≈ <span class="y">10,2 kΩ</span>. Três resistores de 1 MΩ e um de 10,2 kΩ — contra um de 100 MΩ.</p>
+          <p><strong>Por que funciona:</strong> pelo terra virtual, R₂ e R₃ ficam efetivamente em paralelo. Fazendo R₃ = R₂/k (k > 1), R₃ conduz k vezes a corrente de R₂: i₃ = k·i₁ e i₄ = (k+1)·i₁. É essa <em class="term">multiplicação de corrente</em> que produz uma queda maior em R₄ — e portanto um v<sub>O</sub> maior — sem exigir R₄ elevado.</p>
+        </div>
+
+        <h3 style="margin-top:40px;font-size:1.25rem">2.2.4 · O somador ponderado</h3>
+        <p>Aplicação direta do terra virtual: vários sinais entram por resistores próprios no mesmo nó inversor. Como o nó está em 0 V, <strong>cada corrente é independente das demais</strong> — não há interação entre as entradas.</p>
+
+        <figure class="panel">
+          <svg viewBox="0 -18 560 300" xmlns="http://www.w3.org/2000/svg">
+            <g font-family="Kalam" font-size="15" fill="var(--chalk-dim)">
+              <text x="8" y="66">v1</text><text x="8" y="126">v2</text><text x="8" y="196">vn</text>
+            </g>
+            <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+              <line x1="36" y1="60" x2="70" y2="60"/><line x1="36" y1="120" x2="70" y2="120"/><line x1="36" y1="190" x2="70" y2="190"/>
+            </g>
+            <polyline points="70,60 80,60 87,48 101,72 115,48 129,72 136,60 150,60" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <polyline points="70,120 80,120 87,108 101,132 115,108 129,132 136,120 150,120" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <polyline points="70,190 80,190 87,178 101,202 115,178 129,202 136,190 150,190" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <g font-family="Kalam" font-size="15" fill="var(--orange)" text-anchor="middle">
+              <text x="108" y="42">R1</text><text x="108" y="102">R2</text><text x="108" y="172">Rn</text>
+            </g>
+            <text x="108" y="152" text-anchor="middle" font-family="Kalam" font-size="20" fill="var(--chalk-faint)">⋮</text>
+            <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+              <line x1="150" y1="60" x2="230" y2="60"/>
+              <line x1="150" y1="120" x2="230" y2="120"/>
+              <line x1="150" y1="190" x2="230" y2="190"/>
+              <line x1="230" y1="60" x2="230" y2="190"/>
+              <line x1="230" y1="120" x2="290" y2="120"/>
+            </g>
+            <circle cx="230" cy="120" r="4" fill="var(--chalk)"/>
+            <text x="238" y="146" font-family="Kalam" font-size="14" fill="var(--pink)">0 V</text>
+            <polygon points="290,80 290,180 420,130" fill="none" stroke="var(--chalk)" stroke-width="2.5"/>
+            <text x="304" y="126" font-family="Kalam" font-size="19" fill="var(--chalk)">−</text>
+            <text x="304" y="168" font-family="Kalam" font-size="19" fill="var(--chalk)">+</text>
+            <line x1="290" y1="168" x2="256" y2="168" stroke="var(--chalk)" stroke-width="2.2"/>
+            <line x1="256" y1="168" x2="256" y2="206" stroke="var(--chalk)" stroke-width="2.2"/>
+            <g stroke="var(--chalk)" stroke-width="2">
+              <line x1="245" y1="207" x2="267" y2="207"/><line x1="249" y1="214" x2="263" y2="214"/><line x1="253" y1="221" x2="259" y2="221"/>
+            </g>
+            <line x1="420" y1="130" x2="500" y2="130" stroke="var(--chalk)" stroke-width="2.2"/>
+            <circle cx="466" cy="130" r="4" fill="var(--yellow)"/>
+            <text x="508" y="136" font-family="Kalam" font-size="16" fill="var(--yellow)">vO</text>
+            <line x1="466" y1="130" x2="466" y2="24" stroke="var(--chalk)" stroke-width="2.2"/>
+            <line x1="466" y1="24" x2="380" y2="24" stroke="var(--chalk)" stroke-width="2.2"/>
+            <polyline points="380,24 370,24 363,12 349,36 335,12 321,36 314,24 300,24" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <text x="342" y="8" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">Rf</text>
+            <line x1="300" y1="24" x2="230" y2="24" stroke="var(--chalk)" stroke-width="2.2"/>
+            <line x1="230" y1="24" x2="230" y2="60" stroke="var(--chalk)" stroke-width="2.2"/>
+            <polygon points="196,54 208,60 196,66" fill="var(--yellow)"/>
+            <polygon points="196,114 208,120 196,126" fill="var(--yellow)"/>
+            <polygon points="196,184 208,190 196,196" fill="var(--yellow)"/>
+          </svg>
+          <figcaption>Somador ponderado. As correntes i₁ = v₁/R₁, i₂ = v₂/R₂, … somam-se no terra virtual e são forçadas a circular por R<sub>f</sub>.</figcaption>
+        </figure>
+
+        <div class="eq"><span class="hand-box">v<sub>O</sub> = −(R<sub>f</sub>/R<sub>1</sub>·v<sub>1</sub> + R<sub>f</sub>/R<sub>2</sub>·v<sub>2</sub> + … + R<sub>f</sub>/R<sub>n</sub>·v<sub>n</sub>)</span> &nbsp;<span class="dim">(2.7)</span></div>
+        <p>Cada coeficiente da soma é ajustado <strong>independentemente</strong> pelo seu resistor de "admissão". Limitação: todos os coeficientes têm o mesmo sinal. Para somar com sinais opostos usa-se um segundo amp op em cascata.</p>
+      </section>
+
+
+      <!-- ============================================================
+           2.3 A CONFIGURAÇÃO NÃO INVERSORA
+           ============================================================ -->
+      <section class="content-section" id="m2-naoinversora">
+        <div class="eyebrow">2.3 · A CONFIGURAÇÃO NÃO INVERSORA</div>
+        <h2>O sinal entra pelo "+"</h2>
+        <p class="lead">Mesma malha de realimentação (R₁ e R₂ do terminal inversor), mas agora o sinal v<sub>I</sub> é aplicado <strong>diretamente</strong> ao terminal positivo, e o terminal livre de R₁ vai ao terra.</p>
+
+        <figure class="panel">
+          <svg viewBox="0 -16 600 298" xmlns="http://www.w3.org/2000/svg">
+            <!-- R1 ao terra -->
+            <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+              <line x1="60" y1="90" x2="60" y2="60"/>
+              <line x1="60" y1="90" x2="90" y2="90"/>
+            </g>
+            <g stroke="var(--chalk)" stroke-width="2">
+              <line x1="49" y1="58" x2="71" y2="58"/><line x1="53" y1="51" x2="67" y2="51"/><line x1="57" y1="44" x2="63" y2="44"/>
+            </g>
+            <polyline points="90,90 100,90 107,78 121,102 135,78 149,102 156,90 170,90" fill="none" stroke="var(--orange)" stroke-width="2.3"/>
+            <text x="128" y="70" text-anchor="middle" font-family="Kalam" font-size="16" fill="var(--orange)">R1</text>
+            <line x1="170" y1="90" x2="230" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+            <circle cx="200" cy="90" r="4" fill="var(--chalk)"/>
+            <text x="182" y="116" font-family="Kalam" font-size="14" fill="var(--pink)">v1</text>
+
+            <!-- amp op -->
+            <polygon points="230,50 230,180 380,115" fill="none" stroke="var(--chalk)" stroke-width="2.5"/>
+            <text x="246" y="96" font-family="Kalam" font-size="20" fill="var(--chalk)">−</text>
+            <text x="246" y="156" font-family="Kalam" font-size="20" fill="var(--chalk)">+</text>
+
+            <!-- fonte no + -->
+            <line x1="230" y1="148" x2="150" y2="148" stroke="var(--chalk)" stroke-width="2.2"/>
+            <circle cx="126" cy="148" r="24" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+            <text x="126" y="154" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk)">vI</text>
+            <line x1="126" y1="172" x2="126" y2="212" stroke="var(--chalk)" stroke-width="2.2"/>
+            <g stroke="var(--chalk)" stroke-width="2">
+              <line x1="115" y1="213" x2="137" y2="213"/><line x1="119" y1="220" x2="133" y2="220"/><line x1="123" y1="227" x2="129" y2="227"/>
+            </g>
+
+            <!-- saida -->
+            <line x1="380" y1="115" x2="470" y2="115" stroke="var(--chalk)" stroke-width="2.2"/>
+            <circle cx="440" cy="115" r="4" fill="var(--yellow)"/>
+            <line x1="470" y1="115" x2="540" y2="115" stroke="var(--chalk)" stroke-width="2.2"/>
+            <text x="548" y="121" font-family="Kalam" font-size="16" fill="var(--yellow)">vO</text>
+
+            <!-- R2 -->
+            <line x1="440" y1="115" x2="440" y2="28" stroke="var(--chalk)" stroke-width="2.2"/>
+            <line x1="440" y1="28" x2="360" y2="28" stroke="var(--chalk)" stroke-width="2.2"/>
+            <polyline points="360,28 350,28 343,16 329,40 315,16 301,40 294,28 280,28" fill="none" stroke="var(--orange)" stroke-width="2.3"/>
+            <text x="320" y="12" text-anchor="middle" font-family="Kalam" font-size="16" fill="var(--orange)">R2</text>
+            <line x1="280" y1="28" x2="200" y2="28" stroke="var(--chalk)" stroke-width="2.2"/>
+            <line x1="200" y1="28" x2="200" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+          </svg>
+          <figcaption>Configuração não inversora. R₁ e R₂ formam um divisor de tensão no caminho da realimentação, devolvendo uma fração de v<sub>O</sub> ao terminal inversor.</figcaption>
+        </figure>
+
+        <p><strong>Análise.</strong> Com A infinito, v<sub>Id</sub> = v<sub>O</sub>/A = 0, então o terminal inversor está em v<sub>I</sub>. A corrente em R₁ vale v<sub>I</sub>/R₁ e, como nada entra no amp op, circula toda por R₂:</p>
+        <div class="eq">
+          v<sub>O</sub> = v<sub>I</sub> + (v<sub>I</sub>/R<sub>1</sub>)·R<sub>2</sub><br>
+          <span class="hand-box">v<sub>O</sub>/v<sub>I</sub> = 1 + R<sub>2</sub>/R<sub>1</sub></span> &nbsp;<span class="dim">(2.9)</span>
+        </div>
+
+        <p>Uma segunda leitura, equivalente: como nenhuma corrente entra no terminal inversor, R₁ e R₂ agem como um divisor puro sobre v<sub>O</sub>,</p>
+        <div class="eq">v<sub>1</sub> = v<sub>O</sub>·R<sub>1</sub>/(R<sub>1</sub> + R<sub>2</sub>) &nbsp;<span class="dim">(2.10)</span></div>
+        <p>e o curto virtual força esse valor a igualar v<sub>I</sub>, o que reproduz a Equação 2.9.</p>
+
+        <div class="attn">
+          <span class="tag">realimentação degenerativa</span>
+          Vale acompanhar o mecanismo: um aumento em v<sub>I</sub> aumenta v<sub>Id</sub>, o que aumenta v<sub>O</sub> pelo ganho enorme de A; parte desse aumento volta ao terminal inversor pelo divisor e <strong>age contra</strong> o aumento de v<sub>Id</sub>, levando-o de volta a zero. O equilíbrio se estabelece com um v<sub>O</sub> maior correspondendo a um v<sub>I</sub> maior. Essa ação contrária dá à realimentação negativa o nome alternativo de <em class="term">degenerativa</em>.
+        </div>
 
         <table class="spec">
-          <tr><th>Grandeza</th><th>Símbolo</th><th>Valor (ideal)</th></tr>
-          <tr><td>Ganho de tensão</td><td class="sym">G</td><td>−R2 / R1</td></tr>
-          <tr><td>Impedância de entrada do circuito</td><td class="sym">Zin</td><td>R1</td></tr>
-          <tr><td>Impedância de saída do circuito</td><td class="sym">Zout</td><td>≈ 0</td></tr>
-          <tr><td>Tensão no nó v1</td><td class="sym">v1</td><td>0 V (terra virtual)</td></tr>
+          <tr><th>Grandeza</th><th>Inversora</th><th>Não inversora</th></tr>
+          <tr><td>Ganho</td><td class="sym">−R₂/R₁</td><td class="sym">1 + R₂/R₁</td></tr>
+          <tr><td>Sinal</td><td>invertido (180°)</td><td>em fase</td></tr>
+          <tr><td>Resistência de entrada</td><td>R₁ (finita)</td><td>∞ (nada entra pelo "+")</td></tr>
+          <tr><td>Resistência de saída</td><td>0</td><td>0</td></tr>
+          <tr><td>Ganho mínimo possível</td><td>qualquer valor</td><td>1 (não pode atenuar)</td></tr>
+          <tr><td>Ganho com A finito</td><td class="sym">(−R₂/R₁)/[1+(1+R₂/R₁)/A]</td><td class="sym">(1+R₂/R₁)/[1+(1+R₂/R₁)/A] &nbsp;<span class="dim">(2.11)</span></td></tr>
+        </table>
+        <p class="note">Os denominadores das duas expressões são idênticos — não é coincidência: as duas configurações têm exatamente a mesma malha de realimentação, que fica visível quando se curto-circuita a fonte de sinal. O que muda é só o numerador, o ganho nominal.</p>
+
+        <h3 style="margin-top:40px;font-size:1.25rem">2.3.4 · O seguidor de tensão</h3>
+        <p>Fazendo R₂ = 0 e R₁ = ∞ na Equação 2.9, obtém-se o <strong>amplificador de ganho unitário</strong>, ou seguidor de tensão: a saída inteira é realimentada para a entrada inversora — 100 % de realimentação negativa.</p>
+
+        <figure class="panel">
+          <svg viewBox="0 0 460 220" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="150,45 150,165 290,105" fill="none" stroke="var(--chalk)" stroke-width="2.5"/>
+            <text x="166" y="88" font-family="Kalam" font-size="19" fill="var(--chalk)">−</text>
+            <text x="166" y="146" font-family="Kalam" font-size="19" fill="var(--chalk)">+</text>
+            <line x1="150" y1="138" x2="80" y2="138" stroke="var(--chalk)" stroke-width="2.2"/>
+            <circle cx="56" cy="138" r="22" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+            <text x="56" y="144" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk)">vI</text>
+            <line x1="56" y1="160" x2="56" y2="192" stroke="var(--chalk)" stroke-width="2.2"/>
+            <g stroke="var(--chalk)" stroke-width="2">
+              <line x1="45" y1="193" x2="67" y2="193"/><line x1="49" y1="200" x2="63" y2="200"/><line x1="53" y1="207" x2="59" y2="207"/>
+            </g>
+            <line x1="290" y1="105" x2="400" y2="105" stroke="var(--chalk)" stroke-width="2.2"/>
+            <circle cx="340" cy="105" r="4" fill="var(--yellow)"/>
+            <text x="408" y="111" font-family="Kalam" font-size="16" fill="var(--yellow)">vO = vI</text>
+            <line x1="340" y1="105" x2="340" y2="26" stroke="var(--chalk)" stroke-width="2.2"/>
+            <line x1="340" y1="26" x2="122" y2="26" stroke="var(--chalk)" stroke-width="2.2"/>
+            <line x1="122" y1="26" x2="122" y2="78" stroke="var(--chalk)" stroke-width="2.2"/>
+            <line x1="122" y1="78" x2="150" y2="78" stroke="var(--chalk)" stroke-width="2.2"/>
+          </svg>
+          <figcaption>Seguidor de tensão: v<sub>O</sub> = v<sub>I</sub>, R<sub>in</sub> = ∞, R<sub>out</sub> = 0.</figcaption>
+        </figure>
+
+        <p>Ganho unitário parece inútil, mas não é: o seguidor serve de <strong>buffer</strong> (isolador), transformando impedâncias. Um estágio com alta resistência de saída consegue, através dele, acionar uma carga de baixa impedância sem perder sinal no divisor. É um transformador de impedâncias, ou um amplificador de potência — não de tensão.</p>
+      </section>
+
+      <!-- ============================================================
+           2.4 AMPLIFICADORES DE DIFERENÇAS
+           ============================================================ -->
+      <section class="content-section" id="m2-diferencas">
+        <div class="eyebrow">2.4 · AMPLIFICADORES DE DIFERENÇAS</div>
+        <h2>Amplificar a diferença, rejeitar o que é comum</h2>
+        <p class="lead">Um amplificador de diferenças responde à diferença entre dois sinais de entrada e idealmente rejeita por completo o que houver de comum a eles. Circuitos práticos entregam</p>
+
+        <div class="eq">v<sub>O</sub> = A<sub>d</sub>·v<sub>Id</sub> + A<sub>cm</sub>·v<sub>Icm</sub> &nbsp;<span class="dim">(2.13)</span></div>
+        <p>e a eficácia da rejeição é quantificada pela <strong>razão de rejeição de modo comum</strong>:</p>
+        <div class="eq"><span class="hand-box">CMRR = 20 log |A<sub>d</sub>/A<sub>cm</sub>| &nbsp;dB</span> &nbsp;<span class="dim">(2.14)</span></div>
+
+        <div class="attn">
+          <span class="tag">por que isso importa na bancada</span>
+          Um transdutor entrega 1 mV entre seus dois terminais, mas os dois fios podem estar ambos a 1 V de interferência em relação ao terra do instrumento. Medir só a diferença é o que separa a leitura útil do lixo. E a pergunta natural — "o amp op já não é um amplificador de diferenças?" — tem resposta clara: é, mas com ganho grande demais e imprevisível para ser usado sozinho.
+        </div>
+
+        <h3 style="margin-top:34px;font-size:1.25rem">2.4.1 · O amplificador de diferenças de um amp op</h3>
+        <p>A ideia: combinar as duas configurações, já que a não inversora tem ganho +(1 + R₂/R₁) e a inversora −(R₂/R₁). Para os ganhos ficarem iguais em módulo, atenua-se o caminho positivo com um divisor R₃–R₄:</p>
+        <div class="eq">
+          [R<sub>4</sub>/(R<sub>4</sub>+R<sub>3</sub>)]·(1 + R<sub>2</sub>/R<sub>1</sub>) = R<sub>2</sub>/R<sub>1</sub>
+          &nbsp;&nbsp;⟹&nbsp;&nbsp; <span class="hand-box">R<sub>4</sub>/R<sub>3</sub> = R<sub>2</sub>/R<sub>1</sub></span> &nbsp;<span class="dim">(2.15)</span>
+        </div>
+
+        <figure class="panel">
+          <svg viewBox="0 -16 560 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- entrada 1 -->
+            <text x="8" y="88" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">vI1</text>
+            <line x1="40" y1="82" x2="70" y2="82" stroke="var(--chalk)" stroke-width="2.2"/>
+            <polyline points="70,82 80,82 87,70 101,94 115,70 129,94 136,82 150,82" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <text x="103" y="64" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">R1</text>
+            <line x1="150" y1="82" x2="240" y2="82" stroke="var(--chalk)" stroke-width="2.2"/>
+            <circle cx="200" cy="82" r="4" fill="var(--chalk)"/>
+            <!-- entrada 2 -->
+            <text x="8" y="178" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">vI2</text>
+            <line x1="40" y1="172" x2="70" y2="172" stroke="var(--chalk)" stroke-width="2.2"/>
+            <polyline points="70,172 80,172 87,160 101,184 115,160 129,184 136,172 150,172" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <text x="103" y="154" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">R3</text>
+            <line x1="150" y1="172" x2="240" y2="172" stroke="var(--chalk)" stroke-width="2.2"/>
+            <circle cx="212" cy="172" r="4" fill="var(--chalk)"/>
+            <!-- R4 ao terra -->
+            <polyline points="212,172 212,186 200,193 224,207 200,221 224,235 212,242 212,252" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <g stroke="var(--chalk)" stroke-width="2">
+              <line x1="201" y1="253" x2="223" y2="253"/><line x1="205" y1="260" x2="219" y2="260"/><line x1="209" y1="267" x2="215" y2="267"/>
+            </g>
+            <text x="188" y="216" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--orange)">R4</text>
+            <!-- amp op -->
+            <polygon points="240,42 240,212 380,127" fill="none" stroke="var(--chalk)" stroke-width="2.5"/>
+            <text x="256" y="88" font-family="Kalam" font-size="20" fill="var(--chalk)">−</text>
+            <text x="256" y="180" font-family="Kalam" font-size="20" fill="var(--chalk)">+</text>
+            <!-- saida -->
+            <line x1="380" y1="127" x2="500" y2="127" stroke="var(--chalk)" stroke-width="2.2"/>
+            <circle cx="452" cy="127" r="4" fill="var(--yellow)"/>
+            <text x="508" y="133" font-family="Kalam" font-size="16" fill="var(--yellow)">vO</text>
+            <!-- R2 -->
+            <line x1="452" y1="127" x2="452" y2="24" stroke="var(--chalk)" stroke-width="2.2"/>
+            <line x1="452" y1="24" x2="370" y2="24" stroke="var(--chalk)" stroke-width="2.2"/>
+            <polyline points="370,24 360,24 353,12 339,36 325,12 311,36 304,24 290,24" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <text x="332" y="8" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">R2</text>
+            <line x1="290" y1="24" x2="200" y2="24" stroke="var(--chalk)" stroke-width="2.2"/>
+            <line x1="200" y1="24" x2="200" y2="82" stroke="var(--chalk)" stroke-width="2.2"/>
+          </svg>
+          <figcaption>Amplificador de diferenças com um amp op. A condição de casamento R₄/R₃ = R₂/R₁ é o que anula o ganho de modo comum.</figcaption>
+        </figure>
+
+        <p>Por superposição (o circuito é linear): aterrando v<sub>I2</sub> restam a inversora, v<sub>O1</sub> = −(R₂/R₁)v<sub>I1</sub>; aterrando v<sub>I1</sub> resta a não inversora com divisor, v<sub>O2</sub> = +(R₂/R₁)v<sub>I2</sub>. Somando:</p>
+        <div class="eq">
+          <span class="hand-box">v<sub>O</sub> = (R<sub>2</sub>/R<sub>1</sub>)(v<sub>I2</sub> − v<sub>I1</sub>) = (R<sub>2</sub>/R<sub>1</sub>)·v<sub>Id</sub></span> &nbsp;<span class="dim">(2.16)</span><br>
+          A<sub>d</sub> = R<sub>2</sub>/R<sub>1</sub> &nbsp;<span class="dim">(2.17)</span>
+        </div>
+        <p>A escolha mais simples que satisfaz o casamento é <code>R₃ = R₁</code> e <code>R₄ = R₂</code>. Nessas condições A<sub>cm</sub> = 0 e o CMRR é infinito. Mas qualquer <strong>descasamento</strong> nas razões torna A<sub>cm</sub> ≠ 0 e o CMRR finito:</p>
+        <div class="eq" style="font-size:1.05rem">A<sub>cm</sub> = [R<sub>4</sub>/(R<sub>4</sub>+R<sub>3</sub>)]·(1 − R<sub>2</sub>R<sub>3</sub>/R<sub>1</sub>R<sub>4</sub>) &nbsp;<span class="dim">(2.19)</span></div>
+
+        <h3 style="margin-top:34px;font-size:1.25rem">O defeito deste circuito</h3>
+        <p>Para rejeitar modo comum é preciso também <strong>alta resistência de entrada</strong>. Com R₃ = R₁ e R₄ = R₂, a resistência vista por v<sub>Id</sub> vale</p>
+        <div class="eq">R<sub>id</sub> ≡ v<sub>Id</sub>/i<sub>I</sub> = <span class="y">2R<sub>1</sub></span> &nbsp;<span class="dim">(2.20)</span></div>
+        <p>— baixa, e pior: para obter ganho alto (R₂/R₁ grande) é preciso R₁ pequeno, o que derruba ainda mais a resistência de entrada. <strong>Ganho e resistência de entrada estão acoplados</strong>, e é isso que motiva o próximo circuito.</p>
+
+        <h3 style="margin-top:40px;font-size:1.25rem">2.4.2 · O amplificador de instrumentação</h3>
+        <p>A solução: colocar um <strong>buffer</strong> na frente de cada entrada. Dois amp ops não inversores (A₁ e A₂) alimentam o amplificador de diferenças (A₃). O truque final é <em class="term">remover o terra</em> entre os dois resistores R₁ do primeiro estágio, unindo-os em série (2R₁) — assim o primeiro estágio amplifica o sinal diferencial com ganho (1 + R₂/R₁) e deixa o modo comum passar com ganho <strong>unitário</strong>.</p>
+
+        <div class="eq"><span class="hand-box">v<sub>O</sub> = (R<sub>4</sub>/R<sub>3</sub>)·(1 + R<sub>2</sub>/R<sub>1</sub>)·v<sub>Id</sub></span></div>
+
+        <table class="spec">
+          <tr><th>Vantagem</th><th>Consequência</th></tr>
+          <tr><td>Resistência de entrada infinita</td><td>o sinal entra pelos terminais "+" de A₁ e A₂</td></tr>
+          <tr><td>Modo comum com ganho 1 no 1º estágio</td><td>o CMRR do conjunto melhora na razão do ganho diferencial</td></tr>
+          <tr><td>Ganho ajustado por 2R₁</td><td>um único resistor (frequentemente variável) fixa o ganho, sem quebrar o casamento de R₃/R₄</td></tr>
         </table>
       </section>
 
-      <!-- ============================================================
-           A REAL
-           ============================================================ -->
-      <section class="content-section" id="real">
-        <div class="eyebrow">A REAL</div>
-        <h2>Amplificador Operacional Real</h2>
-        <p class="lead">Além das cinco características já comparadas (Amp Op ideal), o CI real tem outras imperfeições:</p>
 
-        <div class="ideal-item"><span class="num">·</span>
-          <div class="claim">Tensão de offset &nbsp; <span class="val">Vos</span></div>
-          <div class="pratica">Com as duas entradas em 0 V, a saída não fica em 0 V — assimetria de fabricação do par diferencial. No 741, Vos típico ≈ 1 mV (máx. ≈ 6 mV).</div>
+      <!-- ============================================================
+           2.5 GANHO FINITO E RESPOSTA EM FREQUÊNCIA
+           ============================================================ -->
+      <section class="content-section" id="m2-banda">
+        <div class="eyebrow">2.5 · GANHO FINITO E LARGURA DE FAIXA</div>
+        <h2>O ganho não é infinito — e cai com a frequência</h2>
+        <p class="lead">Amp ops de uso geral são <em class="term">compensados internamente</em>: um capacitor dentro do CI faz o ganho cair a −20 dB/década a partir de uma frequência baixíssima. A resposta é a de um <strong>polo simples</strong> (polo dominante):</p>
+
+        <div class="eq">A(s) = A<sub>0</sub> / (1 + s/ω<sub>b</sub>) &nbsp;<span class="dim">(2.24)</span></div>
+        <p>Valores típicos: A₀ ≈ 10⁵ V/V (100 dB) e f<sub>b</sub> ≈ 10 Hz.</p>
+
+        <figure class="panel">
+          <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg">
+            <line x1="60" y1="30" x2="60" y2="255" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+            <line x1="60" y1="250" x2="470" y2="250" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+            <text x="26" y="26" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">|A| (dB)</text>
+            <text x="452" y="288" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">f (Hz)</text>
+            <g font-family="Kalam" font-size="12" fill="var(--chalk-faint)" text-anchor="end">
+              <text x="54" y="255">0</text><text x="54" y="217">20</text><text x="54" y="179">40</text>
+              <text x="54" y="141">60</text><text x="54" y="103">80</text><text x="54" y="65">100</text>
+            </g>
+            <g font-family="Kalam" font-size="12" fill="var(--chalk-faint)" text-anchor="middle">
+              <text x="60" y="268">1</text><text x="115" y="268">10</text><text x="170" y="268">10²</text>
+              <text x="225" y="268">10³</text><text x="280" y="268">10⁴</text><text x="335" y="268">10⁵</text>
+              <text x="390" y="268">10⁶</text><text x="445" y="268">10⁷</text>
+            </g>
+            <!-- malha aberta -->
+            <polyline points="60,60 115,60 390,250" fill="none" stroke="var(--yellow)" stroke-width="2.8"/>
+            <text x="66" y="52" font-family="Kalam" font-size="14" fill="var(--yellow)">A₀ = 100 dB</text>
+            <g stroke="var(--chalk-faint)" stroke-width="1" stroke-dasharray="4,4">
+              <line x1="115" y1="60" x2="115" y2="250"/>
+              <line x1="390" y1="250" x2="390" y2="60"/>
+            </g>
+            <text x="122" y="242" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">f</text>
+            <text x="129" y="246" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">b</text>
+            <text x="398" y="242" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">f</text>
+            <text x="405" y="246" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">t</text>
+            <text x="256" y="112" font-family="Kalam" font-size="13" fill="var(--chalk-dim)">−20 dB/década</text>
+            <path d="M 252,116 L 224,132" fill="none" stroke="var(--chalk-faint)" stroke-width="1.2"/>
+            <!-- malha fechada -->
+            <polyline points="60,174 280,174" fill="none" stroke="var(--pink)" stroke-width="2.4" stroke-dasharray="7,4"/>
+            <polyline points="60,212 335,212" fill="none" stroke="var(--orange)" stroke-width="2.4" stroke-dasharray="7,4"/>
+            <text x="70" y="168" font-family="Kalam" font-size="13" fill="var(--pink)">G = 100 (40 dB) → 10 kHz</text>
+            <text x="70" y="206" font-family="Kalam" font-size="13" fill="var(--orange)">G = 10 (20 dB) → 100 kHz</text>
+          </svg>
+          <figcaption>O ganho em malha fechada "corta" a curva de malha aberta: onde os dois se encontram está a frequência de 3 dB do amplificador realimentado.</figcaption>
+        </figure>
+
+        <p>Acima de f<sub>b</sub> a curva pode ser aproximada por uma reta, e o ganho cai a zero dB na <strong>frequência de ganho unitário</strong> f<sub>t</sub>:</p>
+        <div class="eq">
+          ω<sub>t</sub> = A<sub>0</sub>·ω<sub>b</sub> &nbsp;<span class="dim">(2.28)</span> &nbsp;&nbsp;⟹&nbsp;&nbsp;
+          <span class="hand-box">|A(jω)| ≈ f<sub>t</sub> / f</span> &nbsp;<span class="dim">(2.31)</span>
         </div>
-        <div class="ideal-item"><span class="num">·</span>
-          <div class="claim">Correntes de polarização &nbsp; <span class="val">Ib, Ios</span></div>
-          <div class="pratica">A Regra 2 é aproximação: uma pequena corrente DC entra nos dois terminais (Ib ≈ 80 nA no 741). A diferença entre elas é Ios = |Ib+ − Ib−|.</div>
-        </div>
-        <div class="ideal-item"><span class="num">·</span>
-          <div class="claim">Taxa de subida (Slew Rate) &nbsp; <span class="val">SR</span></div>
-          <div class="pratica">Velocidade máxima de variação da saída, em V/µs. No 741, SR ≈ 0,5 V/µs — sinais rápidos saem distorcidos em rampa.</div>
-        </div>
-        <div class="ideal-item"><span class="num">·</span>
-          <div class="claim">Saturação</div>
-          <div class="pratica">v0 nunca ultrapassa a alimentação — na prática fica 1–2 V abaixo de +Vcc e acima de −Vcc. Ver Exemplo 2 abaixo.</div>
+        <p class="note">f<sub>t</sub> é o parâmetro preferido nos catálogos porque sua dispersão de peça para peça é muito menor que a de A₀ e f<sub>b</sub>. Como f<sub>t</sub> = A₀·f<sub>b</sub>, é também chamado de <strong>produto ganho-faixa de passagem</strong> (GB).</p>
+
+        <h3 style="margin-top:34px;font-size:1.25rem">2.5.2 · O que sobra em malha fechada</h3>
+        <p>Substituindo A(s) na expressão do ganho em malha fechada, a inversora e a não inversora resultam ambas numa rede passa-baixas de polo simples, com</p>
+        <div class="eq"><span class="hand-box">ω<sub>3dB</sub> = ω<sub>t</sub> / (1 + R<sub>2</sub>/R<sub>1</sub>)</span> &nbsp;<span class="dim">(2.35)</span></div>
+
+        <div class="example">
+          <div class="ex-head">Exemplo 2.4 — a troca ganho × banda, em números</div>
+          <p><strong>Dados:</strong> amp op com f<sub>t</sub> = 1 MHz. Calcular a frequência de 3 dB para vários ganhos nominais.</p>
+          <table class="spec">
+            <tr><th>Ganho em malha fechada</th><th>R₂/R₁</th><th>f<sub>3dB</sub> = f<sub>t</sub>/(1 + R₂/R₁)</th></tr>
+            <tr><td class="sym">+1.000</td><td>999</td><td>1 kHz</td></tr>
+            <tr><td class="sym">+100</td><td>99</td><td>10 kHz</td></tr>
+            <tr><td class="sym">+10</td><td>9</td><td>100 kHz</td></tr>
+            <tr><td class="sym">+1</td><td>0</td><td>1 MHz</td></tr>
+            <tr><td class="sym">−1</td><td>1</td><td>0,5 MHz</td></tr>
+            <tr><td class="sym">−10</td><td>10</td><td>90,9 kHz</td></tr>
+            <tr><td class="sym">−100</td><td>100</td><td>9,9 kHz</td></tr>
+            <tr><td class="sym">−1.000</td><td>1.000</td><td>≈ 1 kHz</td></tr>
+          </table>
+          <p style="margin-top:1em">Duas leituras. Primeira: <strong>quanto menor o ganho pedido, maior a banda</strong> — a configuração não inversora tem produto ganho-faixa constante e igual a f<sub>t</sub>. Segunda, mais sutil: o inversor de ganho unitário tem f<sub>3dB</sub> = f<sub>t</sub>/2, metade da do seguidor de ganho unitário. O que fixa a banda é 1 + R₂/R₁, não |G|.</p>
         </div>
       </section>
 
       <!-- ============================================================
-           EXEMPLOS
+           2.6 OPERAÇÃO PARA GRANDES SINAIS
            ============================================================ -->
-      <section class="content-section" id="exemplos">
-        <div class="eyebrow">EXEMPLOS</div>
-        <h2>Exemplos!</h2>
+      <section class="content-section" id="m2-grandes">
+        <div class="eyebrow">2.6 · OPERAÇÃO PARA GRANDES SINAIS</div>
+        <h2>Três tetos diferentes na saída</h2>
+        <p class="lead">A limitação da Seção 2.5 é de <em>pequeno sinal</em> e linear. Existem outras três, todas não lineares, que aparecem quando a amplitude cresce.</p>
+
+        <h3 style="margin-top:24px;font-size:1.25rem">2.6.1 · Saturação da tensão de saída</h3>
+        <p>Como qualquer amplificador (Seção 1.4.7), o amp op satura em L₊ e L₋, tipicamente cerca de <strong>2 V</strong> aquém das fontes. Com alimentação de ±15 V, a saturação ocorre em torno de ±13 V — a <em class="term">tensão de saída nominal</em> do catálogo.</p>
+
+        <figure class="panel">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <line x1="200" y1="20" x2="200" y2="380" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+            <line x1="20" y1="200" x2="380" y2="200" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+            <text x="204" y="32" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">vO</text>
+            <text x="352" y="216" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">vI</text>
+            <line x1="40" y1="68" x2="360" y2="68" stroke="var(--pink)" stroke-width="1" stroke-dasharray="4,5"/>
+            <line x1="40" y1="332" x2="360" y2="332" stroke="var(--pink)" stroke-width="1" stroke-dasharray="4,5"/>
+            <text x="272" y="62" font-family="Kalam" font-size="13" fill="var(--pink)">L₊ ≈ +13 V</text>
+            <text x="266" y="348" font-family="Kalam" font-size="13" fill="var(--pink)">L₋ ≈ −13 V</text>
+            <polyline points="40,68 141,68 259,332 360,332" fill="none" stroke="var(--yellow)" stroke-width="2.6" stroke-linejoin="round"/>
+            <text x="66" y="106" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">±15 V de alimentação</text>
+          </svg>
+          <figcaption>Amplificador inversor alimentado com ±15 V: a saída não passa de ≈ ±13 V. Para evitar ceifamento, o sinal de entrada precisa ficar dentro de L₋/G ≤ v<sub>I</sub> ≤ L₊/G.</figcaption>
+        </figure>
+
+        <h3 style="margin-top:34px;font-size:1.25rem">2.6.2 · Limite de corrente de saída</h3>
+        <p>O 741 é especificado para fornecer no máximo <strong>±20 mA</strong>. A conta precisa incluir a corrente da carga <em>e</em> a corrente da malha de realimentação. Se o circuito externo exigir mais, a saída satura num nível correspondente à corrente máxima — não à tensão.</p>
 
         <div class="example">
-          <div class="ex-head">Exemplo 1 — ganho inversor básico</div>
-          <p><strong>Dados:</strong> R1 = 1 kΩ, R2 = 10 kΩ, vi = 0,5 V. Amp op ideal.</p>
+          <div class="ex-head">Exemplo 2.5 — qual limite chega primeiro?</div>
+          <p><strong>Dados:</strong> amplificador não inversor com R₁ = 1 kΩ, R₂ = 9 kΩ (ganho nominal 10 V/V), alimentado por um amp op que satura em ±13 V e tem limite de corrente de ±20 mA. Entrada senoidal de baixa frequência com pico V<sub>p</sub>, carga R<sub>L</sub>.</p>
+
+          <p style="margin-top:1em"><strong>(a) V<sub>p</sub> = 1 V, R<sub>L</sub> = 1 kΩ.</strong> A saída seria uma senoide de 10 V de pico — abaixo de 13 V, sem ceifamento. No pico:</p>
           <div class="eq">
-            G = −R2/R1 = −10 kΩ/1 kΩ = <span class="y">−10</span><br>
-            v0 = G · vi = −10 · 0,5 V = <span class="y">−5 V</span>
+            i<sub>L</sub> = 10 V / 1 kΩ = 10 mA &nbsp;·&nbsp; i<sub>F</sub> = 10 V / (9+1) kΩ = 1 mA<br>
+            i<sub>O</sub> = 10 + 1 = <span class="y">11 mA</span> &nbsp;<span class="dim">(bem abaixo de 20 mA)</span>
           </div>
-          <p style="margin-top:.8em">Zin = R1 = 1 kΩ: a fonte de sinal enxerga só 1 kΩ de carga.</p>
+          <p>Nenhum dos dois limites é atingido: senoide limpa de 10 V de pico.</p>
+
+          <p style="margin-top:1em"><strong>(b) V<sub>p</sub> = 1,5 V, R<sub>L</sub> = 1 kΩ.</strong> Idealmente a saída teria 15 V de pico — mas o amp op satura em ±13 V. Verificando a corrente nesse nível: i<sub>L</sub> = 13 mA, i<sub>F</sub> = 1,3 mA, i<sub>O</sub> = 14,3 mA, ainda abaixo de 20 mA. Portanto a saída é uma senoide <span style="color:var(--pink)">ceifada em ±13 V</span> — quem limitou foi a <strong>tensão</strong>.</p>
+
+          <p style="margin-top:1em"><strong>(c) Maior V<sub>p</sub> sem distorção, com R<sub>L</sub> = 1 kΩ:</strong> a saída pode ir até 13 V de pico, logo V<sub>p,máx</sub> = 13/10 = <span class="y">1,3 V</span> (corrente de pico 14,3 mA, dentro do limite).</p>
+
+          <p style="margin-top:1em"><strong>(d) V<sub>p</sub> = 1 V, menor R<sub>L</sub> admissível:</strong> agora quem limita é a <strong>corrente</strong>. Com saída de 10 V de pico,</p>
+          <div class="eq">20 mA = 10 V/R<sub>Lmín</sub> + 10 V/(9 kΩ + 1 kΩ) &nbsp;⟹&nbsp; R<sub>Lmín</sub> = <span class="y">526 Ω</span></div>
+          <p class="note">A moral: com carga pesada, o limite de corrente aparece antes da saturação de tensão. Sempre cheque os dois.</p>
         </div>
 
-        <div class="example">
-          <div class="ex-head">Exemplo 2 — quando o modelo ideal "quebra": saturação</div>
-          <p><strong>Dados:</strong> R1 = 1 kΩ, R2 = 100 kΩ, vi = 0,3 V, alimentação ±12 V (satura ≈ ±11 V na prática).</p>
+        <h3 style="margin-top:40px;font-size:1.25rem">2.6.3 · Slew rate</h3>
+        <p>Existe uma <strong>taxa máxima de variação</strong> da tensão de saída, especificada em V/µs:</p>
+        <div class="eq"><span class="hand-box">SR = dv<sub>O</sub>/dt |<sub>máx</sub></span> &nbsp;<span class="dim">(2.38)</span></div>
+        <p>Se o sinal exigir uma resposta mais rápida que isso, a saída não acompanha: em vez da forma esperada, ela sobe em <strong>rampa linear</strong> de inclinação SR.</p>
 
-          <div class="toggle-block">
-            <input type="checkbox" id="toggle-model" class="toggle-input">
-            <label for="toggle-model" class="toggle-label">
-              <span class="side ideal">modelo ideal</span>
-              <span class="toggle-track"><span class="toggle-thumb"></span></span>
-              <span class="side real">modelo real</span>
-            </label>
-            <div class="panels">
-              <div class="panel-view ideal">
-                <div class="eq">G = −100 kΩ/1 kΩ = −100<br>v0 = −100 · 0,3 V = <span class="y">−30 V</span></div>
-                <p>Matematicamente "correto" — mas impossível: a alimentação é só ±12 V.</p>
-              </div>
-              <div class="panel-view real">
-                <div class="eq">Previsão ideal: −30 V <span class="dim">(inatingível)</span><br>Saída real: <span style="color:var(--pink)">satura em ≈ −11 V</span></div>
-                <p>A saída bate no limite da alimentação e fica ceifada (clipping) — distorção, não amplificação linear.</p>
-              </div>
-            </div>
-          </div>
+        <figure class="panel">
+          <svg viewBox="0 0 480 250" xmlns="http://www.w3.org/2000/svg">
+            <line x1="50" y1="20" x2="50" y2="200" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+            <line x1="50" y1="200" x2="450" y2="200" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+            <text x="440" y="222" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">t</text>
+            <line x1="50" y1="60" x2="440" y2="60" stroke="var(--chalk-faint)" stroke-width="1" stroke-dasharray="4,4"/>
+            <text x="24" y="64" font-family="Kalam" font-size="14" fill="var(--chalk-dim)" text-anchor="end">V</text>
+            <!-- degrau de entrada -->
+            <polyline points="50,200 130,200 130,60 440,60" fill="none" stroke="var(--chalk-dim)" stroke-width="2.2" stroke-dasharray="6,4"/>
+            <text x="140" y="46" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">degrau de entrada (ideal)</text>
+            <!-- rampa de saida -->
+            <polyline points="130,200 300,60 440,60" fill="none" stroke="var(--yellow)" stroke-width="2.8"/>
+            <text x="214" y="180" font-family="Kalam" font-size="15" fill="var(--yellow)">inclinação = SR</text>
+            <path d="M 208,172 L 232,152" stroke="var(--yellow)" stroke-width="1.4"/>
+            <text x="306" y="94" font-family="Kalam" font-size="14" fill="var(--yellow)">saída real</text>
+          </svg>
+          <figcaption>Seguidor de ganho unitário com degrau na entrada. A saída não sobe instantaneamente: sobe em rampa, limitada pelo slew rate.</figcaption>
+        </figure>
 
-          <figure class="panel" style="margin-top:6px">
-            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-              <line x1="200" y1="20" x2="200" y2="380" stroke="var(--chalk-faint)" stroke-width="1.5"/>
-              <line x1="20" y1="200" x2="380" y2="200" stroke="var(--chalk-faint)" stroke-width="1.5"/>
-              <text x="204" y="32" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">v0</text>
-              <text x="352" y="216" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">vi</text>
-              <line x1="40" y1="68" x2="360" y2="68" stroke="var(--pink)" stroke-width="1" stroke-dasharray="4,5"/>
-              <line x1="40" y1="332" x2="360" y2="332" stroke="var(--pink)" stroke-width="1" stroke-dasharray="4,5"/>
-              <text x="278" y="62" font-family="Kalam" font-size="13" fill="var(--pink)">+Vsat ≈ 11V</text>
-              <text x="270" y="348" font-family="Kalam" font-size="13" fill="var(--pink)">−Vsat ≈ −11V</text>
-              <polyline points="40,68 141,68 259,332 360,332" fill="none" stroke="var(--yellow)" stroke-width="2.6" stroke-linejoin="round"/>
-            </svg>
-            <figcaption>Trecho linear com inclinação −R2/R1 no meio; fora dele, a saída satura.</figcaption>
-          </figure>
+        <div class="attn">
+          <span class="tag">slew rate ≠ largura de faixa</span>
+          A limitação de banda (2.5) é <strong>linear</strong>: uma senoide acima de f<sub>3dB</sub> sai menor e defasada, mas continua senoide. O slew rate é <strong>não linear</strong>: a senoide sai deformada, tendendo a triangular. O mesmo circuito pode estar bem dentro da banda e ainda assim distorcer, se a amplitude for grande.
         </div>
 
-        <div class="example">
-          <div class="ex-head">Exemplo 3 — erro por offset de entrada</div>
-          <p><strong>Dados:</strong> mesmo circuito do Exemplo 1 (G = −10), vi = 0 V, Vos = 2 mV.</p>
-          <div class="eq">v0(offset) ≈ Vos · (1 + R2/R1) = 2 mV · 11 = <span class="y">22 mV</span></div>
-          <p style="margin-top:.8em">Mesmo sem sinal, a saída não é 0 V — erro de zero de 22 mV, relevante em instrumentação de baixo nível.</p>
+        <h3 style="margin-top:34px;font-size:1.25rem">2.6.4 · Faixa de passagem a plena potência</h3>
+        <p>Para uma senoide de saída v<sub>O</sub> = V̂ sen ωt, a taxa máxima exigida é ωV̂. Igualando ao SR com V̂ = V<sub>Omáx</sub> (a tensão nominal de saída), define-se a <strong>faixa de passagem a plena potência</strong>:</p>
+        <div class="eq">
+          <span class="hand-box">f<sub>M</sub> = SR / (2π·V<sub>Omáx</sub>)</span> &nbsp;<span class="dim">(2.41)</span><br>
+          acima de f<sub>M</sub>: &nbsp; V̂<sub>o</sub> = V<sub>Omáx</sub>·(f<sub>M</sub>/f) &nbsp;<span class="dim">(2.42)</span>
         </div>
-
-        <h2 style="margin-top:48px;font-size:1.5rem">Resumo — configuração inversora</h2>
-        <table class="spec">
-          <tr><th>Parâmetro</th><th>Símbolo</th><th>Expressão</th></tr>
-          <tr><td>Regra de ouro 1</td><td class="sym">v1, v2</td><td>v1 = v2</td></tr>
-          <tr><td>Regra de ouro 2</td><td class="sym">i1, i2</td><td>i1 = i2 = 0</td></tr>
-          <tr><td>Ganho de tensão</td><td class="sym">G</td><td>−R2 / R1</td></tr>
-          <tr><td>Impedância de entrada</td><td class="sym">Zin</td><td>R1</td></tr>
-          <tr><td>Erro de offset na saída</td><td class="sym">v0,os</td><td>Vos · (1 + R2/R1)</td></tr>
-          <tr><td>Ganho-banda (741)</td><td class="sym">GBW</td><td>≈ 1 MHz</td></tr>
-        </table>
+        <p class="note">Exemplo do livro: com V<sub>Omáx</sub> = 10 V e SR = 1 V/µs, f<sub>M</sub> = 15,9 kHz. A 100 kHz, a maior senoide não distorcida tem apenas 1,6 V de pico.</p>
       </section>
 
       <!-- ============================================================
-           EXERCÍCIOS CONCEITUAIS
+           2.7 IMPERFEIÇÕES CC
+           ============================================================ -->
+      <section class="content-section" id="m2-cc">
+        <div class="eyebrow">2.7 · IMPERFEIÇÕES CC</div>
+        <h2>Erros que existem mesmo sem sinal</h2>
+
+        <h3 style="margin-top:12px;font-size:1.25rem">2.7.1 · Tensão de offset V<sub>OS</sub></h3>
+        <p class="lead">Com os dois terminais de entrada aterrados, a saída de um amp op real <strong>não</strong> fica em zero — normalmente vai direto para a saturação. Os dispositivos internos do estágio de entrada nunca são perfeitamente casados.</p>
+
+        <p>Define-se a <strong>tensão de offset de entrada</strong> V<sub>OS</sub> como a tensão cc que, aplicada entre os terminais, faz a saída retornar a zero. O modelo é uma bateria V<sub>OS</sub> em série com a entrada de um amp op <em>sem</em> offset. Valores típicos: <strong>1 mV a 5 mV</strong>. O catálogo não informa a polaridade — ela varia de peça para peça.</p>
+
+        <figure class="panel">
+          <svg viewBox="0 0 540 262" xmlns="http://www.w3.org/2000/svg">
+            <!-- amp op real: contorno tracejado -->
+            <polygon points="120,40 120,210 350,125" fill="none" stroke="var(--chalk-faint)" stroke-width="2" stroke-dasharray="6,5"/>
+            <text x="130" y="30" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">amp op real</text>
+            <!-- entradas -->
+            <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+              <line x1="30" y1="85" x2="175" y2="85"/>
+              <line x1="30" y1="165" x2="120" y2="165"/>
+            </g>
+            <text x="8" y="79" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">1</text>
+            <text x="8" y="172" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">2</text>
+            <!-- bateria Vos no ramo + -->
+            <circle cx="144" cy="165" r="20" fill="none" stroke="var(--pink)" stroke-width="2.2"/>
+            <text x="136" y="160" font-family="Kalam" font-size="14" fill="var(--pink)">−</text>
+            <text x="150" y="160" font-family="Kalam" font-size="14" fill="var(--pink)">+</text>
+            <text x="120" y="228" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--pink)">Vos</text>
+            <line x1="164" y1="165" x2="175" y2="165" stroke="var(--chalk)" stroke-width="2.2"/>
+            <!-- amp op sem offset -->
+            <polygon points="175,60 175,190 300,125" fill="rgba(237,237,225,.04)" stroke="var(--chalk)" stroke-width="2.4"/>
+            <text x="190" y="98" font-family="Kalam" font-size="18" fill="var(--chalk)">−</text>
+            <text x="190" y="162" font-family="Kalam" font-size="18" fill="var(--chalk)">+</text>
+            <text x="238" y="238" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">amp op sem offset</text>
+            <line x1="300" y1="125" x2="400" y2="125" stroke="var(--chalk)" stroke-width="2.2"/>
+            <circle cx="404" cy="125" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+            <text x="416" y="130" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">3</text>
+          </svg>
+          <figcaption>Modelo do amp op com tensão de offset: uma fonte cc V<sub>OS</sub> em série com um dos terminais de entrada de um amp op idealizado.</figcaption>
+        </figure>
+
+        <p>Para achar o efeito em malha fechada, curto-circuita-se a fonte de sinal (superposição) e resolve-se o circuito. Tanto a inversora quanto a não inversora dão o mesmo resultado:</p>
+        <div class="eq"><span class="hand-box">V<sub>O</sub> = V<sub>OS</sub>·(1 + R<sub>2</sub>/R<sub>1</sub>)</span> &nbsp;<span class="dim">(2.43)</span></div>
+
+        <p>O fator é <strong>1 + R₂/R₁</strong> — o <em class="term">ganho de ruído</em> — e não o ganho de sinal. Por isso o erro de zero de um inversor de ganho −10 é multiplicado por 11, não por 10: o sinal e o offset entram em pontos diferentes do circuito.</p>
+
+        <div class="attn">
+          <span class="tag">o problema prático</span>
+          Um amplificador não inversor de ganho 1.000 construído com um amp op de V<sub>OS</sub> = 5 mV terá <strong>±5 V</strong> de saída cc em vez de 0 V. A excursão útil do sinal fica reduzida — e, se o sinal a amplificar também for cc, não há como distinguir o que é sinal do que é offset. Muitos amp ops trazem dois terminais de <em>anulação de offset</em>, onde se liga um potenciômetro para zerar a saída.
+        </div>
+
+        <h3 style="margin-top:40px;font-size:1.25rem">2.7.2 · Correntes de polarização de entrada</h3>
+        <p>A regra "nenhuma corrente entra nos terminais" também é aproximação: os transistores do estágio de entrada precisam ser polarizados, e drenam I<sub>B1</sub> e I<sub>B2</sub>. Define-se</p>
+        <div class="eq">
+          I<sub>B</sub> = (I<sub>B1</sub> + I<sub>B2</sub>)/2 &nbsp;&nbsp;·&nbsp;&nbsp; I<sub>OS</sub> = |I<sub>B1</sub> − I<sub>B2</sub>|
+        </div>
+        <p>Valores típicos com transistores bipolares: <strong>I<sub>B</sub> ≈ 100 nA</strong> e <strong>I<sub>OS</sub> ≈ 10 nA</strong>. Com estágio de entrada a FET, as correntes caem para a ordem de picoampères.</p>
+
+        <p>Aterrando a fonte de sinal, a corrente I<sub>B1</sub> circula por R₂ e produz na saída</p>
+        <div class="eq">V<sub>O</sub> = I<sub>B1</sub>·R<sub>2</sub> ≈ I<sub>B</sub>·R<sub>2</sub> &nbsp;<span class="dim">(2.44)</span></div>
+        <p>o que impõe um teto ao valor de R₂. Há uma correção elegante: inserir um resistor R₃ em série com o terminal <strong>positivo</strong>. Do ponto de vista de sinal ele não faz nada; do ponto de vista cc, cancela o erro se</p>
+        <div class="eq"><span class="hand-box">R<sub>3</sub> = R<sub>1</sub> ∥ R<sub>2</sub> = R<sub>1</sub>R<sub>2</sub>/(R<sub>1</sub>+R<sub>2</sub>)</span> &nbsp;<span class="dim">(2.46)</span></div>
+
+        <figure class="panel">
+          <svg viewBox="0 -16 560 278" xmlns="http://www.w3.org/2000/svg">
+            <!-- R1 aterrado -->
+            <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+              <line x1="50" y1="90" x2="50" y2="62"/><line x1="50" y1="90" x2="80" y2="90"/>
+            </g>
+            <g stroke="var(--chalk)" stroke-width="2">
+              <line x1="39" y1="60" x2="61" y2="60"/><line x1="43" y1="53" x2="57" y2="53"/><line x1="47" y1="46" x2="53" y2="46"/>
+            </g>
+            <polyline points="80,90 90,90 97,78 111,102 125,78 139,102 146,90 160,90" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <text x="118" y="70" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">R1</text>
+            <line x1="160" y1="90" x2="250" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+            <circle cx="205" cy="90" r="4" fill="var(--chalk)"/>
+            <!-- R3 no + -->
+            <g stroke="var(--chalk)" stroke-width="2.2" fill="none">
+              <line x1="50" y1="180" x2="50" y2="208"/><line x1="50" y1="180" x2="80" y2="180"/>
+            </g>
+            <g stroke="var(--chalk)" stroke-width="2">
+              <line x1="39" y1="209" x2="61" y2="209"/><line x1="43" y1="216" x2="57" y2="216"/><line x1="47" y1="223" x2="53" y2="223"/>
+            </g>
+            <polyline points="80,180 90,180 97,168 111,192 125,168 139,192 146,180 160,180" fill="none" stroke="var(--pink)" stroke-width="2.4"/>
+            <text x="118" y="162" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--pink)">R3 = R1∥R2</text>
+            <line x1="160" y1="180" x2="250" y2="180" stroke="var(--chalk)" stroke-width="2.2"/>
+            <!-- amp op -->
+            <polygon points="250,50 250,220 390,135" fill="none" stroke="var(--chalk)" stroke-width="2.5"/>
+            <text x="266" y="96" font-family="Kalam" font-size="19" fill="var(--chalk)">−</text>
+            <text x="266" y="188" font-family="Kalam" font-size="19" fill="var(--chalk)">+</text>
+            <!-- correntes -->
+            <polygon points="238,84 226,90 238,96" fill="var(--yellow)"/>
+            <text x="216" y="80" text-anchor="end" font-family="Kalam" font-size="14" fill="var(--yellow)">IB1</text>
+            <polygon points="238,174 226,180 238,186" fill="var(--yellow)"/>
+            <text x="216" y="170" text-anchor="end" font-family="Kalam" font-size="14" fill="var(--yellow)">IB2</text>
+            <!-- saida -->
+            <line x1="390" y1="135" x2="500" y2="135" stroke="var(--chalk)" stroke-width="2.2"/>
+            <circle cx="460" cy="135" r="4" fill="var(--yellow)"/>
+            <text x="508" y="141" font-family="Kalam" font-size="16" fill="var(--yellow)">VO</text>
+            <!-- R2 -->
+            <line x1="460" y1="135" x2="460" y2="26" stroke="var(--chalk)" stroke-width="2.2"/>
+            <line x1="460" y1="26" x2="380" y2="26" stroke="var(--chalk)" stroke-width="2.2"/>
+            <polyline points="380,26 370,26 363,14 349,38 335,14 321,38 314,26 300,26" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <text x="342" y="10" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--orange)">R2</text>
+            <line x1="300" y1="26" x2="205" y2="26" stroke="var(--chalk)" stroke-width="2.2"/>
+            <line x1="205" y1="26" x2="205" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+          </svg>
+          <figcaption>R₃ = R₁∥R₂ no terminal positivo reduz o erro cc devido às correntes de polarização. Regra geral: colocar no terminal positivo uma resistência igual à resistência cc vista pelo terminal inversor.</figcaption>
+        </figure>
+
+        <p>Com R₃ escolhido assim, o erro residual passa a depender apenas do <em>descasamento</em> entre as correntes:</p>
+        <div class="eq">V<sub>O</sub> = I<sub>OS</sub>·R<sub>2</sub> &nbsp;<span class="dim">(2.47)</span></div>
+        <p>tipicamente <strong>uma ordem de grandeza menor</strong> que sem R₃ (I<sub>OS</sub> ≈ I<sub>B</sub>/10).</p>
+
+        <div class="attn">
+          <span class="tag">amplificadores com acoplamento ca</span>
+          Todo terminal de entrada precisa de um caminho <strong>cc</strong> para o terra. Um amplificador não inversor com capacitor de acoplamento simplesmente <em>não funciona</em> sem um R₃ ligado ao terra — e, nesse caso, a resistência cc vista pelo terminal inversor é R₂, então escolhe-se R₃ = R₂. O preço: a resistência de entrada do circuito cai bastante.
+        </div>
+
+        <h2 style="margin-top:48px;font-size:1.5rem">Resumo — Capítulo 2</h2>
+        <table class="spec">
+          <tr><th>Tópico</th><th>Resultado</th><th>Onde falha</th></tr>
+          <tr><td>Curto virtual</td><td class="sym">v₁ = v₂</td><td>só com realimentação negativa e A grande</td></tr>
+          <tr><td>Inversora</td><td class="sym">G = −R₂/R₁ · R<sub>i</sub> = R₁</td><td>resistência de entrada baixa</td></tr>
+          <tr><td>Não inversora</td><td class="sym">G = 1 + R₂/R₁ · R<sub>i</sub> = ∞</td><td>não consegue ganho &lt; 1</td></tr>
+          <tr><td>Ganho A finito</td><td class="sym">G<sub>ideal</sub>/[1 + (1+R₂/R₁)/A]</td><td>exige 1 + R₂/R₁ ≪ A</td></tr>
+          <tr><td>Somador</td><td class="sym">v<sub>O</sub> = −Σ (R<sub>f</sub>/R<sub>k</sub>)v<sub>k</sub></td><td>coeficientes de mesmo sinal</td></tr>
+          <tr><td>Amp. de diferenças</td><td class="sym">A<sub>d</sub> = R₂/R₁ (com R₄/R₃ = R₂/R₁)</td><td>R<sub>id</sub> = 2R₁ · CMRR sensível a descasamento</td></tr>
+          <tr><td>Amp. de instrumentação</td><td class="sym">(R₄/R₃)(1 + R₂/R₁)</td><td>três amp ops</td></tr>
+          <tr><td>Banda</td><td class="sym">f<sub>3dB</sub> = f<sub>t</sub>/(1 + R₂/R₁)</td><td>ganho × banda é constante</td></tr>
+          <tr><td>Grandes sinais</td><td class="sym">L± · i<sub>Omáx</sub> · SR · f<sub>M</sub></td><td>quatro tetos independentes</td></tr>
+          <tr><td>Offset</td><td class="sym">V<sub>O</sub> = V<sub>OS</sub>(1 + R₂/R₁)</td><td>ganho de ruído, não de sinal</td></tr>
+          <tr><td>Polarização</td><td class="sym">V<sub>O</sub> = I<sub>B</sub>R₂ → I<sub>OS</sub>R₂ com R₃</td><td>limita o valor máximo de R₂</td></tr>
+        </table>
+      </section>
+
+
+      <!-- ============================================================
+           EXERCÍCIOS — MÓDULO 02
            ============================================================ -->
       <section class="content-section" id="exercicios">
         <div class="eyebrow">EXERCÍCIOS</div>
-        <h2>Exercícios conceituais</h2>
-        <p class="lead">Doze questões sem conta pesada — o alvo é o raciocínio por trás das hipóteses. Nas de múltipla escolha, o comentário aparece depois de responder; nas abertas, tente formular a resposta antes de abrir.</p>
-        <p class="quiz-intro">Ordem de dificuldade crescente. Questões 1–2 e 4 cobrem o modelo; 3, 5–8 o amp op ideal e a inversora; 9–12 as limitações do CI real.</p>
+        <h2>Exercícios</h2>
+        <p class="lead">Quatro exercícios do livro com a resolução aberta, quatro de múltipla escolha sobre os pontos em que se erra mais, e a prova resolvida da rede T no final.</p>
+        <p class="quiz-intro">Nas de múltipla escolha, o comentário aparece depois de responder. Nas resolvidas, tente fazer a conta antes de abrir.</p>
 
-        <!-- 1 -->
+        <!-- 2.4 -->
         <div class="q">
-          <div class="q-head">01 <span class="tagq">múltipla escolha · modelo</span></div>
-          <p class="q-stem">No circuito equivalente, <code>Ri</code> aparece <strong>entre os dois terminais de entrada</strong> (e não de cada entrada para o terra). Assumir <code>Ri = ∞</code> garante qual das afirmações?</p>
-          <div class="opts">
-            <button class="opt" data-ok="0"><span class="k">a)</span> A saída v0 não muda quando se conecta uma carga.</button>
-            <button class="opt" data-ok="1"><span class="k">b)</span> A fonte de sinal não precisa fornecer corrente às entradas — ou seja, i1 = i2 = 0.</button>
-            <button class="opt" data-ok="0"><span class="k">c)</span> O ganho A se mantém constante em qualquer frequência.</button>
-            <button class="opt" data-ok="0"><span class="k">d)</span> v1 é forçado a ficar igual a v2.</button>
-          </div>
-          <div class="q-fb" role="status"><b>b)</b> — Ri infinito é exatamente a origem da <strong>Regra de ouro 2</strong>: sem caminho de corrente entre as entradas, i1 = i2 = 0 e o amp op não carrega o circuito anterior. A alternativa (a) é consequência de <code>Ro = 0</code>, e (d) vem da realimentação, não de Ri.</div>
-        </div>
-
-        <!-- 2 -->
-        <div class="q">
-          <div class="q-head">02 <span class="tagq">múltipla escolha · modelo</span></div>
-          <p class="q-stem">E a hipótese <code>Ro = 0</code>, o que ela significa na prática?</p>
-          <div class="opts">
-            <button class="opt" data-ok="0"><span class="k">a)</span> O amp op nunca satura.</button>
-            <button class="opt" data-ok="0"><span class="k">b)</span> A impedância vista pela fonte de sinal é infinita.</button>
-            <button class="opt" data-ok="1"><span class="k">c)</span> A saída se comporta como fonte de tensão ideal: v0 não cai ao ligar uma carga.</button>
-            <button class="opt" data-ok="0"><span class="k">d)</span> O ganho de modo comum é nulo.</button>
-          </div>
-          <div class="q-fb" role="status"><b>c)</b> — Com Ro em série, a carga RL forma um divisor: v0 = A·vd · RL/(RL+Ro). Só com Ro = 0 a saída independe de RL. No 741 real, Ro ≈ 50 Ω — desprezível para cargas de kΩ, nem tanto para 8 Ω.</div>
-        </div>
-
-        <!-- 3 -->
-        <div class="q">
-          <div class="q-head">03 <span class="tagq">resposta revelável · curto virtual</span></div>
-          <p class="q-stem">A Regra de ouro 1 diz que <code>v1 = v2</code>. Mas um comparador em malha aberta tem entradas com diferença de volts inteiros. As duas coisas se contradizem?</p>
+          <div class="q-head">2.4 <span class="tagq">resolvido · projeto da inversora</span></div>
+          <p class="q-stem">Projete um amplificador inversor com ganho <code>−10</code> e resistência de entrada de <code>100 kΩ</code>. Determine R₁ e R₂.</p>
           <details class="reveal">
-            <summary>Ver resposta</summary>
+            <summary>Ver resolução</summary>
             <div class="ans">
-              <p>Não — a Regra 1 <strong>não é uma propriedade do componente</strong>, é uma consequência da realimentação negativa. Com a malha fechada, qualquer vd ≠ 0 é amplificado por A ≈ 10⁴ e devolvido à entrada com sinal oposto, empurrando o sistema até vd ≈ 0. É o equilíbrio que força v1 = v2, não o amp op.</p>
-              <p>Sem malha (ou com realimentação positiva) nada anula vd, e o mesmo A gigante joga a saída direto contra +Vcc ou −Vcc: o dispositivo vira comparador. Regra prática: <em class="term">antes de aplicar as regras de ouro, verifique se existe caminho da saída para a entrada inversora</em>.</p>
+              <p>A resistência de entrada da inversora é R<sub>i</sub> = R₁ — este é o vínculo que fixa R₁ primeiro:</p>
+              <div class="eq">R<sub>1</sub> = <span class="y">100 kΩ</span></div>
+              <p>E o ganho fixa R₂:</p>
+              <div class="eq">|G| = R<sub>2</sub>/R<sub>1</sub> = 10 &nbsp;⟹&nbsp; R<sub>2</sub> = <span class="y">1 MΩ</span></div>
+              <p>Repare na ordem: <strong>a resistência de entrada é o vínculo mais restritivo</strong>, porque só R₁ a controla. Se o enunciado pedisse ganho −100 com a mesma R<sub>i</sub>, R₂ iria a 10 MΩ — e aí a rede T do Exemplo 2.2 passa a ser a saída mais razoável.</p>
             </div>
           </details>
         </div>
 
-        <!-- 4 -->
+        <!-- 2.12 -->
         <div class="q">
-          <div class="q-head">04 <span class="tagq">múltipla escolha · saturação</span></div>
-          <p class="q-stem">Um amp op com A = 10⁴ e alimentação ±12 V (satura em ≈ ±11 V) opera <strong>em malha aberta</strong> com v2 − v1 = +5 mV. Qual é a saída?</p>
-          <div class="opts">
-            <button class="opt" data-ok="0"><span class="k">a)</span> +50 V</button>
-            <button class="opt" data-ok="1"><span class="k">b)</span> ≈ +11 V</button>
-            <button class="opt" data-ok="0"><span class="k">c)</span> +5 mV, porque v1 ≈ v2</button>
-            <button class="opt" data-ok="0"><span class="k">d)</span> 0 V</button>
-          </div>
-          <div class="q-fb" role="status"><b>b)</b> — A conta A·vd = 10⁴ · 5 mV = 50 V é fisicamente impossível: a saída não ultrapassa a alimentação. Ela satura em ≈ +11 V. A alternativa (c) é a armadilha da questão 3 — sem realimentação, não há curto virtual.</div>
-        </div>
-
-        <!-- 5 -->
-        <div class="q">
-          <div class="q-head">05 <span class="tagq">resposta revelável · curto virtual</span></div>
-          <p class="q-stem">De onde vem o número <code>1 mV</code> no gráfico do curto virtual? E o que acontece com ele se A subir para 10⁵?</p>
+          <div class="q-head">2.12 <span class="tagq">resolvido · desvio por ganho finito</span></div>
+          <p class="q-stem">Um amplificador <strong>não inversor</strong> tem R₁ = 1 kΩ e R₂ = 9 kΩ (ganho ideal 10). Calcule o desvio percentual ε do ganho em malha fechada em relação ao valor ideal para A = 10³, 10⁴ e 10⁵. Para v<sub>I</sub> = 1 V, calcule também a tensão entre os dois terminais de entrada.</p>
           <details class="reveal">
-            <summary>Ver resposta</summary>
+            <summary>Ver resolução</summary>
             <div class="ans">
-              <p>É <code>Vcc/A</code> = 10 V / 10⁴ = 1 mV — a largura da faixa linear na entrada. Fora dela a saída já bateu na alimentação. Ou seja: se a saída está em algum valor útil (não saturado), a diferença de entrada é <strong>obrigatoriamente</strong> menor que 1 mV.</p>
-              <p>Com A = 10⁵ a faixa cai para 0,1 mV: quanto maior o ganho, mais estreita a janela linear e melhor a aproximação v1 ≈ v2. No limite A → ∞, a faixa vira zero e o curto virtual é exato. Note que 1 mV é pequeno frente aos volts do sinal — mas é da mesma ordem do offset Vos do 741, e é por isso que o offset importa.</p>
+              <p>Pela Equação 2.11, com 1 + R₂/R₁ = 10:</p>
+              <div class="eq">G = 10 / (1 + 10/A)</div>
+              <table class="spec">
+                <tr><th>A</th><th>G</th><th>ε</th><th>v₂ − v₁ = v<sub>O</sub>/A</th></tr>
+                <tr><td class="sym">10³</td><td>9,901</td><td>−1 %</td><td>9,9 mV</td></tr>
+                <tr><td class="sym">10⁴</td><td>9,990</td><td>−0,1 %</td><td>1 mV</td></tr>
+                <tr><td class="sym">10⁵</td><td>9,999</td><td>−0,01 %</td><td>0,1 mV</td></tr>
+              </table>
+              <p style="margin-top:1em">A última coluna mede o quanto o curto virtual é "virtual": com A = 10³ os terminais estão a 9,9 mV um do outro — nada desprezível se o sinal for de milivolts. Note que esse valor é exatamente da mesma ordem da tensão de offset V<sub>OS</sub> de um amp op comum (Seção 2.7), o que explica por que as duas imperfeições costumam aparecer juntas nos projetos de instrumentação.</p>
             </div>
           </details>
         </div>
 
-        <!-- 6 -->
+        <!-- 2.19 -->
         <div class="q">
-          <div class="q-head">06 <span class="tagq">múltipla escolha · inversora</span></div>
-          <p class="q-stem">Na configuração inversora, o nó da entrada inversora fica em 0 V — o chamado <em class="term">terra virtual</em>. Qual afirmação sobre esse nó está correta?</p>
-          <div class="opts">
-            <button class="opt" data-ok="0"><span class="k">a)</span> Ele está fisicamente conectado ao terra, então parte da corrente de R1 escoa por ali.</button>
-            <button class="opt" data-ok="1"><span class="k">b)</span> Está em 0 V, mas não há caminho para o terra: toda a corrente que vem de R1 segue por R2.</button>
-            <button class="opt" data-ok="0"><span class="k">c)</span> A tensão dele é 0 V mesmo em malha aberta.</button>
-            <button class="opt" data-ok="0"><span class="k">d)</span> Ele fica em 0 V porque o amp op tem Ro = 0.</button>
-          </div>
-          <div class="q-fb" role="status"><b>b)</b> — "Virtual" quer dizer exatamente isso: tensão de terra <strong>sem</strong> conexão de terra. É a combinação das duas regras — v1 = v2 = 0 dá a tensão, i = 0 na entrada obriga a corrente a continuar por R2 — que produz i = vi/R1 = −v0/R2 e daí G = −R2/R1.</div>
-        </div>
-
-        <!-- 7 -->
-        <div class="q">
-          <div class="q-head">07 <span class="tagq">resposta revelável · inversora</span></div>
-          <p class="q-stem">Se o amp op ideal tem impedância de entrada infinita, por que a impedância de entrada do <strong>circuito</strong> inversor é apenas R1 — um valor finito e pequeno?</p>
+          <div class="q-head">2.19 <span class="tagq">resolvido · lendo o catálogo</span></div>
+          <p class="q-stem">Um amp op compensado internamente possui ganho cc em malha aberta de 10⁶ V/V e ganho ca em malha aberta de 40 dB em 10 kHz. Estime f<sub>b</sub>, f<sub>t</sub>, o produto ganho-faixa e o ganho esperado em 1 kHz.</p>
           <details class="reveal">
-            <summary>Ver resposta</summary>
+            <summary>Ver resolução</summary>
             <div class="ans">
-              <p>Porque a fonte não enxerga o amp op: ela enxerga R1 terminando num nó preso em 0 V pelo terra virtual. A corrente que ela entrega é vi/R1, logo Zin = vi/i = <strong>R1</strong>. O Rin infinito do componente vale para os terminais do CI, não para a topologia montada em volta dele.</p>
-              <p>Consequência de projeto: a inversora carrega a fonte. Com R1 = 1 kΩ, uma fonte de alta impedância de saída sofre divisor de tensão e o ganho real fica menor que −R2/R1. Quando isso incomoda, usa-se a configuração não-inversora, cuja Zin é de fato ≈ Rin do amp op.</p>
+              <p>40 dB = 100 V/V. Como em 10 kHz já estamos muito acima de f<sub>b</sub>, vale |A| ≈ f<sub>t</sub>/f:</p>
+              <div class="eq">f<sub>t</sub> = |A|·f = 100 × 10 kHz = <span class="y">1 MHz</span></div>
+              <p>E como f<sub>t</sub> = A₀·f<sub>b</sub>:</p>
+              <div class="eq">f<sub>b</sub> = f<sub>t</sub>/A<sub>0</sub> = 10⁶ / 10⁶ = <span class="y">1 Hz</span></div>
+              <p>O produto ganho-faixa é numericamente igual a f<sub>t</sub>: <span class="y">1 MHz</span>. E em 1 kHz:</p>
+              <div class="eq">|A| = f<sub>t</sub>/f = 10⁶/10³ = 1.000 V/V = <span class="y">60 dB</span></div>
+              <p>Vale reter o desenho mental: a curva de malha aberta é uma reta de −20 dB/década ancorada em f<sub>t</sub>. Sabendo f<sub>t</sub>, você lê o ganho em qualquer frequência sem consultar mais nada.</p>
             </div>
           </details>
         </div>
 
-        <!-- 8 -->
+        <!-- 2.26 -->
         <div class="q">
-          <div class="q-head">08 <span class="tagq">múltipla escolha · inversora</span></div>
-          <p class="q-stem">Um projeto usa R1 = 1 kΩ e R2 = 10 kΩ. Você troca os dois por 100 kΩ e 1 MΩ. O que muda?</p>
-          <div class="opts">
-            <button class="opt" data-ok="0"><span class="k">a)</span> O ganho passa a −100.</button>
-            <button class="opt" data-ok="0"><span class="k">b)</span> Nada muda: só a razão importa.</button>
-            <button class="opt" data-ok="1"><span class="k">c)</span> O ganho continua −10, mas Zin sobe para 100 kΩ e o circuito fica mais sensível às correntes de polarização e ao ruído.</button>
-            <button class="opt" data-ok="0"><span class="k">d)</span> O ganho continua −10 e a banda de passagem dobra.</button>
-          </div>
-          <div class="q-fb" role="status"><b>c)</b> — A razão fixa o ganho, mas os valores absolutos fixam tudo o mais: Zin = R1 (agora 100 kΩ, bem mais leve para a fonte) e a corrente de sinal cai para nA. Nessa escala, Ib ≈ 80 nA circulando por 1 MΩ produz ~80 mV de erro na saída — o erro de polarização deixa de ser desprezível.</div>
-        </div>
-
-        <!-- 9 -->
-        <div class="q">
-          <div class="q-head">09 <span class="tagq">múltipla escolha · banda</span></div>
-          <p class="q-stem">Um 741 tem GBW ≈ 1 MHz. Você monta uma inversora com ganho −100. Até que frequência, aproximadamente, o ganho se mantém?</p>
-          <div class="opts">
-            <button class="opt" data-ok="0"><span class="k">a)</span> 1 MHz — GBW é a banda do circuito.</button>
-            <button class="opt" data-ok="1"><span class="k">b)</span> ≈ 10 kHz</button>
-            <button class="opt" data-ok="0"><span class="k">c)</span> ≈ 100 MHz</button>
-            <button class="opt" data-ok="0"><span class="k">d)</span> Não dá para saber sem conhecer R1 e R2 separadamente.</button>
-          </div>
-          <div class="q-fb" role="status"><b>b)</b> — O produto ganho × banda é constante: f ≈ GBW/|G| = 1 MHz/100 = 10 kHz. É o preço direto da hipótese 5 (faixa de passagem infinita) ser falsa — pedir mais ganho custa banda na mesma proporção. Para ganho −10, sobrariam 100 kHz.</div>
-        </div>
-
-        <!-- 10 -->
-        <div class="q">
-          <div class="q-head">10 <span class="tagq">resposta revelável · amp op real</span></div>
-          <p class="q-stem">Banda de passagem e slew rate são duas formas de "o amp op não acompanha sinais rápidos". Qual a diferença entre elas?</p>
+          <div class="q-head">2.26 <span class="tagq">resolvido · correntes de polarização</span></div>
+          <p class="q-stem">Um amplificador inversor usa R₁ = 10 kΩ e R₂ = 1 MΩ. O amp op tem corrente de polarização de entrada de 100 nA e corrente de offset de 10 nA. Obtenha a tensão cc de saída resultante, o valor de R₃ a colocar em série com o terminal positivo e o novo V<sub>O</sub>.</p>
           <details class="reveal">
-            <summary>Ver resposta</summary>
+            <summary>Ver resolução</summary>
             <div class="ans">
-              <p>A <strong>banda</strong> é um limite de pequeno sinal e <em>linear</em>: acima da frequência de corte o ganho cai a −20 dB/década, mas uma senoide continua saindo senoide, só que menor e defasada.</p>
-              <p>O <strong>slew rate</strong> é um limite de grande sinal e <em>não linear</em>: SR ≈ 0,5 V/µs no 741 é a velocidade máxima com que a saída consegue variar, qualquer que seja o sinal. Ao ser exigida além disso, a saída vira rampa — uma senoide de amplitude alta sai triangular. Distorção, não atenuação.</p>
-              <p>Ponto prático: o mesmo circuito pode estar bem dentro da banda e ainda assim distorcer, se a amplitude for grande. Para uma senoide de amplitude V e frequência f, a exigência é 2πfV ≤ SR.</p>
+              <p>Sem R₃, pela Equação 2.44:</p>
+              <div class="eq">V<sub>O</sub> = I<sub>B</sub>·R<sub>2</sub> = 100 nA × 1 MΩ = <span class="y">0,1 V</span></div>
+              <p>Com R₃ igual ao paralelo de R₁ e R₂ (Equação 2.46):</p>
+              <div class="eq">R<sub>3</sub> = (10 kΩ × 1 MΩ)/(1,01 MΩ) = <span class="y">9,9 kΩ</span> &nbsp;<span class="dim">(≈ 10 kΩ)</span></div>
+              <p>E o erro residual passa a depender só do descasamento (Equação 2.47):</p>
+              <div class="eq">V<sub>O</sub> = I<sub>OS</sub>·R<sub>2</sub> = 10 nA × 1 MΩ = <span class="y">0,01 V</span></div>
+              <p>Um resistor de 10 kΩ derrubou o erro de zero por um fator de 10. Repare também no vínculo escondido: se quiséssemos R₂ = 10 MΩ, o erro sem R₃ seria de 1 V — as correntes de polarização são o que realmente <strong>limita o valor máximo de R₂</strong> em um projeto.</p>
             </div>
           </details>
         </div>
 
-        <!-- 11 -->
+        <!-- MC 1 -->
         <div class="q">
-          <div class="q-head">11 <span class="tagq">múltipla escolha · offset</span></div>
-          <p class="q-stem">No Exemplo 3, o erro de offset na saída é <code>Vos · (1 + R2/R1)</code> = Vos · 11, enquanto o ganho de sinal do circuito é −10. Por que o offset é multiplicado por 11 e não por 10?</p>
+          <div class="q-head">05 <span class="tagq">múltipla escolha · curto virtual</span></div>
+          <p class="q-stem">Em um circuito, R₂ liga a saída do amp op ao terminal <strong>não inversor</strong> (2), e o terminal inversor (1) está aterrado por R₁. Pode-se aplicar o curto virtual?</p>
           <div class="opts">
-            <button class="opt" data-ok="0"><span class="k">a)</span> É só uma margem de segurança adotada por convenção.</button>
-            <button class="opt" data-ok="1"><span class="k">b)</span> Vos é uma tensão em série com a entrada do amp op, e para ela o circuito se comporta como não-inversor — ganho 1 + R2/R1.</button>
-            <button class="opt" data-ok="0"><span class="k">c)</span> Porque Vos também é amplificado pelo ganho de malha aberta A.</button>
-            <button class="opt" data-ok="0"><span class="k">d)</span> Porque a entrada não-inversora está aterrada.</button>
+            <button class="opt" data-ok="0"><span class="k">a)</span> Sim — o curto virtual é uma propriedade do amp op ideal.</button>
+            <button class="opt" data-ok="1"><span class="k">b)</span> Não — a realimentação é positiva, o circuito não se equilibra e a saída vai à saturação.</button>
+            <button class="opt" data-ok="0"><span class="k">c)</span> Sim, mas com o ganho trocado de sinal.</button>
+            <button class="opt" data-ok="0"><span class="k">d)</span> Só se R₂ &gt; R₁.</button>
           </div>
-          <div class="q-fb" role="status"><b>b)</b> — Sinal e offset entram em pontos diferentes. O sinal passa por R1 e vê o ganho inversor −R2/R1; o Vos é modelado como uma bateria em série com a entrada do próprio amp op e vê o <em class="term">ganho de ruído</em> 1 + R2/R1. Por isso o erro de zero é sempre um pouco maior que |G|·Vos.</div>
+          <div class="q-fb" role="status"><b>b)</b> — O curto virtual <strong>não é propriedade do componente</strong>: é consequência da realimentação negativa. Com R₂ voltando ao terminal "+", qualquer desvio se auto-reforça e o ganho A ≈ 10⁵ joga a saída contra +V<sub>CC</sub> ou −V<sub>EE</sub>. Regra de bancada: antes de escrever v₁ = v₂, verifique se existe caminho da saída para a entrada <em>inversora</em>.</div>
         </div>
 
-        <!-- 12 -->
+        <!-- MC 2 -->
         <div class="q">
-          <div class="q-head">12 <span class="tagq">resposta revelável · CMRR</span></div>
-          <p class="q-stem">Um amp op com CMRR = 80 dB e Ad = 10⁵ tem as duas entradas ligadas ao mesmo sinal de 1 V (v1 = v2 = 1 V). Pela expressão ideal a saída seria 0 V. O que sai de fato — e por que isso raramente aparece nas contas de aula?</p>
+          <div class="q-head">06 <span class="tagq">múltipla escolha · ganho × banda</span></div>
+          <p class="q-stem">Um amp op com f<sub>t</sub> = 1 MHz é usado em duas montagens de ganho unitário: um <strong>seguidor</strong> (não inversor, R₂ = 0) e um <strong>inversor</strong> com R₁ = R₂. Como ficam as bandas?</p>
+          <div class="opts">
+            <button class="opt" data-ok="0"><span class="k">a)</span> Iguais — os dois têm |G| = 1.</button>
+            <button class="opt" data-ok="1"><span class="k">b)</span> Seguidor 1 MHz, inversor 0,5 MHz.</button>
+            <button class="opt" data-ok="0"><span class="k">c)</span> Seguidor 0,5 MHz, inversor 1 MHz.</button>
+            <button class="opt" data-ok="0"><span class="k">d)</span> Depende do valor absoluto de R₁ e R₂.</button>
+          </div>
+          <div class="q-fb" role="status"><b>b)</b> — A banda é fixada por f<sub>3dB</sub> = f<sub>t</sub>/(1 + R₂/R₁), e <strong>não</strong> por |G|. No seguidor, R₂/R₁ = 0 e f<sub>3dB</sub> = f<sub>t</sub>. No inversor de ganho −1, R₂/R₁ = 1, o denominador vale 2 e sobra metade da banda. Só a configuração não inversora tem produto ganho-faixa igual a f<sub>t</sub>.</div>
+        </div>
+
+        <!-- MC 3 -->
+        <div class="q">
+          <div class="q-head">07 <span class="tagq">múltipla escolha · amp. de diferenças</span></div>
+          <p class="q-stem">No amplificador de diferenças de um amp op (com R₃ = R₁ e R₄ = R₂), você precisa de ganho diferencial 100 e alta resistência de entrada. O que acontece?</p>
+          <div class="opts">
+            <button class="opt" data-ok="0"><span class="k">a)</span> Basta aumentar R₂ e R₄ na mesma proporção.</button>
+            <button class="opt" data-ok="1"><span class="k">b)</span> Não dá: R<sub>id</sub> = 2R₁, e ganho alto exige R₁ pequeno — os dois requisitos se opõem. É o caso do amplificador de instrumentação.</button>
+            <button class="opt" data-ok="0"><span class="k">c)</span> A resistência de entrada é infinita, porque o sinal entra também pelo terminal "+".</button>
+            <button class="opt" data-ok="0"><span class="k">d)</span> Basta descasar R₄/R₃ propositalmente.</button>
+          </div>
+          <div class="q-fb" role="status"><b>b)</b> — A alternativa (a) esbarra no limite prático dos resistores; e (d) destrói o CMRR, que é justamente o motivo de existir o circuito. O acoplamento entre ganho e R<sub>id</sub> é o defeito estrutural desta topologia — resolvido pelo amplificador de instrumentação, que põe um buffer em cada entrada e passa a ajustar o ganho por um único resistor 2R₁.</div>
+        </div>
+
+        <!-- MC 4 -->
+        <div class="q">
+          <div class="q-head">08 <span class="tagq">múltipla escolha · offset</span></div>
+          <p class="q-stem">Um amplificador <strong>inversor</strong> de ganho −10 (R₁ = 1 kΩ, R₂ = 10 kΩ) usa um amp op com V<sub>OS</sub> = 2 mV. Qual a tensão cc na saída, com a entrada aterrada?</p>
+          <div class="opts">
+            <button class="opt" data-ok="0"><span class="k">a)</span> 0 V — o offset é cancelado pela realimentação.</button>
+            <button class="opt" data-ok="0"><span class="k">b)</span> 20 mV, porque o ganho é 10.</button>
+            <button class="opt" data-ok="1"><span class="k">c)</span> 22 mV, porque o offset vê o ganho 1 + R₂/R₁ = 11.</button>
+            <button class="opt" data-ok="0"><span class="k">d)</span> 200 V, porque V<sub>OS</sub> é amplificado por A.</button>
+          </div>
+          <div class="q-fb" role="status"><b>c)</b> — Sinal e offset entram em pontos diferentes. O sinal passa por R₁ e vê o ganho inversor −R₂/R₁; V<sub>OS</sub> é modelado como uma bateria em série com a <em>entrada do amp op</em> e vê o <em class="term">ganho de ruído</em> 1 + R₂/R₁ (Equação 2.43). O erro de zero é, portanto, sempre um pouco maior que |G|·V<sub>OS</sub>.</div>
+        </div>
+
+        <!-- Reveal -->
+        <div class="q">
+          <div class="q-head">09 <span class="tagq">resposta revelável · síntese</span></div>
+          <p class="q-stem">As expressões do ganho com A finito para a inversora (2.5) e a não inversora (2.11) têm <strong>numeradores diferentes e denominadores idênticos</strong>. Coincidência?</p>
           <details class="reveal">
             <summary>Ver resposta</summary>
             <div class="ans">
-              <p>CMRR = Ad/Acm ⇒ Acm = 10⁵/10⁴ = 10 (80 dB = fator 10⁴). Com vd = 0 e modo comum de 1 V, a saída em malha aberta seria Acm · 1 V = <strong>10 V</strong> — o suficiente para saturar. Longe de zero, portanto.</p>
-              <p>Não aparece nas contas por dois motivos. Primeiro, em malha fechada esse erro também é dividido pelo ganho de malha, virando algo da ordem de vcm/CMRR referido à entrada — décimos de mV. Segundo, na inversora a entrada não-inversora está aterrada e o terra virtual mantém as duas entradas em ≈ 0 V: o modo comum é praticamente nulo por construção.</p>
-              <p>Onde importa de verdade: configurações em que as entradas balançam juntas — não-inversora, seguidor, amplificador de instrumentação medindo um sensor sobre um modo comum grande.</p>
+              <p>Não. As duas configurações têm exatamente <strong>a mesma malha de realimentação</strong>: R₁ e R₂ ligados entre a saída, o terminal inversor e o terra. Isso fica visível se você curto-circuitar a fonte de sinal em cada circuito — os dois desenhos se tornam idênticos.</p>
+              <p>O que a realimentação determina é a fração da saída devolvida à entrada, e é ela que produz o denominador 1 + (1 + R₂/R₁)/A. O numerador é o ganho nominal, que depende de <em>onde o sinal entra</em> — por R₁ (inversora, −R₂/R₁) ou direto no terminal "+" (não inversora, 1 + R₂/R₁).</p>
+              <p>Consequência prática que aparece o tempo todo: <strong>a quantidade 1 + R₂/R₁ é que governa tudo o que vem da realimentação</strong> — o desvio por ganho finito, a banda f<sub>t</sub>/(1 + R₂/R₁) e a amplificação do offset V<sub>OS</sub>(1 + R₂/R₁). Não é o ganho de sinal; é o <em class="term">ganho de ruído</em>. Reconhecer isso poupa metade das contas do capítulo.</p>
             </div>
           </details>
         </div>
@@ -1019,13 +2135,196 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
             </div>
           </details>
         </div>
+
+        <!-- ============================================================
+             TESTE 2 — PSI3024 (rede T, configuração não inversora)
+             ============================================================ -->
+        <h3 style="margin-top:52px;font-size:1.35rem">Teste 2 — a mesma rede T, agora não inversora</h3>
+        <p class="lead">Prova resolvida da PSI3024 · 2024. Amp op <strong>ideal</strong>, <code>vI = 1 V</code>. Mesmas duas versões: <span style="color:var(--chalk)">Versão 1 em branco</span> e <span style="color:var(--pink)">Versão 2 entre parênteses</span>. A rede T é idêntica à do Teste 1 — o que mudou é <strong>onde o sinal entra</strong>: agora no terminal não inversor, e o resistor de 10 kΩ vai do nó inversor ao terra. Resolva antes de abrir, comparando cada passo com o teste anterior.</p>
+
+        <figure class="panel">
+          <svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- rótulos dos resistores do trilho superior -->
+            <g font-family="Kalam" font-size="15" text-anchor="middle">
+              <text x="318" y="60" fill="var(--pink)">(9 kΩ)</text>
+              <text x="318" y="82" fill="var(--chalk)">90 kΩ</text>
+              <text x="448" y="60" fill="var(--pink)">(10 kΩ)</text>
+              <text x="448" y="82" fill="var(--chalk)">100 kΩ</text>
+            </g>
+
+            <!-- trilho de realimentação: nó inversor → 90k → A → 100k → saída -->
+            <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="250" y1="110" x2="250" y2="248"/>
+              <line x1="250" y1="110" x2="280" y2="110"/>
+              <line x1="356" y1="110" x2="390" y2="110"/>
+              <line x1="390" y1="110" x2="410" y2="110"/>
+              <line x1="486" y1="110" x2="520" y2="110"/>
+              <line x1="520" y1="110" x2="520" y2="278"/>
+            </g>
+            <polyline points="280,110 290,110 297,98 311,122 325,98 339,122 346,110 356,110" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <polyline points="410,110 420,110 427,98 441,122 455,98 469,122 476,110 486,110" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <circle cx="390" cy="110" r="4" fill="var(--chalk)"/>
+            <text x="390" y="98" font-family="Kalam" font-size="16" fill="var(--yellow)" text-anchor="middle">A</text>
+
+            <!-- correntes i2 e i4 — agora apontando PARA o nó inversor -->
+            <polygon points="277,104 266,110 277,116" fill="var(--yellow)"/>
+            <text x="258" y="136" font-family="Kalam" font-size="15" fill="var(--yellow)">i₂</text>
+            <polygon points="507,104 496,110 507,116" fill="var(--yellow)"/>
+            <text x="500" y="136" font-family="Kalam" font-size="15" fill="var(--yellow)">i₄</text>
+
+            <!-- ramo shunt de A para o terra -->
+            <line x1="390" y1="110" x2="390" y2="140" stroke="var(--chalk)" stroke-width="2"/>
+            <polyline points="390,140 390,150 378,157 402,171 378,185 402,199 390,206 390,216" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <g stroke="var(--chalk-faint)" stroke-width="2">
+              <line x1="379" y1="217" x2="401" y2="217"/>
+              <line x1="383" y1="224" x2="397" y2="224"/>
+              <line x1="387" y1="231" x2="393" y2="231"/>
+            </g>
+            <polygon points="385,130 390,140 395,130" fill="var(--yellow)"/>
+            <text x="404" y="140" font-family="Kalam" font-size="15" fill="var(--yellow)">i₃</text>
+            <g font-family="Kalam" font-size="15">
+              <text x="412" y="176" fill="var(--chalk)">100 kΩ</text>
+              <text x="412" y="197" fill="var(--pink)">(10 kΩ)</text>
+            </g>
+
+            <!-- ramo do nó inversor para o terra (10 kΩ) -->
+            <line x1="250" y1="248" x2="176" y2="248" stroke="var(--chalk)" stroke-width="2"/>
+            <polyline points="176,248 166,248 159,236 145,260 131,236 117,260 110,248 100,248" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+            <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="100" y1="248" x2="48" y2="248"/>
+              <line x1="48" y1="248" x2="48" y2="296"/>
+            </g>
+            <g stroke="var(--chalk-faint)" stroke-width="2">
+              <line x1="37" y1="298" x2="59" y2="298"/><line x1="41" y1="305" x2="55" y2="305"/><line x1="45" y1="312" x2="51" y2="312"/>
+            </g>
+            <polygon points="85,242 74,248 85,254" fill="var(--yellow)"/>
+            <text x="70" y="234" font-family="Kalam" font-size="15" fill="var(--yellow)">i₁</text>
+            <g font-family="Kalam" font-size="15" text-anchor="middle">
+              <text x="138" y="222" fill="var(--chalk)">10 kΩ</text>
+              <text x="138" y="202" fill="var(--pink)">(1 kΩ)</text>
+            </g>
+
+            <!-- amp op -->
+            <polygon points="300,218 300,338 400,278" fill="rgba(237,237,225,.04)" stroke="var(--chalk)" stroke-width="2.2"/>
+            <text x="313" y="254" font-family="Kalam" font-size="20" fill="var(--chalk-dim)">−</text>
+            <text x="313" y="316" font-family="Kalam" font-size="20" fill="var(--chalk-dim)">+</text>
+            <circle cx="250" cy="248" r="4" fill="var(--chalk)"/>
+
+            <!-- fonte de sinal no terminal NÃO INVERSOR -->
+            <line x1="300" y1="308" x2="212" y2="308" stroke="var(--chalk)" stroke-width="2"/>
+            <circle cx="206" cy="308" r="6" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+            <text x="176" y="302" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">vI</text>
+            <polygon points="262,302 273,308 262,314" fill="var(--yellow)"/>
+            <text x="256" y="296" font-family="Kalam" font-size="15" fill="var(--yellow)">iI</text>
+            <path d="M 206,318 Q 178,342 204,360" fill="none" stroke="var(--chalk-faint)" stroke-width="1.5" stroke-dasharray="5,4"/>
+            <g stroke="var(--chalk-faint)" stroke-width="2">
+              <line x1="197" y1="362" x2="219" y2="362"/><line x1="201" y1="369" x2="215" y2="369"/><line x1="205" y1="376" x2="211" y2="376"/>
+            </g>
+
+            <!-- saída -->
+            <line x1="400" y1="278" x2="560" y2="278" stroke="var(--chalk)" stroke-width="2"/>
+            <circle cx="520" cy="278" r="4" fill="var(--chalk)"/>
+            <circle cx="566" cy="278" r="6" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+            <text x="556" y="258" font-family="Kalam" font-size="16" fill="var(--yellow)">vO</text>
+            <path d="M 566,288 Q 600,318 574,348" fill="none" stroke="var(--chalk-faint)" stroke-width="1.5" stroke-dasharray="5,4"/>
+            <g stroke="var(--chalk-faint)" stroke-width="2">
+              <line x1="567" y1="350" x2="589" y2="350"/><line x1="571" y1="357" x2="585" y2="357"/><line x1="575" y1="364" x2="581" y2="364"/>
+            </g>
+          </svg>
+          <figcaption>Rede T em configuração <strong>não inversora</strong>: <code>vI</code> entra direto no terminal "+", o resistor de 10 kΩ liga o nó inversor ao terra e a realimentação volta pelo caminho saída → 100 kΩ → A → 90 kΩ. Compare com a figura do Teste 1: os resistores são os mesmos, só o ponto de injeção do sinal mudou. Note o sentido das correntes, agora invertido. Valores da Versão 2 entre parênteses.</figcaption>
+        </figure>
+
+        <!-- T2·1 -->
+        <div class="q">
+          <div class="q-head">T2·1 <span class="tagq">resolvida · i₁ e V<sub>A</sub></span></div>
+          <p class="q-stem">Determine a corrente <code>i₁</code> no resistor de entrada e a tensão <code>V<sub>A</sub></code> no nó A.</p>
+          <details class="reveal">
+            <summary>Ver resolução</summary>
+            <div class="ans">
+              <p>Mesmo ponto de partida: <code>V₂ = µV₁</code> com µ → ∞ e V₂ finito ⇒ <code>V₁ → 0</code>, isto é, os dois terminais estão no mesmo potencial. A diferença é que agora o terminal "+" <strong>não está aterrado</strong>: ele está em vI. Logo o nó inversor também está em 1 V — não é um terra virtual, e sim um <em class="term">vI virtual</em>.</p>
+              <p>Toda essa tensão cai sobre o resistor que liga o nó inversor ao terra:</p>
+              <div class="eq">
+                i₁ = 1 V / 10 kΩ = <span class="y">0,1 mA</span> &nbsp;<span class="dim">(1 V / 1 kΩ = 1 mA)</span>
+              </div>
+              <p>Como a resistência de entrada do amp op é infinita, nenhuma corrente entra pelos terminais e essa corrente só pode ter vindo pela rede T: <code>i₂ = i₁</code>. Ela atravessa o resistor de 90 kΩ:</p>
+              <div class="eq">
+                V(90 kΩ) = 90 kΩ · 0,1 mA = 9 V &nbsp;<span class="dim">(9 kΩ · 1 mA = 9 V)</span><br>
+                V<sub>A</sub> = 1 V + 9 V = <span class="y">+10 V</span>
+              </div>
+              <p><b>Sinal oposto ao do Teste 1.</b> Lá a corrente saía do nó inversor rumo a A e V<sub>A</sub> = −9 V; aqui ela vem <em>de</em> A <em>para</em> o nó, então A tem que estar acima dele — e o nó já está 1 V acima do terra. Somam-se os dois efeitos.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- T2·2 -->
+        <div class="q">
+          <div class="q-head">T2·2 <span class="tagq">resolvida · correntes na rede T</span></div>
+          <p class="q-stem">Determine as correntes <code>i₂</code>, <code>i₃</code> e <code>i₄</code>.</p>
+          <details class="reveal">
+            <summary>Ver resolução</summary>
+            <div class="ans">
+              <div class="eq">i₂ = i₁ = <span class="y">0,1 mA</span> &nbsp;<span class="dim">(1 mA)</span></div>
+              <p>A corrente i₃ é fixada por V<sub>A</sub> sobre o resistor que liga A ao terra:</p>
+              <div class="eq">i₃ = 10 V / 100 kΩ = <span class="y">0,1 mA</span> &nbsp;<span class="dim">(10 V / 10 kΩ = 1 mA)</span></div>
+              <p>Pela 1ª lei de Kirchhoff no nó A, o que entra por i₄ sai por i₂ e i₃:</p>
+              <div class="eq">i₄ = i₂ + i₃ = (0,1 + 0,1) mA = <span class="y">0,2 mA</span> &nbsp;<span class="dim">((1 + 1) mA = 2 mA)</span></div>
+              <p>Repare que aqui i₂ e i₃ saíram <strong>iguais</strong>, enquanto no Teste 1 valiam 0,1 e 0,09 mA. O motivo é aritmético: V<sub>A</sub> subiu de 9 para 10 V (o extra é o próprio vI), e 10 V / 100 kΩ dá exatamente 0,1 mA.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- T2·3 -->
+        <div class="q">
+          <div class="q-head">T2·3 <span class="tagq">resolvida · tensão de saída</span></div>
+          <p class="q-stem">Determine a tensão de saída <code>vO</code>.</p>
+          <details class="reveal">
+            <summary>Ver resolução</summary>
+            <div class="ans">
+              <p>A queda no resistor entre A e a saída vale i₄ vezes sua resistência:</p>
+              <div class="eq">V(100 kΩ) = 0,2 mA · 100 kΩ = 20 V &nbsp;<span class="dim">(2 mA · 10 kΩ = 20 V)</span></div>
+              <p>Pela 2ª lei de Kirchhoff, indo do terra até a saída pelo caminho terra → 10 kΩ → nó → 90 kΩ → A → 100 kΩ:</p>
+              <div class="eq">vO = V<sub>A</sub> + 20 V = 10 + 20 = <span class="y">+30 V</span></div>
+              <p>Positivo, como esperado de uma configuração não inversora. As duas versões dão o mesmo resultado — o que muda é a escala das correntes, não a relação entre as resistências.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- T2·4 -->
+        <div class="q">
+          <div class="q-head">T2·4 <span class="tagq">resolvida · ganho global</span></div>
+          <p class="q-stem">Qual é o ganho global de tensão do circuito?</p>
+          <details class="reveal">
+            <summary>Ver resolução</summary>
+            <div class="ans">
+              <div class="eq">Ganho = vO / vI = +30 V / 1 V = <span class="y">+30</span></div>
+              <p>Chamando R1 o resistor ao terra, R2 = 90 kΩ, R3 o shunt de A e R4 o trecho A→saída, a fórmula fechada é o espelho da do Teste 1, com <code>1 + R2/R1</code> no lugar de <code>R2/R1</code>:</p>
+              <div class="eq" style="font-size:1.1rem">G = (1 + R2/R1)(1 + R4/R3) + R4/R1 = 10 · 2 + 10 = <span class="y">+30</span></div>
+              <p>Compare com a inversora: G = −(R2/R1)(1 + R4/R3) − R4/R1 = −28. A diferença de 2 unidades é exatamente <code>(1 + R4/R3)</code> — o mesmo "+1" que separa −R₂/R₁ de 1 + R₂/R₁ no divisor simples, agora multiplicado pelo fator de amplificação da rede T. <strong>É a mesma malha de realimentação nos dois testes</strong>; só o numerador muda, exatamente como na questão 09.</p>
+              <p><b>Atenção:</b> +30 V exige alimentação maior que isso em módulo. Com ±15 V esse circuito saturaria em ≈ +13 V, e o ganho medido na bancada seria 13, não 30.</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- T2·5 -->
+        <div class="q">
+          <div class="q-head">T2·5 <span class="tagq">resolvida · resistência de entrada</span></div>
+          <p class="q-stem">Qual a resistência de entrada <code>vI / iI</code> vista pela fonte?</p>
+          <details class="reveal">
+            <summary>Ver resolução</summary>
+            <div class="ans">
+              <div class="eq">R<sub>in</sub> = vI / iI = 1 V / 0 = <span class="y">infinita</span></div>
+              <p>A fonte está ligada <em>diretamente</em> ao terminal não inversor, e o amp op ideal não drena corrente pelos terminais de entrada: <code>iI = 0</code>. Note que i₁ ≠ iI — i₁ existe, mas vem da malha de realimentação, não da fonte.</p>
+              <p>Esse é o contraste central com o Teste 1, onde R<sub>in</sub> = 10 kΩ (1 kΩ): a corrente da fonte tinha de atravessar o resistor de entrada até o terra virtual. <strong>A configuração não inversora não carrega a fonte</strong> — é por isso que ela é a escolha natural para amplificar sensores e outras fontes de alta impedância, e é o mesmo princípio que faz o seguidor de tensão ser útil.</p>
+            </div>
+          </details>
+        </div>
       </section>
 
     </div>
 
     <footer class="page-footer">
       <span>guias · poli usp</span>
-      <span>módulo 01 · amplificadores operacionais</span>
+      <span>módulo 01 · amplificadores &nbsp;·&nbsp; módulo 02 · amplificadores operacionais</span>
     </footer>
 
   </div>
@@ -1047,6 +2346,21 @@ document.querySelectorAll('.q .opts').forEach(function (group) {
     });
   });
 });
+
+/* destaca no menu lateral o módulo que está sendo lido */
+(function () {
+  var items = Array.prototype.slice.call(document.querySelectorAll('.module-item'));
+  var mods = items.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+  if (!mods.every(Boolean)) return;
+  function update() {
+    var y = window.scrollY + window.innerHeight * 0.28;
+    var idx = 0;
+    mods.forEach(function (m, i) { if (m.offsetTop <= y) idx = i; });
+    items.forEach(function (a, i) { a.classList.toggle('active', i === idx); });
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
 </script>
 
 </body>
