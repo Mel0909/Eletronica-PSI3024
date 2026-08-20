@@ -70,15 +70,46 @@ code{ font-family:var(--chalk-font); color:var(--orange); font-size:1.05em; }
 /* ============================================================
    SHELL: sidebar + main
    ============================================================ */
-.shell{ position:relative; z-index:1; display:grid; grid-template-columns:300px 1fr; min-height:100vh; align-items:start; }
+.shell{ position:relative; z-index:1; min-height:100vh; }
 
 /* ---------- SIDEBAR ---------- */
 .sidebar{
   background:var(--board-dark);
   border-right:5px double var(--line-strong);
-  padding:36px 30px;
-  position:sticky; top:0; height:100vh; overflow-y:auto;
+  padding:78px 30px 40px;
+  position:fixed; top:0; left:0; width:300px; height:100vh; overflow-y:auto;
+  z-index:50; transform:translateX(0); transition:transform .26s ease;
+  scrollbar-width:none; -ms-overflow-style:none;
 }
+/* rolagem preservada, barra invisível */
+.sidebar::-webkit-scrollbar{ width:0; height:0; }
+
+/* ---------- botão sanduíche + retração ---------- */
+.nav-toggle{
+  position:fixed; top:16px; left:18px; z-index:60;
+  width:46px; height:40px; padding:0 10px;
+  display:flex; flex-direction:column; justify-content:center; gap:6px;
+  background:var(--board-dark); border:2px solid var(--line-strong);
+  border-radius:7px; cursor:pointer;
+  transition:border-color .15s ease;
+}
+.nav-toggle span{
+  display:block; height:2.5px; border-radius:2px; background:var(--chalk-dim);
+  transition:background .15s ease;
+}
+.nav-toggle:hover{ border-color:var(--chalk-faint); }
+.nav-toggle:hover span{ background:var(--yellow); }
+.nav-toggle:focus-visible{ outline:2px solid var(--yellow); outline-offset:3px; }
+
+.nav-backdrop{
+  position:fixed; inset:0; z-index:45; background:rgba(0,0,0,.55);
+  opacity:0; pointer-events:none; transition:opacity .22s ease;
+}
+
+body.nav-closed .sidebar{ transform:translateX(-100%); }
+body.nav-closed .main-col{ margin-left:0; }
+body.nav-closed .topbar{ padding-left:82px; }
+body.nav-closed .mod-nav{ padding-left:82px; }
 .brand{ font-family:var(--chalk-font); font-weight:700; font-size:1.5rem; letter-spacing:.03em; color:var(--chalk); }
 .brand-sub{ font-family:var(--chalk-font); font-size:.95rem; color:var(--chalk-faint); margin-top:2px; }
 .sidebar hr{ border:none; border-top:1px dashed var(--line-strong); margin:24px 0; }
@@ -96,7 +127,7 @@ code{ font-family:var(--chalk-font); color:var(--orange); font-size:1.05em; }
 .more-soon{ font-family:var(--serif); font-style:italic; font-size:.85rem; color:var(--chalk-faint); margin-top:10px; padding:0 14px; }
 
 /* ---------- MAIN COLUMN ---------- */
-.main-col{ min-width:0; }
+.main-col{ min-width:0; margin-left:300px; transition:margin-left .26s ease; }
 .topbar{
   display:flex; align-items:center; gap:34px; flex-wrap:wrap;
   padding:26px 44px; border-bottom:1px dashed var(--line-strong);
@@ -293,12 +324,12 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
 .eq .neg{ color:var(--pink); }
 
 @media (max-width:900px){
-  .shell{ grid-template-columns:1fr; }
-  .sidebar{ position:static; height:auto; border-right:none; border-bottom:5px double var(--line-strong); }
-  .topbar{ padding:20px 22px; }
-  .mod-nav{ padding:12px 22px 14px; }
+  .main-col{ margin-left:0; }
+  .sidebar{ width:min(320px, 86vw); padding:78px 24px 36px; }
+  body:not(.nav-closed) .nav-backdrop{ opacity:1; pointer-events:auto; }
+  .topbar{ padding:20px 22px 20px 82px; }
+  .mod-nav{ padding:12px 22px 14px 82px; }
   .mod-nav-bar::before, .mod-nav-bar::after{ width:34px; }
-  .sidebar{ position:static; }
   .hero-module{ padding:34px 22px 28px; }
   .content{ padding:0 22px 44px; }
   footer.page-footer{ padding:20px 22px 44px; }
@@ -309,12 +340,17 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
 
 <div class="bg-grid" aria-hidden="true"></div>
 
+<button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir ou fechar o menu" aria-expanded="true" aria-controls="sidebar">
+  <span></span><span></span><span></span>
+</button>
+<div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
+
 <div class="shell">
 
   <!-- ============================================================
        SIDEBAR
        ============================================================ -->
-  <aside class="sidebar">
+  <aside class="sidebar" id="sidebar">
     <div class="brand">GUIAS</div>
     <div class="brand-sub">Poli USP · notas de aula</div>
     <hr>
@@ -5273,8 +5309,11 @@ document.querySelectorAll('.q .opts').forEach(function (group) {
 
 /* destaca — no sumário lateral e na barra fixa — a seção que está sendo lida */
 (function () {
-  var secs = [].slice.call(document.querySelectorAll('section.content-section'));
+  var secs = [].slice.call(document.querySelectorAll('section.content-section, section.hero-module'));
   if (!secs.length) return;
+  secs.sort(function (a, b) {
+    return a.getBoundingClientRect().top - b.getBoundingClientRect().top;
+  });
   var modItems = [].slice.call(document.querySelectorAll('.module-item'));
   var subLists = [].slice.call(document.querySelectorAll('.sub-list'));
   var links    = [].slice.call(document.querySelectorAll('.sub-list a, .mod-nav a'));
@@ -5282,6 +5321,7 @@ document.querySelectorAll('.q .opts').forEach(function (group) {
   var atual    = '';
 
   function moduloDe(sec) {
+    if (sec.classList.contains('hero-module')) return sec.id;
     var wrap = sec.closest ? sec.closest('.module-wrap') : null;
     var hero = wrap && wrap.querySelector('.hero-module');
     return hero ? hero.id : 'mod1';
@@ -5302,10 +5342,12 @@ document.querySelectorAll('.q .opts').forEach(function (group) {
     if (cur.id === atual) return;
     atual = cur.id;
     var mod = moduloDe(cur);
+    /* no herói do módulo nenhuma seção interna está ativa — só o módulo */
+    var subId = cur.classList.contains('hero-module') ? '\u0000' : cur.id;
     modItems.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + mod); });
     subLists.forEach(function (u) { u.classList.toggle('open', u.getAttribute('data-mod') === mod); });
-    links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + cur.id); });
-    manterVisivel(document.querySelector('.sub-list.open a.active'));
+    links.forEach(function (a) { a.classList.toggle('active', a.getAttribute('href') === '#' + subId); });
+    manterVisivel(document.querySelector('.sub-list.open a.active') || document.querySelector('.module-item.active'));
     var chip = document.querySelector('.mod-nav a.active');
     if (chip) {
       var nav = chip.parentElement;
@@ -5319,6 +5361,33 @@ document.querySelectorAll('.q .opts').forEach(function (group) {
   window.addEventListener('resize', atualizar);
   atualizar();
 })();
+/* menu retrátil */
+(function () {
+  var btn  = document.getElementById('navToggle');
+  var back = document.getElementById('navBackdrop');
+  var body = document.body;
+  if (!btn) return;
+
+  function definir(fechado) {
+    body.classList.toggle('nav-closed', fechado);
+    btn.setAttribute('aria-expanded', String(!fechado));
+  }
+  function estreito() { return window.matchMedia('(max-width:900px)').matches; }
+
+  definir(estreito());
+
+  btn.addEventListener('click', function () {
+    definir(!body.classList.contains('nav-closed'));
+  });
+  if (back) back.addEventListener('click', function () { definir(true); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && estreito()) definir(true);
+  });
+  [].slice.call(document.querySelectorAll('.sidebar a')).forEach(function (a) {
+    a.addEventListener('click', function () { if (estreito()) definir(true); });
+  });
+})();
+
 /* barra de seções em linha única: sombra nas pontas e arrastar para rolar */
 (function () {
   [].slice.call(document.querySelectorAll('.mod-nav')).forEach(function (nav) {
