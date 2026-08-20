@@ -28,6 +28,10 @@
   --line: rgba(237,237,225,0.09);
   --line-strong: rgba(237,237,225,0.22);
 
+  --nav-w: 300px;
+  --read: 900px;                                        /* largura da faixa de leitura */
+  --pad-x: max(44px, calc((100% - var(--read)) / 2));   /* centraliza a faixa e nunca encosta na borda */
+
   --chalk-font: 'Kalam', cursive;
   --serif: 'IBM Plex Serif', Georgia, serif;
 }
@@ -106,10 +110,8 @@ code{ font-family:var(--chalk-font); color:var(--orange); font-size:1.05em; }
   opacity:0; pointer-events:none; transition:opacity .22s ease;
 }
 
+body.nav-closed{ --nav-w: 0px; --pad-x: max(82px, calc((100% - var(--read)) / 2)); }
 body.nav-closed .sidebar{ transform:translateX(-100%); }
-body.nav-closed .main-col{ margin-left:0; }
-body.nav-closed .topbar{ padding-left:82px; }
-body.nav-closed .mod-nav{ padding-left:82px; }
 .brand{ font-family:var(--chalk-font); font-weight:700; font-size:1.5rem; letter-spacing:.03em; color:var(--chalk); }
 .brand-sub{ font-family:var(--chalk-font); font-size:.95rem; color:var(--chalk-faint); margin-top:2px; }
 .sidebar hr{ border:none; border-top:1px dashed var(--line-strong); margin:24px 0; }
@@ -127,10 +129,10 @@ body.nav-closed .mod-nav{ padding-left:82px; }
 .more-soon{ font-family:var(--serif); font-style:italic; font-size:.85rem; color:var(--chalk-faint); margin-top:10px; padding:0 14px; }
 
 /* ---------- MAIN COLUMN ---------- */
-.main-col{ min-width:0; margin-left:300px; transition:margin-left .26s ease; }
+.main-col{ min-width:0; margin-left:var(--nav-w); transition:margin-left .26s ease; }
 .topbar{
   display:flex; align-items:center; gap:34px; flex-wrap:wrap;
-  padding:26px 44px; border-bottom:1px dashed var(--line-strong);
+  padding:26px var(--pad-x); border-bottom:1px dashed var(--line-strong);
 }
 .crumb{ font-family:var(--chalk-font); font-size:1.1rem; color:var(--yellow); white-space:nowrap; }
 .tabs{ display:flex; gap:24px; flex-wrap:wrap; }
@@ -138,7 +140,7 @@ body.nav-closed .mod-nav{ padding-left:82px; }
 .tabs a:hover{ color:var(--yellow); }
 
 /* ---------- HERO ---------- */
-.hero-module{ position:relative; padding:54px 44px 38px; overflow:hidden; }
+.hero-module{ position:relative; padding:54px var(--pad-x) 38px; overflow:hidden; }
 .hero-eyebrow{ font-family:var(--chalk-font); font-size:1.05rem; color:var(--yellow); margin-bottom:14px; }
 .hero-eyebrow::before{ content:"— "; color:var(--chalk-faint); }
 .hero-module h1{
@@ -155,8 +157,8 @@ body.nav-closed .mod-nav{ padding-left:82px; }
 @media (max-width:1000px){ .hero-deco{ display:none; } }
 
 /* ---------- CONTENT SECTIONS ---------- */
-.content{ padding:0 44px 60px; }
-section.content-section{ padding:44px 0; border-bottom:1px dashed var(--line-strong); max-width:900px; }
+.content{ padding:0 var(--pad-x) 60px; }
+section.content-section{ padding:44px 0; border-bottom:1px dashed var(--line-strong); max-width:var(--read); }
 section.content-section:last-child{ border-bottom:none; }
 section.content-section .eyebrow{ font-family:var(--chalk-font); font-size:1.02rem; color:var(--yellow); margin-bottom:.4em; }
 section.content-section .eyebrow::before{ content:"— "; color:var(--chalk-faint); }
@@ -270,7 +272,7 @@ details.reveal .ans p:last-child{ margin-bottom:0; }
 
 .mod-nav{
   display:flex; gap:26px; flex-wrap:nowrap;
-  padding:14px 44px 16px;
+  padding:14px var(--pad-x) 16px;
   overflow-x:auto; overflow-y:hidden;
   overscroll-behavior-x:contain;
   -webkit-overflow-scrolling:touch;
@@ -308,7 +310,7 @@ details.reveal .ans p:last-child{ margin-bottom:0; }
 section.content-section{ padding:52px 0 48px; scroll-margin-top:72px; }
 section.content-section::after{ content:""; }
 
-footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-size:.92rem; color:var(--chalk-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font); font-size:.92rem; color:var(--chalk-faint); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; }
 
 /* ---------- navegação interna de cada módulo ---------- */
 .mod-nav a{ font-family:var(--chalk-font); font-size:1rem; color:var(--chalk-dim); text-decoration:none; white-space:nowrap; }
@@ -324,7 +326,7 @@ footer.page-footer{ padding:24px 44px 60px; font-family:var(--chalk-font); font-
 .eq .neg{ color:var(--pink); }
 
 @media (max-width:900px){
-  .main-col{ margin-left:0; }
+  body{ --nav-w: 0px; }
   .sidebar{ width:min(320px, 86vw); padding:78px 24px 36px; }
   body:not(.nav-closed) .nav-backdrop{ opacity:1; pointer-events:auto; }
   .topbar{ padding:20px 22px 20px 82px; }
