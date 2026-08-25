@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amplificadores · Amp Ops · Diodos — Guias · Poli USP</title>
+<title>Amplificadores · Amp Ops · Diodos · Retificadores — Guias · Poli USP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -221,6 +221,17 @@ table.spec tr:last-child td{ border-bottom:none; }
 .q-head{ display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; font-family:var(--chalk-font); font-size:1.1rem; color:var(--yellow); margin-bottom:.5em; }
 .q-head .tagq{ font-family:var(--serif); font-style:italic; font-size:.78rem; color:var(--chalk-faint); border:1px dashed var(--line-strong); border-radius:99px; padding:.1em .8em; }
 .q-stem{ margin:0 0 1em; }
+.q-split{ display:flex; gap:24px; align-items:flex-start; margin-bottom:1em; }
+.q-split-txt{ flex:1 1 auto; min-width:0; }
+.q-split-txt .q-stem{ margin:0; }
+.q-fig{ flex:0 0 auto; width:150px; margin:0; }
+.q-fig.fig-m{ width:205px; }
+.q-fig.fig-l{ width:245px; }
+.q-fig svg{ width:100%; height:auto; display:block; }
+@media (max-width:660px){
+  .q-split{ flex-direction:column-reverse; gap:14px; }
+  .q-fig, .q-fig.fig-m, .q-fig.fig-l{ width:min(240px, 100%); align-self:center; }
+}
 .opts{ display:flex; flex-direction:column; gap:8px; }
 .opt{ display:block; width:100%; text-align:left; font-family:var(--serif); font-size:.98rem; line-height:1.5; color:var(--chalk-dim);
       background:rgba(237,237,225,.02); border:1.5px dashed var(--line-strong); border-radius:6px; padding:.55em .95em; cursor:pointer;
@@ -396,6 +407,18 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <li><a href="#m3-limitadores"><span class="n">3.6</span>Limitadores</a></li>
         <li><a href="#teste3-2024"><span class="n">T3</span>Teste 3 · 2024 — dois diodos</a></li>
         <li><a href="#teste3-2025"><span class="n">T3</span>Teste 3 · 2025 — cinco circuitos</a></li>
+        <li><a href="#teste4-2025"><span class="n">T4</span>Teste 4 · 2025 — regulador a zener</a></li>
+      </ul>
+      <a class="module-item" href="#mod4"><span class="num">04</span> Circuitos com diodos</a>
+      <ul class="sub-list" data-mod="mod4">
+        <li><a href="#m4-ondacompleta"><span class="n">4.1</span>Retificador de onda completa</a></li>
+        <li><a href="#m4-ponte"><span class="n">4.2</span>Retificador em ponte</a></li>
+        <li><a href="#m4-filtro"><span class="n">4.3</span>Filtro capacitivo e ripple</a></li>
+        <li><a href="#m4-correntes"><span class="n">4.4</span>Corrente no diodo</a></li>
+        <li><a href="#m4-grampeador"><span class="n">4.5</span>Circuito grampeador</a></li>
+        <li><a href="#m4-dobrador"><span class="n">4.6</span>Dobrador de tensão</a></li>
+        <li><a href="#teste4-2024"><span class="n">T4</span>Teste 4 · 2024 — ponte</a></li>
+        <li><a href="#m4-resumo"><span class="n">§</span>Resumo e comparação</a></li>
       </ul>
     </nav>
     <div class="more-soon">+ novos módulos em breve</div>
@@ -412,6 +435,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <a href="#mod1">01 · Amplificadores</a>
         <a href="#mod2">02 · Amplificadores operacionais</a>
         <a href="#mod3">03 · Diodos</a>
+        <a href="#mod4">04 · Circuitos com diodos</a>
       </nav>
     </div>
 
@@ -1583,7 +1607,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <p>Fazendo R₂ = 0 e R₁ = ∞ na Equação 2.9, obtém-se o <strong>amplificador de ganho unitário</strong>, ou seguidor de tensão: a saída inteira é realimentada para a entrada inversora — 100 % de realimentação negativa.</p>
 
           <figure class="panel">
-            <svg viewBox="0 0 460 220" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 490 220" xmlns="http://www.w3.org/2000/svg">
               <polygon points="150,45 150,165 290,105" fill="none" stroke="var(--chalk)" stroke-width="2.5"/>
               <text x="166" y="88" font-family="Kalam" font-size="19" fill="var(--chalk)">−</text>
               <text x="166" y="146" font-family="Kalam" font-size="19" fill="var(--chalk)">+</text>
@@ -3204,6 +3228,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <a href="#m3-limitadores">Limitadores</a>
         <a href="#teste3-2024">Teste 3 · 2024</a>
         <a href="#teste3-2025">Teste 3 · 2025</a>
+        <a href="#teste4-2025">Teste 4 · 2025</a>
       </nav>
     </div>
 
@@ -4809,7 +4834,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <p class="lead">Prova resolvida da PSI3024 · 2024. O enunciado fixa o modelo: todos os diodos têm <strong>queda de tensão nula</strong> quando diretamente polarizados e <strong>corrente nula</strong> quando reversamente polarizados — é o <a href="#m3-ideal">diodo ideal</a> da seção 3.1.1, sem os 0,7 V. Duas versões do mesmo circuito, e a única diferença entre elas é a <strong>troca dos dois resistores de lugar</strong>: <span style="color:var(--chalk)">Versão 1 em branco</span>, <span style="color:var(--pink)">Versão 2 entre parênteses</span>. Parece cosmético. Muda o estado de D₁.</p>
 
           <figure class="panel">
-            <svg viewBox="90 0 380 440" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="90 0 380 440" xmlns="http://www.w3.org/2000/svg"><g id="c24">
               <!-- fonte +10 V -->
               <text x="300" y="20" font-family="Kalam" font-size="16" fill="var(--chalk-dim)" text-anchor="middle">+ 10 V</text>
               <line x1="300" y1="28" x2="300" y2="74" stroke="var(--chalk)" stroke-width="2"/>
@@ -4873,7 +4898,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
               </g>
               <line x1="300" y1="372" x2="300" y2="398" stroke="var(--chalk)" stroke-width="2"/>
               <polygon points="295,388 305,388 300,400" fill="var(--chalk-faint)"/>
-              <text x="300" y="422" font-family="Kalam" font-size="16" fill="var(--chalk-dim)" text-anchor="middle">− 10 V</text>
+              <text x="300" y="422" font-family="Kalam" font-size="16" fill="var(--chalk-dim)" text-anchor="middle">− 10 V</text></g>
             </svg>
             <figcaption>O circuito das duas versões. D₁ liga o terra ao nó B; D₂ liga o nó de saída a B; os dois apontam <strong>para baixo</strong>, isto é, conduzem no sentido de B. Na <span style="color:var(--chalk)">Versão 1</span> o resistor de cima é 300 kΩ e o de baixo 100 kΩ; na <span style="color:var(--pink)">Versão 2</span> eles trocam de lugar. <code>V</code> é o potencial do terminal de saída em relação ao terra.</figcaption>
           </figure>
@@ -4889,7 +4914,14 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <!-- T3·1 -->
           <div class="q">
             <div class="q-head">T3·1 <span class="tagq">múltipla escolha · Versão 1</span></div>
-            <p class="q-stem">Na <strong>Versão 1</strong> (300 kΩ em cima, 100 kΩ embaixo), qual é o estado dos dois diodos?</p>
+            <div class="q-split">
+              <div class="q-split-txt">
+                <p class="q-stem">Na <strong>Versão 1</strong> (300 kΩ em cima, 100 kΩ embaixo), qual é o estado dos dois diodos?</p>
+              </div>
+              <figure class="q-fig" aria-hidden="true">
+                <svg viewBox="90 0 380 440" xmlns="http://www.w3.org/2000/svg"><use href="#c24"/></svg>
+              </figure>
+            </div>
             <div class="opts">
               <button class="opt" data-ok="0"><span class="k">a)</span> Ambos cortados — o nó B fica flutuando.</button>
               <button class="opt" data-ok="1"><span class="k">b)</span> Ambos conduzindo.</button>
@@ -4902,7 +4934,14 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <!-- T3·2 -->
           <div class="q">
             <div class="q-head">T3·2 <span class="tagq">resolvida · Versão 2, a hipótese que falha</span></div>
-            <p class="q-stem">Refaça o teste de condução para a <strong>Versão 2</strong> (100 kΩ em cima, 300 kΩ embaixo).</p>
+            <div class="q-split">
+              <div class="q-split-txt">
+                <p class="q-stem">Refaça o teste de condução para a <strong>Versão 2</strong> (100 kΩ em cima, 300 kΩ embaixo).</p>
+              </div>
+              <figure class="q-fig" aria-hidden="true">
+                <svg viewBox="90 0 380 440" xmlns="http://www.w3.org/2000/svg"><use href="#c24"/></svg>
+              </figure>
+            </div>
             <details class="reveal">
               <summary>Ver resolução</summary>
               <div class="ans">
@@ -4922,7 +4961,14 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <!-- T3·3 -->
           <div class="q">
             <div class="q-head">T3·3 <span class="tagq">resolvida · o potencial em B</span></div>
-            <p class="q-stem">Qual é o potencial do ponto B nas duas versões?</p>
+            <div class="q-split">
+              <div class="q-split-txt">
+                <p class="q-stem">Qual é o potencial do ponto B nas duas versões?</p>
+              </div>
+              <figure class="q-fig" aria-hidden="true">
+                <svg viewBox="90 0 380 440" xmlns="http://www.w3.org/2000/svg"><use href="#c24"/></svg>
+              </figure>
+            </div>
             <details class="reveal">
               <summary>Ver resolução</summary>
               <div class="ans">
@@ -4938,7 +4984,14 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <!-- T3·4 -->
           <div class="q">
             <div class="q-head">T3·4 <span class="tagq">resolvida · queda no resistor de 300 kΩ</span></div>
-            <p class="q-stem">Qual a queda de tensão no resistor de 300 kΩ em cada versão? (Cuidado: ele muda de lugar.)</p>
+            <div class="q-split">
+              <div class="q-split-txt">
+                <p class="q-stem">Qual a queda de tensão no resistor de 300 kΩ em cada versão? (Cuidado: ele muda de lugar.)</p>
+              </div>
+              <figure class="q-fig" aria-hidden="true">
+                <svg viewBox="90 0 380 440" xmlns="http://www.w3.org/2000/svg"><use href="#c24"/></svg>
+              </figure>
+            </div>
             <details class="reveal">
               <summary>Ver resolução</summary>
               <div class="ans">
@@ -4953,7 +5006,14 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <!-- T3·5 -->
           <div class="q">
             <div class="q-head">T3·5 <span class="tagq">resolvida · o potencial V da figura</span></div>
-            <p class="q-stem">Determine o potencial <code>V</code> indicado na figura.</p>
+            <div class="q-split">
+              <div class="q-split-txt">
+                <p class="q-stem">Determine o potencial <code>V</code> indicado na figura.</p>
+              </div>
+              <figure class="q-fig" aria-hidden="true">
+                <svg viewBox="90 0 380 440" xmlns="http://www.w3.org/2000/svg"><use href="#c24"/></svg>
+              </figure>
+            </div>
             <details class="reveal">
               <summary>Ver resolução</summary>
               <div class="ans">
@@ -4970,7 +5030,14 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <!-- T3·6 -->
           <div class="q">
             <div class="q-head">T3·6 <span class="tagq">resolvida · corrente no resistor de 100 kΩ</span></div>
-            <p class="q-stem">Qual a corrente que circula no resistor de 100 kΩ em cada versão?</p>
+            <div class="q-split">
+              <div class="q-split-txt">
+                <p class="q-stem">Qual a corrente que circula no resistor de 100 kΩ em cada versão?</p>
+              </div>
+              <figure class="q-fig" aria-hidden="true">
+                <svg viewBox="90 0 380 440" xmlns="http://www.w3.org/2000/svg"><use href="#c24"/></svg>
+              </figure>
+            </div>
             <details class="reveal">
               <summary>Ver resolução</summary>
               <div class="ans">
@@ -5001,6 +5068,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <figure class="panel">
             <svg viewBox="0 0 720 630" xmlns="http://www.w3.org/2000/svg">
               <!-- ================= (a) ================= -->
+              <g id="c25a">
               <text x="110" y="20" font-family="Kalam" font-size="15" fill="var(--chalk-dim)" text-anchor="middle">+5 V</text>
               <line x1="110" y1="28" x2="110" y2="56" stroke="var(--chalk)" stroke-width="2"/>
               <polyline points="110,56 110,64 100,69 120,80 100,91 120,102 110,107 110,116" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
@@ -5031,9 +5099,11 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
               <g font-family="Kalam" font-size="16" fill="var(--chalk-dim)">
                 <text x="180" y="138">+</text><text x="180" y="192" fill="var(--yellow)">V</text><text x="180" y="240">−</text>
               </g>
+              </g>
               <text x="110" y="292" font-family="Kalam" font-size="17" fill="var(--yellow)" text-anchor="middle">(a)</text>
 
               <!-- ================= (b) ================= -->
+              <g id="c25b">
               <g stroke="var(--chalk-faint)" stroke-width="2">
                 <line x1="339" y1="30" x2="361" y2="30"/><line x1="343" y1="24" x2="357" y2="24"/><line x1="347" y1="18" x2="353" y2="18"/>
               </g>
@@ -5065,9 +5135,11 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
               <g font-family="Kalam" font-size="16" fill="var(--chalk-dim)">
                 <text x="420" y="66">+</text><text x="420" y="112" fill="var(--yellow)">V</text><text x="420" y="148">−</text>
               </g>
+              </g>
               <text x="350" y="292" font-family="Kalam" font-size="17" fill="var(--yellow)" text-anchor="middle">(b)</text>
 
               <!-- ================= (c) ================= -->
+              <g id="c25c">
               <g stroke="var(--chalk-faint)" stroke-width="2">
                 <line x1="579" y1="30" x2="601" y2="30"/><line x1="583" y1="24" x2="597" y2="24"/><line x1="587" y1="18" x2="593" y2="18"/>
               </g>
@@ -5099,9 +5171,11 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
               <g font-family="Kalam" font-size="16" fill="var(--chalk-dim)">
                 <text x="660" y="66">+</text><text x="660" y="112" fill="var(--yellow)">V</text><text x="660" y="148">−</text>
               </g>
+              </g>
               <text x="590" y="292" font-family="Kalam" font-size="17" fill="var(--yellow)" text-anchor="middle">(c)</text>
 
               <!-- ================= (d) — porta OU ================= -->
+              <g id="c25d">
               <g font-family="Kalam" font-size="14">
                 <text x="8" y="361"><tspan fill="var(--chalk)">+3 V</tspan> <tspan fill="var(--pink)">(+5 V)</tspan></text>
                 <text x="8" y="413"><tspan fill="var(--chalk)">+2 V</tspan> <tspan fill="var(--pink)">(+3 V)</tspan></text>
@@ -5133,9 +5207,11 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
               <g font-family="Kalam" font-size="16" fill="var(--chalk-dim)">
                 <text x="296" y="438">+</text><text x="296" y="502" fill="var(--yellow)">V</text><text x="296" y="560">−</text>
               </g>
+              </g>
               <text x="210" y="614" font-family="Kalam" font-size="17" fill="var(--yellow)" text-anchor="middle">(d)</text>
 
               <!-- ================= (e) — porta E ================= -->
+              <g id="c25e">
               <text x="560" y="340" font-family="Kalam" font-size="15" fill="var(--chalk-dim)" text-anchor="middle">+5 V</text>
               <line x1="560" y1="348" x2="560" y2="372" stroke="var(--chalk)" stroke-width="2"/>
               <polyline points="560,372 560,380 550,385 570,396 550,407 570,418 560,423 560,432" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
@@ -5169,6 +5245,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
               <g stroke="var(--chalk-faint)" stroke-width="2">
                 <line x1="621" y1="570" x2="643" y2="570"/><line x1="625" y1="577" x2="639" y2="577"/><line x1="629" y1="584" x2="635" y2="584"/>
               </g>
+              </g>
               <text x="560" y="614" font-family="Kalam" font-size="17" fill="var(--yellow)" text-anchor="middle">(e)</text>
             </svg>
             <figcaption>Os cinco circuitos da prova. Em (a) a fonte de 3 V está <strong>abaixo</strong> do diodo; em (b) e (c) ela está <strong>acima</strong>, presa ao terra — e (b) difere de (c) só pela inversão simultânea da bateria e do diodo. Em (d) os três diodos apontam <strong>para dentro</strong> do nó (porta OU); em (e) apontam <strong>para fora</strong> (porta E). Valores da Versão 2 entre parênteses.</figcaption>
@@ -5180,7 +5257,14 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <!-- 2025 · a -->
           <div class="q">
             <div class="q-head">(a) <span class="tagq">resolvida · fonte em série com o diodo</span></div>
-            <p class="q-stem">+5 V alimenta 2 kΩ (3 kΩ); do nó de saída, um diodo desce até uma fonte de 3 V (2 V) ligada ao terra. Determine <code>V</code> e <code>I</code>.</p>
+            <div class="q-split">
+              <div class="q-split-txt">
+                <p class="q-stem">A alimentação está em cima; o diodo e a bateria descem em série até o terra. Determine <code>V</code> e <code>I</code>.</p>
+              </div>
+              <figure class="q-fig" aria-hidden="true">
+                <svg viewBox="32 4 162 250" xmlns="http://www.w3.org/2000/svg"><use href="#c25a"/></svg>
+              </figure>
+            </div>
             <details class="reveal">
               <summary>Ver resolução</summary>
               <div class="ans">
@@ -5197,7 +5281,14 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <!-- 2025 · b -->
           <div class="q">
             <div class="q-head">(b) <span class="tagq">resolvida · o diodo que não conduz</span></div>
-            <p class="q-stem">Do terra desce uma fonte de 3 V (2 V) com o polo negativo para cima, depois um diodo apontando <em>para cima</em>, o nó de saída e um resistor de 2 kΩ (3 kΩ) até −5 V. Determine <code>V</code> e <code>I</code>.</p>
+            <div class="q-split">
+              <div class="q-split-txt">
+                <p class="q-stem">Agora a bateria está no topo, presa ao terra e com o polo negativo para cima, e o diodo aponta <em>para cima</em>. Determine <code>V</code> e <code>I</code>.</p>
+              </div>
+              <figure class="q-fig" aria-hidden="true">
+                <svg viewBox="272 4 164 272" xmlns="http://www.w3.org/2000/svg"><use href="#c25b"/></svg>
+              </figure>
+            </div>
             <details class="reveal">
               <summary>Ver resolução</summary>
               <div class="ans">
@@ -5213,7 +5304,14 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <!-- 2025 · c -->
           <div class="q">
             <div class="q-head">(c) <span class="tagq">resolvida · o mesmo desenho, invertido</span></div>
-            <p class="q-stem">Mesmo circuito de (b), mas com a bateria e o diodo <strong>invertidos</strong>: o polo positivo da fonte de 3 V (2 V) está no terra e o diodo aponta para baixo. Determine <code>V</code> e <code>I</code>.</p>
+            <div class="q-split">
+              <div class="q-split-txt">
+                <p class="q-stem">O mesmo desenho de (b) com a bateria e o diodo <strong>invertidos</strong>. Determine <code>V</code> e <code>I</code>.</p>
+              </div>
+              <figure class="q-fig" aria-hidden="true">
+                <svg viewBox="512 4 164 272" xmlns="http://www.w3.org/2000/svg"><use href="#c25c"/></svg>
+              </figure>
+            </div>
             <details class="reveal">
               <summary>Ver resolução</summary>
               <div class="ans">
@@ -5230,7 +5328,14 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <!-- 2025 · d -->
           <div class="q">
             <div class="q-head">(d) <span class="tagq">resolvida · porta OU, o maior vence</span></div>
-            <p class="q-stem">Três fontes de +3 V, +2 V e +1 V (+5, +3, +2) alimentam três diodos que apontam para um nó comum, ligado ao terra por 1 kΩ. Determine <code>V</code> e <code>I</code>.</p>
+            <div class="q-split">
+              <div class="q-split-txt">
+                <p class="q-stem">Três fontes empurram o nó comum através de três diodos, e o resistor de 1 kΩ desce ao terra. Determine <code>V</code> e <code>I</code>.</p>
+              </div>
+              <figure class="q-fig fig-m" aria-hidden="true">
+                <svg viewBox="0 336 310 258" xmlns="http://www.w3.org/2000/svg"><use href="#c25d"/></svg>
+              </figure>
+            </div>
             <details class="reveal">
               <summary>Ver resolução</summary>
               <div class="ans">
@@ -5246,7 +5351,14 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           <!-- 2025 · e -->
           <div class="q">
             <div class="q-head">(e) <span class="tagq">resolvida · porta E, o menor vence</span></div>
-            <p class="q-stem">+5 V alimenta 1 kΩ até um nó comum, de onde três diodos apontam <em>para fora</em>, em direção a fontes de +3 V, +2 V e +1 V (+5, +3, +2). Determine <code>V</code> e <code>I</code>.</p>
+            <div class="q-split">
+              <div class="q-split-txt">
+                <p class="q-stem">Agora o resistor de 1 kΩ vem da alimentação e os três diodos apontam <em>para fora</em> do nó comum. Determine <code>V</code> e <code>I</code>.</p>
+              </div>
+              <figure class="q-fig fig-l" aria-hidden="true">
+                <svg viewBox="296 328 374 264" xmlns="http://www.w3.org/2000/svg"><use href="#c25e"/></svg>
+              </figure>
+            </div>
             <details class="reveal">
               <summary>Ver resolução</summary>
               <div class="ans">
@@ -5279,14 +5391,1622 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           </div>
         </section>
 
+        <!-- ============================================================
+             TESTE 4 · 2025 — REGULADOR A ZENER COM r_z
+             ============================================================ -->
+        <section class="content-section" id="teste4-2025">
+          <div class="eyebrow">PROVA RESOLVIDA · TESTE 4 · 2025</div>
+          <h2>Teste 4 · 2025 — o regulador a zener, item por item</h2>
+          <p class="lead">Prova resolvida da PSI3024 · 2025. Cinco itens sobre o <a href="#m3-regulador">regulador paralelo</a> da seção 3.4.2, com o modelo de resistência incremental. O gabarito organiza a solução em torno de uma ideia que vale o teste inteiro: <strong>separar o problema em uma parte cc e uma parte ca</strong>. Duas versões: <span style="color:var(--chalk)">Versão A em branco</span>, <span style="color:var(--pink)">Versão B entre parênteses</span>.</p>
+
+          <div class="eq" style="margin:22px 0">
+            <span class="dim">dados do enunciado —</span> V<sub>DD</sub> = 22 V <span class="dim">(32 V)</span> &nbsp;·&nbsp; zener com V<sub>Z</sub> = 10 V <span class="dim">(20 V)</span> @ I<sub>Z</sub> = 5 mA &nbsp;·&nbsp; r<sub>z</sub> = 20 Ω
+          </div>
+
+          <figure class="panel">
+            <svg viewBox="0 0 780 340" xmlns="http://www.w3.org/2000/svg">
+              <!-- ===================== PARTE CC ===================== -->
+              <text x="196" y="28" text-anchor="middle" font-family="Kalam" font-size="17" fill="var(--yellow)">parte cc — o ponto de operação</text>
+              <!-- fonte VDD -->
+              <line x1="50" y1="80" x2="50" y2="260" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="34" y1="128" x2="66" y2="128" stroke="var(--chalk)" stroke-width="3.4"/>
+              <line x1="42" y1="140" x2="58" y2="140" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="34" y1="152" x2="66" y2="152" stroke="var(--chalk)" stroke-width="3.4"/>
+              <line x1="42" y1="164" x2="58" y2="164" stroke="var(--chalk)" stroke-width="2.4"/>
+              <text x="4" y="204" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">V</text>
+              <text x="18" y="209" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">DD</text>
+              <!-- R -->
+              <line x1="50" y1="80" x2="82" y2="80" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polyline points="82,80 92,80 99,68 113,92 127,68 141,92 148,80 158,80" fill="none" stroke="var(--orange)" stroke-width="2.4"/>
+              <text x="108" y="54" font-family="Kalam" font-size="17" fill="var(--orange)">R</text>
+              <line x1="158" y1="80" x2="290" y2="80" stroke="var(--chalk)" stroke-width="2.2"/>
+              <!-- seta IR -->
+              <line x1="64" y1="58" x2="94" y2="58" stroke="var(--yellow)" stroke-width="1.8"/>
+              <polygon points="94,53 106,58 94,63" fill="var(--yellow)"/>
+              <text x="66" y="44" font-family="Kalam" font-size="14" fill="var(--yellow)">I</text>
+              <text x="73" y="49" font-family="Kalam" font-size="10" fill="var(--yellow)">R</text>
+              <!-- ramo do zener: bateria VZ0 + rz -->
+              <circle cx="200" cy="80" r="3.8" fill="var(--chalk)"/>
+              <line x1="200" y1="80" x2="200" y2="112" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="184" y1="112" x2="216" y2="112" stroke="var(--pink)" stroke-width="3.4"/>
+              <line x1="192" y1="124" x2="208" y2="124" stroke="var(--pink)" stroke-width="2.4"/>
+              <text x="224" y="124" font-family="Kalam" font-size="15" fill="var(--pink)">V</text>
+              <text x="238" y="129" font-family="Kalam" font-size="10" fill="var(--pink)">Z0</text>
+              <line x1="200" y1="124" x2="200" y2="152" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polyline points="200,152 200,160 188,167 212,181 188,195 212,209 200,216 200,260" fill="none" stroke="var(--pink)" stroke-width="2.4"/>
+              <text x="224" y="192" font-family="Kalam" font-size="16" fill="var(--pink)">r</text>
+              <text x="233" y="197" font-family="Kalam" font-size="11" fill="var(--pink)">z</text>
+              <!-- seta IZ -->
+              <line x1="168" y1="130" x2="168" y2="158" stroke="var(--pink)" stroke-width="1.8"/>
+              <polygon points="163,158 173,158 168,170" fill="var(--pink)"/>
+              <text x="148" y="148" font-family="Kalam" font-size="14" fill="var(--pink)">I</text>
+              <text x="155" y="153" font-family="Kalam" font-size="10" fill="var(--pink)">Z</text>
+              <!-- RL -->
+              <line x1="290" y1="80" x2="290" y2="112" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polyline points="290,112 290,120 278,127 302,141 278,155 302,169 290,176 290,260" fill="none" stroke="var(--orange)" stroke-width="2.4"/>
+              <text x="312" y="150" font-family="Kalam" font-size="16" fill="var(--orange)">R</text>
+              <text x="325" y="155" font-family="Kalam" font-size="11" fill="var(--orange)">L</text>
+              <!-- seta IL -->
+              <line x1="258" y1="130" x2="258" y2="158" stroke="var(--orange)" stroke-width="1.8"/>
+              <polygon points="253,158 263,158 258,170" fill="var(--orange)"/>
+              <text x="238" y="148" font-family="Kalam" font-size="14" fill="var(--orange)">I</text>
+              <text x="245" y="153" font-family="Kalam" font-size="10" fill="var(--orange)">L</text>
+              <!-- retorno -->
+              <line x1="50" y1="260" x2="290" y2="260" stroke="var(--chalk)" stroke-width="2.2"/>
+              <circle cx="200" cy="260" r="3.8" fill="var(--chalk)"/>
+              <g stroke="var(--chalk-faint)" stroke-width="2">
+                <line x1="186" y1="264" x2="214" y2="264"/><line x1="191" y1="272" x2="209" y2="272"/><line x1="196" y1="280" x2="204" y2="280"/>
+              </g>
+              <!-- V0 -->
+              <path d="M348,240 C372,226 372,94 348,80" fill="none" stroke="var(--yellow)" stroke-width="1.8"/>
+              <polygon points="342,74 356,82 344,88" fill="var(--yellow)"/>
+              <text x="374" y="168" font-family="Kalam" font-size="19" fill="var(--yellow)">V</text>
+              <text x="390" y="173" font-family="Kalam" font-size="12" fill="var(--yellow)">0</text>
+              <text x="196" y="312" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">o zener vira bateria em série</text>
+              <text x="196" y="332" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">com resistência</text>
+
+              <!-- divisória -->
+              <line x1="430" y1="20" x2="430" y2="330" stroke="var(--line-strong)" stroke-width="1.6" stroke-dasharray="7,6"/>
+
+              <!-- ===================== PARTE CA ===================== -->
+              <text x="606" y="28" text-anchor="middle" font-family="Kalam" font-size="17" fill="var(--pink)">parte ca — só as variações</text>
+              <circle cx="486" cy="150" r="24" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <path d="M474,150 C480,136 492,164 498,150" fill="none" stroke="var(--chalk-dim)" stroke-width="2"/>
+              <text x="440" y="206" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">Δv</text>
+              <text x="464" y="211" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">DD</text>
+              <line x1="486" y1="126" x2="486" y2="80" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="486" y1="80" x2="518" y2="80" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polyline points="518,80 528,80 535,68 549,92 563,68 577,92 584,80 594,80" fill="none" stroke="var(--orange)" stroke-width="2.4"/>
+              <text x="544" y="54" font-family="Kalam" font-size="17" fill="var(--orange)">R</text>
+              <line x1="594" y1="80" x2="716" y2="80" stroke="var(--chalk)" stroke-width="2.2"/>
+              <!-- rz sozinho (VZ0 curto-circuitada) -->
+              <circle cx="636" cy="80" r="3.8" fill="var(--chalk)"/>
+              <polyline points="636,80 636,112 624,119 648,133 624,147 648,161 636,168 636,240" fill="none" stroke="var(--pink)" stroke-width="2.4"/>
+              <text x="658" y="146" font-family="Kalam" font-size="16" fill="var(--pink)">r</text>
+              <text x="667" y="151" font-family="Kalam" font-size="11" fill="var(--pink)">z</text>
+              <!-- RL -->
+              <line x1="716" y1="80" x2="716" y2="112" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polyline points="716,112 716,120 704,127 728,141 704,155 728,169 716,176 716,240" fill="none" stroke="var(--orange)" stroke-width="2.4"/>
+              <text x="738" y="150" font-family="Kalam" font-size="16" fill="var(--orange)">R</text>
+              <text x="751" y="155" font-family="Kalam" font-size="11" fill="var(--orange)">L</text>
+              <line x1="486" y1="174" x2="486" y2="240" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="486" y1="240" x2="716" y2="240" stroke="var(--chalk)" stroke-width="2.2"/>
+              <circle cx="636" cy="240" r="3.8" fill="var(--chalk)"/>
+              <g stroke="var(--chalk-faint)" stroke-width="2">
+                <line x1="622" y1="244" x2="650" y2="244"/><line x1="627" y1="252" x2="645" y2="252"/><line x1="632" y1="260" x2="640" y2="260"/>
+              </g>
+              <text x="606" y="312" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">a bateria é um curto:</text>
+              <text x="606" y="332" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">ela não varia</text>
+            </svg>
+            <figcaption>A decomposição que o gabarito usa. À esquerda, o circuito cc completo, com o zener substituído por V<sub>Z0</sub> em série com r<sub>z</sub> — é dele que saem V<sub>0</sub>, I<sub>Z</sub>, I<sub>R</sub> e I<sub>L</sub>. À direita, o circuito das <em>variações</em>: a fonte V<sub>DD</sub> vira Δv<sub>DD</sub> e a bateria V<sub>Z0</sub>, sendo constante, <strong>vira um curto</strong>. Sobra um divisor de tensão puro.</figcaption>
+          </figure>
+
+          <div class="attn">
+            <span class="tag">por que a bateria V<sub>Z0</sub> vira um curto</span>
+            É superposição, e nada mais. O circuito é linear (depois de trocado o zener pelo modelo), então a resposta é a soma da contribuição de cada fonte. Quando se pergunta "quanto V<sub>0</sub> <em>varia</em> se V<sub>DD</sub> varia de Δv<sub>DD</sub>?", a única fonte que muda é V<sub>DD</sub>: todas as demais — inclusive V<sub>Z0</sub> — ficam paradas, e uma fonte de tensão parada é, para as variações, uma resistência nula. Daí o curto. O erro que o teste pune é <strong>tentar responder ao item 5 com o circuito cc</strong>: ali V<sub>Z0</sub> aparece, e a conta não fecha.
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Resolução</div>
+
+          <div class="q">
+            <div class="q-head">(1) <span class="tagq">resolvida · extrair V<sub>Z0</sub> do ponto de operação</span></div>
+            <p class="q-stem">A partir do ponto de operação fornecido no catálogo, obtenha o parâmetro V<sub>Z0</sub> do modelo.</p>
+            <details class="reveal">
+              <summary>Ver resolução</summary>
+              <div class="ans">
+                <p>O catálogo dá um <strong>par</strong> de coordenadas — V<sub>Z</sub> a uma certa I<sub>Z</sub> — e a inclinação r<sub>z</sub>. Uma reta que passa por um ponto com inclinação conhecida está determinada, e o que se quer é seu ponto de corte. Da Equação 3.20:</p>
+                <div class="eq">V<sub>Z</sub> = V<sub>Z0</sub> + r<sub>z</sub>·I<sub>Z</sub> &nbsp;&nbsp;⇒&nbsp;&nbsp; V<sub>Z0</sub> = V<sub>Z</sub> − r<sub>z</sub>·I<sub>Z</sub></div>
+                <div class="eq" style="font-size:1.28rem">
+                  <span class="hand-box">V<sub>Z0</sub> = 10 − 20 × 5m = <span class="y">9,9 V</span> &nbsp;<span class="dim">(20 − 20 × 5m = 19,9 V)</span></span>
+                </div>
+                <p>São 100 mV — a queda que r<sub>z</sub> produz na corrente de teste. Esse número, e não os 10 V do rótulo, é o parâmetro que entra em todos os itens seguintes.</p>
+                <p class="note">Repare que V<sub>Z0</sub> não é uma tensão que se meça em lugar nenhum: é a <strong>extrapolação</strong> da reta até corrente zero, muito abaixo do joelho I<sub>ZK</sub>, onde o modelo linear nem vale mais. É um parâmetro do modelo, não uma grandeza física. O mesmo se passa com os 0,7 V do diodo comum.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="q">
+            <div class="q-head">(2) <span class="tagq">resolvida · sem carga, R = 2,4 kΩ</span></div>
+            <p class="q-stem">Considerando a ausência da carga R<sub>L</sub>, determine I<sub>Z</sub> e a tensão de saída V<sub>0</sub>.</p>
+            <details class="reveal">
+              <summary>Ver resolução</summary>
+              <div class="ans">
+                <p>Sem carga, I<sub>L</sub> = 0 e toda a corrente de R vai para o zener: sobra uma <strong>malha única</strong>, com V<sub>DD</sub> alimentando R, r<sub>z</sub> e V<sub>Z0</sub> em série.</p>
+                <div class="eq">
+                  V<sub>DD</sub> = R·I<sub>Z</sub> + r<sub>z</sub>·I<sub>Z</sub> + V<sub>Z0</sub> &nbsp;&nbsp;⇒&nbsp;&nbsp; I<sub>Z</sub> = (V<sub>DD</sub> − V<sub>Z0</sub>) / (R + r<sub>z</sub>)
+                </div>
+                <div class="eq">
+                  I<sub>Z</sub> = (22 − 9,9) / (2,4k + 20) = 12,1 / 2420 = <span class="y">5 mA</span><br>
+                  <span class="dim">(32 − 19,9) / (2,4k + 20) = 12,1 / 2420 = 5 mA</span>
+                </div>
+                <p>E a saída, que aqui é a própria tensão do zener:</p>
+                <div class="eq" style="font-size:1.28rem">
+                  <span class="hand-box">V<sub>0</sub> = V<sub>Z0</sub> + r<sub>z</sub>I<sub>Z</sub> = 9,9 + 0,1 = <span class="y">10 V</span> &nbsp;<span class="dim">(19,9 + 0,1 = 20 V)</span></span>
+                </div>
+                <p class="note">O valor de R foi escolhido pelo autor da prova justamente para devolver os 5 mA do catálogo — por isso V<sub>0</sub> cai exatamente sobre o V<sub>Z</sub> nominal. Não é coincidência nem sorte: é o modo usual de polarizar um zener, colocando-o no ponto em que ele foi caracterizado. Repare também que r<sub>z</sub> = 20 Ω entra em série com R = 2400 Ω e altera o resultado em menos de 1% — em muitos problemas dá para ignorá-lo <em>nesta</em> conta, mas nunca no item 5.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="q">
+            <div class="q-head">(3) <span class="tagq">resolvida · com carga, R = 2 kΩ e R<sub>L</sub> = 10 kΩ</span></div>
+            <p class="q-stem">Para R = 2 kΩ e R<sub>L</sub> = 10 kΩ <span class="dim">(20 kΩ)</span>, determine V<sub>Z</sub> e V<sub>0</sub>.</p>
+            <details class="reveal">
+              <summary>Ver resolução</summary>
+              <div class="ans">
+                <p>Primeiro a observação topológica que o item cobra: <strong>o zener está em paralelo com a carga</strong>, e é isso que significa "regulador paralelo". Os dois compartilham o mesmo par de nós, logo</p>
+                <div class="eq">V<sub>Z</sub> = V<sub>0</sub></div>
+                <p>Agora há três ramos no nó de saída, e a lei dos nós dá uma equação em V<sub>0</sub>:</p>
+                <div class="eq">
+                  (V<sub>DD</sub> − V<sub>0</sub>)/R = V<sub>0</sub>/R<sub>L</sub> + (V<sub>0</sub> − V<sub>Z0</sub>)/r<sub>z</sub>
+                </div>
+                <div class="eq">
+                  (22 − V<sub>0</sub>)/2000 = V<sub>0</sub>/10000 + (V<sub>0</sub> − 9,9)/20
+                </div>
+                <p>Multiplicando tudo por 20 000:</p>
+                <div class="eq">
+                  10(22 − V<sub>0</sub>) = 2V<sub>0</sub> + 1000(V<sub>0</sub> − 9,9)<br>
+                  220 + 9900 = 1012·V<sub>0</sub> &nbsp;&nbsp;⇒&nbsp;&nbsp; V<sub>0</sub> = 10120/1012
+                </div>
+                <div class="eq" style="font-size:1.28rem">
+                  <span class="hand-box">V<sub>Z</sub> = V<sub>0</sub> = <span class="y">10,00 V</span> &nbsp;<span class="dim">(20,00 V)</span></span>
+                </div>
+                <p>De novo exatamente 10 V — e agora com uma carga drenando corrente e com um R diferente do item 2. <strong>Esse é o ponto da questão:</strong> a saída de um regulador bem projetado praticamente não se move quando R e R<sub>L</sub> mudam. Ela se move um pouco, mas o "pouco" está escondido na terceira casa decimal.</p>
+                <p class="note">O gabarito faz mais curto: supõe que I<sub>Z</sub> continua sendo 5 mA e escreve direto V<sub>0</sub> = 9,9 + 0,1 = 10 V. É legítimo <em>desde que</em> se verifique a suposição depois — que é justamente o que o item 4 faz. A equação de nó acima é o caminho sem suposição nenhuma, e chega ao mesmo lugar.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="q">
+            <div class="q-head">(4) <span class="tagq">resolvida · repartição das correntes</span></div>
+            <p class="q-stem">No ponto de operação encontrado, determine I<sub>L</sub>, I<sub>R</sub> e I<sub>Z</sub>.</p>
+            <details class="reveal">
+              <summary>Ver resolução</summary>
+              <div class="ans">
+                <p>Com V<sub>0</sub> conhecido, cada corrente sai de uma lei de Ohm:</p>
+                <div class="eq">
+                  I<sub>L</sub> = V<sub>Z</sub>/R<sub>L</sub> = 10 / 10k = <span class="y">1 mA</span> &nbsp;<span class="dim">(20/20k = 1 mA)</span><br>
+                  I<sub>R</sub> = (V<sub>DD</sub> − V<sub>Z</sub>)/R = (22 − 10) / 2k = <span class="y">6 mA</span> &nbsp;<span class="dim">((32 − 20)/2k = 6 mA)</span>
+                </div>
+                <p>E a lei dos nós fecha a conta:</p>
+                <div class="eq" style="font-size:1.28rem">
+                  <span class="hand-box">I<sub>Z</sub> = I<sub>R</sub> − I<sub>L</sub> = 6 − 1 = <span class="y">5 mA</span></span>
+                </div>
+                <p>Os 5 mA confirmam a suposição do item 3 — o zener continua no ponto do catálogo.</p>
+                <div class="attn" style="margin-top:18px">
+                  <span class="tag">a leitura que o número esconde</span>
+                  O resistor R entrega 6 mA. Desses, apenas <strong>1 mA</strong> vai para a carga; os outros <strong>5 mA</strong> atravessam o zener e são <em>queimados</em> em calor. O rendimento deste regulador é de cerca de 1/6 — e piora ainda mais em vazio, quando 100% da corrente é desperdiçada. É o preço de um circuito de dois componentes, e o motivo pelo qual reguladores paralelos só aparecem em referências de tensão e cargas leves. Repare também de onde vem a regulação: quando I<sub>L</sub> aumenta, o zener simplesmente <strong>cede</strong> parte dos seus 5 mA, mantendo I<sub>R</sub> — e portanto V<sub>0</sub> — quase inalterado. O zener funciona como um reservatório de corrente. Quando I<sub>L</sub> passar de 6 mA, não haverá mais o que ceder: o zener sai da ruptura e a regulação acaba.
+                </div>
+              </div>
+            </details>
+          </div>
+
+          <div class="q">
+            <div class="q-head">(5) <span class="tagq">resolvida · ondulação na saída</span></div>
+            <p class="q-stem">A alimentação traz uma ondulação de Δv<sub>DD</sub> = ±2,02 V <span class="dim">(±4,02 V)</span>. Qual a ondulação resultante na tensão de saída?</p>
+            <details class="reveal">
+              <summary>Ver resolução</summary>
+              <div class="ans">
+                <p>Aqui entra a parte ca da figura. Com V<sub>Z0</sub> em curto, o que resta entre a fonte de variação e a saída é um <strong>divisor de tensão</strong> formado por R e r<sub>z</sub>:</p>
+                <div class="eq">Δv<sub>0</sub> = Δv<sub>DD</sub> · r<sub>z</sub> / (R + r<sub>z</sub>)</div>
+                <div class="eq" style="font-size:1.28rem">
+                  <span class="hand-box">Δv<sub>0</sub> = ±2,02 × 20/(2k + 20) = <span class="y">±0,02 V</span> &nbsp;<span class="dim">(±4,02 × 20/2020 = ±0,04 V)</span></span>
+                </div>
+                <p>Cem vezes menor. Em termos relativos, uma ondulação de 9,2% na entrada virou <strong>0,2%</strong> na saída.</p>
+                <p><strong>E a carga?</strong> Rigorosamente, r<sub>z</sub> está em paralelo com R<sub>L</sub> no circuito ca, e o divisor deveria usar r<sub>z</sub>∥R<sub>L</sub>:</p>
+                <div class="eq">
+                  r<sub>z</sub>∥R<sub>L</sub> = (20 × 10k)/(10 020) = 19,96 Ω &nbsp;⇒&nbsp; Δv<sub>0</sub> = ±2,02 × 19,96/2019,96 = ±0,0200 V
+                </div>
+                <p>Diferença de 0,2% no resultado. É por isso que o gabarito simplesmente ignora R<sub>L</sub>: sempre que r<sub>z</sub> ≪ R<sub>L</sub> — e são 20 Ω contra 10 kΩ —, o paralelo é o próprio r<sub>z</sub>. A carga <em>não</em> participa da rejeição de ondulação; quem faz o trabalho é a razão r<sub>z</sub>/R.</p>
+                <p class="note">Este número é a <strong>regulação de linha</strong> da seção 3.4.2, dita de outro jeito: 0,02 V / 2,02 V ≈ 10 mV/V. E a expressão diz o que fazer para melhorar: baixar r<sub>z</sub> (zener melhor) ou subir R (mais corrente desperdiçada, saída mais frágil sob carga). Esse compromisso não tem saída dentro do regulador paralelo — escapar dele exige um regulador <em>série</em>, com transistor, que é o assunto do capítulo seguinte.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="q">
+            <div class="q-head">síntese <span class="tagq">múltipla escolha · o erro que o teste procura</span></div>
+            <p class="q-stem">Um aluno resolve o item 5 escrevendo Δv<sub>0</sub> = (V<sub>DD</sub> + Δv<sub>DD</sub>)·r<sub>z</sub>/(R + r<sub>z</sub>) − V<sub>Z0</sub>. Onde está o erro?</p>
+            <div class="opts">
+              <button class="opt" data-ok="0"><span class="k">a)</span> Em nenhum lugar: a expressão está correta, só é mais trabalhosa.</button>
+              <button class="opt" data-ok="1"><span class="k">b)</span> Ele misturou os dois circuitos: o divisor r<sub>z</sub>/(R + r<sub>z</sub>) só vale no circuito de <em>variações</em>, onde V<sub>Z0</sub> não existe. Aplicá-lo à tensão total é aplicar um resultado ca a um problema cc.</button>
+              <button class="opt" data-ok="0"><span class="k">c)</span> O erro é usar r<sub>z</sub> em vez de r<sub>z</sub>∥R<sub>L</sub>.</button>
+              <button class="opt" data-ok="0"><span class="k">d)</span> O erro é o sinal: deveria ser +V<sub>Z0</sub>.</button>
+            </div>
+            <div class="q-fb" role="status"><b>b)</b> — Superposição é uma técnica de <strong>separação</strong>, e o preço de usá-la é não misturar as parcelas. No circuito cc, V<sub>DD</sub> e V<sub>Z0</sub> coexistem e a saída é V<sub>Z0</sub> + r<sub>z</sub>I<sub>Z</sub>; no circuito ca, só Δv<sub>DD</sub> existe e a saída é o divisor. Cada equação vale no seu circuito. A alternativa (c) aponta uma imprecisão real, mas de 0,2% — não é "o erro", é um refinamento.</div>
+          </div>
+          </div>
+        </section>
+
 
       </div>
     </div>
 
 
+
+    <!-- ============================================================
+         MÓDULO 04 — CIRCUITOS COM DIODOS · FONTES DE ALIMENTAÇÃO
+         ============================================================ -->
+    <div class="module-wrap">
+
+      <section class="hero-module module-break" id="mod4">
+        <div class="hero-eyebrow">MÓDULO 04 · SEDRA &amp; SMITH, SEÇÕES 4.5 A 4.6</div>
+        <h1><span class="w1">A tomada entrega 127 V alternados. O circuito precisa de 5 V contínuos.</span> <span class="w2">O que existe entre uma coisa e a outra?</span></h1>
+        <p class="dek">O módulo anterior tratou o diodo como <em>dispositivo</em>: a junção, a exponencial, os modelos, e o retificador de meia onda como primeira aplicação. Este módulo trata o diodo como <em>peça de circuito</em>: quatro topologias de retificador, o capacitor de filtro que transforma pulsos em um patamar quase constante, e a conta que ninguém pode pular — a corrente de pico brutal que esse capacitor obriga o diodo a suportar. Fecha com dois circuitos que usam capacitor e diodo para <em>deslocar</em> e <em>somar</em> tensões: o grampeador e o dobrador.</p>
+        <div class="meta-row"><b>Curso</b> PSI3024 — Eletrônica &nbsp;&nbsp;&nbsp; <b>Referência</b> Sedra &amp; Smith, <i>Microeletrônica</i>, Seções 4.5 e 4.6 &nbsp;&nbsp;&nbsp; <b>Pré-requisito</b> <a href="#mod3" style="color:var(--yellow)">Módulo 03</a></div>
+
+        <svg class="hero-deco" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="20" y1="380" x2="390" y2="380" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+          <line x1="30" y1="80" x2="30" y2="450" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+          <!-- semiciclos retificados -->
+          <path d="M30,380 C42,250 60,180 78,180 C96,180 114,250 126,380
+                   C138,250 156,180 174,180 C192,180 210,250 222,380
+                   C234,250 252,180 270,180 C288,180 306,250 318,380
+                   C330,250 348,180 366,180 C384,180 396,250 400,340"
+                fill="none" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+          <!-- envoltória com ripple -->
+          <path d="M30,380 C42,250 60,180 78,180 C104,182 118,200 126,206
+                   C142,190 156,180 174,180 C200,182 214,200 222,206
+                   C238,190 252,180 270,180 C296,182 310,200 318,206
+                   C334,190 348,180 366,180 C392,182 398,198 400,204"
+                fill="none" stroke="var(--yellow)" stroke-width="3"/>
+          <line x1="30" y1="180" x2="390" y2="180" stroke="var(--pink)" stroke-width="1.2" stroke-dasharray="4,4"/>
+          <line x1="30" y1="206" x2="390" y2="206" stroke="var(--pink)" stroke-width="1.2" stroke-dasharray="4,4"/>
+          <text x="300" y="172" font-family="Kalam" font-size="20" fill="var(--pink)">V</text>
+          <text x="316" y="178" font-family="Kalam" font-size="13" fill="var(--pink)">r</text>
+        </svg>
+      </section>
+
+    <div class="mod-nav-bar">
+      <nav class="mod-nav">
+        <a href="#m4-ondacompleta">Retificador de onda completa</a>
+        <a href="#m4-ponte">Retificador em ponte</a>
+        <a href="#m4-filtro">Filtro capacitivo e ripple</a>
+        <a href="#m4-correntes">Corrente no diodo</a>
+        <a href="#m4-grampeador">Circuito grampeador</a>
+        <a href="#m4-dobrador">Dobrador de tensão</a>
+        <a href="#teste4-2024">Teste 4 · 2024</a>
+        <a href="#m4-resumo">Resumo e comparação</a>
+      </nav>
+    </div>
+
+      <div class="content">
+
+        <!-- ============================================================
+             4.1 · RETIFICADOR DE ONDA COMPLETA
+             ============================================================ -->
+        <section class="content-section" id="m4-ondacompleta">
+          <div class="eyebrow">4.5.2 · RETIFICADOR DE ONDA COMPLETA</div>
+          <h2>Aproveitar o semiciclo que o meia onda joga fora</h2>
+          <p class="lead">O <a href="#m3-retificador">retificador de meia onda</a> descarta metade da energia da rede: durante o semiciclo negativo, o diodo corta e a saída fica em zero. O <strong>retificador de onda completa</strong> resolve isso com um truque de enrolamento — um transformador com <em class="term">tomada central</em> gera duas tensões iguais e defasadas de 180°, e cada uma alimenta o seu próprio diodo.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 890 400" xmlns="http://www.w3.org/2000/svg">
+              <!-- ===== transformador ===== -->
+              <path d="M40,110 a15,15 0 0 0 0,30 a15,15 0 0 0 0,30 a15,15 0 0 0 0,30 a15,15 0 0 0 0,30" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="40" y1="110" x2="40" y2="88" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="40" y1="230" x2="40" y2="252" stroke="var(--chalk)" stroke-width="2.2"/>
+              <path d="M20,82 C28,72 32,90 40,80" fill="none" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <text x="6" y="72" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">rede</text>
+              <line x1="56" y1="86" x2="56" y2="274" stroke="var(--chalk-faint)" stroke-width="2"/>
+              <line x1="63" y1="86" x2="63" y2="274" stroke="var(--chalk-faint)" stroke-width="2"/>
+              <!-- secundario superior -->
+              <path d="M80,100 a15,15 0 0 1 0,30 a15,15 0 0 1 0,30" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="80" y1="160" x2="80" y2="180" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="96" y="118" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">v</text>
+              <text x="107" y="123" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">S</text>
+              <text x="113" y="118" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">(t)</text>
+              <text x="88" y="96" font-family="Kalam" font-size="16" fill="var(--yellow)">+</text>
+              <text x="90" y="172" font-family="Kalam" font-size="16" fill="var(--yellow)">−</text>
+              <!-- secundario inferior -->
+              <line x1="80" y1="180" x2="80" y2="200" stroke="var(--chalk)" stroke-width="2.2"/>
+              <path d="M80,200 a15,15 0 0 1 0,30 a15,15 0 0 1 0,30" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="96" y="248" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">v</text>
+              <text x="107" y="253" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">S</text>
+              <text x="113" y="248" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">(t)</text>
+              <text x="90" y="200" font-family="Kalam" font-size="16" fill="var(--yellow)">+</text>
+              <text x="90" y="278" font-family="Kalam" font-size="16" fill="var(--yellow)">−</text>
+              <!-- tomada central -->
+              <circle cx="80" cy="180" r="4" fill="var(--chalk)"/>
+              <line x1="80" y1="180" x2="158" y2="180" stroke="var(--chalk)" stroke-width="2.2"/>
+              <g stroke="var(--chalk-faint)" stroke-width="2">
+                <line x1="144" y1="184" x2="172" y2="184"/>
+                <line x1="149" y1="192" x2="167" y2="192"/>
+                <line x1="154" y1="200" x2="162" y2="200"/>
+              </g>
+              <text x="120" y="168" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">tomada central</text>
+
+              <!-- ===== ramo D1 ===== -->
+              <path d="M80,100 L80,60 L200,60" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polygon points="220.16,44 220.16,76 251.84,60" fill="rgba(237,237,225,.06)" stroke="var(--chalk)" stroke-width="2.6"/>
+              <line x1="251.84" y1="42" x2="251.84" y2="78" stroke="var(--chalk)" stroke-width="3.2"/>
+              <line x1="200" y1="60" x2="220.16" y2="60" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="251.84" y1="60" x2="272" y2="60" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="272" y1="60" x2="380" y2="60" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="216" y="34" font-family="Kalam" font-size="16" fill="var(--chalk)">D</text>
+              <text x="229" y="39" font-family="Kalam" font-size="11" fill="var(--chalk)">1</text>
+              <!-- ===== ramo D2 ===== -->
+              <path d="M80,260 L80,320 L200,320" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polygon points="220.16,304 220.16,336 251.84,320" fill="rgba(237,237,225,.06)" stroke="var(--chalk)" stroke-width="2.6"/>
+              <line x1="251.84" y1="302" x2="251.84" y2="338" stroke="var(--chalk)" stroke-width="3.2"/>
+              <line x1="200" y1="320" x2="220.16" y2="320" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="251.84" y1="320" x2="272" y2="320" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="272" y1="320" x2="380" y2="320" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="216" y="360" font-family="Kalam" font-size="16" fill="var(--chalk)">D</text>
+              <text x="229" y="365" font-family="Kalam" font-size="11" fill="var(--chalk)">2</text>
+
+              <!-- ===== no de saida ===== -->
+              <line x1="380" y1="60" x2="380" y2="320" stroke="var(--chalk)" stroke-width="2.2"/>
+              <circle cx="380" cy="60" r="4" fill="var(--chalk)"/>
+              <circle cx="380" cy="320" r="4" fill="var(--chalk)"/>
+              <!-- ===== carga ===== -->
+              <line x1="380" y1="60" x2="466" y2="60" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polyline points="466,60 466,96 454,103 478,117 454,131 478,145 466,152 466,188" fill="none" stroke="var(--orange)" stroke-width="2.4"/>
+              <text x="490" y="128" font-family="Kalam" font-size="16" fill="var(--orange)">R</text>
+              <text x="503" y="133" font-family="Kalam" font-size="11" fill="var(--orange)">L</text>
+              <line x1="466" y1="188" x2="466" y2="250" stroke="var(--chalk)" stroke-width="2.2"/>
+              <g stroke="var(--chalk-faint)" stroke-width="2">
+                <line x1="452" y1="254" x2="480" y2="254"/>
+                <line x1="457" y1="262" x2="475" y2="262"/>
+                <line x1="462" y1="270" x2="470" y2="270"/>
+              </g>
+              <!-- vO -->
+              <path d="M524,242 C548,228 548,74 524,60" fill="none" stroke="var(--yellow)" stroke-width="1.8"/>
+              <polygon points="518,54 532,62 520,68" fill="var(--yellow)"/>
+              <text x="520" y="46" font-family="Kalam" font-size="18" fill="var(--yellow)">v</text>
+              <text x="532" y="51" font-family="Kalam" font-size="11" fill="var(--yellow)">O</text>
+              <text x="540" y="46" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">(t)</text>
+              <text x="497" y="70" font-family="Kalam" font-size="14" fill="var(--yellow)">+</text>
+              <text x="497" y="248" font-family="Kalam" font-size="14" fill="var(--yellow)">−</text>
+
+              <!-- ===== formas de onda ===== -->
+              <g transform="translate(60,0)">
+              <line x1="560" y1="230" x2="820" y2="230" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <line x1="570" y1="60" x2="570" y2="330" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <text x="808" y="252" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">t</text>
+              <path d="M570,230 C577,190 585,120 594,120 C603,120 611,190 618,230 C625,270 633,340 642,340 C651,340 659,270 666,230
+                       C673,190 681,120 690,120 C699,120 707,190 714,230 C721,270 729,340 738,340 C747,340 755,270 762,230
+                       C769,190 777,120 786,120 C795,120 803,190 810,230"
+                    fill="none" stroke="var(--chalk-faint)" stroke-width="1.5" stroke-dasharray="4,3"/>
+              <path d="M570,230 C577,196 585,132 594,132 C603,132 611,196 618,230 C625,196 633,132 642,132 C651,132 659,196 666,230
+                       C673,196 681,132 690,132 C699,132 707,196 714,230 C721,196 729,132 738,132 C747,132 755,196 762,230
+                       C769,196 777,132 786,132 C795,132 803,196 810,230"
+                    fill="none" stroke="var(--yellow)" stroke-width="3"/>
+              <line x1="570" y1="120" x2="610" y2="120" stroke="var(--chalk-faint)" stroke-width="1.1" stroke-dasharray="3,3"/>
+              <line x1="570" y1="132" x2="610" y2="132" stroke="var(--yellow)" stroke-width="1.1" stroke-dasharray="3,3"/>
+              <text x="526" y="124" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">10 V</text>
+              <text x="518" y="150" font-family="Kalam" font-size="14" fill="var(--yellow)">9,3 V</text>
+              <line x1="594" y1="298" x2="642" y2="298" stroke="var(--pink)" stroke-width="1.4"/>
+              <line x1="594" y1="292" x2="594" y2="304" stroke="var(--pink)" stroke-width="1.4"/>
+              <line x1="642" y1="292" x2="642" y2="304" stroke="var(--pink)" stroke-width="1.4"/>
+              <text x="606" y="290" font-family="Kalam" font-size="14" fill="var(--pink)">T/2</text>
+              <text x="570" y="44" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">v</text>
+              <text x="579" y="49" font-family="Kalam" font-size="10" fill="var(--chalk-faint)">S</text>
+              <text x="584" y="44" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">(t) tracejada · </text>
+              <text x="686" y="44" font-family="Kalam" font-size="14" fill="var(--yellow)">v</text>
+              <text x="696" y="49" font-family="Kalam" font-size="10" fill="var(--yellow)">O</text>
+              <text x="702" y="44" font-family="Kalam" font-size="14" fill="var(--yellow)">(t) cheia</text>
+              </g>
+            </svg>
+            <figcaption>Retificador de onda completa com tomada central. Os dois enrolamentos secundários fornecem v<sub>S</sub>(t) e −v<sub>S</sub>(t) em relação ao terra; D₁ trata o semiciclo positivo e D₂ o negativo. A saída tem <strong>o dobro</strong> da frequência da rede — os vales que o meia onda deixava em zero foram preenchidos.</figcaption>
+          </figure>
+
+          <h3 style="margin-top:34px;font-size:1.25rem">Os três estados do circuito</h3>
+          <p>A análise é a mesma de sempre: supor um estado, verificar. Com o modelo de queda constante (V<sub>D</sub> = 0,7 V):</p>
+          <div class="eq">
+            v<sub>S</sub>(t) &gt; 0,7 V &nbsp;⇒&nbsp; D₁ conduz, D₂ cortado &nbsp;⇒&nbsp; <span class="y">v<sub>O</sub> = v<sub>S</sub>(t) − 0,7</span><br>
+            −0,7 ≤ v<sub>S</sub>(t) ≤ 0,7 &nbsp;⇒&nbsp; ambos cortados &nbsp;⇒&nbsp; <span class="y">v<sub>O</sub> = 0</span><br>
+            v<sub>S</sub>(t) &lt; −0,7 V &nbsp;⇒&nbsp; D₂ conduz, D₁ cortado &nbsp;⇒&nbsp; <span class="y">v<sub>O</sub> = −v<sub>S</sub>(t) − 0,7</span>
+          </div>
+          <p>Repare na simetria: o enrolamento inferior vê <strong>−v<sub>S</sub>(t)</strong> em relação ao terra, então quando v<sub>S</sub> mergulha para −10 V, o cátodo de D₂ está em −10 V e seu ânodo, no terra da tomada central — polarização direta. É por isso que o semiciclo aparece na saída <em>invertido</em>, e não some.</p>
+
+          <div class="attn">
+            <span class="tag">o preço da tomada central</span>
+            Quando D₁ conduz, o nó de saída está em v<sub>S</sub> − 0,7. O cátodo de D₂ está nesse mesmo nó, e o ânodo de D₂ está em −v<sub>S</sub>. A tensão reversa sobre D₂ vale portanto (v<sub>S</sub> − 0,7) − (−v<sub>S</sub>) = 2v<sub>S</sub> − 0,7, e no pico:
+            <div class="eq" style="margin:12px 0 4px">PIV = <span class="y">2V<sub>Sp</sub> − V<sub>D</sub></span></div>
+            É <strong>o dobro</strong> da PIV do retificador de meia onda. Some a isso o custo de um transformador com tomada central — dois enrolamentos secundários, cada um capaz de fornecer a tensão de pico inteira — e você tem as duas razões pelas quais a topologia da próxima seção acabou vencendo na prática.
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+          <div class="q">
+            <div class="q-head">conceitual <span class="tagq">múltipla escolha · frequência de saída</span></div>
+            <p class="q-stem">Um retificador de onda completa é alimentado pela rede de 60 Hz. Qual a frequência da ondulação na sua saída?</p>
+            <div class="opts">
+              <button class="opt" data-ok="0"><span class="k">a)</span> 30 Hz — cada diodo trabalha em metade dos ciclos.</button>
+              <button class="opt" data-ok="1"><span class="k">b)</span> 120 Hz — há um pulso de saída para cada semiciclo da entrada.</button>
+              <button class="opt" data-ok="0"><span class="k">c)</span> 60 Hz — a retificação não altera a frequência.</button>
+              <button class="opt" data-ok="0"><span class="k">d)</span> 0 Hz — a saída é contínua.</button>
+            </div>
+            <div class="q-fb" role="status"><b>b)</b> — Cada semiciclo da entrada produz um pulso positivo na saída, então o padrão se repete a cada <strong>T/2</strong>, e f<sub>saída</sub> = 2f = 120 Hz. Isso não é detalhe cosmético: na próxima seção veremos que o capacitor de filtro tem só T/2 para descarregar, em vez de T — e a ondulação cai pela metade com o mesmo capacitor. A alternativa (c) valeria para o meia onda, cuja saída ainda tem período T.</div>
+          </div>
+          <div class="q">
+            <div class="q-head">cálculo <span class="tagq">resolvido · PIV e escolha do diodo</span></div>
+            <p class="q-stem">Um retificador de onda completa tem secundários de 12 V eficazes cada (em relação à tomada central). Calcule V<sub>Sp</sub>, o pico da saída e a PIV. Que tensão de ruptura mínima especificar para os diodos?</p>
+            <details class="reveal">
+              <summary>Ver resolução</summary>
+              <div class="ans">
+                <p>Da tensão eficaz para o pico:</p>
+                <div class="eq">V<sub>Sp</sub> = 12 · √2 = <span class="y">17,0 V</span></div>
+                <p>Pico da saída, descontando um diodo:</p>
+                <div class="eq">V<sub>Op</sub> = 17,0 − 0,7 = <span class="y">16,3 V</span></div>
+                <p>Tensão reversa de pico sobre o diodo cortado:</p>
+                <div class="eq">PIV = 2 · 17,0 − 0,7 = <span class="y">33,3 V</span></div>
+                <p>Com a margem usual de 50%, especifica-se um diodo com V<sub>RRM</sub> ≥ 50 V — um 1N4001 (50 V) já serviria, mas com folga apertada; um 1N4004 (400 V) custa o mesmo.</p>
+                <p class="note">Compare: o retificador em ponte, com a mesma tensão de saída de pico (16,3 V), teria PIV de apenas 17,0 V. Um enrolamento a menos e metade da tensão reversa, ao custo de dois diodos extras — que são baratos.</p>
+              </div>
+            </details>
+          </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             4.2 · RETIFICADOR EM PONTE
+             ============================================================ -->
+        <section class="content-section" id="m4-ponte">
+          <div class="eyebrow">4.5.3 · RETIFICADOR EM PONTE</div>
+          <h2>Quatro diodos, um enrolamento só</h2>
+          <p class="lead">A <em class="term">ponte de Graetz</em> obtém onda completa sem tomada central: os quatro diodos formam um losango, e a cada semiciclo <strong>dois deles em série</strong> conduzem, sempre encaminhando a corrente pela carga no mesmo sentido. É a topologia de praticamente toda fonte linear que você vai abrir.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 1020 460" xmlns="http://www.w3.org/2000/svg">
+              <!-- transformador -->
+              <path d="M50,140 a15,15 0 0 0 0,30 a15,15 0 0 0 0,30 a15,15 0 0 0 0,30 a15,15 0 0 0 0,30" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="50" y1="140" x2="50" y2="118" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="50" y1="260" x2="50" y2="282" stroke="var(--chalk)" stroke-width="2.2"/>
+              <path d="M28,112 C36,102 40,120 48,110" fill="none" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <text x="8" y="104" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">rede</text>
+              <line x1="66" y1="118" x2="66" y2="282" stroke="var(--chalk-faint)" stroke-width="2"/>
+              <line x1="73" y1="118" x2="73" y2="282" stroke="var(--chalk-faint)" stroke-width="2"/>
+              <path d="M90,140 a15,15 0 0 1 0,30 a15,15 0 0 1 0,30 a15,15 0 0 1 0,30 a15,15 0 0 1 0,30" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="104" y="205" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">v</text>
+              <text x="115" y="210" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">S</text>
+              <text x="121" y="205" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">(t)</text>
+              <text x="96" y="136" font-family="Kalam" font-size="15" fill="var(--yellow)">+</text>
+              <text x="98" y="284" font-family="Kalam" font-size="15" fill="var(--yellow)">−</text>
+              <!-- ligacao ao no L -->
+              <path d="M90,140 L90,100 L170,100 L170,190 L230,190" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <!-- ligacao ao no Rt, com salto sobre o fio de retorno -->
+              <path d="M90,260 L90,340 L318,340" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <path d="M318,340 a12,12 0 0 1 24,0" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <path d="M342,340 L490,340 L490,190 L430,190" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <!-- ponte -->
+              <line x1="230.0" y1="190.0" x2="273.0" y2="155.6" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="287.0" y1="144.4" x2="330.0" y2="110.0" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polygon points="281.1,165.8 264.9,145.5 287.0,144.4" fill="rgba(237,237,225,.06)" stroke="var(--chalk)" stroke-width="2.5"/>
+              <line x1="297.0" y1="156.9" x2="277.0" y2="131.9" stroke="var(--chalk)" stroke-width="3.2"/>
+              <line x1="330.0" y1="270.0" x2="373.0" y2="235.6" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="387.0" y1="224.4" x2="430.0" y2="190.0" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polygon points="381.1,245.8 364.9,225.5 387.0,224.4" fill="rgba(237,237,225,.06)" stroke="var(--chalk)" stroke-width="2.5"/>
+              <line x1="397.0" y1="236.9" x2="377.0" y2="211.9" stroke="var(--chalk)" stroke-width="3.2"/>
+              <line x1="430.0" y1="190.0" x2="387.0" y2="155.6" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="373.0" y1="144.4" x2="330.0" y2="110.0" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polygon points="395.1,145.5 378.9,165.8 373.0,144.4" fill="rgba(237,237,225,.06)" stroke="var(--chalk)" stroke-width="2.5"/>
+              <line x1="383.0" y1="131.9" x2="363.0" y2="156.9" stroke="var(--chalk)" stroke-width="3.2"/>
+              <line x1="330.0" y1="270.0" x2="287.0" y2="235.6" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="273.0" y1="224.4" x2="230.0" y2="190.0" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polygon points="295.1,225.5 278.9,245.8 273.0,224.4" fill="rgba(237,237,225,.06)" stroke="var(--chalk)" stroke-width="2.5"/>
+              <line x1="283.0" y1="211.9" x2="263.0" y2="236.9" stroke="var(--chalk)" stroke-width="3.2"/>
+              <circle cx="230" cy="190" r="3.8" fill="var(--chalk)"/>
+              <circle cx="330" cy="110" r="3.8" fill="var(--chalk)"/>
+              <circle cx="430" cy="190" r="3.8" fill="var(--chalk)"/>
+              <circle cx="330" cy="270" r="3.8" fill="var(--chalk)"/>
+              <text x="248" y="132" font-family="Kalam" font-size="16" fill="var(--chalk)">D</text>
+              <text x="261" y="137" font-family="Kalam" font-size="11" fill="var(--chalk)">1</text>
+              <text x="386" y="252" font-family="Kalam" font-size="16" fill="var(--chalk)">D</text>
+              <text x="399" y="257" font-family="Kalam" font-size="11" fill="var(--chalk)">2</text>
+              <text x="396" y="132" font-family="Kalam" font-size="16" fill="var(--chalk)">D</text>
+              <text x="409" y="137" font-family="Kalam" font-size="11" fill="var(--chalk)">3</text>
+              <text x="240" y="252" font-family="Kalam" font-size="16" fill="var(--chalk)">D</text>
+              <text x="253" y="257" font-family="Kalam" font-size="11" fill="var(--chalk)">4</text>
+              <!-- saida -->
+              <path d="M330,110 L330,70 L600,70" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polyline points="600,70 600,104 588,111 612,125 588,139 612,153 600,160 600,194" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+              <text x="622" y="136" font-family="Kalam" font-size="16" fill="var(--orange)">R</text>
+              <text x="635" y="141" font-family="Kalam" font-size="11" fill="var(--orange)">L</text>
+              <path d="M600,194 L600,400 L330,400 L330,270" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="600" y1="70" x2="660" y2="70" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="664" cy="70" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="624" y="58" font-family="Kalam" font-size="17" fill="var(--yellow)">v</text>
+              <text x="636" y="63" font-family="Kalam" font-size="11" fill="var(--yellow)">O</text>
+              <text x="642" y="58" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">(t)</text>
+              <circle cx="460" cy="400" r="3.8" fill="var(--chalk)"/>
+              <g stroke="var(--chalk-faint)" stroke-width="2">
+                <line x1="446" y1="404" x2="474" y2="404"/><line x1="451" y1="412" x2="469" y2="412"/><line x1="456" y1="420" x2="464" y2="420"/>
+              </g>
+
+              <!-- ===== formas de onda ===== -->
+              <line x1="740" y1="300" x2="1010" y2="300" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <line x1="750" y1="120" x2="750" y2="400" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <text x="998" y="322" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">t</text>
+              <path d="M750,300 C757,258 765,190 774,190 C783,190 791,258 798,300 C805,342 813,410 822,410 C831,410 839,342 846,300
+                       C853,258 861,190 870,190 C879,190 887,258 894,300 C901,342 909,410 918,410 C927,410 935,342 942,300
+                       C949,258 957,190 966,190 C975,190 983,258 990,300"
+                    fill="none" stroke="var(--chalk-faint)" stroke-width="1.5" stroke-dasharray="4,3"/>
+              <path d="M750,300 C757,268 765,212 774,212 C783,212 791,268 798,300 C805,268 813,212 822,212 C831,212 839,268 846,300
+                       C853,268 861,212 870,212 C879,212 887,268 894,300 C901,268 909,212 918,212 C927,212 935,268 942,300
+                       C949,268 957,212 966,212 C975,212 983,268 990,300"
+                    fill="none" stroke="var(--yellow)" stroke-width="3"/>
+              <line x1="750" y1="190" x2="800" y2="190" stroke="var(--chalk-faint)" stroke-width="1.1" stroke-dasharray="3,3"/>
+              <line x1="750" y1="212" x2="800" y2="212" stroke="var(--yellow)" stroke-width="1.1" stroke-dasharray="3,3"/>
+              <text x="706" y="194" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">10 V</text>
+              <text x="698" y="230" font-family="Kalam" font-size="14" fill="var(--yellow)">8,6 V</text>
+              <text x="750" y="104" font-family="Kalam" font-size="15" fill="var(--yellow)">pico = V</text>
+              <text x="818" y="109" font-family="Kalam" font-size="11" fill="var(--yellow)">Sp</text>
+              <text x="830" y="104" font-family="Kalam" font-size="15" fill="var(--yellow)"> − 1,4 V</text>
+              <text x="750" y="438" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">entrada tracejada · saída cheia</text>
+            </svg>
+            <figcaption>Ponte retificadora. No semiciclo positivo a corrente sai do secundário, atravessa D₁, desce pela carga e volta por D₂; no negativo, o caminho é D₃ → carga → D₄. <strong>A corrente na carga tem sempre o mesmo sentido</strong> — daí a saída ser unipolar apesar da entrada alternar.</figcaption>
+          </figure>
+
+          <h3 style="margin-top:34px;font-size:1.25rem">Os três estados</h3>
+          <p>Como sempre há <strong>dois</strong> diodos em série no caminho da corrente, a queda total é 2V<sub>D</sub> = 1,4 V:</p>
+          <div class="eq">
+            v<sub>S</sub>(t) &gt; 1,4 V &nbsp;⇒&nbsp; D₁ e D₂ conduzem &nbsp;⇒&nbsp; <span class="y">v<sub>O</sub> = v<sub>S</sub>(t) − 1,4</span><br>
+            −1,4 ≤ v<sub>S</sub>(t) ≤ 1,4 &nbsp;⇒&nbsp; todos cortados &nbsp;⇒&nbsp; <span class="y">v<sub>O</sub> = 0</span><br>
+            v<sub>S</sub>(t) &lt; −1,4 V &nbsp;⇒&nbsp; D₃ e D₄ conduzem &nbsp;⇒&nbsp; <span class="y">v<sub>O</sub> = −v<sub>S</sub>(t) − 1,4</span>
+          </div>
+
+          <div class="attn">
+            <span class="tag">por que a ponte venceu</span>
+            Com o diodo D₃ cortado, seu ânodo está no terra e seu cátodo, no nó de saída (v<sub>S</sub> − 1,4). Mas o diodo D₂, que está conduzindo, já colocou o outro terminal do secundário praticamente no terra. Resultado:
+            <div class="eq" style="margin:12px 0 4px">PIV = <span class="y">V<sub>Sp</sub> − V<sub>D</sub></span> &nbsp;<span class="dim">(contra 2V<sub>Sp</sub> − V<sub>D</sub> na tomada central)</span></div>
+            <strong>Metade</strong> da tensão reversa, e um transformador com um único secundário — de tamanho e custo bem menores. O preço é uma queda de 1,4 V em vez de 0,7 V, o que só incomoda quando a tensão de saída é baixa (numa fonte de 5 V, 1,4 V já é 28% do valor). Para saídas de poucos volts, usam-se diodos Schottky, cuja queda é de ~0,3 V.
+          </div>
+
+          <div class="fig-2col">
+            <figure class="panel">
+              <svg viewBox="150 50 400 428" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="190" cy="265" r="24" fill="none" stroke="var(--yellow)" stroke-width="3"/>
+              <path d="M178,265 C184,251 196,279 202,265" fill="none" stroke="var(--yellow)" stroke-width="2.2"/>
+              <text x="164" y="206" font-family="Kalam" font-size="21" fill="var(--yellow)">+</text>
+              <text x="164" y="338" font-family="Kalam" font-size="21" fill="var(--yellow)">−</text>
+              <path d="M190,241 L190,190 L230,190" fill="none" stroke="var(--yellow)" stroke-width="3.2"/>
+              <path d="M190,289 L190,340 L318,340" fill="none" stroke="var(--yellow)" stroke-width="3.2"/>
+              <path d="M318,340 a12,12 0 0 1 24,0" fill="none" stroke="var(--yellow)" stroke-width="3.2"/>
+              <path d="M342,340 L490,340 L490,190 L430,190" fill="none" stroke="var(--yellow)" stroke-width="3.2"/>
+              <path d="M330,110 L330,70 L470,70" fill="none" stroke="var(--yellow)" stroke-width="3.2"/>
+              <polyline points="470,70 470,104 458,111 482,125 458,139 482,153 470,160 470,194" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+              <text x="494" y="136" font-family="Kalam" font-size="17" fill="var(--orange)">R</text>
+              <text x="508" y="141" font-family="Kalam" font-size="11" fill="var(--orange)">L</text>
+              <path d="M470,194 L470,400 L330,400 L330,270" fill="none" stroke="var(--yellow)" stroke-width="3.2"/>
+              <line x1="230.0" y1="190.0" x2="273.0" y2="155.6" stroke="var(--yellow)" stroke-width="3.0"/>
+              <line x1="287.0" y1="144.4" x2="330.0" y2="110.0" stroke="var(--yellow)" stroke-width="3.0"/>
+              <polygon points="281.1,165.8 264.9,145.5 287.0,144.4" fill="rgba(237,237,225,.06)" stroke="var(--yellow)" stroke-width="2.5"/>
+              <line x1="297.0" y1="156.9" x2="277.0" y2="131.9" stroke="var(--yellow)" stroke-width="3.2"/>
+              <line x1="330.0" y1="270.0" x2="373.0" y2="235.6" stroke="var(--yellow)" stroke-width="3.0"/>
+              <line x1="387.0" y1="224.4" x2="430.0" y2="190.0" stroke="var(--yellow)" stroke-width="3.0"/>
+              <polygon points="381.1,245.8 364.9,225.5 387.0,224.4" fill="rgba(237,237,225,.06)" stroke="var(--yellow)" stroke-width="2.5"/>
+              <line x1="397.0" y1="236.9" x2="377.0" y2="211.9" stroke="var(--yellow)" stroke-width="3.2"/>
+              <line x1="430.0" y1="190.0" x2="387.0" y2="155.6" stroke="var(--chalk-faint)" stroke-width="3.0"/>
+              <line x1="373.0" y1="144.4" x2="330.0" y2="110.0" stroke="var(--chalk-faint)" stroke-width="3.0"/>
+              <polygon points="395.1,145.5 378.9,165.8 373.0,144.4" fill="rgba(237,237,225,.06)" stroke="var(--chalk-faint)" stroke-width="2.5"/>
+              <line x1="383.0" y1="131.9" x2="363.0" y2="156.9" stroke="var(--chalk-faint)" stroke-width="3.2"/>
+              <line x1="330.0" y1="270.0" x2="287.0" y2="235.6" stroke="var(--chalk-faint)" stroke-width="3.0"/>
+              <line x1="273.0" y1="224.4" x2="230.0" y2="190.0" stroke="var(--chalk-faint)" stroke-width="3.0"/>
+              <polygon points="295.1,225.5 278.9,245.8 273.0,224.4" fill="rgba(237,237,225,.06)" stroke="var(--chalk-faint)" stroke-width="2.5"/>
+              <line x1="283.0" y1="211.9" x2="263.0" y2="236.9" stroke="var(--chalk-faint)" stroke-width="3.2"/>
+              <circle cx="230" cy="190" r="4" fill="var(--yellow)"/>
+              <circle cx="330" cy="110" r="4" fill="var(--yellow)"/>
+              <circle cx="430" cy="190" r="4" fill="var(--yellow)"/>
+              <circle cx="330" cy="270" r="4" fill="var(--yellow)"/>
+              <polygon points="464,236 476,236 470,252" fill="var(--yellow)"/>
+              <polygon points="392,64 392,76 406,70" fill="var(--yellow)"/>
+              <polygon points="382,394 382,406 368,400" fill="var(--yellow)"/>
+              <text x="480" y="248" font-family="Kalam" font-size="15" fill="var(--yellow)">i</text>
+              <text x="487" y="253" font-family="Kalam" font-size="11" fill="var(--yellow)">L</text>
+              <text x="184" y="436" font-family="Kalam" font-size="17" fill="var(--chalk-faint)">semiciclo positivo</text>
+              <text x="184" y="458" font-family="Kalam" font-size="16" fill="var(--yellow)">v</text>
+              <text x="195" y="463" font-family="Kalam" font-size="11" fill="var(--yellow)">S</text>
+              <text x="202" y="458" font-family="Kalam" font-size="16" fill="var(--yellow)"> &gt; 0 &#8202;·&#8202; conduzem D₁ e D₂</text>
+            </svg>
+              <figcaption>Caminho da corrente quando v<sub>S</sub> &gt; 0. D₃ e D₄ estão cortados e desaparecem do desenho.</figcaption>
+            </figure>
+            <figure class="panel">
+              <svg viewBox="150 50 400 428" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="190" cy="265" r="24" fill="none" stroke="var(--pink)" stroke-width="3"/>
+              <path d="M178,265 C184,251 196,279 202,265" fill="none" stroke="var(--pink)" stroke-width="2.2"/>
+              <text x="164" y="206" font-family="Kalam" font-size="21" fill="var(--pink)">−</text>
+              <text x="164" y="338" font-family="Kalam" font-size="21" fill="var(--pink)">+</text>
+              <path d="M190,241 L190,190 L230,190" fill="none" stroke="var(--pink)" stroke-width="3.2"/>
+              <path d="M190,289 L190,340 L318,340" fill="none" stroke="var(--pink)" stroke-width="3.2"/>
+              <path d="M318,340 a12,12 0 0 1 24,0" fill="none" stroke="var(--pink)" stroke-width="3.2"/>
+              <path d="M342,340 L490,340 L490,190 L430,190" fill="none" stroke="var(--pink)" stroke-width="3.2"/>
+              <path d="M330,110 L330,70 L470,70" fill="none" stroke="var(--pink)" stroke-width="3.2"/>
+              <polyline points="470,70 470,104 458,111 482,125 458,139 482,153 470,160 470,194" fill="none" stroke="var(--orange)" stroke-width="2.6"/>
+              <text x="494" y="136" font-family="Kalam" font-size="17" fill="var(--orange)">R</text>
+              <text x="508" y="141" font-family="Kalam" font-size="11" fill="var(--orange)">L</text>
+              <path d="M470,194 L470,400 L330,400 L330,270" fill="none" stroke="var(--pink)" stroke-width="3.2"/>
+              <line x1="230.0" y1="190.0" x2="273.0" y2="155.6" stroke="var(--chalk-faint)" stroke-width="3.0"/>
+              <line x1="287.0" y1="144.4" x2="330.0" y2="110.0" stroke="var(--chalk-faint)" stroke-width="3.0"/>
+              <polygon points="281.1,165.8 264.9,145.5 287.0,144.4" fill="rgba(237,237,225,.06)" stroke="var(--chalk-faint)" stroke-width="2.5"/>
+              <line x1="297.0" y1="156.9" x2="277.0" y2="131.9" stroke="var(--chalk-faint)" stroke-width="3.2"/>
+              <line x1="330.0" y1="270.0" x2="373.0" y2="235.6" stroke="var(--chalk-faint)" stroke-width="3.0"/>
+              <line x1="387.0" y1="224.4" x2="430.0" y2="190.0" stroke="var(--chalk-faint)" stroke-width="3.0"/>
+              <polygon points="381.1,245.8 364.9,225.5 387.0,224.4" fill="rgba(237,237,225,.06)" stroke="var(--chalk-faint)" stroke-width="2.5"/>
+              <line x1="397.0" y1="236.9" x2="377.0" y2="211.9" stroke="var(--chalk-faint)" stroke-width="3.2"/>
+              <line x1="430.0" y1="190.0" x2="387.0" y2="155.6" stroke="var(--pink)" stroke-width="3.0"/>
+              <line x1="373.0" y1="144.4" x2="330.0" y2="110.0" stroke="var(--pink)" stroke-width="3.0"/>
+              <polygon points="395.1,145.5 378.9,165.8 373.0,144.4" fill="rgba(237,237,225,.06)" stroke="var(--pink)" stroke-width="2.5"/>
+              <line x1="383.0" y1="131.9" x2="363.0" y2="156.9" stroke="var(--pink)" stroke-width="3.2"/>
+              <line x1="330.0" y1="270.0" x2="287.0" y2="235.6" stroke="var(--pink)" stroke-width="3.0"/>
+              <line x1="273.0" y1="224.4" x2="230.0" y2="190.0" stroke="var(--pink)" stroke-width="3.0"/>
+              <polygon points="295.1,225.5 278.9,245.8 273.0,224.4" fill="rgba(237,237,225,.06)" stroke="var(--pink)" stroke-width="2.5"/>
+              <line x1="283.0" y1="211.9" x2="263.0" y2="236.9" stroke="var(--pink)" stroke-width="3.2"/>
+              <circle cx="230" cy="190" r="4" fill="var(--pink)"/>
+              <circle cx="330" cy="110" r="4" fill="var(--pink)"/>
+              <circle cx="430" cy="190" r="4" fill="var(--pink)"/>
+              <circle cx="330" cy="270" r="4" fill="var(--pink)"/>
+              <polygon points="464,236 476,236 470,252" fill="var(--pink)"/>
+              <polygon points="392,64 392,76 406,70" fill="var(--pink)"/>
+              <polygon points="382,394 382,406 368,400" fill="var(--pink)"/>
+              <text x="480" y="248" font-family="Kalam" font-size="15" fill="var(--pink)">i</text>
+              <text x="487" y="253" font-family="Kalam" font-size="11" fill="var(--pink)">L</text>
+              <text x="184" y="436" font-family="Kalam" font-size="17" fill="var(--chalk-faint)">semiciclo negativo</text>
+              <text x="184" y="458" font-family="Kalam" font-size="16" fill="var(--pink)">v</text>
+              <text x="195" y="463" font-family="Kalam" font-size="11" fill="var(--pink)">S</text>
+              <text x="202" y="458" font-family="Kalam" font-size="16" fill="var(--pink)"> &lt; 0 &#8202;·&#8202; conduzem D₃ e D₄</text>
+            </svg>
+              <figcaption>Com v<sub>S</sub> &lt; 0 o par que conduz é o outro — mas a corrente atravessa o resistor <strong>de cima para baixo nos dois casos</strong>.</figcaption>
+            </figure>
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+          <div class="q">
+            <div class="q-head">conceitual <span class="tagq">múltipla escolha · a queda de 1,4 V</span></div>
+            <p class="q-stem">Por que o pico da saída da ponte é V<sub>Sp</sub> − 1,4 V, e não V<sub>Sp</sub> − 0,7 V?</p>
+            <div class="opts">
+              <button class="opt" data-ok="0"><span class="k">a)</span> Porque os quatro diodos conduzem simultaneamente e as quedas se dividem.</button>
+              <button class="opt" data-ok="1"><span class="k">b)</span> Porque a corrente atravessa dois diodos em série no seu percurso do secundário até a carga e de volta.</button>
+              <button class="opt" data-ok="0"><span class="k">c)</span> Porque a tensão de ruptura de cada diodo é 1,4 V.</button>
+              <button class="opt" data-ok="0"><span class="k">d)</span> Porque a ponte dobra a frequência, e a queda dobra junto.</button>
+            </div>
+            <div class="q-fb" role="status"><b>b)</b> — Percorra a malha: secundário → D₁ → carga → D₂ → volta ao secundário. Há <strong>dois</strong> diodos em série no caminho, e cada um cobra 0,7 V. A alternativa (a) confunde: os quatro diodos nunca conduzem ao mesmo tempo — se conduzissem, o secundário estaria em curto.</div>
+          </div>
+          <div class="q">
+            <div class="q-head">projeto <span class="tagq">resolvido · dimensionar o secundário</span></div>
+            <p class="q-stem">Uma fonte com ponte retificadora precisa entregar 12 V de pico à carga. Qual a tensão eficaz do secundário? E se a mesma especificação fosse atendida por um retificador de onda completa com tomada central?</p>
+            <details class="reveal">
+              <summary>Ver resolução</summary>
+              <div class="ans">
+                <p><strong>Ponte:</strong> V<sub>Sp</sub> = 12 + 1,4 = 13,4 V, portanto</p>
+                <div class="eq">V<sub>S,ef</sub> = 13,4 / √2 = <span class="y">9,5 V</span></div>
+                <p><strong>Tomada central:</strong> V<sub>Sp</sub> = 12 + 0,7 = 12,7 V por enrolamento, isto é</p>
+                <div class="eq">V<sub>S,ef</sub> = 12,7 / √2 = <span class="y">9,0 V</span> por enrolamento &nbsp;<span class="dim">(18,0 V ponta a ponta)</span></div>
+                <p>O transformador da tomada central precisa de um secundário de <strong>18 V ponta a ponta</strong> — quase o dobro do cobre e do ferro — para entregar a mesma coisa. E ainda exige diodos com o dobro da PIV.</p>
+                <p class="note">Só há um caso em que a tomada central compensa: quando se quer <strong>duas</strong> tensões simétricas (+V e −V) a partir do mesmo transformador, como na alimentação de um amp op. Aí a tomada central já está lá de graça, e bastam duas pontes ou quatro diodos.</p>
+              </div>
+            </details>
+          </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             4.3 · FILTRO CAPACITIVO E ONDULAÇÃO
+             ============================================================ -->
+        <section class="content-section" id="m4-filtro">
+          <div class="eyebrow">4.5.4 · O RETIFICADOR COM FILTRO CAPACITIVO</div>
+          <h2>De pulsos a um patamar: o capacitor que guarda a tensão entre os picos</h2>
+          <p class="lead">Retificar deixa a saída unipolar, mas ela ainda vai a zero duas vezes por ciclo — não serve para alimentar nada. A solução é pôr um <strong>capacitor em paralelo com a carga</strong>: ele se carrega até o pico enquanto o diodo conduz e, quando o diodo corta, <em class="term">segura</em> a tensão descarregando lentamente sobre R. O que sobra de variação chama-se <strong>ondulação</strong>, ou <em class="term">ripple</em>.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 780 380" xmlns="http://www.w3.org/2000/svg">
+              <!-- ===== circuito ===== -->
+              <path d="M40,150 a15,15 0 0 0 0,30 a15,15 0 0 0 0,30 a15,15 0 0 0 0,30"
+                    fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="56" y1="136" x2="56" y2="254" stroke="var(--chalk-faint)" stroke-width="2"/>
+              <line x1="63" y1="136" x2="63" y2="254" stroke="var(--chalk-faint)" stroke-width="2"/>
+              <path d="M80,150 a15,15 0 0 1 0,30 a15,15 0 0 1 0,30 a15,15 0 0 1 0,30"
+                    fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="94" y="196" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">v</text>
+              <text x="105" y="201" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">S</text>
+              <text x="111" y="196" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">(t)</text>
+              <text x="84" y="146" font-family="Kalam" font-size="15" fill="var(--yellow)">+</text>
+              <text x="86" y="258" font-family="Kalam" font-size="15" fill="var(--yellow)">−</text>
+              <!-- ramo superior -->
+              <line x1="80" y1="150" x2="80" y2="92" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="80" y1="92" x2="150" y2="92" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polygon points="150,76 150,108 186,92" fill="rgba(237,237,225,.05)" stroke="var(--chalk)" stroke-width="2.6"/>
+              <line x1="186" y1="74" x2="186" y2="110" stroke="var(--chalk)" stroke-width="3.2"/>
+              <line x1="186" y1="92" x2="330" y2="92" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="158" y="64" font-family="Kalam" font-size="16" fill="var(--chalk)">D</text>
+              <!-- seta de corrente iD -->
+              <line x1="206" y1="62" x2="248" y2="62" stroke="var(--yellow)" stroke-width="2"/>
+              <polygon points="248,56 262,62 248,68" fill="var(--yellow)"/>
+              <text x="216" y="50" font-family="Kalam" font-size="15" fill="var(--yellow)">i</text>
+              <text x="223" y="55" font-family="Kalam" font-size="11" fill="var(--yellow)">D</text>
+              <!-- ramo inferior -->
+              <line x1="80" y1="240" x2="80" y2="300" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="80" y1="300" x2="330" y2="300" stroke="var(--chalk)" stroke-width="2.2"/>
+              <!-- capacitor -->
+              <line x1="240" y1="92" x2="240" y2="164" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="218" y1="164" x2="262" y2="164" stroke="var(--pink)" stroke-width="3.4"/>
+              <line x1="218" y1="178" x2="262" y2="178" stroke="var(--pink)" stroke-width="3.4"/>
+              <line x1="240" y1="178" x2="240" y2="300" stroke="var(--chalk)" stroke-width="2.2"/>
+              <circle cx="240" cy="92" r="3.5" fill="var(--chalk)"/>
+              <circle cx="240" cy="300" r="3.5" fill="var(--chalk)"/>
+              <text x="274" y="176" font-family="Kalam" font-size="17" fill="var(--pink)">C</text>
+              <!-- seta iC -->
+              <line x1="212" y1="196" x2="212" y2="228" stroke="var(--pink)" stroke-width="1.8"/>
+              <polygon points="206,228 218,228 212,242" fill="var(--pink)"/>
+              <text x="188" y="214" font-family="Kalam" font-size="14" fill="var(--pink)">i</text>
+              <text x="195" y="219" font-family="Kalam" font-size="10" fill="var(--pink)">C</text>
+              <!-- carga -->
+              <line x1="330" y1="92" x2="330" y2="140" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polyline points="330,140 330,150 318,157 342,171 318,185 342,199 330,206 330,216" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+              <line x1="330" y1="216" x2="330" y2="300" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="352" y="182" font-family="Kalam" font-size="16" fill="var(--orange)">R</text>
+              <!-- seta iL -->
+              <line x1="360" y1="196" x2="360" y2="228" stroke="var(--orange)" stroke-width="1.8"/>
+              <polygon points="354,228 366,228 360,242" fill="var(--orange)"/>
+              <text x="368" y="216" font-family="Kalam" font-size="14" fill="var(--orange)">i</text>
+              <text x="375" y="221" font-family="Kalam" font-size="10" fill="var(--orange)">L</text>
+              <!-- saída -->
+              <line x1="330" y1="92" x2="392" y2="92" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="396" cy="92" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="360" y="80" font-family="Kalam" font-size="17" fill="var(--yellow)">v</text>
+              <text x="372" y="85" font-family="Kalam" font-size="11" fill="var(--yellow)">O</text>
+              <g stroke="var(--chalk-faint)" stroke-width="2">
+                <line x1="186" y1="304" x2="214" y2="304"/><line x1="191" y1="312" x2="209" y2="312"/><line x1="196" y1="320" x2="204" y2="320"/>
+              </g>
+              <circle cx="200" cy="300" r="3.5" fill="var(--chalk)"/>
+
+              <!-- ===== formas de onda ===== -->
+              <line x1="440" y1="290" x2="772" y2="290" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <line x1="450" y1="40" x2="450" y2="320" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <text x="760" y="312" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">t</text>
+              <!-- semiciclos sem capacitor -->
+              <path d="M450,290 C462,190 476,110 490,110 C504,110 518,190 530,290
+                       M530,290 C542,190 556,110 570,110 C584,110 598,190 610,290
+                       M610,290 C622,190 636,110 650,110 C664,110 678,190 690,290
+                       M690,290 C702,190 716,110 730,110 C744,110 758,190 770,290"
+                    fill="none" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <!-- envoltória com capacitor -->
+              <path d="M450,290 C462,190 476,110 490,110
+                       C512,116 546,138 562,146
+                       C570,132 578,110 570,110
+                       M562,146 C572,128 582,110 570,110
+                       M570,110 C592,116 626,138 642,146
+                       M642,146 C652,128 662,110 650,110
+                       M650,110 C672,116 706,138 722,146
+                       M722,146 C732,128 742,110 730,110
+                       M730,110 C752,116 766,128 772,132"
+                    fill="none" stroke="var(--yellow)" stroke-width="3.2"/>
+              <!-- linhas de referência -->
+              <line x1="450" y1="110" x2="772" y2="110" stroke="var(--pink)" stroke-width="1.1" stroke-dasharray="4,4"/>
+              <line x1="450" y1="146" x2="772" y2="146" stroke="var(--pink)" stroke-width="1.1" stroke-dasharray="4,4"/>
+              <text x="404" y="114" font-family="Kalam" font-size="15" fill="var(--pink)">V</text>
+              <text x="418" y="119" font-family="Kalam" font-size="11" fill="var(--pink)">p</text>
+              <text x="386" y="150" font-family="Kalam" font-size="14" fill="var(--pink)">V</text>
+              <text x="398" y="155" font-family="Kalam" font-size="10" fill="var(--pink)">p</text>
+              <text x="405" y="150" font-family="Kalam" font-size="14" fill="var(--pink)">−V</text>
+              <text x="428" y="155" font-family="Kalam" font-size="10" fill="var(--pink)">r</text>
+              <!-- cota do ripple -->
+              <line x1="600" y1="110" x2="600" y2="146" stroke="var(--yellow)" stroke-width="1.6"/>
+              <polygon points="596,116 604,116 600,108" fill="var(--yellow)"/>
+              <polygon points="596,140 604,140 600,148" fill="var(--yellow)"/>
+              <text x="606" y="134" font-family="Kalam" font-size="16" fill="var(--yellow)">V</text>
+              <text x="620" y="139" font-family="Kalam" font-size="11" fill="var(--yellow)">r</text>
+              <!-- Δt -->
+              <rect x="561" y="104" width="10" height="192" fill="rgba(217,143,85,.20)" stroke="none"/>
+              <text x="590" y="318" font-family="Kalam" font-size="14" fill="var(--orange)">Δt · o diodo conduz</text>
+              <line x1="586" y1="313" x2="570" y2="300" stroke="var(--orange)" stroke-width="1"/>
+              <!-- T -->
+              <line x1="490" y1="342" x2="570" y2="342" stroke="var(--chalk-faint)" stroke-width="1.4"/>
+              <line x1="490" y1="336" x2="490" y2="348" stroke="var(--chalk-faint)" stroke-width="1.4"/>
+              <line x1="570" y1="336" x2="570" y2="348" stroke="var(--chalk-faint)" stroke-width="1.4"/>
+              <text x="524" y="362" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">T</text>
+              <text x="450" y="28" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">sem capacitor</text>
+              <text x="620" y="28" font-family="Kalam" font-size="14" fill="var(--yellow)">com capacitor</text>
+            </svg>
+            <figcaption>Meia onda com filtro capacitivo. O diodo só conduz no intervalo <strong>Δt</strong>, muito curto, em torno de cada pico — o tempo necessário para repor no capacitor a carga que a carga R consumiu durante todo o resto do período. Fora daí, o capacitor descarrega sozinho sobre R com constante de tempo RC.</figcaption>
+          </figure>
+
+          <h3 style="margin-top:34px;font-size:1.25rem">A descarga exponencial, linearizada</h3>
+          <p>Enquanto o diodo está cortado, o circuito é apenas um capacitor descarregando sobre um resistor. Tomando a origem no pico:</p>
+          <div class="eq">v<sub>O</sub>(t) = <span class="y">V<sub>p</sub> · e<sup>−t/RC</sup></span></div>
+          <p>A descarga termina quando o próximo pico chega, isto é, aproximadamente em t = T (no meia onda). Nesse instante a saída caiu de V<sub>r</sub>:</p>
+          <div class="eq">V<sub>p</sub> · e<sup>−T/RC</sup> = V<sub>p</sub> − V<sub>r</sub></div>
+          <p>Um projeto que se preze é feito para que a ondulação seja <strong>pequena</strong>, o que equivale a exigir <strong>T ≪ RC</strong>. E quando o expoente é pequeno, a exponencial vira uma reta:</p>
+          <div class="eq">
+            <span class="dim">T/RC ≅ 0</span> &nbsp;⇒&nbsp; e<sup>−T/RC</sup> ≅ 1 − T/RC<br>
+            V<sub>p</sub>·(1 − T/RC) = V<sub>p</sub> − V<sub>r</sub><br>
+            <span class="crossed">V<sub>p</sub></span> − V<sub>p</sub>T/RC = <span class="crossed">V<sub>p</sub></span> − V<sub>r</sub>
+          </div>
+          <p>Restando a expressão que se usa em todo projeto de fonte:</p>
+          <div class="eq" style="font-size:1.35rem"><span class="hand-box">V<sub>r</sub> = <span class="y">V<sub>p</sub> T / (R C)</span> = V<sub>p</sub> / (f R C)</span></div>
+          <p>Ela diz tudo o que importa: a ondulação é <strong>proporcional à tensão de saída</strong> e <strong>inversamente proporcional a C, R e f</strong>. Dobrar o capacitor corta a ondulação pela metade. Aliviar a carga (aumentar R) também. E — o argumento decisivo a favor da onda completa — o dobro da frequência dá o mesmo efeito de dobrar o capacitor.</p>
+
+          <div class="attn">
+            <span class="tag">meia onda × onda completa, de novo</span>
+            No retificador de onda completa os picos se sucedem a cada <strong>T/2</strong>, e o capacitor tem metade do tempo para descarregar. Basta trocar T por T/2:
+            <div class="eq" style="margin:12px 0 4px">
+              meia onda: &nbsp; V<sub>r</sub> = V<sub>p</sub> / (f R C)<br>
+              onda completa: &nbsp; <span class="y">V<sub>r</sub> = V<sub>p</sub> / (2 f R C)</span>
+            </div>
+            Mesma ondulação com <strong>metade do capacitor</strong>, ou metade da ondulação com o mesmo capacitor. Em uma fonte real, o eletrolítico de filtro costuma ser o componente mais caro e mais volumoso do conjunto — e é essa conta, mais do que a queda de 0,7 V, que decide a topologia.
+          </div>
+
+          <h3 style="margin-top:34px;font-size:1.25rem">Uma observação sobre a tensão de saída média</h3>
+          <p>Com ondulação pequena, a saída oscila linearmente entre V<sub>p</sub> e V<sub>p</sub> − V<sub>r</sub>, de modo que o valor médio é simplesmente a média dos dois extremos:</p>
+          <div class="eq">V<sub>O</sub> ≅ <span class="y">V<sub>p</sub> − V<sub>r</sub>/2</span> &nbsp;&nbsp; e &nbsp;&nbsp; I<sub>L</sub> ≅ V<sub>O</sub>/R ≅ <span class="y">V<sub>p</sub>/R</span></div>
+          <p>A segunda aproximação — trocar V<sub>p</sub> − V<sub>r</sub>/2 por V<sub>p</sub> — é legítima justamente porque V<sub>r</sub> ≪ V<sub>p</sub>. Ela será usada na próxima seção, e é o que torna as fórmulas de corrente no diodo tão compactas.</p>
+
+          <div class="example">
+            <div class="ex-head">Exemplo resolvido · dimensionar o capacitor de filtro</div>
+            <p>Um retificador de meia onda com filtro tem <strong>V<sub>p</sub> = 100 V</strong>, <strong>f = 60 Hz</strong> e <strong>R = 10 kΩ</strong>. Calcule C para que a ondulação fique em 2% do pico.</p>
+            <p>A especificação fixa V<sub>r</sub>:</p>
+            <div class="eq">V<sub>r</sub> = 0,02 · V<sub>p</sub> = 0,02 · 100 = <span class="y">2 V</span></div>
+            <p>Isolando C na expressão da ondulação:</p>
+            <div class="eq">
+              C = V<sub>p</sub> / (f · R · V<sub>r</sub>) = 100 / (60 · 10 kΩ · 2 V)<br>
+              <span class="hand-box">C = <span class="y">83,3 µF</span></span>
+            </div>
+            <p class="note">Na prática escolhe-se o valor comercial imediatamente acima — 100 µF —, o que baixa a ondulação para 1,67 V. E a tensão nominal do capacitor tem de superar V<sub>p</sub> com folga: para 100 V de pico, um eletrolítico de 160 V ou 200 V. Se o mesmo circuito fosse de onda completa, bastariam 41,7 µF.</p>
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+          <div class="q">
+            <div class="q-head">conceitual <span class="tagq">múltipla escolha · o que a hipótese T ≪ RC compra</span></div>
+            <p class="q-stem">Qual é o papel da hipótese T ≪ RC na dedução de V<sub>r</sub> = V<sub>p</sub>T/RC?</p>
+            <div class="opts">
+              <button class="opt" data-ok="0"><span class="k">a)</span> Garantir que o diodo nunca corte.</button>
+              <button class="opt" data-ok="1"><span class="k">b)</span> Permitir truncar a exponencial em e<sup>−x</sup> ≅ 1 − x, trocando a descarga curva por uma reta — o que só é aceitável quando a queda é pequena.</button>
+              <button class="opt" data-ok="0"><span class="k">c)</span> Garantir que a corrente de pico no diodo seja pequena.</button>
+              <button class="opt" data-ok="0"><span class="k">d)</span> Permitir desprezar a queda de 0,7 V do diodo.</button>
+            </div>
+            <div class="q-fb" role="status"><b>b)</b> — É uma linearização, e nada mais. A alternativa (c) inverte a realidade: quanto <em>melhor</em> a hipótese (RC maior, ondulação menor), <strong>maior</strong> a corrente de pico no diodo, porque o intervalo de condução encolhe — é exatamente o assunto da próxima seção. E (d) é uma aproximação independente, que se faz ou não à parte.</div>
+          </div>
+          <div class="q">
+            <div class="q-head">cálculo <span class="tagq">resolvido · fonte de 15 V</span></div>
+            <p class="q-stem">Projete o filtro de uma fonte com ponte retificadora que entrega 15 V de pico a uma carga de 500 Ω, a partir da rede de 60 Hz, com ondulação máxima de 0,5 V pico a pico. Qual C? Qual a tensão média de saída?</p>
+            <details class="reveal">
+              <summary>Ver resolução</summary>
+              <div class="ans">
+                <p>Ponte ⇒ onda completa ⇒ usar V<sub>r</sub> = V<sub>p</sub>/(2fRC):</p>
+                <div class="eq">C = V<sub>p</sub> / (2 f R V<sub>r</sub>) = 15 / (2 · 60 · 500 · 0,5) = <span class="y">500 µF</span></div>
+                <p>Verificação da hipótese: RC = 500 Ω · 500 µF = 250 ms, contra T/2 = 8,33 ms. A razão é 1/30 — bem dentro da faixa em que a linearização vale.</p>
+                <p>Tensão média:</p>
+                <div class="eq">V<sub>O</sub> = 15 − 0,5/2 = <span class="y">14,75 V</span> &nbsp;&nbsp; I<sub>L</sub> = 14,75/500 = <span class="y">29,5 mA</span></div>
+                <p class="note">Se fosse meia onda, seriam necessários 1000 µF para o mesmo resultado. E note que a carga é quem manda: se R caísse para 250 Ω (o dobro da corrente), a ondulação dobraria para 1 V com o mesmo capacitor. Ondulação especificada só faz sentido junto com uma corrente de carga especificada.</p>
+              </div>
+            </details>
+          </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             4.4 · CORRENTE NO DIODO
+             ============================================================ -->
+        <section class="content-section" id="m4-correntes">
+          <div class="eyebrow">4.5.5 · ÂNGULO DE CONDUÇÃO E CORRENTE NO DIODO</div>
+          <h2>A conta que estraga a festa</h2>
+          <p class="lead">O capacitor de filtro resolveu a ondulação. Mas ele criou um problema novo, e sério: o diodo agora conduz durante uma <strong>fração minúscula</strong> do período, e toda a carga que a carga consumiu num ciclo inteiro precisa ser reposta nesse intervalo curtíssimo. O resultado é um <strong>pico de corrente dezenas de vezes maior</strong> que a corrente média da carga.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 760 400" xmlns="http://www.w3.org/2000/svg">
+              <!-- eixo tensão -->
+              <line x1="60" y1="180" x2="740" y2="180" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <line x1="60" y1="40" x2="60" y2="200" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <text x="66" y="34" font-family="Kalam" font-size="15" fill="var(--yellow)">v</text>
+              <text x="76" y="39" font-family="Kalam" font-size="11" fill="var(--yellow)">O</text>
+              <text x="82" y="34" font-family="Kalam" font-size="15" fill="var(--yellow)">(t)</text>
+              <!-- semiciclos -->
+              <path d="M60,180 C78,110 100,60 120,60 C140,60 162,110 180,180
+                       M180,180 C198,110 220,60 240,60 C260,60 282,110 300,180
+                       M300,180 C318,110 340,60 360,60 C380,60 402,110 420,180
+                       M420,180 C438,110 460,60 480,60 C500,60 522,110 540,180"
+                    fill="none" stroke="var(--chalk-faint)" stroke-width="1.5" stroke-dasharray="4,3"/>
+              <!-- envoltória com C -->
+              <path d="M60,180 C78,110 100,60 120,60
+                       C160,68 200,88 226,98
+                       M226,98 C232,80 236,60 240,60
+                       M240,60 C280,68 320,88 346,98
+                       M346,98 C352,80 356,60 360,60
+                       M360,60 C400,68 440,88 466,98
+                       M466,98 C472,80 476,60 480,60
+                       M480,60 C520,68 560,88 586,98"
+                    fill="none" stroke="var(--yellow)" stroke-width="3"/>
+              <line x1="60" y1="60" x2="600" y2="60" stroke="var(--pink)" stroke-width="1" stroke-dasharray="4,4"/>
+              <line x1="60" y1="98" x2="600" y2="98" stroke="var(--pink)" stroke-width="1" stroke-dasharray="4,4"/>
+              <text x="26" y="64" font-family="Kalam" font-size="14" fill="var(--pink)">V</text>
+              <text x="38" y="69" font-family="Kalam" font-size="10" fill="var(--pink)">p</text>
+
+              <!-- intervalo de condução destacado -->
+              <rect x="113" y="52" width="14" height="136" fill="rgba(229,212,128,.12)" stroke="none"/>
+              <rect x="226" y="52" width="14" height="136" fill="rgba(229,212,128,.12)" stroke="none"/>
+              <rect x="346" y="52" width="14" height="136" fill="rgba(229,212,128,.12)" stroke="none"/>
+              <rect x="466" y="52" width="14" height="136" fill="rgba(229,212,128,.12)" stroke="none"/>
+
+              <!-- eixo corrente -->
+              <line x1="60" y1="360" x2="740" y2="360" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <line x1="60" y1="230" x2="60" y2="376" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <text x="66" y="226" font-family="Kalam" font-size="15" fill="var(--orange)">i</text>
+              <text x="73" y="231" font-family="Kalam" font-size="11" fill="var(--orange)">D</text>
+              <text x="79" y="226" font-family="Kalam" font-size="15" fill="var(--orange)">(t)</text>
+              <text x="730" y="382" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">t</text>
+              <!-- pulsos estreitos de corrente -->
+              <path d="M60,360 L112,360 C118,360 119,250 120,246 C121,250 126,360 132,360 L740,360"
+                    fill="none" stroke="var(--chalk-faint)" stroke-width="0"/>
+              <g fill="rgba(217,143,85,.22)" stroke="var(--orange)" stroke-width="2.4">
+                <path d="M113,360 L120,246 L127,360 Z"/>
+                <path d="M226,360 L233,262 L240,360 Z"/>
+                <path d="M346,360 L353,262 L360,360 Z"/>
+                <path d="M466,360 L473,262 L480,360 Z"/>
+              </g>
+              <!-- linha de iL -->
+              <line x1="60" y1="348" x2="740" y2="348" stroke="var(--chalk)" stroke-width="1.8" stroke-dasharray="6,4"/>
+              <text x="536" y="338" font-family="Kalam" font-size="15" fill="var(--chalk)">I</text>
+              <text x="544" y="343" font-family="Kalam" font-size="11" fill="var(--chalk)">L</text>
+              <text x="554" y="338" font-family="Kalam" font-size="14" fill="var(--chalk-dim)"> — corrente na carga</text>
+              <!-- cota do pico -->
+              <line x1="418" y1="266" x2="418" y2="348" stroke="var(--orange)" stroke-width="1.4"/>
+              <polygon points="414,272 422,272 418,262" fill="var(--orange)"/>
+              <text x="428" y="296" font-family="Kalam" font-size="15" fill="var(--orange)">i</text>
+              <text x="435" y="301" font-family="Kalam" font-size="11" fill="var(--orange)">D,máx</text>
+              <text x="492" y="296" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">≫ I</text>
+              <text x="518" y="301" font-family="Kalam" font-size="10" fill="var(--chalk-faint)">L</text>
+              <!-- Δt -->
+              <text x="200" y="212" font-family="Kalam" font-size="15" fill="var(--yellow)">Δt</text>
+              <line x1="212" y1="206" x2="230" y2="192" stroke="var(--yellow)" stroke-width="1"/>
+            </svg>
+            <figcaption>Em cima, a tensão de saída filtrada; embaixo, a corrente no diodo. A área de cada pulso estreito de corrente tem de igualar a carga que a carga R consumiu durante o ciclo inteiro — por isso o pulso é <strong>alto</strong> na exata medida em que é <strong>estreito</strong>.</figcaption>
+          </figure>
+
+          <h3 style="margin-top:34px;font-size:1.25rem">Quanto tempo o diodo conduz</h3>
+          <p>Para achar Δt, é conveniente pôr a origem no pico e descrever a senoide como cosseno. O diodo volta a conduzir no instante −Δt, quando a senoide de entrada alcança, subindo, o valor a que o capacitor já tinha caído:</p>
+          <div class="eq">
+            v<sub>O</sub>(t) = V<sub>p</sub> cos ωt<br>
+            v<sub>O</sub>(−Δt) = V<sub>p</sub> cos(−ωΔt) = V<sub>p</sub> cos(ωΔt) = V<sub>p</sub> − V<sub>r</sub>
+          </div>
+          <p>Como o intervalo é curto, ωΔt é um ângulo pequeno, e vale a expansão cos x ≅ 1 − x²/2:</p>
+          <div class="eq">
+            V<sub>p</sub>[1 − ½(ωΔt)²] = V<sub>p</sub> − V<sub>r</sub><br>
+            ½ V<sub>p</sub> (ωΔt)² = V<sub>r</sub>
+          </div>
+          <p>O que dá o <strong>ângulo de condução</strong>:</p>
+          <div class="eq" style="font-size:1.35rem"><span class="hand-box">ωΔt = <span class="y">√(2V<sub>r</sub>/V<sub>p</sub>)</span></span></div>
+          <p>Com V<sub>r</sub> = 2 V e V<sub>p</sub> = 100 V, isso dá ωΔt = √0,04 = <strong>0,2 rad</strong> — cerca de 11,5°, ou <strong>3,2% do ciclo</strong>. O diodo passa 97% do tempo cortado.</p>
+          <p class="note">Note a direção perversa da dependência: quanto <em>menor</em> a ondulação — isto é, quanto melhor a fonte — <strong>menor</strong> o ângulo de condução, e mais violento o pulso de corrente. Filtrar bem custa caro em corrente de pico.</p>
+
+          <h3 style="margin-top:34px;font-size:1.25rem">A corrente média no diodo</h3>
+          <p>Durante todo o período, a corrente do diodo se reparte entre o capacitor e a carga:</p>
+          <div class="eq">i<sub>D</sub>(t) = i<sub>C</sub>(t) + i<sub>L</sub>(t) &nbsp;&nbsp;&nbsp; com &nbsp; i<sub>C</sub>(t) = C · dv<sub>O</sub>(t)/dt &nbsp; e &nbsp; i<sub>L</sub>(t) = v<sub>O</sub>(t)/R</div>
+          <p>O capacitor perdeu, ao longo da descarga, uma carga Q = C·V<sub>r</sub> — e o diodo precisa devolvê-la durante Δt. Somando essa parcela à corrente da carga (que o diodo também alimenta enquanto conduz):</p>
+          <div class="eq">
+            I<sub>D,méd</sub> = Q<sub>fornecida</sub>/Δt + (V<sub>p</sub> − V<sub>r</sub>/2)/R = C·V<sub>r</sub>/Δt + I<sub>L</sub>
+          </div>
+          <p>Substituindo C = V<sub>p</sub>/(f R V<sub>r</sub>) e Δt = √(2V<sub>r</sub>/V<sub>p</sub>)/ω, com ω = 2πf, e usando I<sub>L</sub> ≅ V<sub>p</sub>/R, tudo colapsa em uma expressão que só depende da razão V<sub>p</sub>/V<sub>r</sub>:</p>
+          <div class="eq" style="font-size:1.3rem"><span class="hand-box">I<sub>D,méd</sub> = <span class="y">I<sub>L</sub> · (1 + π√(2V<sub>p</sub>/V<sub>r</sub>))</span></span></div>
+          <p>E como o pulso de corrente tem, em boa aproximação, forma triangular, seu valor de pico é o dobro do excesso sobre I<sub>L</sub>:</p>
+          <div class="eq" style="font-size:1.3rem"><span class="hand-box">I<sub>D,máx</sub> = <span class="y">I<sub>L</sub> · (1 + 2π√(2V<sub>p</sub>/V<sub>r</sub>))</span></span></div>
+          <p class="note">Para o retificador de <strong>onda completa</strong>, o capacitor descarrega por T/2 e os pulsos são duas vezes mais frequentes: basta trocar √(2V<sub>p</sub>/V<sub>r</sub>) por √(V<sub>p</sub>/2V<sub>r</sub>) nas duas fórmulas — as correntes de pico caem por um fator 2.</p>
+
+          <div class="example">
+            <div class="ex-head">Exemplo resolvido · o pico de corrente da fonte de 100 V</div>
+            <p>Retomando o exemplo anterior — V<sub>p</sub> = 100 V, f = 60 Hz, R = 10 kΩ, V<sub>r</sub> = 2 V, C = 83,3 µF, meia onda. Quais são I<sub>L</sub>, I<sub>D,méd</sub> e I<sub>D,máx</sub>?</p>
+            <div class="eq">I<sub>L</sub> ≅ V<sub>p</sub>/R = 100 V / 10 kΩ = <span class="y">10 mA</span></div>
+            <p>A razão que aparece nas duas fórmulas:</p>
+            <div class="eq">√(2V<sub>p</sub>/V<sub>r</sub>) = √(2 · 100 / 2) = √100 = <span class="y">10</span></div>
+            <p>Portanto:</p>
+            <div class="eq">
+              I<sub>D,méd</sub> = 10 mA · (1 + π · 10) = 10 · 32,4 = <span class="y">324 mA</span><br>
+              I<sub>D,máx</sub> = 10 mA · (1 + 2π · 10) = 10 · 63,8 = <span class="y">638 mA</span>
+            </div>
+            <div class="attn" style="margin-top:20px">
+              <span class="tag">leia esses números de novo</span>
+              A carga consome <strong>10 mA</strong>. O diodo tem de suportar picos de <strong>638 mA</strong> — <strong>64 vezes mais</strong> — e uma média, durante a condução, de 324 mA. Um diodo escolhido "para 10 mA" queima na primeira ligação. É por isso que os datasheets de retificadores trazem, além da corrente média I<sub>F(AV)</sub>, uma especificação separada de <strong>corrente de surto</strong> I<sub>FSM</sub>, que costuma ser dezenas de vezes maior. E é por isso que fontes com capacitor grande precisam de <strong>limitador de corrente de partida</strong> (um NTC em série): na primeira meia onda o capacitor está descarregado e se comporta como um curto-circuito.
+            </div>
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+          <div class="q">
+            <div class="q-head">conceitual <span class="tagq">múltipla escolha · o efeito de aumentar C</span></div>
+            <p class="q-stem">Mantendo tudo o mais constante, dobra-se o capacitor de filtro. O que acontece com a corrente de pico no diodo?</p>
+            <div class="opts">
+              <button class="opt" data-ok="0"><span class="k">a)</span> Dobra, porque a carga armazenada dobra.</button>
+              <button class="opt" data-ok="0"><span class="k">b)</span> Cai pela metade, porque o capacitor se descarrega menos.</button>
+              <button class="opt" data-ok="1"><span class="k">c)</span> Aumenta por um fator √2, porque V<sub>r</sub> cai pela metade e o pico varia com √(V<sub>p</sub>/V<sub>r</sub>).</button>
+              <button class="opt" data-ok="0"><span class="k">d)</span> Não muda, porque a carga da carga R é a mesma.</button>
+            </div>
+            <div class="q-fb" role="status"><b>c)</b> — Dobrar C reduz V<sub>r</sub> à metade; como I<sub>D,máx</sub> ≅ I<sub>L</sub>·2π√(2V<sub>p</sub>/V<sub>r</sub>), o fator √(1/V<sub>r</sub>) cresce de √2 ≈ 1,41. A intuição de (b) é o erro clássico: sim, o capacitor perde <em>menos carga</em> por ciclo — mas ele também conduz por um <em>intervalo mais curto</em>, e o segundo efeito é mais forte que o primeiro. Filtro melhor sempre significa diodo mais sofrido.</div>
+          </div>
+          <div class="q">
+            <div class="q-head">cálculo <span class="tagq">resolvido · onda completa</span></div>
+            <p class="q-stem">Refaça o exemplo (V<sub>p</sub> = 100 V, f = 60 Hz, R = 10 kΩ, V<sub>r</sub> = 2 V) para um retificador de <strong>onda completa</strong>. Compare C, o ângulo de condução e I<sub>D,máx</sub>.</p>
+            <details class="reveal">
+              <summary>Ver resolução</summary>
+              <div class="ans">
+                <p><strong>Capacitor</strong> — com V<sub>r</sub> = V<sub>p</sub>/(2fRC):</p>
+                <div class="eq">C = 100 / (2 · 60 · 10 kΩ · 2) = <span class="y">41,7 µF</span> &nbsp;<span class="dim">(metade)</span></div>
+                <p><strong>Ângulo de condução</strong> — a fórmula ωΔt = √(2V<sub>r</sub>/V<sub>p</sub>) não muda, porque depende só de quanto o capacitor caiu:</p>
+                <div class="eq">ωΔt = √(2·2/100) = <span class="y">0,2 rad</span> &nbsp;<span class="dim">(igual)</span></div>
+                <p>Mas agora há <strong>dois</strong> pulsos por ciclo, então a fração do tempo em condução dobra: 6,4% em vez de 3,2%.</p>
+                <p><strong>Correntes</strong> — com √(V<sub>p</sub>/2V<sub>r</sub>) = √(100/4) = 5:</p>
+                <div class="eq">
+                  I<sub>D,méd</sub> = 10 mA(1 + π·5) = <span class="y">167 mA</span> &nbsp;<span class="dim">(era 324 mA)</span><br>
+                  I<sub>D,máx</sub> = 10 mA(1 + 2π·5) = <span class="y">324 mA</span> &nbsp;<span class="dim">(era 638 mA)</span>
+                </div>
+                <p class="note">Metade do capacitor <em>e</em> metade da corrente de pico, com o mesmo desempenho de ondulação. É a mesma conclusão por dois caminhos: cada diodo da onda completa só trabalha em ciclos alternados, dividindo o serviço.</p>
+              </div>
+            </details>
+          </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             4.5 · CIRCUITO GRAMPEADOR
+             ============================================================ -->
+        <section class="content-section" id="m4-grampeador">
+          <div class="eyebrow">4.6.2 · O CIRCUITO GRAMPEADOR</div>
+          <h2>Deslocar a onda inteira sem deformá-la</h2>
+          <p class="lead">O <a href="#m3-limitadores">limitador</a> corta o que passa do limite. O <strong>grampeador</strong> (<em>clamper</em>) faz o oposto: preserva a forma de onda intacta e apenas <em class="term">desloca</em> todo o sinal para cima ou para baixo, até que um dos seus extremos encoste no valor desejado. O componente que faz isso é um capacitor <strong>em série</strong> — ele guarda uma tensão contínua e a soma ao sinal.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 780 400" xmlns="http://www.w3.org/2000/svg">
+              <!-- ===== circuito ===== -->
+              <text x="180" y="26" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">(a) o circuito</text>
+              <!-- fonte -->
+              <circle cx="60" cy="180" r="24" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <path d="M48,180 C54,166 66,194 72,180" fill="none" stroke="var(--chalk-dim)" stroke-width="2"/>
+              <text x="20" y="228" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">v</text>
+              <text x="31" y="233" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">I</text>
+              <text x="37" y="228" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">(t)</text>
+              <text x="14" y="248" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">±10 V</text>
+              <line x1="60" y1="156" x2="60" y2="100" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="60" y1="204" x2="60" y2="300" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="60" y1="300" x2="330" y2="300" stroke="var(--chalk)" stroke-width="2.2"/>
+              <!-- capacitor em série -->
+              <line x1="60" y1="100" x2="128" y2="100" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="128" y1="78" x2="128" y2="122" stroke="var(--pink)" stroke-width="3.4"/>
+              <line x1="142" y1="78" x2="142" y2="122" stroke="var(--pink)" stroke-width="3.4"/>
+              <line x1="142" y1="100" x2="230" y2="100" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="126" y="64" font-family="Kalam" font-size="17" fill="var(--pink)">C</text>
+              <text x="106" y="146" font-family="Kalam" font-size="15" fill="var(--yellow)">+</text>
+              <text x="152" y="146" font-family="Kalam" font-size="15" fill="var(--yellow)">−</text>
+              <text x="112" y="168" font-family="Kalam" font-size="15" fill="var(--yellow)">9,3 V</text>
+              <!-- diodo para o terra: ânodo no nó, cátodo no terra -->
+              <circle cx="230" cy="100" r="3.5" fill="var(--chalk)"/>
+              <line x1="230" y1="100" x2="230" y2="176" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polygon points="212,176 248,176 230,212" fill="rgba(237,237,225,.05)" stroke="var(--chalk)" stroke-width="2.6"/>
+              <line x1="210" y1="212" x2="250" y2="212" stroke="var(--chalk)" stroke-width="3.2"/>
+              <line x1="230" y1="212" x2="230" y2="300" stroke="var(--chalk)" stroke-width="2.2"/>
+              <circle cx="230" cy="300" r="3.5" fill="var(--chalk)"/>
+              <text x="258" y="200" font-family="Kalam" font-size="16" fill="var(--chalk)">D</text>
+              <!-- carga R -->
+              <line x1="230" y1="100" x2="330" y2="100" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polyline points="330,100 330,130 318,137 342,151 318,165 342,179 330,186 330,216" fill="none" stroke="var(--orange)" stroke-width="2.2"/>
+              <line x1="330" y1="216" x2="330" y2="300" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="352" y="162" font-family="Kalam" font-size="16" fill="var(--orange)">R</text>
+              <line x1="330" y1="100" x2="392" y2="100" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="396" cy="100" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="356" y="86" font-family="Kalam" font-size="17" fill="var(--yellow)">v</text>
+              <text x="368" y="91" font-family="Kalam" font-size="11" fill="var(--yellow)">O</text>
+              <g stroke="var(--chalk-faint)" stroke-width="2">
+                <line x1="266" y1="304" x2="294" y2="304"/><line x1="271" y1="312" x2="289" y2="312"/><line x1="276" y1="320" x2="284" y2="320"/>
+              </g>
+              <circle cx="280" cy="300" r="3.5" fill="var(--chalk)"/>
+
+              <!-- ===== formas de onda ===== -->
+              <text x="600" y="26" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">(b) entrada e saída</text>
+              <line x1="440" y1="140" x2="772" y2="140" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <line x1="450" y1="46" x2="450" y2="370" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <text x="760" y="162" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">t</text>
+              <!-- escala: 0V em y=140 ; 10V em y=60 ; -10V em y=220 ; -19,3 em y=294 -->
+              <!-- entrada triangular ±10 -->
+              <path d="M450,140 L490,60 L570,220 L650,60 L730,220 L770,180"
+                    fill="none" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <!-- saída: deslocada -74 px (9,3 V) -->
+              <path d="M450,140 L454,134 L490,134 L570,294 L650,134 L730,294 L770,254"
+                    fill="none" stroke="var(--yellow)" stroke-width="3"/>
+              <!-- vC(t) -->
+              <path d="M450,140 L490,66 L772,66"
+                    fill="none" stroke="var(--pink)" stroke-width="2.2" stroke-dasharray="7,4"/>
+              <!-- referências -->
+              <line x1="450" y1="60" x2="772" y2="60" stroke="var(--chalk-faint)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="450" y1="134" x2="772" y2="134" stroke="var(--yellow)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="450" y1="294" x2="772" y2="294" stroke="var(--yellow)" stroke-width="1" stroke-dasharray="3,3"/>
+              <text x="410" y="64" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">10 V</text>
+              <text x="418" y="130" font-family="Kalam" font-size="14" fill="var(--yellow)">0,7</text>
+              <text x="402" y="298" font-family="Kalam" font-size="14" fill="var(--yellow)">−19,3</text>
+              <text x="404" y="224" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">−10 V</text>
+              <text x="640" y="90" font-family="Kalam" font-size="14" fill="var(--pink)">v</text>
+              <text x="650" y="95" font-family="Kalam" font-size="10" fill="var(--pink)">C</text>
+              <text x="656" y="90" font-family="Kalam" font-size="14" fill="var(--pink)"> = 9,3 V</text>
+              <!-- seta do deslocamento -->
+              <line x1="500" y1="60" x2="500" y2="134" stroke="var(--orange)" stroke-width="1.6"/>
+              <polygon points="496,66 504,66 500,58" fill="var(--orange)"/>
+              <polygon points="496,128 504,128 500,136" fill="var(--orange)"/>
+              <text x="506" y="104" font-family="Kalam" font-size="14" fill="var(--orange)">9,3 V</text>
+              <text x="450" y="360" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">— entrada</text>
+              <text x="560" y="360" font-family="Kalam" font-size="14" fill="var(--yellow)">— saída grampeada</text>
+            </svg>
+            <figcaption>Grampeador negativo. A onda de entrada, que ia de +10 V a −10 V, sai indo de +0,7 V a −19,3 V: <strong>mesma amplitude pico a pico (20 V), mesma forma</strong>, só que deslocada 9,3 V para baixo. É o capacitor em série que carrega essa diferença.</figcaption>
+          </figure>
+
+          <h3 style="margin-top:34px;font-size:1.25rem">Como o capacitor descobre o valor certo</h3>
+          <p>O raciocínio tem duas partes. Primeiro, note que o capacitor em série impõe, a todo instante:</p>
+          <div class="eq">v<sub>O</sub>(t) = v<sub>I</sub>(t) − v<sub>C</sub></div>
+          <p>Se v<sub>C</sub> for constante, a saída é a entrada rigidamente deslocada — nenhuma distorção. Segundo: <strong>o diodo é quem fixa v<sub>C</sub></strong>. Com o ânodo no nó de saída e o cátodo no terra, ele conduz sempre que v<sub>O</sub> tenta subir acima de 0,7 V, e ao conduzir joga carga no capacitor até que a tentativa cesse. Depois de alguns ciclos o regime se estabelece com</p>
+          <div class="eq">v<sub>C</sub> = V<sub>p</sub> − 0,7 = 10 − 0,7 = <span class="y">9,3 V</span></div>
+          <p>e o pico positivo da saída fica exatamente grampeado em <strong>+0,7 V</strong>. O restante da onda acompanha:</p>
+          <div class="eq">
+            pico positivo: &nbsp; v<sub>O</sub> = +10 − 9,3 = <span class="y">+0,7 V</span><br>
+            pico negativo: &nbsp; v<sub>O</sub> = −10 − 9,3 = <span class="y">−19,3 V</span>
+          </div>
+          <p class="note">Com o diodo invertido (cátodo no nó, ânodo no terra), o mesmo circuito grampeia o pico <em>negativo</em> em −0,7 V, e a saída passa a ir de −0,7 V a +19,3 V. É o <strong>grampeador positivo</strong> — a versão usada como primeiro estágio do dobrador de tensão da próxima seção.</p>
+
+          <div class="attn">
+            <span class="tag">o papel de R, e a condição de projeto</span>
+            O resistor não participa do valor grampeado, mas é ele que define quanto o patamar <strong>escorrega</strong> entre um pico e o seguinte. Enquanto o diodo está cortado, C se descarrega sobre R exatamente como no filtro da seção 4.3, e a mesma condição reaparece:
+            <div class="eq" style="margin:12px 0 4px">RC ≫ T &nbsp;<span class="dim">(tipicamente RC ≥ 10 T)</span></div>
+            Se RC for da ordem de T, a saída não é mais um deslocamento rígido — ela se inclina entre os picos, e a forma de onda é distorcida. Se não houver R nenhum (saída em aberto), o capacitor guarda a carga indefinidamente e o grampeamento é perfeito — mas então basta uma variação da amplitude de entrada <em>para baixo</em> para que o circuito fique preso no valor antigo, já que o diodo só sabe <em>carregar</em> C, nunca descarregá-lo. R é quem dá ao circuito a capacidade de se readaptar.
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+          <div class="q">
+            <div class="q-head">conceitual <span class="tagq">múltipla escolha · o que o grampeador preserva</span></div>
+            <p class="q-stem">Uma onda quadrada de 6 V pico a pico, simétrica em torno de zero, entra num grampeador positivo ideal (V<sub>D</sub> = 0). Como é a saída?</p>
+            <div class="opts">
+              <button class="opt" data-ok="0"><span class="k">a)</span> Onda quadrada de 3 V pico a pico, entre 0 e 3 V.</button>
+              <button class="opt" data-ok="1"><span class="k">b)</span> Onda quadrada de 6 V pico a pico, entre 0 e +6 V.</button>
+              <button class="opt" data-ok="0"><span class="k">c)</span> Onda quadrada de 6 V pico a pico, ainda entre −3 e +3 V.</button>
+              <button class="opt" data-ok="0"><span class="k">d)</span> Nível contínuo de 3 V.</button>
+            </div>
+            <div class="q-fb" role="status"><b>b)</b> — O grampeador <strong>não altera a amplitude</strong>: os 6 V pico a pico continuam lá. Ele apenas soma um nível contínuo até que o extremo escolhido encoste em zero. Grampeando o pico negativo em 0 V, a onda passa a ir de 0 a +6 V — e o capacitor carregou-se com os 3 V do deslocamento. A alternativa (a) confunde grampeador com divisor; a (d), com filtro.</div>
+          </div>
+          <div class="q">
+            <div class="q-head">projeto <span class="tagq">resolvido · escolher C</span></div>
+            <p class="q-stem">Um grampeador opera com sinal de 1 kHz e carga R = 10 kΩ. Que capacitor usar para que o patamar não escorregue mais que 2% da amplitude de pico a pico?</p>
+            <details class="reveal">
+              <summary>Ver resolução</summary>
+              <div class="ans">
+                <p>Entre dois picos consecutivos, o capacitor descarrega por aproximadamente T = 1 ms. A queda relativa, na mesma linearização da seção 4.3, é T/RC. Exigindo T/RC ≤ 0,02:</p>
+                <div class="eq">C ≥ T / (0,02 · R) = 1 ms / (0,02 · 10 kΩ) = <span class="y">5 µF</span></div>
+                <p>Escolhe-se 10 µF, valor comercial, o que dá RC = 100 ms — <strong>100 vezes</strong> o período. Escorregamento de 1%.</p>
+                <p class="note">Repare no compromisso: aumentar C melhora o grampeamento em regime, mas atrasa a <em>adaptação</em> do circuito quando a amplitude do sinal muda. Com RC = 100 ms, se a entrada cair subitamente de 10 V para 5 V de pico, o circuito leva algumas centenas de milissegundos para reencontrar o patamar correto — e nesse meio-tempo a saída fica errada. Grampeadores de vídeo, que precisam se readaptar a cada linha, usam constantes de tempo bem mais curtas e um diodo comandado em vez de livre.</p>
+              </div>
+            </details>
+          </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             4.6 · DOBRADOR DE TENSÃO
+             ============================================================ -->
+        <section class="content-section" id="m4-dobrador">
+          <div class="eyebrow">4.6.3 · O DOBRADOR DE TENSÃO</div>
+          <h2>Grampeador + detector de pico = duas vezes a entrada</h2>
+          <p class="lead">Se o grampeador desloca uma onda de ±V<sub>p</sub> até que ela vá de 0 a 2V<sub>p</sub>, então basta <strong>detectar o pico</strong> dessa onda deslocada para obter uma tensão contínua de 2V<sub>p</sub> — o dobro do pico da entrada, sem transformador. Esse é todo o segredo do <em class="term">dobrador de tensão</em>: dois capacitores, dois diodos, dois estágios em cascata.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 780 400" xmlns="http://www.w3.org/2000/svg">
+              <!-- ===== circuito ===== -->
+              <text x="200" y="26" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">(a) dois estágios em cascata</text>
+              <line x1="152" y1="46" x2="152" y2="330" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="5,5"/>
+              <line x1="286" y1="46" x2="286" y2="330" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="5,5"/>
+              <text x="112" y="348" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">grampeador</text>
+              <text x="216" y="348" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">detector de pico</text>
+              <!-- fonte -->
+              <circle cx="46" cy="190" r="22" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <path d="M35,190 C40,178 52,202 57,190" fill="none" stroke="var(--chalk-dim)" stroke-width="2"/>
+              <text x="6" y="236" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">V</text>
+              <text x="18" y="241" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">p</text>
+              <text x="24" y="236" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">sen ωt</text>
+              <text x="10" y="254" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">±10 V</text>
+              <line x1="46" y1="168" x2="46" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="46" y1="212" x2="46" y2="300" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="46" y1="300" x2="380" y2="300" stroke="var(--chalk)" stroke-width="2.2"/>
+              <!-- C1 -->
+              <line x1="46" y1="90" x2="86" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="86" y1="70" x2="86" y2="110" stroke="var(--pink)" stroke-width="3.4"/>
+              <line x1="100" y1="70" x2="100" y2="110" stroke="var(--pink)" stroke-width="3.4"/>
+              <line x1="100" y1="90" x2="200" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="84" y="58" font-family="Kalam" font-size="16" fill="var(--pink)">C</text>
+              <text x="98" y="63" font-family="Kalam" font-size="11" fill="var(--pink)">1</text>
+              <text x="70" y="132" font-family="Kalam" font-size="14" fill="var(--yellow)">9,3 V</text>
+              <!-- D1 ao terra (cátodo no nó A, ânodo no terra) -> grampeador positivo -->
+              <circle cx="130" cy="90" r="3.5" fill="var(--chalk)"/>
+              <line x1="130" y1="90" x2="130" y2="186" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="112" y1="186" x2="148" y2="186" stroke="var(--chalk)" stroke-width="3.2"/>
+              <polygon points="112,222 148,222 130,186" fill="rgba(237,237,225,.05)" stroke="var(--chalk)" stroke-width="2.6"/>
+              <line x1="130" y1="222" x2="130" y2="300" stroke="var(--chalk)" stroke-width="2.2"/>
+              <circle cx="130" cy="300" r="3.5" fill="var(--chalk)"/>
+              <text x="156" y="212" font-family="Kalam" font-size="16" fill="var(--chalk)">D</text>
+              <text x="169" y="217" font-family="Kalam" font-size="11" fill="var(--chalk)">1</text>
+              <text x="136" y="76" font-family="Kalam" font-size="15" fill="var(--orange)">A</text>
+              <text x="112" y="248" font-family="Kalam" font-size="14" fill="var(--orange)">v</text>
+              <text x="122" y="253" font-family="Kalam" font-size="10" fill="var(--orange)">A</text>
+              <text x="128" y="248" font-family="Kalam" font-size="14" fill="var(--orange)">: −0,7 ↔ 19,3 V</text>
+              <!-- D2 em série -->
+              <polygon points="200,74 200,106 236,90" fill="rgba(237,237,225,.05)" stroke="var(--chalk)" stroke-width="2.6"/>
+              <line x1="236" y1="72" x2="236" y2="108" stroke="var(--chalk)" stroke-width="3.2"/>
+              <line x1="236" y1="90" x2="340" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="208" y="62" font-family="Kalam" font-size="16" fill="var(--chalk)">D</text>
+              <text x="221" y="67" font-family="Kalam" font-size="11" fill="var(--chalk)">2</text>
+              <!-- C2 -->
+              <line x1="300" y1="90" x2="300" y2="160" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="278" y1="160" x2="322" y2="160" stroke="var(--pink)" stroke-width="3.4"/>
+              <line x1="278" y1="174" x2="322" y2="174" stroke="var(--pink)" stroke-width="3.4"/>
+              <line x1="300" y1="174" x2="300" y2="300" stroke="var(--chalk)" stroke-width="2.2"/>
+              <circle cx="300" cy="90" r="3.5" fill="var(--chalk)"/>
+              <circle cx="300" cy="300" r="3.5" fill="var(--chalk)"/>
+              <text x="332" y="172" font-family="Kalam" font-size="16" fill="var(--pink)">C</text>
+              <text x="346" y="177" font-family="Kalam" font-size="11" fill="var(--pink)">2</text>
+              <!-- saída -->
+              <line x1="340" y1="90" x2="386" y2="90" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="390" cy="90" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="346" y="76" font-family="Kalam" font-size="17" fill="var(--yellow)">v</text>
+              <text x="358" y="81" font-family="Kalam" font-size="11" fill="var(--yellow)">O</text>
+              <text x="332" y="200" font-family="Kalam" font-size="15" fill="var(--yellow)">18,6 V</text>
+              <g stroke="var(--chalk-faint)" stroke-width="2">
+                <line x1="206" y1="304" x2="234" y2="304"/><line x1="211" y1="312" x2="229" y2="312"/><line x1="216" y1="320" x2="224" y2="320"/>
+              </g>
+              <circle cx="220" cy="300" r="3.5" fill="var(--chalk)"/>
+              <text x="60" y="378" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">condição de projeto: &nbsp; C</text>
+              <text x="238" y="383" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">1</text>
+              <text x="244" y="378" font-family="Kalam" font-size="15" fill="var(--chalk-dim)"> ≫ C</text>
+              <text x="284" y="383" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">2</text>
+
+              <!-- ===== formas de onda ===== -->
+              <text x="600" y="26" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">(b) carga dos capacitores</text>
+              <line x1="440" y1="200" x2="772" y2="200" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <line x1="450" y1="50" x2="450" y2="300" stroke="var(--chalk-faint)" stroke-width="1.5"/>
+              <text x="760" y="222" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">t</text>
+              <!-- escala: 0 em y=200; 10V -> y=140 ; 9,3 -> 144 ; 18,6 -> 88 -->
+              <!-- entrada -->
+              <path d="M450,200 C460,168 470,140 482,140 C494,140 504,168 514,200 C524,232 534,260 546,260 C558,260 568,232 578,200
+                       C588,168 598,140 610,140 C622,140 632,168 642,200 C652,232 662,260 674,260 C686,260 696,232 706,200
+                       C716,168 726,140 738,140 C750,140 760,168 770,200"
+                    fill="none" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <!-- vC1 sobe a 9,3 -->
+              <path d="M450,200 C462,176 472,150 484,146 C520,143 560,144 600,144 L772,144"
+                    fill="none" stroke="var(--pink)" stroke-width="2.6"/>
+              <!-- vC2 sobe a 18,6 -->
+              <path d="M450,200 L520,200 C548,196 570,140 600,110 C630,94 660,89 700,88 L772,88"
+                    fill="none" stroke="var(--yellow)" stroke-width="3"/>
+              <line x1="450" y1="144" x2="772" y2="144" stroke="var(--pink)" stroke-width="1" stroke-dasharray="3,3"/>
+              <line x1="450" y1="88" x2="772" y2="88" stroke="var(--yellow)" stroke-width="1" stroke-dasharray="3,3"/>
+              <text x="404" y="148" font-family="Kalam" font-size="14" fill="var(--pink)">9,3 V</text>
+              <text x="398" y="92" font-family="Kalam" font-size="14" fill="var(--yellow)">18,6 V</text>
+              <text x="628" y="136" font-family="Kalam" font-size="14" fill="var(--pink)">v</text>
+              <text x="638" y="141" font-family="Kalam" font-size="10" fill="var(--pink)">C1</text>
+              <text x="690" y="80" font-family="Kalam" font-size="14" fill="var(--yellow)">v</text>
+              <text x="700" y="85" font-family="Kalam" font-size="10" fill="var(--yellow)">C2</text>
+              <text x="452" y="290" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">entrada ±10 V</text>
+            </svg>
+            <figcaption>Dobrador de tensão. C₁ e D₁ formam um grampeador que leva o nó A a oscilar entre 0 e ~2V<sub>p</sub>; D₂ e C₂ formam um detector de pico que memoriza o máximo desse balanço. Os capacitores levam <strong>vários ciclos</strong> para atingir o regime — a saída não aparece instantaneamente.</figcaption>
+          </figure>
+
+          <h3 style="margin-top:34px;font-size:1.25rem">Estágio por estágio</h3>
+          <p><strong>Estágio 1 — grampeador.</strong> D₁ tem o cátodo no nó A e o ânodo no terra, e por isso conduz sempre que A tenta ir abaixo de −0,7 V. Em regime, C₁ fica carregado com</p>
+          <div class="eq">v<sub>C1</sub> = V<sub>p</sub> − 0,7 = <span class="y">9,3 V</span></div>
+          <p>e o nó A oscila entre o piso grampeado e o dobro do pico:</p>
+          <div class="eq">
+            v<sub>A,mín</sub> = −0,7 V &nbsp;&nbsp;&nbsp; v<sub>A,máx</sub> = V<sub>p</sub> + 9,3 = <span class="y">19,3 V</span>
+          </div>
+          <p><strong>Estágio 2 — detector de pico.</strong> D₂ e C₂ formam um retificador de meia onda sem carga: C₂ se carrega até o pico de v<sub>A</sub>, menos a queda de D₂, e ali fica, porque nada o descarrega.</p>
+          <div class="eq" style="font-size:1.3rem"><span class="hand-box">v<sub>O</sub> = v<sub>C2</sub> = 19,3 − 0,7 = <span class="y">18,6 V</span> = 2V<sub>p</sub> − 2V<sub>D</sub></span></div>
+          <p>Dez volts de pico entram; dezoito vírgula seis volts contínuos saem — de um circuito com quatro componentes passivos e nenhum transformador.</p>
+
+          <div class="attn">
+            <span class="tag">por que C₁ ≫ C₂</span>
+            No primeiro ciclo, C₂ está descarregado, e carregá-lo custa carga — carga que sai de C₁. Se os dois capacitores fossem comparáveis, C₁ perderia uma fração significativa da sua tensão a cada transferência, o patamar do grampeador cairia, e o dobrador nunca chegaria a 2V<sub>p</sub>. Fazendo <strong>C₁ ≫ C₂</strong>, a carga transferida é desprezível diante da reserva de C₁, que mantém os 9,3 V praticamente intactos. É o mesmo princípio de uma fonte de tensão ideal alimentando uma carga leve.
+            <br><br>
+            E a contrapartida: a <strong>regulação é péssima</strong>. Assim que se liga uma carga real à saída, C₂ passa a se descarregar entre os picos, a tensão despenca, e a ondulação é grande — porque toda a corrente da carga tem de atravessar essa cadeia de capacitores. Dobradores servem para alimentar coisas que consomem microamperes (polarização de tubos, geradores de tensão negativa em circuitos integrados, <em>flashes</em> fotográficos que recarregam devagar), não para alimentar circuitos de potência.
+          </div>
+
+          <p class="note">Com os dois diodos invertidos, o mesmo circuito produz <strong>−18,6 V</strong> — o grampeador vira negativo, o nó A oscila entre +0,7 e −19,3 V, e C₂ memoriza o pico negativo. Essa é a forma usual quando se precisa gerar uma alimentação simétrica a partir de uma fonte única. Encadeando mais estágios idênticos obtém-se a <strong>cascata de Cockcroft–Walton</strong>, que multiplica a tensão por 3, 4, 5… e é como se geram dezenas de quilovolts a partir da rede.</p>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+          <div class="q">
+            <div class="q-head">conceitual <span class="tagq">múltipla escolha · de onde vem o "dobro"</span></div>
+            <p class="q-stem">No dobrador, o que faz a saída chegar a 2V<sub>p</sub> em vez de V<sub>p</sub>?</p>
+            <div class="opts">
+              <button class="opt" data-ok="0"><span class="k">a)</span> Os dois diodos somam suas quedas de 0,7 V à entrada.</button>
+              <button class="opt" data-ok="1"><span class="k">b)</span> O grampeador soma um nível contínuo de V<sub>p</sub> à onda, de modo que o pico do nó A vale V<sub>p</sub> + V<sub>p</sub>; o detector apenas memoriza esse pico.</button>
+              <button class="opt" data-ok="0"><span class="k">c)</span> Os dois capacitores em série dobram a capacitância e, com ela, a tensão.</button>
+              <button class="opt" data-ok="0"><span class="k">d)</span> A frequência dobra ao passar pelo primeiro estágio.</button>
+            </div>
+            <div class="q-fb" role="status"><b>b)</b> — Todo o "dobro" acontece no <strong>primeiro</strong> estágio: o grampeador não amplifica nada, apenas soma um nível contínuo de V<sub>p</sub> a uma onda que já tinha V<sub>p</sub> de pico — e V<sub>p</sub> + V<sub>p</sub> = 2V<sub>p</sub>. O segundo estágio é passivo no sentido mais literal: só guarda o valor máximo. Note que os diodos, longe de somar (alternativa a), <strong>subtraem</strong> 0,7 V cada um: 20 → 18,6 V.</div>
+          </div>
+          <div class="q">
+            <div class="q-head">cálculo <span class="tagq">resolvido · rede de 127 V</span></div>
+            <p class="q-stem">Um dobrador é ligado diretamente à rede de 127 V eficazes (60 Hz). Qual a tensão de saída em vazio? Que tensão nominal especificar para os capacitores? Se a carga drenar 100 µA, que C₂ mantém a ondulação abaixo de 1 V?</p>
+            <details class="reveal">
+              <summary>Ver resolução</summary>
+              <div class="ans">
+                <p>Pico da rede:</p>
+                <div class="eq">V<sub>p</sub> = 127 · √2 = <span class="y">179,6 V</span></div>
+                <p>Saída em vazio, descontando os dois diodos:</p>
+                <div class="eq">v<sub>O</sub> = 2 · 179,6 − 1,4 = <span class="y">357,8 V</span></div>
+                <p><strong>Tensões nominais.</strong> C₁ vê V<sub>p</sub> − 0,7 ≈ 179 V; C₂ vê os 357,8 V inteiros. Com margem de 50%, especificam-se 250 V para C₁ e <strong>600 V para C₂</strong>. Esquecer isso é o erro que faz o capacitor explodir.</p>
+                <p><strong>Ondulação.</strong> C₂ se descarrega durante um período inteiro (T = 16,7 ms) entre recargas, como num meia onda. Exigindo V<sub>r</sub> ≤ 1 V com I = 100 µA:</p>
+                <div class="eq">C₂ = I·T / V<sub>r</sub> = 100 µA · 16,7 ms / 1 V = <span class="y">1,67 µF</span></div>
+                <p class="note">Confira a coerência com C₁ ≫ C₂: um C₁ de 47 µF ou 100 µF satisfaz a condição com folga. E note o que aconteceria com uma carga de 100 mA em vez de 100 µA — seriam necessários 1670 µF em 600 V, um componente caríssimo e do tamanho de uma lata. Confirma-se a regra: dobradores só servem para cargas leves.</p>
+              </div>
+            </details>
+          </div>
+          </div>
+        </section>
+
+
+        <!-- ============================================================
+             TESTE 4 · 2024 — PONTE RETIFICADORA
+             ============================================================ -->
+        <section class="content-section" id="teste4-2024">
+          <div class="eyebrow">PROVA RESOLVIDA · TESTE 4 · 2024</div>
+          <h2>Teste 4 · 2024 — a ponte, o pico e a tensão reversa</h2>
+          <p class="lead">Prova resolvida da PSI3024 · 2° semestre de 2024. Duas questões curtas sobre o mesmo circuito — uma ponte retificadora alimentando 100 Ω — com V<sub>diodo</sub> = 0,7 V. Duas versões, diferindo apenas na amplitude da entrada: <span style="color:var(--chalk)">Versão 1 em branco</span>, <span style="color:var(--pink)">Versão 2 entre parênteses</span>. O enunciado pede duas coisas que este módulo tratou lado a lado: o <strong>pico da saída</strong> e a <strong>tensão reversa máxima</strong> em cada diodo.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg">
+              <!-- fonte -->
+              <circle cx="80" cy="180" r="26" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <path d="M66,180 C73,164 87,196 94,180" fill="none" stroke="var(--chalk-dim)" stroke-width="2.2"/>
+              <text x="14" y="252" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">v</text>
+              <text x="25" y="257" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">e</text>
+              <text x="32" y="252" font-family="Kalam" font-size="16" fill="var(--chalk-dim)"> = 13,4 V</text>
+              <text x="122" y="257" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">pico</text>
+              <text x="26" y="274" font-family="Kalam" font-size="15" fill="var(--pink)">(26,8 V</text>
+              <text x="82" y="279" font-family="Kalam" font-size="10" fill="var(--pink)">pico</text>
+              <text x="106" y="274" font-family="Kalam" font-size="15" fill="var(--pink)">)</text>
+              <text x="26" y="296" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">f = 60 Hz</text>
+              <path d="M80,154 L80,120 L180,120" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <path d="M80,206 L80,240 L180,240" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <!-- barramentos de entrada A e B -->
+              <line x1="180" y1="90" x2="180" y2="150" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="180" y1="210" x2="180" y2="270" stroke="var(--chalk)" stroke-width="2.2"/>
+              <circle cx="180" cy="120" r="3.8" fill="var(--chalk)"/>
+              <circle cx="180" cy="240" r="3.8" fill="var(--chalk)"/>
+              <text x="158" y="112" font-family="Kalam" font-size="15" fill="var(--orange)">A</text>
+              <text x="158" y="262" font-family="Kalam" font-size="15" fill="var(--orange)">B</text>
+
+              <!-- D1 : anodo esq, catodo dir (aponta para a direita) y=90 -->
+              <line x1="180" y1="90" x2="238" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polygon points="238,75 238,105 266,90" fill="rgba(237,237,225,.06)" stroke="var(--chalk)" stroke-width="2.5"/>
+              <line x1="266" y1="72" x2="266" y2="108" stroke="var(--chalk)" stroke-width="3.2"/>
+              <line x1="266" y1="90" x2="440" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="240" y="62" font-family="Kalam" font-size="15" fill="var(--chalk)">D</text>
+              <text x="253" y="67" font-family="Kalam" font-size="11" fill="var(--chalk)">1</text>
+              <!-- D2 : aponta para a esquerda, y=150 -->
+              <line x1="180" y1="150" x2="208" y2="150" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="208" y1="132" x2="208" y2="168" stroke="var(--chalk)" stroke-width="3.2"/>
+              <polygon points="236,135 236,165 208,150" fill="rgba(237,237,225,.06)" stroke="var(--chalk)" stroke-width="2.5"/>
+              <line x1="236" y1="150" x2="366" y2="150" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="240" y="140" font-family="Kalam" font-size="15" fill="var(--chalk)">D</text>
+              <text x="253" y="145" font-family="Kalam" font-size="11" fill="var(--chalk)">2</text>
+              <!-- D3 : aponta para a esquerda, y=210 -->
+              <line x1="180" y1="210" x2="208" y2="210" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="208" y1="192" x2="208" y2="228" stroke="var(--chalk)" stroke-width="3.2"/>
+              <polygon points="236,195 236,225 208,210" fill="rgba(237,237,225,.06)" stroke="var(--chalk)" stroke-width="2.5"/>
+              <line x1="236" y1="210" x2="366" y2="210" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="240" y="200" font-family="Kalam" font-size="15" fill="var(--chalk)">D</text>
+              <text x="253" y="205" font-family="Kalam" font-size="11" fill="var(--chalk)">3</text>
+              <!-- D4 : aponta para a direita, y=270 -->
+              <line x1="180" y1="270" x2="238" y2="270" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polygon points="238,255 238,285 266,270" fill="rgba(237,237,225,.06)" stroke="var(--chalk)" stroke-width="2.5"/>
+              <line x1="266" y1="252" x2="266" y2="288" stroke="var(--chalk)" stroke-width="3.2"/>
+              <line x1="266" y1="270" x2="354" y2="270" stroke="var(--chalk)" stroke-width="2.2"/>
+              <!-- salto sobre o retorno de N -->
+              <path d="M354,270 a12,12 0 0 1 24,0" fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="378" y1="270" x2="440" y2="270" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="240" y="308" font-family="Kalam" font-size="15" fill="var(--chalk)">D</text>
+              <text x="253" y="313" font-family="Kalam" font-size="11" fill="var(--chalk)">4</text>
+
+              <!-- nó N (anodos de D2 e D3) -->
+              <line x1="366" y1="150" x2="366" y2="210" stroke="var(--chalk)" stroke-width="2.2"/>
+              <circle cx="366" cy="180" r="3.8" fill="var(--chalk)"/>
+              <text x="336" y="176" font-family="Kalam" font-size="15" fill="var(--orange)">N</text>
+              <!-- nó P (catodos de D1 e D4) -->
+              <line x1="440" y1="90" x2="440" y2="270" stroke="var(--chalk)" stroke-width="2.2"/>
+              <circle cx="440" cy="90" r="3.8" fill="var(--chalk)"/>
+              <circle cx="440" cy="270" r="3.8" fill="var(--chalk)"/>
+              <text x="450" y="182" font-family="Kalam" font-size="15" fill="var(--orange)">P</text>
+              <!-- carga -->
+              <line x1="440" y1="90" x2="560" y2="90" stroke="var(--chalk)" stroke-width="2.2"/>
+              <polyline points="560,90 560,122 548,129 572,143 548,157 572,171 560,178 560,210" fill="none" stroke="var(--orange)" stroke-width="2.4"/>
+              <text x="584" y="150" font-family="Kalam" font-size="16" fill="var(--orange)">100 Ω</text>
+              <line x1="560" y1="210" x2="560" y2="340" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="560" y1="340" x2="366" y2="340" stroke="var(--chalk)" stroke-width="2.2"/>
+              <line x1="366" y1="340" x2="366" y2="210" stroke="var(--chalk)" stroke-width="2.2"/>
+              <!-- vA -->
+              <path d="M636,210 C662,196 662,104 636,90" fill="none" stroke="var(--yellow)" stroke-width="2"/>
+              <polygon points="630,84 644,92 632,98" fill="var(--yellow)"/>
+              <text x="662" y="146" font-family="Kalam" font-size="19" fill="var(--yellow)">v</text>
+              <text x="675" y="151" font-family="Kalam" font-size="12" fill="var(--yellow)">A</text>
+              <text x="588" y="106" font-family="Kalam" font-size="14" fill="var(--yellow)">+</text>
+              <text x="588" y="206" font-family="Kalam" font-size="14" fill="var(--yellow)">−</text>
+            </svg>
+            <figcaption>O circuito do enunciado. A ponte está desenhada <strong>em coluna</strong> — os quatro diodos empilhados — e não em losango, mas é exatamente o circuito da <a href="#m4-ponte">seção 4.2</a>: os cátodos de D₁ e D₄ formam o terminal positivo <strong>P</strong>, os ânodos de D₂ e D₃ formam o negativo <strong>N</strong>, e a fonte entra pelos nós <strong>A</strong> e <strong>B</strong>. Reconhecer a ponte sob outro desenho é metade da questão.</figcaption>
+          </figure>
+
+          <div class="attn">
+            <span class="tag">como identificar a ponte em qualquer desenho</span>
+            Não decore o layout — <strong>siga os cátodos</strong>. Numa ponte, os dois diodos cujos <em>cátodos</em> se encontram formam o <strong>+</strong> da saída; os dois cujos <em>ânodos</em> se encontram formam o <strong>−</strong>. Os dois nós restantes, cada um com um ânodo e um cátodo, são as entradas ca. Aplicando isso aqui: D₁ e D₄ apontam para a direita (cátodos à direita, unidos em P → saída +); D₂ e D₃ apontam para a esquerda (ânodos à direita, unidos em N → saída −); e A e B, à esquerda, misturam um ânodo com um cátodo — são as entradas. Confere.
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Resolução</div>
+
+          <div class="q">
+            <div class="q-head">(a) <span class="tagq">resolvida · forma de onda e valor de pico</span></div>
+            <p class="q-stem">Esboce a forma de onda da tensão v<sub>A</sub>, desenhando-a sobre o sinal de entrada e cotando seu valor de pico. Considere V<sub>diodo</sub> = 0,7 V.</p>
+            <details class="reveal">
+              <summary>Ver resolução</summary>
+              <div class="ans">
+                <p>Em qualquer semiciclo, a corrente atravessa <strong>dois</strong> diodos em série no seu percurso da fonte até a carga e de volta — nunca um só. Logo, a queda cobrada é sempre 2V<sub>D</sub> = 1,4 V:</p>
+                <div class="eq">
+                  v<sub>e</sub> &gt; +1,4 V &nbsp;⇒&nbsp; D₁ e D₃ conduzem &nbsp;⇒&nbsp; <span class="y">v<sub>A</sub> = v<sub>e</sub> − 1,4 V</span><br>
+                  −1,4 ≤ v<sub>e</sub> ≤ +1,4 &nbsp;⇒&nbsp; todos cortados &nbsp;⇒&nbsp; <span class="y">v<sub>A</sub> = 0</span><br>
+                  v<sub>e</sub> &lt; −1,4 V &nbsp;⇒&nbsp; D₂ e D₄ conduzem &nbsp;⇒&nbsp; <span class="y">v<sub>A</sub> = −v<sub>e</sub> − 1,4 V</span>
+                </div>
+                <p>O valor de pico é o pico da entrada menos essa queda:</p>
+                <div class="eq" style="font-size:1.3rem"><span class="hand-box">V<sub>A,máx</sub> = 13,4 − 1,4 = <span class="y">12,0 V</span> &nbsp;<span class="dim">(26,8 − 1,4 = 25,4 V)</span></span></div>
+                <p>A forma de onda é a senoide de entrada <strong>totalmente retificada</strong>: os semiciclos negativos aparecem espelhados para cima, com a mesma altura dos positivos. A frequência da ondulação é <strong>120 Hz</strong>, o dobro da rede — cada semiciclo da entrada produz um pulso na saída.</p>
+                <p class="note">Note o pequeno platô em zero em torno de cada passagem por zero: enquanto |v<sub>e</sub>| &lt; 1,4 V nenhum par de diodos consegue conduzir, e a saída fica travada em 0 V. Com 13,4 V de pico esse intervalo morto é curto (arcsen(1,4/13,4) = 6,0°, ou seja, 12° em torno de cada passagem por zero — 6,7% do ciclo), mas ele existe — e é ele que impede que a ponte funcione com sinais de poucos volts.</p>
+              </div>
+            </details>
+
+            <figure class="panel" style="margin-top:20px">
+              <svg viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg">
+                <line x1="60" y1="170" x2="740" y2="170" stroke="var(--chalk)" stroke-width="1.8"/>
+                <line x1="70" y1="24" x2="70" y2="306" stroke="var(--chalk)" stroke-width="1.8"/>
+                <polygon points="64,30 76,30 70,16" fill="var(--chalk)"/>
+                <polygon points="734,164 734,176 748,170" fill="var(--chalk)"/>
+                <text x="82" y="34" font-family="Kalam" font-size="18" fill="var(--chalk)">v</text>
+                <text x="94" y="39" font-family="Kalam" font-size="12" fill="var(--chalk)">e</text>
+                <text x="102" y="34" font-family="Kalam" font-size="18" fill="var(--chalk)">,</text>
+                <text x="116" y="34" font-family="Kalam" font-size="18" fill="var(--orange)">v</text>
+                <text x="128" y="39" font-family="Kalam" font-size="12" fill="var(--orange)">A</text>
+                <!-- grade -->
+                <g stroke="var(--line)" stroke-width="1" stroke-dasharray="3,4">
+                  <line x1="70" y1="60" x2="740" y2="60"/><line x1="70" y1="88" x2="740" y2="88"/>
+                  <line x1="70" y1="115" x2="740" y2="115"/><line x1="70" y1="143" x2="740" y2="143"/>
+                  <line x1="70" y1="198" x2="740" y2="198"/><line x1="70" y1="225" x2="740" y2="225"/>
+                  <line x1="70" y1="253" x2="740" y2="253"/><line x1="70" y1="280" x2="740" y2="280"/>
+                </g>
+                <!-- entrada: pico 13,4 V -> y=60 ; escala 110px/13,4V = 8,21 px/V -->
+                <path d="M70,170 C82,110 98,60 114,60 C130,60 146,110 158,170 C170,230 186,280 202,280 C218,280 234,230 246,170
+                         C258,110 274,60 290,60 C306,60 322,110 334,170 C346,230 362,280 378,280 C394,280 410,230 422,170
+                         C434,110 450,60 466,60 C482,60 498,110 510,170 C522,230 538,280 554,280 C570,280 586,230 598,170
+                         C610,110 626,60 642,60 C658,60 674,110 686,170 C698,230 714,280 730,280"
+                      fill="none" stroke="var(--chalk)" stroke-width="2.2"/>
+                <!-- saida: pico 12,0 V -> y=71,5 ; zona morta perto do zero -->
+                <path d="M76,170 L82,170 C92,112 98,72 114,72 C130,72 138,112 148,170 L164,170
+                         C174,112 186,72 202,72 C218,72 230,112 240,170 L252,170
+                         C262,112 274,72 290,72 C306,72 314,112 324,170 L340,170
+                         C350,112 362,72 378,72 C394,72 406,112 416,170 L428,170
+                         C438,112 450,72 466,72 C482,72 490,112 500,170 L516,170
+                         C526,112 538,72 554,72 C570,72 582,112 592,170 L604,170
+                         C614,112 626,72 642,72 C658,72 666,112 676,170 L692,170
+                         C702,124 712,96 720,84"
+                      fill="none" stroke="var(--orange)" stroke-width="3"/>
+                <line x1="70" y1="60" x2="740" y2="60" stroke="var(--chalk-faint)" stroke-width="1.1" stroke-dasharray="4,4"/>
+                <line x1="70" y1="72" x2="740" y2="72" stroke="var(--orange)" stroke-width="1.1" stroke-dasharray="4,4"/>
+                <text x="8" y="58" font-family="Kalam" font-size="15" fill="var(--chalk)">13,4 V</text>
+                <text x="8" y="86" font-family="Kalam" font-size="15" fill="var(--orange)">12,0 V</text>
+                <text x="8" y="112" font-family="Kalam" font-size="13" fill="var(--pink)">(26,8)</text>
+                <text x="8" y="132" font-family="Kalam" font-size="13" fill="var(--pink)">(25,4)</text>
+                <text x="452" y="306" font-family="Kalam" font-size="15" fill="var(--chalk)">— entrada v</text>
+                <text x="551" y="311" font-family="Kalam" font-size="11" fill="var(--chalk)">e</text>
+                <text x="566" y="306" font-family="Kalam" font-size="15" fill="var(--orange)">— saída v</text>
+                <text x="650" y="311" font-family="Kalam" font-size="11" fill="var(--orange)">A</text>
+              </svg>
+              <figcaption>Resposta do item (a). Os dois semiciclos aparecem na saída, ambos positivos e ambos 1,4 V mais baixos que o correspondente da entrada. Os cotovelos em zero são o intervalo em que |v<sub>e</sub>| &lt; 1,4 V e nenhum diodo conduz.</figcaption>
+            </figure>
+          </div>
+
+          <div class="q">
+            <div class="q-head">(b) <span class="tagq">resolvida · tensão reversa máxima</span></div>
+            <p class="q-stem">Obtenha o valor numérico da tensão reversa máxima em cada diodo.</p>
+            <details class="reveal">
+              <summary>Ver resolução</summary>
+              <div class="ans">
+                <p>Congele o circuito no pico positivo de v<sub>e</sub> e examine um diodo cortado — digamos D₂. Nesse instante D₁ conduz, e portanto o nó A está apenas 0,7 V acima de P:</p>
+                <div class="eq">
+                  v<sub>A(nó)</sub> = v<sub>P</sub> + 0,7 = V<sub>A,máx</sub> + 0,7
+                </div>
+                <p>O cátodo de D₂ é o nó A, e seu ânodo é o nó N — que está no potencial de referência da carga, isto é, 0 V. Logo, a tensão sobre D₂ é</p>
+                <div class="eq" style="font-size:1.3rem">
+                  <span class="hand-box">V<sub>R,máx</sub> = V<sub>A,máx</sub> + 0,7 = 12,0 + 0,7 = <span class="y">12,7 V</span> &nbsp;<span class="dim">(25,4 + 0,7 = 26,1 V)</span></span>
+                </div>
+                <p>O mesmo vale, por simetria, para os quatro diodos — cada um passa por essa condição uma vez por ciclo.</p>
+                <p><strong>Pelo outro caminho.</strong> A <a href="#m4-ponte">seção 4.2</a> deu a fórmula geral da ponte, PIV = V<sub>Sp</sub> − V<sub>D</sub>. Substituindo:</p>
+                <div class="eq">PIV = 13,4 − 0,7 = <span class="y">12,7 V</span> &nbsp;<span class="dim">(26,8 − 0,7 = 26,1 V)</span> &nbsp;✓</div>
+                <p>Os dois caminhos coincidem, como têm de coincidir: V<sub>A,máx</sub> + 0,7 = (V<sub>Sp</sub> − 1,4) + 0,7 = V<sub>Sp</sub> − 0,7. A forma do gabarito é mais fácil de reconstruir na hora da prova, porque parte do número que você acabou de calcular no item (a).</p>
+                <p class="note">Na escolha do componente, aplica-se a margem de 50%: 12,7 × 1,5 ≈ 19 V, e um 1N4001 (V<sub>RRM</sub> = 50 V) resolve com folga. A corrente também precisa ser verificada — com 100 Ω e 12 V de pico, o pico de corrente é 120 mA, e a corrente média é 2 × 12,0/(π × 100) ≈ 76 mA. Ainda dentro do 1 A do 1N4001.</p>
+              </div>
+            </details>
+          </div>
+
+          <div class="q">
+            <div class="q-head">extensão <span class="tagq">múltipla escolha · e se puséssemos um capacitor?</span></div>
+            <p class="q-stem">Acrescenta-se um capacitor de filtro em paralelo com os 100 Ω, grande o bastante para segurar a saída em ≈ 12 V. O que muda na resposta do item (b)?</p>
+            <div class="opts">
+              <button class="opt" data-ok="1"><span class="k">a)</span> Nada: a tensão reversa continua sendo ≈ 12,7 V.</button>
+              <button class="opt" data-ok="0"><span class="k">b)</span> Dobra, para ≈ 25 V, porque o diodo cortado passa a ver o pico da entrada de um lado e a tensão retida pelo capacitor do outro.</button>
+              <button class="opt" data-ok="0"><span class="k">c)</span> Cai pela metade, porque o capacitor absorve parte da tensão.</button>
+              <button class="opt" data-ok="0"><span class="k">d)</span> Passa a ser igual à ondulação V<sub>r</sub>.</button>
+            </div>
+            <div class="q-fb" role="status"><b>a)</b> — A resposta (b) é a intuição correta aplicada ao circuito <em>errado</em>: ela vale para o <a href="#m3-retificador">meia onda</a>, onde o cátodo fica preso em V<sub>p</sub> pelo capacitor enquanto o ânodo desce a −V<sub>p</sub>, e a PIV realmente vai a 2V<sub>p</sub>. Na <strong>ponte</strong> isso não acontece: no pico negativo, D₂ e D₄ estão conduzindo e <em>grampeiam</em> os nós de entrada — A fica em N − 0,7 = −0,7 V e B em P + 0,7 = 12,7 V. O diodo D₁, cortado, vê ânodo em −0,7 e cátodo em 12, ou seja, os mesmos 12,7 V de antes. Percorra os nós em vez de confiar na analogia: a ponte é a única das três topologias cuja PIV <strong>não</strong> piora com o filtro — mais um ponto a seu favor.</div>
+          </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             RESUMO
+             ============================================================ -->
+        <section class="content-section" id="m4-resumo">
+          <div class="eyebrow">SÍNTESE · MÓDULO 04</div>
+          <h2>Resumo e comparação das topologias</h2>
+
+          <h3 style="margin-top:24px;font-size:1.25rem">As quatro topologias de retificador</h3>
+          <table class="spec">
+            <tr><th>Topologia</th><th>Pico da saída</th><th>PIV</th><th>f da ondulação</th><th>Diodos</th></tr>
+            <tr><td>Meia onda</td><td class="sym">V<sub>Sp</sub> − V<sub>D</sub></td><td class="sym">V<sub>Sp</sub></td><td class="sym">f</td><td>1</td></tr>
+            <tr><td>Onda completa (tomada central)</td><td class="sym">V<sub>Sp</sub> − V<sub>D</sub></td><td class="sym">2V<sub>Sp</sub> − V<sub>D</sub></td><td class="sym">2f</td><td>2 + transformador especial</td></tr>
+            <tr><td>Ponte</td><td class="sym">V<sub>Sp</sub> − 2V<sub>D</sub></td><td class="sym">V<sub>Sp</sub> − V<sub>D</sub></td><td class="sym">2f</td><td>4</td></tr>
+            <tr><td>Dobrador</td><td class="sym">2V<sub>p</sub> − 2V<sub>D</sub></td><td class="sym">2V<sub>p</sub></td><td class="sym">f</td><td>2 + 2 capacitores</td></tr>
+          </table>
+
+          <h3 style="margin-top:34px;font-size:1.25rem">Fórmulas de projeto do filtro</h3>
+          <table class="spec">
+            <tr><th>Grandeza</th><th>Símbolo</th><th>Meia onda</th><th>Onda completa</th></tr>
+            <tr><td>Ondulação</td><td class="sym">V<sub>r</sub></td><td>V<sub>p</sub> / (f R C)</td><td>V<sub>p</sub> / (2 f R C)</td></tr>
+            <tr><td>Tensão média de saída</td><td class="sym">V<sub>O</sub></td><td>V<sub>p</sub> − V<sub>r</sub>/2</td><td>V<sub>p</sub> − V<sub>r</sub>/2</td></tr>
+            <tr><td>Corrente de carga</td><td class="sym">I<sub>L</sub></td><td>≅ V<sub>p</sub>/R</td><td>≅ V<sub>p</sub>/R</td></tr>
+            <tr><td>Ângulo de condução</td><td class="sym">ωΔt</td><td>√(2V<sub>r</sub>/V<sub>p</sub>)</td><td>√(2V<sub>r</sub>/V<sub>p</sub>)</td></tr>
+            <tr><td>Corrente média no diodo</td><td class="sym">I<sub>D,méd</sub></td><td>I<sub>L</sub>(1 + π√(2V<sub>p</sub>/V<sub>r</sub>))</td><td>I<sub>L</sub>(1 + π√(V<sub>p</sub>/2V<sub>r</sub>))</td></tr>
+            <tr><td>Corrente de pico no diodo</td><td class="sym">I<sub>D,máx</sub></td><td>I<sub>L</sub>(1 + 2π√(2V<sub>p</sub>/V<sub>r</sub>))</td><td>I<sub>L</sub>(1 + 2π√(V<sub>p</sub>/2V<sub>r</sub>))</td></tr>
+          </table>
+          <p class="note" style="margin-top:14px">Todas essas expressões pressupõem <strong>T ≪ RC</strong> e <strong>V<sub>r</sub> ≪ V<sub>p</sub></strong>. Fora dessa faixa — filtro pequeno, carga pesada — a descarga não é mais uma reta, e é preciso voltar à exponencial ou simular.</p>
+
+          <h3 style="margin-top:34px;font-size:1.25rem">Capacitor em paralelo × capacitor em série</h3>
+          <table class="spec">
+            <tr><th>Circuito</th><th>Onde fica o capacitor</th><th>O que faz</th></tr>
+            <tr><td>Filtro de fonte</td><td class="sym">paralelo</td><td>Segura a tensão entre os picos: transforma pulsos em patamar. Preserva o nível, elimina a variação.</td></tr>
+            <tr><td>Grampeador</td><td class="sym">série</td><td>Guarda uma tensão contínua e a soma ao sinal: desloca a onda sem deformá-la. Preserva a variação, muda o nível.</td></tr>
+            <tr><td>Dobrador</td><td class="sym">série + paralelo</td><td>Grampeador seguido de detector de pico. Soma o nível e depois memoriza o máximo.</td></tr>
+          </table>
+
+          <div class="attn">
+            <span class="tag">o roteiro de projeto de uma fonte linear</span>
+            <strong>1 ·</strong> Da tensão contínua desejada e da corrente da carga, escolha a topologia — ponte, quase sempre. <strong>2 ·</strong> V<sub>Sp</sub> = V<sub>O</sub> + 2V<sub>D</sub>, e daí a tensão eficaz do secundário. <strong>3 ·</strong> Fixe a ondulação aceitável e calcule C = V<sub>p</sub>/(2fRV<sub>r</sub>); arredonde para cima no valor comercial. <strong>4 ·</strong> Calcule I<sub>D,méd</sub> e I<sub>D,máx</sub> e escolha diodos que suportem <em>ambas</em> — é aqui que a maioria dos projetos falha. <strong>5 ·</strong> Verifique a PIV e a tensão nominal do capacitor, sempre com 50% de margem. <strong>6 ·</strong> Se a ondulação residual ainda incomodar, acrescente um <a href="#m3-regulador">regulador</a> — que é assunto do módulo anterior, e o motivo pelo qual nenhuma fonte séria depende só do capacitor.
+          </div>
+        </section>
+
+      </div>
+    </div>
+
     <footer class="page-footer">
       <span>guias · poli usp</span>
-      <span>módulo 01 · amplificadores &nbsp;·&nbsp; módulo 02 · amp ops &nbsp;·&nbsp; módulo 03 · diodos e zener</span>
+      <span>módulo 01 · amplificadores &nbsp;·&nbsp; módulo 02 · amp ops &nbsp;·&nbsp; módulo 03 · diodos e zener &nbsp;·&nbsp; módulo 04 · retificadores e fontes</span>
     </footer>
 
   </div>
