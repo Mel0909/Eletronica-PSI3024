@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amplificadores · Amp Ops · Diodos · Retificadores · Semicondutores — Guias · Poli USP</title>
+<title>Amp Ops · Diodos · Retificadores · Semicondutores · Equação do diodo — Guias · Poli USP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -626,7 +626,21 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <li><a href="#m9-hall"><span class="n">§</span>Efeito Hall</a></li>
         <li><a href="#m9-reversa"><span class="n">3.5</span>Junção pn em inversa</a></li>
         <li><a href="#m9-mosfet"><span class="n">§</span>Para que serve — o MOSFET</a></li>
+        <li><a href="#teste6-2025"><span class="n">T6</span>Teste 6 · 2025 — junção pn</a></li>
         <li><a href="#m9-resumo"><span class="n">§</span>Resumo e armadilhas</a></li>
+      </ul>
+      <a class="module-item" href="#mod10"><span class="num">10</span> Equação do diodo</a>
+      <ul class="sub-list" data-mod="mod10">
+        <li><a href="#m10-mapa"><span class="n">§</span>O plano da dedução</a></li>
+        <li><a href="#m10-minoritarios"><span class="n">3.5</span>Minoritários em equilíbrio</a></li>
+        <li><a href="#m10-lei"><span class="n">3.5</span>A lei da junção</a></li>
+        <li><a href="#m10-perfil"><span class="n">3.5</span>O perfil e L = √(Dτ)</a></li>
+        <li><a href="#m10-densidade"><span class="n">3.5</span>Derivando: J nas bordas</a></li>
+        <li><a href="#m10-corrente"><span class="n">3.5</span>A equação do diodo</a></li>
+        <li><a href="#m10-is"><span class="n">§</span>O que existe dentro de I<sub>S</sub></a></li>
+        <li><a href="#m10-idealidade"><span class="n">§</span>Fator de idealidade</a></li>
+        <li><a href="#m10-carga"><span class="n">3.6</span>Carga armazenada e C<sub>d</sub></a></li>
+        <li><a href="#m10-resumo"><span class="n">§</span>Resumo e armadilhas</a></li>
       </ul>
     </nav>
     <div class="more-soon">+ novos módulos em breve</div>
@@ -649,6 +663,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <a href="#mod7">07 · Reconhecer circuitos</a>
         <a href="#modP1">08 · P1 2024</a>
         <a href="#mod9">09 · Semicondutores</a>
+        <a href="#mod10">10 · Equação do diodo</a>
       </nav>
     </div>
 
@@ -12508,7 +12523,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <div class="hero-eyebrow">MÓDULO 09 · SEDRA &amp; SMITH, CAPÍTULO 3 · AULA NA LOUSA</div>
         <h1><span class="w1">Um cristal com um átomo estranho a cada cinquenta mil.</span> <span class="w2">Por que essa impureza minúscula é a diferença entre um pedaço de pedra e um transistor?</span></h1>
         <p class="dek">Até aqui os dispositivos eram caixas com uma lei: ganho <i>A</i>, queda de 0,7 V, joelho do zener. Este módulo abre a caixa. Segue a aula na lousa: a escada de bandas que separa condutor, semicondutor e isolante; quantos elétrons livres um cristal de silício puro tem a 300 K (e por que são tão poucos); o que a dopagem faz com esse número; os dois — e apenas dois — mecanismos pelos quais carga se move dentro de um semicondutor; como o efeito Hall mede quem é o portador; e o que acontece com a junção pn quando ela é polarizada ao contrário, que é o regime em que todo MOSFET vive.</p>
-        <div class="meta-row"><b>Curso</b> PSI3024 — Eletrônica &nbsp;&nbsp;&nbsp; <b>Referência</b> Sedra &amp; Smith, <i>Microeletrônica</i>, Capítulo 3 &nbsp;&nbsp;&nbsp; <b>Fonte</b> notas de lousa</div>
+        <div class="meta-row"><b>Curso</b> PSI3024 — Eletrônica &nbsp;&nbsp;&nbsp; <b>Referência</b> Sedra &amp; Smith, <i>Microeletrônica</i>, Capítulo 3 &nbsp;&nbsp;&nbsp; <b>Fonte</b> notas de lousa &nbsp;&nbsp;&nbsp; <b>Prova</b> <a href="#teste6-2025" style="color:var(--yellow)">Teste 6 · 2025</a> resolvido</div>
 
         <svg class="hero-deco" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <!-- bandas -->
@@ -12551,6 +12566,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <a href="#m9-hall">Efeito Hall</a>
         <a href="#m9-reversa">Junção pn em polarização inversa</a>
         <a href="#m9-mosfet">Para que serve — o MOSFET</a>
+        <a href="#teste6-2025">Teste 6 · 2025</a>
         <a href="#m9-resumo">Resumo e armadilhas</a>
       </nav>
     </div>
@@ -13593,6 +13609,247 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           </div>
         </section>
 
+
+        <!-- ============================================================
+             TESTE 6 · 2025 — JUNÇÃO PN EM EQUILÍBRIO
+             ============================================================ -->
+        <section class="content-section" id="teste6-2025">
+          <div class="eyebrow">TESTE 6 · 2° SEMESTRE DE 2025 · RESOLVIDO</div>
+          <h2>Oito parâmetros de uma junção isolada, e nenhum deles precisa de mais que duas linhas</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>O teste dá duas dopagens e pede oito números — e todos os oito saem de três relações que já estão neste módulo: n·p = n<sub>i</sub>², V₀ = V<sub>T</sub>ln(N<sub>A</sub>N<sub>D</sub>/n<sub>i</sub>²) e N<sub>A</sub>x<sub>p</sub> = N<sub>D</sub>x<sub>n</sub>.</p>
+          </div>
+
+          <div class="enunciado">
+            <div class="en-head">Enunciado — Versão 1</div>
+            <p>Dada uma junção PN <strong>isolada em equilíbrio térmico</strong> na temperatura ambiente, sabendo-se que o lado P está dopado com <strong>boro</strong> (impureza trivalente) numa concentração de <strong>1 × 10¹⁶ cm⁻³</strong> e o lado N está dopado com <strong>fósforo</strong> (impureza pentavalente) numa concentração de <strong>1 × 10¹⁷ cm⁻³</strong>. Baseado nos dados e formulário fornecidos, obtenha os parâmetros indicados na tabela.</p>
+            <div class="dados">
+              n<sub>i</sub> = 1 × 10¹⁰ cm⁻³ &nbsp;·&nbsp; V<sub>T</sub> = 25 mV &nbsp;·&nbsp; A (área da junção) = 2 × 10⁻⁵ cm² &nbsp;·&nbsp; ε<sub>S</sub> = 1 × 10⁻¹² F/cm<br>
+              q = 1,6 × 10⁻¹⁹ C &nbsp;·&nbsp; n·p = n<sub>i</sub>² &nbsp;·&nbsp; ln(10) = 2,3
+            </div>
+            <p class="note" style="margin-bottom:.6em">Formulário fornecido na prova: &nbsp; q·x<sub>p</sub>·N<sub>A</sub>·A = q·x<sub>n</sub>·N<sub>D</sub>·A &nbsp;·&nbsp; x<sub>n</sub>/x<sub>p</sub> = N<sub>A</sub>/N<sub>D</sub> &nbsp;·&nbsp; W<sub>dep</sub> = x<sub>n</sub> + x<sub>p</sub> = √[ (2ε<sub>s</sub>/q)(1/N<sub>A</sub> + 1/N<sub>D</sub>)·V₀ ] &nbsp;·&nbsp; V₀ = V<sub>T</sub>·ln(N<sub>A</sub>N<sub>D</sub>/n<sub>i</sub>²)</p>
+            <p><b>Pede-se:</b> p<sub>p0</sub>, n<sub>p0</sub>, p<sub>n0</sub>, n<sub>n0</sub>, V₀, W, x<sub>n</sub>, x<sub>p</sub>.</p>
+            <p class="fonte">PSI3024 — Eletrônica · Teste 6 · 2º semestre de 2025 · gabarito de divulgação, versões 1 e 2.</p>
+          </div>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 600" xmlns="http://www.w3.org/2000/svg">
+              <!-- ====== (a) A JUNÇÃO ====== -->
+              <text x="44" y="98" font-family="Kalam" font-size="17" fill="var(--chalk-faint)">(a)</text>
+              <rect x="80" y="40" width="300" height="104" fill="rgba(227,169,188,.10)" stroke="var(--chalk)" stroke-width="2"/>
+              <rect x="380" y="40" width="280" height="104" fill="rgba(160,210,230,.10)" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="92" y="32" font-family="Kalam" font-size="15" fill="var(--pink)">Si tipo P — boro, N</text>
+              <text x="226" y="37" font-family="Kalam" font-size="11" fill="var(--pink)">A</text>
+              <text x="236" y="32" font-family="Kalam" font-size="15" fill="var(--pink)">= 10¹⁶</text>
+              <text x="410" y="32" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">Si tipo N — fósforo, N</text>
+              <text x="566" y="37" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">D</text>
+              <text x="576" y="32" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">= 10¹⁷</text>
+              <rect x="180" y="40" width="200" height="104" fill="rgba(229,212,128,.10)" stroke="var(--yellow)" stroke-width="1.8"/>
+              <rect x="380" y="40" width="20" height="104" fill="rgba(229,212,128,.20)" stroke="var(--yellow)" stroke-width="1.8"/>
+              <g font-family="Kalam" font-size="15" fill="var(--yellow)">
+                <text x="200" y="66">−</text><text x="240" y="66">−</text><text x="280" y="66">−</text><text x="320" y="66">−</text><text x="356" y="66">−</text>
+                <text x="200" y="98">−</text><text x="240" y="98">−</text><text x="280" y="98">−</text><text x="320" y="98">−</text><text x="356" y="98">−</text>
+                <text x="200" y="130">−</text><text x="240" y="130">−</text><text x="280" y="130">−</text><text x="320" y="130">−</text><text x="356" y="130">−</text>
+                <text x="385" y="60">+</text><text x="385" y="80">+</text><text x="385" y="100">+</text><text x="385" y="120">+</text><text x="385" y="140">+</text>
+              </g>
+              <g font-family="Kalam" font-size="14" fill="var(--pink)">
+                <text x="100" y="72">+</text><text x="128" y="72">+</text><text x="152" y="72">+</text>
+                <text x="100" y="104">+</text><text x="128" y="104">+</text><text x="152" y="104">+</text>
+                <text x="100" y="136">+</text><text x="128" y="136">+</text><text x="152" y="136">+</text>
+              </g>
+              <g font-family="Kalam" font-size="14" fill="var(--chalk-dim)">
+                <text x="430" y="72">−</text><text x="480" y="72">−</text><text x="530" y="72">−</text><text x="580" y="72">−</text><text x="628" y="72">−</text>
+                <text x="430" y="104">−</text><text x="480" y="104">−</text><text x="530" y="104">−</text><text x="580" y="104">−</text><text x="628" y="104">−</text>
+                <text x="430" y="136">−</text><text x="480" y="136">−</text><text x="530" y="136">−</text><text x="580" y="136">−</text><text x="628" y="136">−</text>
+              </g>
+              <line x1="392" y1="164" x2="200" y2="164" stroke="var(--orange)" stroke-width="2.4"/>
+              <polygon points="200,158 186,164 200,170" fill="var(--orange)"/>
+              <text x="402" y="169" font-family="Kalam" font-size="16" fill="var(--orange)">E</text>
+              <text x="414" y="174" font-family="Kalam" font-size="11" fill="var(--orange)">i</text>
+              <text x="196" y="190" font-family="Kalam" font-size="14" fill="var(--yellow)">região de depleção — W = x</text>
+              <text x="394" y="195" font-family="Kalam" font-size="11" fill="var(--yellow)">p</text>
+              <text x="402" y="190" font-family="Kalam" font-size="14" fill="var(--yellow)">+ x</text>
+              <text x="424" y="195" font-family="Kalam" font-size="11" fill="var(--yellow)">n</text>
+
+              <!-- ====== (b) DENSIDADE DE CARGAS ====== -->
+              <text x="44" y="300" font-family="Kalam" font-size="17" fill="var(--chalk-faint)">(b)</text>
+              <text x="92" y="228" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">densidade de cargas ρ(x)</text>
+              <line x1="80" y1="318" x2="680" y2="318" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <text x="686" y="323" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">x</text>
+              <rect x="180" y="318" width="200" height="12" fill="rgba(227,169,188,.32)" stroke="var(--pink)" stroke-width="2"/>
+              <rect x="380" y="198" width="20" height="120" fill="rgba(160,210,230,.26)" stroke="var(--chalk-dim)" stroke-width="2"/>
+              <text x="186" y="350" font-family="Kalam" font-size="14" fill="var(--pink)">− q·N</text>
+              <text x="228" y="355" font-family="Kalam" font-size="11" fill="var(--pink)">A</text>
+              <text x="412" y="206" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">+ q·N</text>
+              <text x="454" y="211" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">D</text>
+              <text x="412" y="228" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">10× mais alto, 10× mais estreito</text>
+              <line x1="180" y1="310" x2="180" y2="326" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <line x1="400" y1="310" x2="400" y2="326" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <text x="174" y="376" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">−x</text>
+              <text x="192" y="381" font-family="Kalam" font-size="11" fill="var(--chalk-faint)">p</text>
+              <text x="374" y="376" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">0</text>
+              <text x="404" y="376" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">x</text>
+              <text x="413" y="381" font-family="Kalam" font-size="11" fill="var(--chalk-faint)">n</text>
+              <text x="470" y="272" font-family="Kalam" font-size="15" fill="var(--yellow)">as duas áreas são IGUAIS:</text>
+              <text x="470" y="300" font-family="Kalam" font-size="16" fill="var(--yellow)">q·N</text>
+              <text x="498" y="305" font-family="Kalam" font-size="11" fill="var(--yellow)">A</text>
+              <text x="508" y="300" font-family="Kalam" font-size="16" fill="var(--yellow)">·x</text>
+              <text x="524" y="305" font-family="Kalam" font-size="11" fill="var(--yellow)">p</text>
+              <text x="534" y="300" font-family="Kalam" font-size="16" fill="var(--yellow)">= q·N</text>
+              <text x="578" y="305" font-family="Kalam" font-size="11" fill="var(--yellow)">D</text>
+              <text x="588" y="300" font-family="Kalam" font-size="16" fill="var(--yellow)">·x</text>
+              <text x="604" y="305" font-family="Kalam" font-size="11" fill="var(--yellow)">n</text>
+              <text x="470" y="348" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">(é a neutralidade global)</text>
+
+              <!-- ====== (c) POTENCIAL ====== -->
+              <text x="44" y="510" font-family="Kalam" font-size="17" fill="var(--chalk-faint)">(c)</text>
+              <text x="92" y="424" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">potencial elétrico V(x)</text>
+              <line x1="80" y1="560" x2="680" y2="560" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <line x1="80" y1="560" x2="80" y2="440" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <text x="686" y="565" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">x</text>
+              <line x1="80" y1="450" x2="680" y2="450" stroke="var(--chalk-faint)" stroke-width="1.4" stroke-dasharray="6,5"/>
+              <text x="72" y="455" text-anchor="end" font-family="Kalam" font-size="16" fill="var(--yellow)">V₀</text>
+              <path d="M80,560 L180,560 Q300,556 380,468 Q394,452 400,450 L680,450" fill="none" stroke="var(--yellow)" stroke-width="3.2"/>
+              <line x1="180" y1="570" x2="180" y2="440" stroke="var(--chalk-faint)" stroke-width="1.2" stroke-dasharray="4,5"/>
+              <line x1="400" y1="570" x2="400" y2="440" stroke="var(--chalk-faint)" stroke-width="1.2" stroke-dasharray="4,5"/>
+              <text x="174" y="588" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">−x</text>
+              <text x="192" y="593" font-family="Kalam" font-size="11" fill="var(--chalk-faint)">p</text>
+              <text x="404" y="588" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">x</text>
+              <text x="413" y="593" font-family="Kalam" font-size="11" fill="var(--chalk-faint)">n</text>
+              <text x="470" y="496" font-family="Kalam" font-size="16" fill="var(--chalk)">V₀ = 747,5 mV</text>
+              <text x="470" y="522" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">quase toda a queda acontece</text>
+              <text x="470" y="542" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">no lado POUCO dopado</text>
+            </svg>
+            <figcaption>A figura do enunciado, desenhada na proporção correta da Versão 1. O lado P é dez vezes <em>menos</em> dopado, então a depleção avança dez vezes mais para dentro dele: x<sub>p</sub> = 0,290 μm contra x<sub>n</sub> = 0,029 μm. Em (b) está a razão: as duas áreas de carga descoberta têm de ser iguais (neutralidade global), e para descobrir a mesma carga num material dez vezes mais rarefeito é preciso avançar dez vezes mais. Em (c), o potencial — como o campo é o integral da carga e a tensão o integral do campo, <strong>quase todos os 747,5 mV caem no lado P</strong>.</figcaption>
+          </figure>
+
+          <h3 style="margin-top:40px;font-size:1.25rem">Resolução — Versão 1 (N<sub>A</sub> = 10¹⁶, N<sub>D</sub> = 10¹⁷)</h3>
+
+          <div class="passo">
+            <div class="cab">parte 1 · as quatro concentrações (duas linhas de conta)</div>
+            <div class="lin"><div class="pq"><b>p<sub>p0</sub> — lacunas no lado p.</b> Majoritário: cada boro entrega uma lacuna, e todos estão ionizados à temperatura ambiente.</div><div class="ct">p<sub>p0</sub> = N<sub>A</sub> = <span class="y">10<sup>16</sup> cm<sup>−3</sup></span></div></div>
+            <div class="lin"><div class="pq"><b>n<sub>p0</sub> — elétrons no lado p.</b> Minoritário: sai da lei de ação das massas.</div><div class="ct">n<sub>p0</sub> = n<sub>i</sub>²/N<sub>A</sub> = 10<sup>20</sup>/10<sup>16</sup> = <span class="y">10<sup>4</sup> cm<sup>−3</sup></span></div></div>
+            <div class="lin"><div class="pq"><b>p<sub>n0</sub> — lacunas no lado n.</b> Minoritário do outro lado.</div><div class="ct">p<sub>n0</sub> = n<sub>i</sub>²/N<sub>D</sub> = 10<sup>20</sup>/10<sup>17</sup> = <span class="y">10<sup>3</sup> cm<sup>−3</sup></span></div></div>
+            <div class="lin"><div class="pq"><b>n<sub>n0</sub> — elétrons no lado n.</b> Majoritário: um por átomo de fósforo.</div><div class="ct">n<sub>n0</sub> = N<sub>D</sub> = <span class="y">10<sup>17</sup> cm<sup>−3</sup></span></div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">parte 2 · a barreira de potencial</div>
+            <div class="lin"><div class="pq">Monte o argumento do logaritmo. Só somar expoentes: 16 + 17 − 20 = 13.</div><div class="ct">N<sub>A</sub>N<sub>D</sub>/n<sub>i</sub>² = 10<sup>16</sup>·10<sup>17</sup>/10<sup>20</sup> = 10<sup>33</sup>/10<sup>20</sup> = <span class="y">10<sup>13</sup></span></div></div>
+            <div class="lin"><div class="pq">Use ln(10<sup>13</sup>) = 13·ln(10), com o ln(10) = 2,3 que o enunciado dá de propósito.</div><div class="ct">ln(10<sup>13</sup>) = 13 × 2,3 = 29,9</div></div>
+            <div class="lin"><div class="pq">Multiplique por V<sub>T</sub>.</div><div class="ct">V₀ = 25 mV × 29,9 = <span class="hand-box"><span class="y">747,5 mV</span></span></div></div>
+          </div>
+
+          <div class="intu">
+            <span class="lbl">o atalho que resolve V₀ de cabeça: 57,5 mV por década</span>
+            <p>Junte V<sub>T</sub> e ln(10) numa única constante: <strong>V<sub>T</sub>·ln10 = 25 × 2,3 = 57,5 mV</strong>. A partir daí, V₀ é só <em>contar décadas</em>:</p>
+            <p>V₀ = 57,5 mV × (número de décadas em N<sub>A</sub>N<sub>D</sub>/n<sub>i</sub>²) = 57,5 × 13 = <strong>747,5 mV</strong>. Nenhuma calculadora. E o mesmo número serve de sanidade: dopagens realistas dão sempre entre 10 e 14 décadas, ou seja, <strong>V₀ entre 0,58 e 0,80 V</strong>. Se você obteve 2 V ou 0,2 V, errou uma potência de dez em algum lugar.</p>
+          </div>
+
+          <div class="passo">
+            <div class="cab">parte 3 · a largura da depleção</div>
+            <div class="lin"><div class="pq">O fator de material, que vale para qualquer junção de silício deste teste.</div><div class="ct">2ε<sub>S</sub>/q = 2×10<sup>−12</sup>/1,6×10<sup>−19</sup> = <span class="y">1,25 × 10<sup>7</sup></span></div></div>
+            <div class="lin"><div class="pq">A soma dos inversos das dopagens. <strong>Este é o passo em que quase todo mundo escorrega</strong> — veja a caixa de armadilhas abaixo.</div><div class="ct">1/N<sub>A</sub> + 1/N<sub>D</sub> = 10<sup>−16</sup> + 10<sup>−17</sup> = <span class="y">1,1 × 10<sup>−16</sup></span></div></div>
+            <div class="lin"><div class="pq">Multiplique os três fatores e tire a raiz. O resultado sai em centímetros; converta para micrômetros (1 cm = 10⁴ μm).</div><div class="ct">W = √(1,25×10<sup>7</sup> · 1,1×10<sup>−16</sup> · 0,7475) = 3,21×10<sup>−5</sup> cm</div></div>
+            <div class="lin"><div class="pq"></div><div class="ct"><span class="hand-box"><span class="y">W = 0,320 μm</span></span></div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">parte 4 · repartindo W entre os dois lados</div>
+            <div class="lin"><div class="pq">A neutralidade global exige que a carga descoberta seja igual em módulo dos dois lados. Daí a razão das penetrações.</div><div class="ct">q·N<sub>A</sub>·x<sub>p</sub>·A = q·N<sub>D</sub>·x<sub>n</sub>·A &nbsp;⇒&nbsp; x<sub>n</sub>/x<sub>p</sub> = N<sub>A</sub>/N<sub>D</sub> = 0,1</div></div>
+            <div class="lin"><div class="pq">Escreva x<sub>p</sub> = W − x<sub>n</sub> e substitua — é a forma que o gabarito usa.</div><div class="ct">x<sub>n</sub> = (N<sub>A</sub>/N<sub>D</sub>)·(W − x<sub>n</sub>) = 0,1·(0,320 − x<sub>n</sub>)</div></div>
+            <div class="lin"><div class="pq">Isolando: 1,1·x<sub>n</sub> = 0,1·W, ou seja x<sub>n</sub> = W/11.</div><div class="ct">x<sub>n</sub> = 0,320/11 = <span class="hand-box"><span class="y">0,029 μm</span></span></div></div>
+            <div class="lin"><div class="pq">E o resto é o outro lado.</div><div class="ct">x<sub>p</sub> = W − x<sub>n</sub> = 0,320 − 0,029 = <span class="hand-box"><span class="y">0,290 μm</span></span></div></div>
+          </div>
+
+          <table class="inst">
+            <caption>Respostas — as duas versões, lado a lado</caption>
+            <tr>
+              <th>parâmetro</th>
+              <th>Versão 1<br><span style="font-size:.82em">N<sub>A</sub>=10¹⁶ · N<sub>D</sub>=10¹⁷</span></th>
+              <th>Versão 2<br><span style="font-size:.82em">N<sub>A</sub>=10¹⁷ · N<sub>D</sub>=10¹⁶</span></th>
+              <th class="obs">como sai</th>
+            </tr>
+            <tr><td>p<sub>p0</sub></td><td class="saida">10¹⁶ cm⁻³</td><td class="saida">10¹⁷ cm⁻³</td><td class="obs">= N<sub>A</sub></td></tr>
+            <tr><td>n<sub>p0</sub></td><td class="saida">10⁴ cm⁻³</td><td class="saida">10³ cm⁻³</td><td class="obs">= n<sub>i</sub>²/N<sub>A</sub></td></tr>
+            <tr><td>p<sub>n0</sub></td><td class="saida">10³ cm⁻³</td><td class="saida">10⁴ cm⁻³</td><td class="obs">= n<sub>i</sub>²/N<sub>D</sub></td></tr>
+            <tr><td>n<sub>n0</sub></td><td class="saida">10¹⁷ cm⁻³</td><td class="saida">10¹⁶ cm⁻³</td><td class="obs">= N<sub>D</sub></td></tr>
+            <tr class="marco"><td>V₀</td><td class="saida">747,5 mV</td><td class="saida">747,5 mV</td><td class="obs">depende do <em>produto</em> N<sub>A</sub>N<sub>D</sub> — não muda ao trocar os lados</td></tr>
+            <tr class="marco"><td>W</td><td class="saida">0,320 μm</td><td class="saida">0,320 μm</td><td class="obs">depende de 1/N<sub>A</sub> + 1/N<sub>D</sub>, que é simétrico — também não muda</td></tr>
+            <tr><td>x<sub>n</sub></td><td class="saida">0,029 μm</td><td class="saida">0,290 μm</td><td class="obs">= W/11 ou 10W/11, conforme quem é menos dopado</td></tr>
+            <tr><td>x<sub>p</sub></td><td class="saida">0,290 μm</td><td class="saida">0,029 μm</td><td class="obs">= W − x<sub>n</sub></td></tr>
+          </table>
+
+          <div class="attn">
+            <span class="tag">a lição que as duas versões escondem</span>
+            Trocar N<sub>A</sub> por N<sub>D</sub> <strong>não altera V₀ nem W</strong>, e inverte apenas a repartição x<sub>n</sub> ↔ x<sub>p</sub> e os dois minoritários. O motivo é algébrico e vale a pena guardar: V₀ depende do <em>produto</em> N<sub>A</sub>N<sub>D</sub> e W da <em>soma</em> 1/N<sub>A</sub> + 1/N<sub>D</sub> — as duas expressões são <strong>simétricas</strong> na troca dos índices. Só x<sub>n</sub> e x<sub>p</sub>, que vêm da <em>razão</em> N<sub>A</sub>/N<sub>D</sub>, sabem qual lado é qual.
+            <br><br>
+            Isso dá um atalho de prova: se você resolveu uma versão, a outra sai <strong>sem refazer nenhuma conta</strong> — copie V₀ e W, e espelhe o resto.
+          </div>
+
+          <div class="erro">
+            <span class="lbl">as quatro armadilhas deste teste</span>
+            <p><strong>1 · Somar só um dos inversos.</strong> O gabarito de divulgação <em>imprime</em> a linha do W como se fosse √(2ε<sub>S</sub>/q · 10⁻¹⁶ · 0,7475) — ou seja, com 1/N<sub>A</sub> apenas. Essa conta dá <span class="errado">0,306 μm</span>, não 0,320. O valor que o gabarito <em>responde</em> (0,320 μm) é o correto e corresponde a usar <span class="certo">1,1 × 10⁻¹⁶</span>. É um deslize de digitação no gabarito, e vale saber que ele está ali: se você chegou a 0,306, não errou o método — errou por seguir a linha impressa.</p>
+            <p><strong>2 · Inverter x<sub>n</sub> e x<sub>p</sub>.</strong> A fórmula x<sub>n</sub>/x<sub>p</sub> = N<sub>A</sub>/N<sub>D</sub> tem os índices <em>cruzados</em>, e é fácil copiá-la errado. O teste de sanidade é físico e não falha: <span class="certo">a depleção é maior no lado menos dopado</span>. Na Versão 1, quem tem 10¹⁶ é o lado P, então x<sub>p</sub> tem de ser o número grande (0,290) — se saiu o contrário, inverta.</p>
+            <p><strong>3 · Errar a unidade de W.</strong> Com ε<sub>S</sub> em F/cm e N em cm⁻³, o resultado sai em <strong>centímetros</strong>. 3,21 × 10⁻⁵ cm são 0,321 μm, não 0,321 cm nem 3,21 nm. <span class="note">Cheque pela ordem de grandeza: uma depleção de silício a V₀ fica sempre em <strong>frações de micrômetro</strong>.</span></p>
+            <p><strong>4 · Procurar onde usar a área A.</strong> Ela é dada — e <strong>não entra em nenhum dos oito parâmetros pedidos</strong>. Repare no formulário: A aparece dos dois lados de q·x<sub>p</sub>·N<sub>A</sub>·A = q·x<sub>n</sub>·N<sub>D</sub>·A e se cancela. Não é maldade do enunciado: é que W, V₀ e as concentrações são propriedades <em>por unidade de volume ou de comprimento</em>. A área só entraria se pedissem carga ou capacitância — que é exatamente o que vem a seguir.</p>
+          </div>
+
+          <div class="example">
+            <div class="ex-head">E se pedissem também… — o que a área A serviria para calcular</div>
+            <p>Duas perguntas naturais de continuação, que usam exatamente os números já obtidos e finalmente dão utilidade ao A = 2 × 10⁻⁵ cm²:</p>
+            <div class="passo" style="margin-top:14px">
+              <div class="lin"><div class="pq"><b>Carga descoberta em cada lado.</b> Volume da camada × densidade de íons × carga elementar. Use o lado p: q·N<sub>A</sub>·x<sub>p</sub>·A.</div><div class="ct">Q = 1,6×10⁻¹⁹ · 10¹⁶ · 0,290×10⁻⁴ · 2×10⁻⁵ = <span class="y">0,93 pC</span></div></div>
+              <div class="lin"><div class="pq">Pelo lado n tem de dar o mesmo — é o teste da neutralidade, e é um bom jeito de conferir x<sub>n</sub> e x<sub>p</sub>.</div><div class="ct">q·N<sub>D</sub>·x<sub>n</sub>·A = 1,6×10⁻¹⁹ · 10¹⁷ · 0,029×10⁻⁴ · 2×10⁻⁵ = <span class="y">0,93 pC ✓</span></div></div>
+              <div class="lin"><div class="pq"><b>Capacitância de junção em V<sub>R</sub> = 0.</b> Placas paralelas com a depleção de dielétrico — a fórmula da <a href="#m9-reversa">Seção 9.7</a>.</div><div class="ct">C<sub>j0</sub> = ε<sub>S</sub>A/W = 10⁻¹² · 2×10⁻⁵ / 3,21×10⁻⁵ = <span class="y">0,62 pF</span></div></div>
+              <div class="lin"><div class="pq"><b>Campo elétrico de pico</b>, no plano da junção. Como V(x) é o integral de um campo triangular, V₀ = ½·E<sub>máx</sub>·W.</div><div class="ct">E<sub>máx</sub> = 2V₀/W = 2·0,7475/3,21×10⁻⁵ = <span class="y">≈ 47 kV/cm</span></div></div>
+            </div>
+            <p style="margin-top:14px">Esse último número é o mais instrutivo dos quatro: <strong>47 kV/cm existem dentro de uma junção pn sem nenhuma tensão aplicada</strong>, só pela barreira de equilíbrio. O campo de ruptura do silício é da ordem de 300 kV/cm — ou seja, a junção já opera com um sexto do campo de ruptura em repouso. É por isso que basta alguns volts de polarização inversa para levar uma junção fortemente dopada ao efeito zener.</p>
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+            <div class="q">
+              <div class="q-head">conceitual <span class="tagq">múltipla escolha · simetria</span></div>
+              <p class="q-stem">Por que V₀ e W são <em>iguais</em> nas duas versões do teste, apesar de as dopagens estarem trocadas?</p>
+              <div class="opts">
+                <button class="opt" data-ok="0"><span class="k">a)</span> Coincidência dos números escolhidos: com 10¹⁵ e 10¹⁷ daria diferente.</button>
+                <button class="opt" data-ok="1"><span class="k">b)</span> Porque V₀ depende do produto N<sub>A</sub>N<sub>D</sub> e W da soma 1/N<sub>A</sub> + 1/N<sub>D</sub> — as duas expressões são simétricas na troca dos índices.</button>
+                <button class="opt" data-ok="0"><span class="k">c)</span> Porque a junção em equilíbrio não sabe qual lado é p e qual é n.</button>
+                <button class="opt" data-ok="0"><span class="k">d)</span> Porque a área A é a mesma nas duas versões.</button>
+              </div>
+              <div class="q-fb" role="status"><b>b)</b> — E não é coincidência numérica: produto e soma são <strong>funções simétricas</strong> dos dois argumentos, então trocar N<sub>A</sub> ↔ N<sub>D</sub> não pode mudar o resultado, quaisquer que sejam os valores. Com 10¹⁵ e 10¹⁷ as duas versões continuariam dando o mesmo V₀ e o mesmo W. A alternativa (c) chega perto de uma verdade e erra: a junção <em>sabe</em> muito bem qual lado é qual — é o que x<sub>n</sub> ≠ x<sub>p</sub> mostra, e é o que dá ao diodo o seu sentido.</div>
+            </div>
+
+            <div class="q">
+              <div class="q-head">numérico <span class="tagq">variação do enunciado</span></div>
+              <p class="q-stem">Refaça V₀, W, x<sub>n</sub> e x<sub>p</sub> para N<sub>A</sub> = 10¹⁵ e N<sub>D</sub> = 10¹⁸ cm⁻³, com os mesmos dados do teste.</p>
+              <details class="reveal"><summary>ver a resposta</summary>
+                <div class="ans">
+                  <p><strong>V₀.</strong> N<sub>A</sub>N<sub>D</sub>/n<sub>i</sub>² = 10¹⁵·10¹⁸/10²⁰ = 10¹³ — <em>as mesmas 13 décadas</em>. Logo V₀ = 57,5 × 13 = <strong>747,5 mV</strong>, idêntico ao teste. (Faz sentido: o produto não mudou.)</p>
+                  <p><strong>W.</strong> Agora 1/N<sub>A</sub> + 1/N<sub>D</sub> = 10⁻¹⁵ + 10⁻¹⁸ ≅ 1,001 × 10⁻¹⁵ — praticamente só 1/N<sub>A</sub>, porque o lado n ficou mil vezes mais dopado.<br>
+                  W = √(1,25×10⁷ · 1,001×10⁻¹⁵ · 0,7475) = 9,67 × 10⁻⁵ cm = <strong>0,967 μm</strong>. Triplicou em relação aos 0,320 μm do teste.</p>
+                  <p><strong>Repartição.</strong> x<sub>n</sub>/x<sub>p</sub> = N<sub>A</sub>/N<sub>D</sub> = 10⁻³, então x<sub>n</sub> = W/1001 = <strong>0,001 μm</strong> e x<sub>p</sub> = <strong>0,966 μm</strong>. Praticamente <em>toda</em> a depleção está no lado pouco dopado.</p>
+                  <p><strong>A moral do exercício:</strong> mantendo o produto, V₀ não se move; mas tornando a junção assimétrica, W cresce e migra inteiramente para o lado fraco. É exatamente assim que se projeta um diodo para <strong>suportar tensão inversa alta</strong> — dopa-se pouco um dos lados, para que ele tenha espaço físico para absorver o campo. E, pelo mesmo raciocínio ao contrário, um <a href="#m3-zener">zener</a> de tensão baixa se fabrica dopando <em>muito</em> os dois lados, o que deixa a depleção fininha e o campo altíssimo.</p>
+                </div>
+              </details>
+            </div>
+
+            <div class="q">
+              <div class="q-head">conceitual <span class="tagq">múltipla escolha · a área</span></div>
+              <p class="q-stem">O enunciado fornece A = 2 × 10⁻⁵ cm². Para quais dos oito parâmetros pedidos ela é necessária?</p>
+              <div class="opts">
+                <button class="opt" data-ok="0"><span class="k">a)</span> Para W, x<sub>n</sub> e x<sub>p</sub>, que são dimensões físicas.</button>
+                <button class="opt" data-ok="0"><span class="k">b)</span> Para as quatro concentrações, que são por unidade de volume.</button>
+                <button class="opt" data-ok="1"><span class="k">c)</span> Para nenhum: ela se cancela na relação de neutralidade e não aparece nas outras fórmulas.</button>
+                <button class="opt" data-ok="0"><span class="k">d)</span> Só para V₀, através da densidade de carga.</button>
+              </div>
+              <div class="q-fb" role="status"><b>c)</b> — Vale treinar esse reflexo: <strong>dado fornecido não é dado obrigatório</strong>. Provas frequentemente dão o conjunto completo de constantes do formulário, e parte delas não é usada naquele item. Procurar onde encaixar um dado que não encaixa é uma das formas mais comuns de perder tempo — e de inventar uma fórmula errada. Aqui, A só entraria em carga (Q = qN<sub>A</sub>x<sub>p</sub>A) ou capacitância (C<sub>j0</sub> = ε<sub>S</sub>A/W), que não foram pedidas.</div>
+            </div>
+          </div>
+        </section>
+
         <!-- ============================================================
              9.9 · RESUMO
              ============================================================ -->
@@ -13623,7 +13880,972 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
 
           <div class="attn">
             <span class="tag">como isto se conecta ao resto do site</span>
-            A exponencial do diodo do <a href="#m3-exponencial">Módulo 03</a> é a corrente de <strong>difusão</strong> de minoritários injetados; I<sub>S</sub> carrega o n<sub>i</sub>² desta aula, e é por isso que ela dobra a cada 10 °C. A corrente reversa do diodo é <strong>deriva</strong> de minoritários. O joelho do <a href="#m3-zener">zener</a> acontece quando o campo dentro de uma depleção muito fina — porque os dois lados são fortemente dopados — chega a arrancar elétrons das ligações. E a C<sub>j</sub> desta seção é a capacitância que aparece em paralelo com todo diodo em modelo de alta frequência, e a que limita a velocidade do MOSFET.
+            A exponencial do diodo do <a href="#m3-exponencial">Módulo 03</a> é a corrente de <strong>difusão</strong> de minoritários injetados — e essa dedução, linha por linha, é o <a href="#mod10">Módulo 10</a>; I<sub>S</sub> carrega o n<sub>i</sub>² desta aula, e é por isso que ela dobra a cada 10 °C. A corrente reversa do diodo é <strong>deriva</strong> de minoritários. O joelho do <a href="#m3-zener">zener</a> acontece quando o campo dentro de uma depleção muito fina — porque os dois lados são fortemente dopados — chega a arrancar elétrons das ligações. E a C<sub>j</sub> desta seção é a capacitância que aparece em paralelo com todo diodo em modelo de alta frequência, e a que limita a velocidade do MOSFET.
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- ============================================================
+         MÓDULO 10 — EQUAÇÃO DE CORRENTE DO DIODO (Sedra & Smith, 3.5 e 3.6)
+         ============================================================ -->
+    <div class="module-wrap">
+      <section class="hero-module module-break" id="mod10">
+        <div class="hero-eyebrow">MÓDULO 10 · SEDRA &amp; SMITH, SEÇÕES 3.5 E 3.6 · AULA NA LOUSA</div>
+        <h1><span class="w1">Você usou i = I<sub>S</sub>(e<sup>v/V<sub>T</sub></sup> − 1) durante um capítulo inteiro.</span> <span class="w2">Esta aula deduz essa equação do zero — e mostra que a exponencial não vem do diodo, vem de uma condição de contorno.</span></h1>
+        <p class="dek">A lei do diodo não é um ajuste empírico de curva: sai de quatro ingredientes que você já tem. As concentrações de minoritários em equilíbrio, a <em>lei da junção</em> (que é a única exponencial da história), um perfil de concentração que decai com distância característica L, e a corrente de difusão. Derive o perfil, avalie na borda, some as duas contribuições, multiplique pela área — e a equação aparece, com I<sub>S</sub> deixando de ser uma letra e passando a ser uma expressão que você pode calcular. No fim, a carga armazenada nessas caudas exponenciais dá origem à capacitância de difusão, que é a razão pela qual um diodo comum não desliga instantaneamente.</p>
+        <div class="meta-row"><b>Curso</b> PSI3024 — Eletrônica &nbsp;&nbsp;&nbsp; <b>Referência</b> Sedra &amp; Smith, <i>Microeletrônica</i>, Seções 3.5 e 3.6 &nbsp;&nbsp;&nbsp; <b>Pré-requisito</b> <a href="#mod9" style="color:var(--yellow)">Módulo 09</a> &nbsp;&nbsp;&nbsp; <b>Fonte</b> notas de lousa</div>
+
+        <svg class="hero-deco" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- eixos do perfil -->
+          <line x1="40" y1="400" x2="380" y2="400" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+          <line x1="40" y1="400" x2="40" y2="110" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+          <!-- nivel de equilibrio -->
+          <line x1="40" y1="350" x2="380" y2="350" stroke="var(--chalk-faint)" stroke-width="1.5" stroke-dasharray="6,6"/>
+          <!-- borda da depleção -->
+          <line x1="120" y1="400" x2="120" y2="120" stroke="var(--chalk-faint)" stroke-width="1.3" stroke-dasharray="4,5"/>
+          <text x="112" y="420" font-family="Kalam" font-size="17" fill="var(--chalk-faint)">x</text>
+          <text x="126" y="425" font-family="Kalam" font-size="12" fill="var(--chalk-faint)">n</text>
+          <!-- cauda exponencial -->
+          <path d="M120,150 C170,236 220,300 270,330 C310,343 350,348 380,349" fill="none" stroke="var(--yellow)" stroke-width="3"/>
+          <!-- area preenchida = carga armazenada -->
+          <path d="M120,150 C170,236 220,300 270,330 C310,343 350,348 380,349 L380,350 L120,350 Z" fill="rgba(229,212,128,.13)" stroke="none"/>
+          <!-- tangente / Lp -->
+          <line x1="120" y1="350" x2="205" y2="350" stroke="var(--orange)" stroke-width="2.2"/>
+          <line x1="205" y1="344" x2="205" y2="356" stroke="var(--orange)" stroke-width="2.2"/>
+          <line x1="120" y1="344" x2="120" y2="356" stroke="var(--orange)" stroke-width="2.2"/>
+          <text x="150" y="378" font-family="Kalam" font-size="20" fill="var(--orange)">L</text>
+          <text x="166" y="384" font-family="Kalam" font-size="14" fill="var(--orange)">p</text>
+          <!-- rotulo do pico -->
+          <circle cx="120" cy="150" r="5.5" fill="var(--yellow)"/>
+          <text x="138" y="146" font-family="Kalam" font-size="18" fill="var(--yellow)">p</text>
+          <text x="152" y="152" font-family="Kalam" font-size="12" fill="var(--yellow)">n</text>
+          <text x="160" y="146" font-family="Kalam" font-size="18" fill="var(--yellow)">(x</text>
+          <text x="184" y="152" font-family="Kalam" font-size="12" fill="var(--yellow)">n</text>
+          <text x="192" y="146" font-family="Kalam" font-size="18" fill="var(--yellow)">)</text>
+          <!-- exponencial da lei da juncao -->
+          <text x="230" y="80" font-family="Kalam" font-size="30" fill="var(--chalk)">e</text>
+          <text x="252" y="62" font-family="Kalam" font-size="18" fill="var(--chalk)">V/V</text>
+          <text x="292" y="67" font-family="Kalam" font-size="13" fill="var(--chalk)">T</text>
+          <text x="60" y="450" font-family="Kalam" font-size="17" fill="var(--chalk-faint)">p</text>
+          <text x="72" y="456" font-family="Kalam" font-size="12" fill="var(--chalk-faint)">n0</text>
+        </svg>
+      </section>
+
+    <div class="mod-nav-bar">
+      <nav class="mod-nav">
+        <a href="#m10-mapa">O plano da dedução</a>
+        <a href="#m10-minoritarios">Minoritários em equilíbrio</a>
+        <a href="#m10-lei">A lei da junção</a>
+        <a href="#m10-perfil">O perfil e o comprimento L</a>
+        <a href="#m10-densidade">Derivando: J nas bordas</a>
+        <a href="#m10-corrente">A soma — a equação do diodo</a>
+        <a href="#m10-is">O que existe dentro de I<sub>S</sub></a>
+        <a href="#m10-idealidade">Fator de idealidade</a>
+        <a href="#m10-carga">Carga armazenada e C<sub>d</sub></a>
+        <a href="#m10-resumo">Resumo e armadilhas</a>
+      </nav>
+    </div>
+
+      <div class="content">
+
+        <!-- ============================================================
+             10.1 · O PLANO DA DEDUÇÃO
+             ============================================================ -->
+        <section class="content-section" id="m10-mapa">
+          <div class="eyebrow">§ · O PLANO</div>
+          <h2>Cinco linhas, e a exponencial cai no colo</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>Polarizar o diodo em direta não muda nenhuma lei da física: muda apenas <em>um número</em> — a concentração de minoritários na borda da depleção — e esse número é o único lugar de onde a exponencial vem.</p>
+          </div>
+          <p class="lead">Antes de qualquer conta, vale ver o mapa. A dedução é uma cadeia curta, e cada elo já foi montado no <a href="#mod9">Módulo 09</a>:</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 320" xmlns="http://www.w3.org/2000/svg">
+              <g font-family="Kalam">
+                <!-- caixa 1 -->
+                <rect x="20" y="26" width="200" height="62" rx="8" fill="rgba(237,237,225,.04)" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+                <text x="120" y="50" text-anchor="middle" font-size="14" fill="var(--chalk-dim)">1 · equilíbrio</text>
+                <text x="66" y="74" font-size="17" fill="var(--chalk)">p</text>
+                <text x="76" y="79" font-size="11" fill="var(--chalk)">n0</text>
+                <text x="92" y="74" font-size="17" fill="var(--chalk)">= n</text>
+                <text x="121" y="79" font-size="11" fill="var(--chalk)">i</text>
+                <text x="128" y="66" font-size="12" fill="var(--chalk)">2</text>
+                <text x="141" y="74" font-size="17" fill="var(--chalk)">/N</text>
+                <text x="160" y="79" font-size="11" fill="var(--chalk)">D</text>
+
+                <!-- caixa 2 -->
+                <rect x="270" y="26" width="200" height="62" rx="8" fill="rgba(229,212,128,.10)" stroke="var(--yellow)" stroke-width="2.2"/>
+                <text x="370" y="50" text-anchor="middle" font-size="14" fill="var(--yellow)">2 · lei da junção</text>
+                <text x="306" y="76" font-size="17" fill="var(--yellow)">p</text>
+                <text x="316" y="81" font-size="11" fill="var(--yellow)">n</text>
+                <text x="323" y="76" font-size="17" fill="var(--yellow)">(x</text>
+                <text x="342" y="81" font-size="11" fill="var(--yellow)">n</text>
+                <text x="348" y="76" font-size="17" fill="var(--yellow)">)</text>
+                <text x="360" y="76" font-size="17" fill="var(--yellow)">= p</text>
+                <text x="388" y="81" font-size="11" fill="var(--yellow)">n0</text>
+                <text x="404" y="76" font-size="17" fill="var(--yellow)">e</text>
+                <text x="414" y="66" font-size="12" fill="var(--yellow)">V/V</text>
+                <text x="440" y="70" font-size="9" fill="var(--yellow)">T</text>
+
+                <!-- caixa 3 -->
+                <rect x="520" y="26" width="200" height="62" rx="8" fill="rgba(237,237,225,.04)" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+                <text x="620" y="50" text-anchor="middle" font-size="14" fill="var(--chalk-dim)">3 · perfil que decai</text>
+                <text x="536" y="74" font-size="16" fill="var(--chalk)">p(x) = p</text>
+                <text x="600" y="79" font-size="11" fill="var(--chalk)">n0</text>
+                <text x="616" y="74" font-size="16" fill="var(--chalk)">+ Δ·e</text>
+                <text x="660" y="64" font-size="12" fill="var(--chalk)">−x/L</text>
+
+                <!-- setas -->
+                <line x1="220" y1="57" x2="262" y2="57" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+                <polygon points="262,51 274,57 262,63" fill="var(--chalk-faint)"/>
+                <line x1="470" y1="57" x2="512" y2="57" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+                <polygon points="512,51 524,57 512,63" fill="var(--chalk-faint)"/>
+
+                <!-- desce -->
+                <line x1="620" y1="88" x2="620" y2="124" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+                <polygon points="614,124 626,124 620,136" fill="var(--chalk-faint)"/>
+
+                <!-- caixa 4 -->
+                <rect x="520" y="140" width="200" height="62" rx="8" fill="rgba(237,237,225,.04)" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+                <text x="620" y="164" text-anchor="middle" font-size="14" fill="var(--chalk-dim)">4 · difusão (Mód. 09)</text>
+                <text x="620" y="188" text-anchor="middle" font-size="16" fill="var(--chalk)">J = −q D dp/dx</text>
+
+                <!-- caixa 5 -->
+                <rect x="270" y="140" width="200" height="62" rx="8" fill="rgba(237,237,225,.04)" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+                <text x="370" y="164" text-anchor="middle" font-size="14" fill="var(--chalk-dim)">5 · soma e área</text>
+                <text x="316" y="188" font-size="16" fill="var(--chalk)">I = A( J</text>
+                <text x="378" y="193" font-size="11" fill="var(--chalk)">n</text>
+                <text x="388" y="188" font-size="16" fill="var(--chalk)">+ J</text>
+                <text x="414" y="193" font-size="11" fill="var(--chalk)">p</text>
+                <text x="422" y="188" font-size="16" fill="var(--chalk)">)</text>
+                <line x1="512" y1="171" x2="478" y2="171" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+                <polygon points="478,165 466,171 478,177" fill="var(--chalk-faint)"/>
+
+                <!-- resultado -->
+                <line x1="370" y1="202" x2="370" y2="236" stroke="var(--yellow)" stroke-width="2"/>
+                <polygon points="364,236 376,236 370,248" fill="var(--yellow)"/>
+                <rect x="212" y="252" width="316" height="52" rx="9" fill="rgba(229,212,128,.10)" stroke="var(--yellow)" stroke-width="2.4"/>
+                <text x="250" y="288" font-size="26" fill="var(--yellow)">I</text>
+                <text x="261" y="294" font-size="14" fill="var(--yellow)">D</text>
+                <text x="278" y="288" font-size="26" fill="var(--yellow)">= I</text>
+                <text x="314" y="294" font-size="14" fill="var(--yellow)">S</text>
+                <text x="330" y="288" font-size="26" fill="var(--yellow)">( e</text>
+                <text x="376" y="272" font-size="15" fill="var(--yellow)">V</text>
+                <text x="386" y="277" font-size="11" fill="var(--yellow)">D</text>
+                <line x1="374" y1="278" x2="400" y2="278" stroke="var(--yellow)" stroke-width="1.4"/>
+                <text x="378" y="294" font-size="15" fill="var(--yellow)">V</text>
+                <text x="388" y="298" font-size="11" fill="var(--yellow)">T</text>
+                <text x="408" y="288" font-size="26" fill="var(--yellow)">− 1 )</text>
+              </g>
+            </svg>
+            <figcaption>Note onde está a única exponencial do processo: na <strong>caixa 2</strong>. As caixas 3, 4 e 5 são cálculo e contabilidade — derivar, avaliar, somar, multiplicar por área. Nenhuma delas cria uma exponencial; elas apenas <em>carregam</em> a que a lei da junção pôs ali. É por isso que a lei do diodo é exponencial, e é por isso que ela tem V<sub>T</sub> = kT/q no denominador do expoente: o V<sub>T</sub> entra pela estatística de Boltzmann, na caixa 2.</figcaption>
+          </figure>
+
+          <div class="attn">
+            <span class="tag">o que a polarização direta faz, fisicamente</span>
+            Em equilíbrio, a barreira V<sub>0</sub> deixa passar pouquíssimos portadores: a difusão que tenta atravessar é exatamente cancelada pela deriva no campo interno, e a corrente total é zero. A polarização direta aplica um campo E′ que <strong>se opõe</strong> ao campo interno E e <em>reduz</em> a barreira para V<sub>0</sub> − V<sub>D</sub>. Com a barreira mais baixa, a fração de portadores com energia suficiente para atravessar cresce exponencialmente — e é essa fração que a lei da junção quantifica. O diodo em direta não é uma chave que abriu: é uma barreira que baixou.
+          </div>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 560" xmlns="http://www.w3.org/2000/svg">
+              <!-- ================= BLOCO FÍSICO ================= -->
+              <rect x="120" y="66" width="180" height="112" fill="rgba(237,237,225,.035)" stroke="var(--chalk)" stroke-width="2.2"/>
+              <rect x="300" y="66" width="80" height="112" fill="rgba(237,237,225,.02)" stroke="var(--chalk)" stroke-width="2"/>
+              <rect x="380" y="66" width="240" height="112" fill="rgba(237,237,225,.035)" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="200" y="130" text-anchor="middle" font-family="Kalam" font-size="26" fill="var(--chalk)">P</text>
+              <text x="510" y="130" text-anchor="middle" font-family="Kalam" font-size="26" fill="var(--chalk)">N</text>
+              <!-- ions da depleção -->
+              <g font-family="Kalam" font-size="15" fill="var(--chalk-dim)">
+                <text x="310" y="92">−</text><text x="310" y="122">−</text><text x="310" y="152">−</text>
+                <text x="328" y="92">−</text><text x="328" y="122">−</text><text x="328" y="152">−</text>
+                <text x="348" y="92">+</text><text x="348" y="122">+</text><text x="348" y="152">+</text>
+                <text x="366" y="92">+</text><text x="366" y="122">+</text><text x="366" y="152">+</text>
+              </g>
+              <!-- campos -->
+              <line x1="380" y1="36" x2="312" y2="36" stroke="var(--pink)" stroke-width="2.4"/>
+              <polygon points="312,30 298,36 312,42" fill="var(--pink)"/>
+              <text x="388" y="41" font-family="Kalam" font-size="17" fill="var(--pink)">E</text>
+              <text x="402" y="41" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">(interno, da barreira)</text>
+              <line x1="300" y1="58" x2="368" y2="58" stroke="var(--yellow)" stroke-width="2.4"/>
+              <polygon points="368,52 382,58 368,64" fill="var(--yellow)"/>
+              <text x="266" y="63" font-family="Kalam" font-size="17" fill="var(--yellow)">E′</text>
+              <text x="390" y="63" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">(aplicado — se opõe a E)</text>
+              <!-- bateria em direta -->
+              <line x1="120" y1="122" x2="70" y2="122" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="620" y1="122" x2="670" y2="122" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="70" y1="122" x2="70" y2="222" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="670" y1="122" x2="670" y2="222" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="70" y1="222" x2="332" y2="222" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="368" y1="222" x2="670" y2="222" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="332" y1="206" x2="332" y2="238" stroke="var(--chalk)" stroke-width="2.8"/>
+              <line x1="350" y1="214" x2="350" y2="230" stroke="var(--chalk)" stroke-width="2.8"/>
+              <line x1="350" y1="222" x2="368" y2="222" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="322" y="256" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">+</text>
+              <text x="352" y="256" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">−</text>
+              <text x="382" y="256" font-family="Kalam" font-size="15" fill="var(--yellow)">V</text>
+              <text x="394" y="261" font-family="Kalam" font-size="11" fill="var(--yellow)">D</text>
+              <text x="408" y="256" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">— direta: «+» no lado P</text>
+
+              <!-- ================= GRÁFICO DE CONCENTRAÇÕES ================= -->
+              <line x1="120" y1="500" x2="690" y2="500" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <line x1="120" y1="500" x2="120" y2="290" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <text x="688" y="524" font-family="Kalam" font-size="16" fill="var(--chalk-dim)">x</text>
+              <text x="126" y="282" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">concentração (escala log)</text>
+              <!-- bordas -->
+              <line x1="300" y1="500" x2="300" y2="300" stroke="var(--chalk-faint)" stroke-width="1.3" stroke-dasharray="4,5"/>
+              <line x1="340" y1="500" x2="340" y2="300" stroke="var(--chalk-faint)" stroke-width="1.3" stroke-dasharray="4,5"/>
+              <line x1="380" y1="500" x2="380" y2="300" stroke="var(--chalk-faint)" stroke-width="1.3" stroke-dasharray="4,5"/>
+              <text x="300" y="522" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">x</text>
+              <text x="309" y="527" font-family="Kalam" font-size="11" fill="var(--chalk-faint)">p</text>
+              <text x="340" y="522" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">0</text>
+              <text x="380" y="522" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">x</text>
+              <text x="389" y="527" font-family="Kalam" font-size="11" fill="var(--chalk-faint)">n</text>
+
+              <!-- majoritários -->
+              <line x1="124" y1="322" x2="300" y2="322" stroke="var(--chalk)" stroke-width="3"/>
+              <text x="128" y="312" font-family="Kalam" font-size="16" fill="var(--chalk)">p ≅ N</text>
+              <text x="174" y="317" font-family="Kalam" font-size="11" fill="var(--chalk)">A</text>
+              <text x="186" y="312" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">= 10¹⁸</text>
+              <line x1="380" y1="352" x2="686" y2="352" stroke="var(--chalk)" stroke-width="3"/>
+              <text x="560" y="342" font-family="Kalam" font-size="16" fill="var(--chalk)">n ≅ N</text>
+              <text x="604" y="347" font-family="Kalam" font-size="11" fill="var(--chalk)">D</text>
+              <text x="616" y="342" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">= 10¹⁶</text>
+
+              <!-- minoritários de equilíbrio -->
+              <line x1="124" y1="470" x2="300" y2="470" stroke="var(--chalk-faint)" stroke-width="2" stroke-dasharray="7,5"/>
+              <text x="128" y="490" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">n</text>
+              <text x="138" y="495" font-family="Kalam" font-size="11" fill="var(--chalk-faint)">p0</text>
+              <text x="152" y="490" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">= 225</text>
+              <line x1="380" y1="442" x2="686" y2="442" stroke="var(--chalk-faint)" stroke-width="2" stroke-dasharray="7,5"/>
+              <text x="596" y="464" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">p</text>
+              <text x="606" y="469" font-family="Kalam" font-size="11" fill="var(--chalk-faint)">n0</text>
+              <text x="620" y="464" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">= 2,25 × 10⁴</text>
+
+              <!-- cauda injetada no lado n (lacunas) -->
+              <path d="M380,368 C424,404 470,428 520,436 C576,441 640,442 686,442" fill="none" stroke="var(--yellow)" stroke-width="3.2"/>
+              <path d="M380,368 C424,404 470,428 520,436 C576,441 640,442 686,442 L686,442 L380,442 Z" fill="rgba(229,212,128,.12)" stroke="none"/>
+              <circle cx="380" cy="368" r="5" fill="var(--yellow)"/>
+              <text x="412" y="374" font-family="Kalam" font-size="16" fill="var(--yellow)">p</text>
+              <text x="422" y="379" font-family="Kalam" font-size="11" fill="var(--yellow)">n</text>
+              <text x="429" y="374" font-family="Kalam" font-size="16" fill="var(--yellow)">(x</text>
+              <text x="446" y="379" font-family="Kalam" font-size="11" fill="var(--yellow)">n</text>
+              <text x="452" y="374" font-family="Kalam" font-size="16" fill="var(--yellow)">)</text>
+              <text x="470" y="412" font-family="Kalam" font-size="16" fill="var(--yellow)">p</text>
+              <text x="480" y="417" font-family="Kalam" font-size="11" fill="var(--yellow)">n</text>
+              <text x="487" y="412" font-family="Kalam" font-size="16" fill="var(--yellow)">(x)</text>
+
+              <!-- cauda injetada no lado p (elétrons) -->
+              <path d="M300,396 C258,426 214,452 176,462 C158,466 138,469 124,470" fill="none" stroke="var(--pink)" stroke-width="3.2"/>
+              <path d="M300,396 C258,426 214,452 176,462 C158,466 138,469 124,470 L124,470 L300,470 Z" fill="rgba(227,169,188,.11)" stroke="none"/>
+              <circle cx="300" cy="396" r="5" fill="var(--pink)"/>
+              <text x="216" y="416" font-family="Kalam" font-size="16" fill="var(--pink)">n</text>
+              <text x="226" y="421" font-family="Kalam" font-size="11" fill="var(--pink)">p</text>
+              <text x="233" y="416" font-family="Kalam" font-size="16" fill="var(--pink)">(x)</text>
+
+              <!-- setas de injeção -->
+              <line x1="352" y1="330" x2="392" y2="330" stroke="var(--yellow)" stroke-width="2"/>
+              <polygon points="392,324 406,330 392,336" fill="var(--yellow)"/>
+              <text x="412" y="335" font-family="Kalam" font-size="13" fill="var(--yellow)">lacunas injetadas</text>
+              <line x1="328" y1="364" x2="290" y2="364" stroke="var(--pink)" stroke-width="2"/>
+              <polygon points="290,358 276,364 290,370" fill="var(--pink)"/>
+              <text x="272" y="352" text-anchor="end" font-family="Kalam" font-size="13" fill="var(--pink)">elétrons injetados</text>
+            </svg>
+            <figcaption>A figura central da aula. Em cima, a junção em direta: o campo aplicado E′ contraria o campo interno E e baixa a barreira. Embaixo, as concentrações em escala logarítmica. Os <strong>majoritários</strong> (linhas cheias grossas) praticamente não se alteram — são muitos demais para que a injeção os perturbe. O que muda por ordens de grandeza são os <strong>minoritários nas bordas da depleção</strong>: p<sub>n</sub>(x<sub>n</sub>) salta acima de p<sub>n0</sub>, n<sub>p</sub>(x<sub>p</sub>) salta acima de n<sub>p0</sub>, e cada um decai de volta ao equilíbrio conforme se afasta. As áreas sombreadas são a <em>carga armazenada</em> — guarde-as, elas voltam na última seção como capacitância de difusão.</figcaption>
+          </figure>
+
+          <div class="intu">
+            <span class="lbl">pense num muro entre dois pátios lotados</span>
+            <p>De um lado do muro, um pátio cheio de pessoas de camiseta azul; do outro, cheio de camiseta vermelha. O muro é alto: quase ninguém pula. Baixe o muro alguns centímetros e o número de pessoas que consegue pular <strong>não cresce um pouco: cresce explosivamente</strong>, porque só os mais altos pulavam antes, e a cada centímetro a menos entra uma faixa inteira nova de gente.</p>
+            <p>É a estatística de Boltzmann, e é toda a física do diodo. Agora note: quem pulou para o pátio vermelho é <em>minoria absoluta</em> lá — uma camiseta azul em meio a milhões de vermelhas. Por isso a conta do diodo é sempre uma conta de <strong>minoritários</strong>: os majoritários nem notaram o que aconteceu.</p>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             10.2 · MINORITÁRIOS EM EQUILÍBRIO
+             ============================================================ -->
+        <section class="content-section" id="m10-minoritarios">
+          <div class="eyebrow">CONDIÇÃO INICIAL · OS QUATRO NÚMEROS</div>
+          <h2>Antes de ligar nada: quantos minoritários há de cada lado</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>Cada lado da junção tem um majoritário fixado pela dopagem e um minoritário fixado por n·p = n<sub>i</sub>² — e são os minoritários, os poucos, que vão carregar a corrente.</p>
+          </div>
+          <p class="lead">Esta seção é a coluna da direita da lousa, e é pura aplicação do <a href="#m9-extrinseco">Módulo 09</a>. Com N<sub>A</sub> = 10¹⁸ cm⁻³ no lado p e N<sub>D</sub> = 10¹⁶ cm⁻³ no lado n:</p>
+
+          <div class="passo">
+            <div class="cab">os quatro números, do lado p e do lado n</div>
+            <div class="lin"><div class="pq"><b>Lado p · majoritário.</b> Toda lacuna vem de um átomo aceitador, e há muito mais deles que lacunas térmicas.</div><div class="ct">p ≅ N<sub>A</sub> = <span class="y">10<sup>18</sup> cm<sup>−3</sup></span></div></div>
+            <div class="lin"><div class="pq"><b>Lado p · minoritário.</b> A lei de ação das massas fixa o produto; isolando os elétrons.</div><div class="ct">n<sub>p0</sub> · p = n<sub>i</sub><sup>2</sup> &nbsp;⇒&nbsp; n<sub>p0</sub> = n<sub>i</sub><sup>2</sup>/p = n<sub>i</sub><sup>2</sup>/N<sub>A</sub> = <span class="y">225 cm<sup>−3</sup></span></div></div>
+            <div class="lin"><div class="pq"><b>Lado n · majoritário.</b> Mesma lógica com fósforo.</div><div class="ct">n ≅ N<sub>D</sub> = <span class="y">10<sup>16</sup> cm<sup>−3</sup></span></div></div>
+            <div class="lin"><div class="pq"><b>Lado n · minoritário.</b> A grandeza que vai protagonizar a dedução inteira.</div><div class="ct">p<sub>n0</sub> · n = n<sub>i</sub><sup>2</sup> &nbsp;⇒&nbsp; p<sub>n0</sub> = n<sub>i</sub><sup>2</sup>/n = n<sub>i</sub><sup>2</sup>/N<sub>D</sub> = <span class="y">2,25 × 10<sup>4</sup> cm<sup>−3</sup></span></div></div>
+          </div>
+
+          <p>O subscrito duplo merece atenção porque a aula inteira depende dele. Em <strong>p<sub>n0</sub></strong>: a letra é o portador (lacuna), o primeiro índice é a <em>região</em> onde ele está (o lado n), e o zero indica <em>equilíbrio térmico</em>, isto é, sem tensão aplicada. Então p<sub>n0</sub> é «a concentração de lacunas no lado n, com o diodo desligado». Pelo mesmo critério, <strong>n<sub>p0</sub></strong> é a de elétrons no lado p em equilíbrio. Quando a tensão entra, o zero cai: p<sub>n</sub>(x<sub>n</sub>) é a concentração de lacunas no lado n, na borda da depleção, com o diodo ligado.</p>
+
+          <div class="attn">
+            <span class="tag">o número que decide tudo: 100</span>
+            Repare que p<sub>n0</sub> = 2,25 × 10⁴ é <strong>cem vezes maior</strong> que n<sub>p0</sub> = 225 — exatamente a razão N<sub>A</sub>/N<sub>D</sub>. Isso não é curiosidade: significa que <em>há cem vezes mais minoritários disponíveis no lado fracamente dopado</em>, e por isso a corrente do diodo vai ser dominada pela injeção de lacunas no lado n. Guarde a regra: <strong>o lado menos dopado é quem manda na corrente</strong>. Na seção sobre I<sub>S</sub> essa afirmação vira um número: 98,6% da corrente.
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+            <div class="q">
+              <div class="q-head">numérico <span class="tagq">minoritários</span></div>
+              <p class="q-stem">Uma junção p⁺n tem N<sub>A</sub> = 10¹⁹ e N<sub>D</sub> = 10¹⁵ cm⁻³. Calcule n<sub>p0</sub> e p<sub>n0</sub> e diga qual injeção vai dominar a corrente.</p>
+              <details class="reveal"><summary>ver a resposta</summary>
+                <div class="ans">
+                  <p>n<sub>p0</sub> = 2,25 × 10²⁰/10¹⁹ = <strong>22,5 cm⁻³</strong> &nbsp;·&nbsp; p<sub>n0</sub> = 2,25 × 10²⁰/10¹⁵ = <strong>2,25 × 10⁵ cm⁻³</strong>.</p>
+                  <p>Razão de <strong>10 000</strong> a favor das lacunas no lado n. A corrente é, para todos os efeitos, <em>só</em> injeção de lacunas no lado n — a contribuição de elétrons é 0,01% do total.</p>
+                  <p>Essa é uma escolha de projeto deliberada, não um acidente: uma junção com um lado muito mais dopado que o outro é chamada de <strong>junção de um lado só</strong> (<i>one-sided junction</i>), e é exatamente o que se fabrica quando se quer que a corrente seja transportada por um único tipo de portador. No transistor bipolar, é isso que dá o ganho de corrente.</p>
+                </div>
+              </details>
+            </div>
+
+            <div class="q">
+              <div class="q-head">conceitual <span class="tagq">múltipla escolha · notação</span></div>
+              <p class="q-stem">O que significa p<sub>n</sub>(x<sub>n</sub>) ≫ p<sub>n0</sub> em polarização direta?</p>
+              <div class="opts">
+                <button class="opt" data-ok="0"><span class="k">a)</span> Que o lado n passou a ter mais lacunas que elétrons — virou tipo p.</button>
+                <button class="opt" data-ok="1"><span class="k">b)</span> Que há lacunas em excesso na borda do lado n, ainda em minoria absoluta perante os elétrons, mas muito acima do valor de equilíbrio.</button>
+                <button class="opt" data-ok="0"><span class="k">c)</span> Que n·p deixou de valer n<sub>i</sub>² porque a dopagem mudou.</button>
+                <button class="opt" data-ok="0"><span class="k">d)</span> Que a concentração de elétrons no lado n caiu na mesma proporção.</button>
+              </div>
+              <div class="q-fb" role="status"><b>b)</b> — Com 2,25 × 10⁴ de equilíbrio, mesmo um fator e<sup>0,7/0,0259</sup> ≈ 5,5 × 10¹¹ levaria p<sub>n</sub> a 10¹⁶ — da ordem de N<sub>D</sub>, que é justamente onde o modelo de <em>baixa injeção</em> começa a falhar (e na prática nunca se chega lá, porque a queda nas resistências série limita antes). Sobre (c): a relação n·p = n<sub>i</sub>² é uma condição de <strong>equilíbrio térmico</strong>, e com tensão aplicada o dispositivo <em>não</em> está em equilíbrio — ali dentro vale n·p &gt; n<sub>i</sub>². Ela continua sendo usada apenas para fixar as concentrações <em>de equilíbrio</em> p<sub>n0</sub> e n<sub>p0</sub>, que são as condições de contorno longe da junção.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             10.3 · A LEI DA JUNÇÃO
+             ============================================================ -->
+        <section class="content-section" id="m10-lei">
+          <div class="eyebrow">A LEI DA JUNÇÃO · A ÚNICA EXPONENCIAL</div>
+          <h2>A linha de onde vem tudo</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>A tensão aplicada não empurra corrente: ela multiplica a concentração de minoritários na borda da depleção por e elevado a V/V<sub>T</sub>.</p>
+          </div>
+          <p class="lead">Este é o primeiro item da lousa, e é o único que precisa de física nova. Baixando a barreira de V<sub>0</sub> para V<sub>0</sub> − V, a estatística de Boltzmann diz que a população de portadores capazes de atravessar cresce pelo fator e<sup>V/V<sub>T</sub></sup>. O resultado é a <em class="term">lei da junção</em>:</p>
+
+          <div class="eq" style="text-align:center;font-size:1.5rem">
+            <span class="hand-box">p<sub class="dim">n</sub>(x<sub class="dim">n</sub>) = p<sub class="dim">n0</sub> · e<sup>V/V<sub class="dim">T</sub></sup></span>
+          </div>
+
+          <p>E, por simetria, do outro lado: n<sub>p</sub>(x<sub>p</sub>) = n<sub>p0</sub> · e<sup>V/V<sub>T</sub></sup>. As duas dizem a mesma coisa: <strong>na borda da depleção, a concentração de minoritários é a de equilíbrio vezes a exponencial da tensão</strong>. Note o que ela <em>não</em> diz: não fala de corrente, não fala de resistência, não fala de campo. É uma afirmação sobre concentração num ponto — uma condição de contorno.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 300" xmlns="http://www.w3.org/2000/svg">
+              <!-- eixos -->
+              <line x1="80" y1="250" x2="420" y2="250" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <line x1="80" y1="250" x2="80" y2="34" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <text x="418" y="274" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">V (V)</text>
+              <text x="74" y="28" text-anchor="end" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">p</text>
+              <text x="78" y="33" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">n</text>
+              <text x="86" y="28" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">(x</text>
+              <text x="101" y="33" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">n</text>
+              <text x="107" y="28" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">) — escala log</text>
+              <!-- decadas -->
+              <g stroke="var(--chalk-faint)" stroke-width="1.2" stroke-dasharray="3,5">
+                <line x1="80" y1="214" x2="420" y2="214"/><line x1="80" y1="178" x2="420" y2="178"/>
+                <line x1="80" y1="142" x2="420" y2="142"/><line x1="80" y1="106" x2="420" y2="106"/>
+                <line x1="80" y1="70" x2="420" y2="70"/>
+              </g>
+              <g font-family="Kalam" font-size="12" fill="var(--chalk-faint)" text-anchor="end">
+                <text x="74" y="254">10⁴</text><text x="74" y="218">10⁶</text><text x="74" y="182">10⁸</text>
+                <text x="74" y="146">10¹⁰</text><text x="74" y="110">10¹²</text><text x="74" y="74">10¹⁴</text>
+              </g>
+              <!-- reta (exponencial em log) -->
+              <line x1="80" y1="248" x2="400" y2="46" stroke="var(--yellow)" stroke-width="3.2"/>
+              <circle cx="80" cy="248" r="5" fill="var(--yellow)"/>
+              <text x="90" y="242" font-family="Kalam" font-size="14" fill="var(--yellow)">p</text>
+              <text x="100" y="247" font-family="Kalam" font-size="10" fill="var(--yellow)">n0</text>
+              <!-- marcas de 60 mV/decada -->
+              <line x1="288" y1="250" x2="288" y2="142" stroke="var(--orange)" stroke-width="1.5" stroke-dasharray="4,4"/>
+              <line x1="345" y1="250" x2="345" y2="106" stroke="var(--orange)" stroke-width="1.5" stroke-dasharray="4,4"/>
+              <text x="288" y="270" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--orange)">0,6</text>
+              <text x="345" y="270" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--orange)">0,66</text>
+              <line x1="288" y1="124" x2="345" y2="124" stroke="var(--orange)" stroke-width="2"/>
+              <text x="354" y="129" font-family="Kalam" font-size="14" fill="var(--orange)">60 mV = 1 década</text>
+
+              <!-- coluna direita -->
+              <line x1="470" y1="30" x2="470" y2="278" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <text x="500" y="62" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">em escala logarítmica a lei</text>
+              <text x="500" y="84" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">da junção é uma RETA</text>
+              <text x="500" y="126" font-family="Kalam" font-size="14" fill="var(--yellow)">V</text>
+              <text x="510" y="131" font-family="Kalam" font-size="11" fill="var(--yellow)">T</text>
+              <text x="520" y="126" font-family="Kalam" font-size="14" fill="var(--yellow)">= kT/q ≅ 25,9 mV</text>
+              <text x="500" y="156" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">· ×10 a cada 60 mV</text>
+              <text x="500" y="180" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">· ×2 a cada 18 mV</text>
+              <text x="500" y="204" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">· ×5,5 × 10¹¹ em 0,7 V</text>
+              <text x="500" y="248" font-family="Kalam" font-size="14" fill="var(--pink)">a inclinação não depende</text>
+              <text x="500" y="270" font-family="Kalam" font-size="14" fill="var(--pink)">do material, só de T</text>
+            </svg>
+            <figcaption>A lei da junção em escala logarítmica. Toda a rigidez do diodo está nesta inclinação: <strong>60 mV por década</strong>. É por isso que a tensão de um diodo em condução parece «travada» em 0,7 V — para a corrente variar de 1 mA para 10 mA, basta que V<sub>D</sub> suba 60 mV, o que na escala do circuito é quase nada. E é também por isso que a queda de 0,7 V do modelo simplificado funciona tão bem: qualquer corrente entre 0,1 mA e 10 mA cai numa faixa de 120 mV.</figcaption>
+          </figure>
+
+          <div class="erro">
+            <span class="lbl">a exponencial não é «do diodo»</span>
+            <p>É tentador decorar «diodo = exponencial» e parar aí. Mas a exponencial é um fato sobre <strong>quantos portadores conseguem vencer uma barreira de energia a uma dada temperatura</strong> — o mesmo fator de Boltzmann que aparece na taxa de uma reação química, na emissão termiônica de um filamento e no n<sub>i</sub>(T) do <a href="#m9-intro">Módulo 09</a>.</p>
+            <p>Consequência prática imediata: <span class="certo">V<sub>T</sub> = kT/q depende de T</span>, então a curva do diodo se desloca com a temperatura. A 27 °C, V<sub>T</sub> = 25,9 mV; a 100 °C, 32,1 mV. Só que na prática o efeito de I<sub>S</sub> (que cresce com n<sub>i</sub>²) é <em>maior</em> e de sinal oposto: a corrente fixa, a queda de um diodo de silício <strong>cai cerca de 2 mV por grau</strong>. É esse coeficiente que faz um diodo funcionar como termômetro — e que estraga referências de tensão mal compensadas.</p>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             10.4 · O PERFIL E O COMPRIMENTO DE DIFUSÃO
+             ============================================================ -->
+        <section class="content-section" id="m10-perfil">
+          <div class="eyebrow">O PERFIL · L = √(D·τ)</div>
+          <h2>O que acontece com a lacuna depois que ela entra no lado n</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>A lacuna injetada caminha por difusão até se recombinar, e a distância típica que ela percorre antes disso é o comprimento de difusão L — que é o que dá ao perfil a sua forma exponencial decrescente.</p>
+          </div>
+          <p class="lead">Na borda x<sub>n</sub> a concentração é alta (a lei da junção acabou de estabelecê-la). Longe da junção, tem de voltar ao valor de equilíbrio p<sub>n0</sub>, porque ali o cristal nem sabe que existe uma junção. Entre os dois extremos, a lacuna em excesso faz duas coisas ao mesmo tempo: <strong>difunde</strong> para dentro do lado n e <strong>recombina-se</strong> com os elétrons abundantes de lá. O balanço dessas duas taxas dá um decaimento exponencial:</p>
+
+          <div class="eq" style="text-align:center;font-size:1.25rem">
+            p<sub class="dim">n</sub>(x) = p<sub class="dim">n0</sub> + <span class="y">[ p<sub class="dim">n</sub>(x<sub class="dim">n</sub>) − p<sub class="dim">n0</sub> ]</span> · e<sup>−(x − x<sub class="dim">n</sub>)/L<sub class="dim">p</sub></sup>
+          </div>
+
+          <p>Leia a estrutura, não os símbolos: <strong>valor de equilíbrio</strong> + <strong>excesso na borda</strong> × <strong>decaimento</strong>. Em x = x<sub>n</sub> a exponencial vale 1 e a expressão devolve p<sub>n</sub>(x<sub>n</sub>), como tem de ser. Para x → ∞ a exponencial vai a zero e sobra p<sub>n0</sub>, como tem de ser. É a solução geral de uma equação de difusão-recombinação em regime permanente, escrita já com as duas condições de contorno impostas.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 340" xmlns="http://www.w3.org/2000/svg">
+              <!-- eixos -->
+              <line x1="90" y1="280" x2="600" y2="280" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <line x1="90" y1="280" x2="90" y2="40" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <text x="602" y="302" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">x</text>
+              <!-- nivel pn0 -->
+              <line x1="90" y1="250" x2="600" y2="250" stroke="var(--chalk-faint)" stroke-width="2" stroke-dasharray="7,5"/>
+              <text x="608" y="255" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">p</text>
+              <text x="618" y="260" font-family="Kalam" font-size="11" fill="var(--chalk-faint)">n0</text>
+              <!-- curva -->
+              <path d="M150,70 C206,150 262,202 318,228 C392,248 494,250 600,250" fill="none" stroke="var(--yellow)" stroke-width="3.4"/>
+              <path d="M150,70 C206,150 262,202 318,228 C392,248 494,250 600,250 L600,250 L150,250 Z" fill="rgba(229,212,128,.13)" stroke="none"/>
+              <!-- borda xn -->
+              <line x1="150" y1="290" x2="150" y2="50" stroke="var(--chalk-faint)" stroke-width="1.4" stroke-dasharray="4,5"/>
+              <text x="150" y="308" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk-faint)">x</text>
+              <text x="159" y="313" font-family="Kalam" font-size="11" fill="var(--chalk-faint)">n</text>
+              <circle cx="150" cy="70" r="5.5" fill="var(--yellow)"/>
+              <text x="162" y="62" font-family="Kalam" font-size="16" fill="var(--yellow)">p</text>
+              <text x="172" y="67" font-family="Kalam" font-size="11" fill="var(--yellow)">n</text>
+              <text x="179" y="62" font-family="Kalam" font-size="16" fill="var(--yellow)">(x</text>
+              <text x="196" y="67" font-family="Kalam" font-size="11" fill="var(--yellow)">n</text>
+              <text x="202" y="62" font-family="Kalam" font-size="16" fill="var(--yellow)">)</text>
+              <!-- excesso -->
+              <line x1="124" y1="70" x2="124" y2="250" stroke="var(--pink)" stroke-width="1.8"/>
+              <line x1="118" y1="70" x2="130" y2="70" stroke="var(--pink)" stroke-width="1.8"/>
+              <line x1="118" y1="250" x2="130" y2="250" stroke="var(--pink)" stroke-width="1.8"/>
+              <text x="100" y="150" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--pink)">excesso</text>
+              <text x="100" y="172" text-anchor="end" font-family="Kalam" font-size="14" fill="var(--pink)">na borda</text>
+              <!-- tangente na origem -->
+              <line x1="150" y1="70" x2="330" y2="250" stroke="var(--orange)" stroke-width="2.2" stroke-dasharray="6,5"/>
+              <line x1="150" y1="250" x2="330" y2="250" stroke="var(--orange)" stroke-width="3"/>
+              <line x1="150" y1="242" x2="150" y2="258" stroke="var(--orange)" stroke-width="2.4"/>
+              <line x1="330" y1="242" x2="330" y2="258" stroke="var(--orange)" stroke-width="2.4"/>
+              <text x="228" y="274" text-anchor="middle" font-family="Kalam" font-size="18" fill="var(--orange)">L</text>
+              <text x="240" y="279" font-family="Kalam" font-size="13" fill="var(--orange)">p</text>
+              <text x="336" y="118" font-family="Kalam" font-size="13" fill="var(--orange)">a tangente na borda cruza o nível</text>
+              <text x="336" y="138" font-family="Kalam" font-size="13" fill="var(--orange)">de equilíbrio exatamente em x</text>
+              <text x="546" y="143" font-family="Kalam" font-size="10" fill="var(--orange)">n</text>
+              <text x="553" y="138" font-family="Kalam" font-size="13" fill="var(--orange)">+ L</text>
+              <text x="574" y="143" font-family="Kalam" font-size="10" fill="var(--orange)">p</text>
+              <!-- area = carga -->
+              <text x="392" y="186" font-family="Kalam" font-size="15" fill="var(--yellow)">a área sombreada é a</text>
+              <text x="392" y="208" font-family="Kalam" font-size="15" fill="var(--yellow)">CARGA ARMAZENADA</text>
+
+              <!-- coluna direita: L = sqrt(D tau) -->
+              <g transform="translate(608,76)">
+                <text x="0" y="0" font-family="Kalam" font-size="21" fill="var(--chalk)">L</text>
+                <text x="12" y="6" font-family="Kalam" font-size="13" fill="var(--chalk)">p</text>
+                <text x="22" y="0" font-family="Kalam" font-size="21" fill="var(--chalk)">=</text>
+                <text x="0" y="34" font-family="Kalam" font-size="21" fill="var(--yellow)">√( D</text>
+                <text x="42" y="40" font-family="Kalam" font-size="13" fill="var(--yellow)">p</text>
+                <text x="52" y="34" font-family="Kalam" font-size="21" fill="var(--yellow)">· τ</text>
+                <text x="78" y="40" font-family="Kalam" font-size="13" fill="var(--yellow)">p</text>
+                <text x="86" y="34" font-family="Kalam" font-size="21" fill="var(--yellow)">)</text>
+                <text x="0" y="72" font-family="Kalam" font-size="12" fill="var(--chalk-faint)">D: difusividade</text>
+                <text x="0" y="92" font-family="Kalam" font-size="12" fill="var(--chalk-faint)">τ: tempo de vida</text>
+                <text x="0" y="122" font-family="Kalam" font-size="12" fill="var(--chalk-dim)">típico no Si:</text>
+                <text x="0" y="142" font-family="Kalam" font-size="12" fill="var(--chalk-dim)">L ≈ 1 a 100 μm</text>
+              </g>
+            </svg>
+            <figcaption>O <strong>comprimento de difusão</strong> L<sub>p</sub> = √(D<sub>p</sub>τ<sub>p</sub>) é a distância em que o excesso cai por um fator <i>e</i>, e é exatamente onde a tangente na borda cruza o nível de equilíbrio — o que dá um jeito gráfico de lê-lo. Ele combina as duas coisas que competem: D<sub>p</sub> diz <em>quão rápido</em> a lacuna se espalha, τ<sub>p</sub> diz <em>quanto tempo</em> ela tem antes de recombinar. Note a raiz: dobrar o tempo de vida só aumenta o alcance em 41%.</figcaption>
+          </figure>
+
+          <div class="intu">
+            <span class="lbl">por que a raiz quadrada, e não o produto</span>
+            <p>Se a lacuna andasse em linha reta com velocidade v, a distância seria simplesmente v·τ — proporcional ao tempo. Mas ela não anda em linha reta: faz um <strong>passeio aleatório</strong>, colidindo a cada 10⁻¹³ s. Num passeio aleatório, o deslocamento típico cresce com a <em>raiz</em> do tempo, não com o tempo. Dar mil passos ao acaso não te leva mil passos longe: leva cerca de trinta.</p>
+            <p>É a mesma raiz que aparece na difusão de uma gota de tinta na água e no espalhamento de calor numa barra. L = √(Dτ) é a assinatura de todo processo difusivo, e não tem nada de específico de semicondutores.</p>
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+            <div class="q">
+              <div class="q-head">numérico <span class="tagq">L e τ</span></div>
+              <p class="q-stem">Com D<sub>p</sub> = 12 cm²/s e L<sub>p</sub> = 5 μm, qual é o tempo de vida τ<sub>p</sub>? E quantos comprimentos de difusão cabem numa pastilha de 300 μm?</p>
+              <details class="reveal"><summary>ver a resposta</summary>
+                <div class="ans">
+                  <p>Invertendo: τ<sub>p</sub> = L<sub>p</sub>²/D<sub>p</sub> = (5 × 10⁻⁴ cm)²/12 = 2,5 × 10⁻⁷/12 = <strong>2,1 × 10⁻⁸ s ≈ 21 ns</strong>.</p>
+                  <p>Numa pastilha de 300 μm cabem 60 comprimentos de difusão — e e⁻⁶⁰ é um número sem sentido físico. Ou seja: <strong>o excesso de minoritários morre pouquíssimos micrômetros depois da junção</strong>. A corrente do diodo é decidida numa camada finíssima em volta da depleção; todo o resto da pastilha é apenas fio.</p>
+                  <p>Guarde também a relação τ<sub>p</sub> = L<sub>p</sub>²/D<sub>p</sub> nessa forma invertida — ela reaparece literalmente na última seção, quando a carga armazenada for escrita como Q<sub>p</sub> = (L<sub>p</sub>²/D<sub>p</sub>)·I<sub>p</sub>.</p>
+                </div>
+              </details>
+            </div>
+
+            <div class="q">
+              <div class="q-head">conceitual <span class="tagq">múltipla escolha · o perfil</span></div>
+              <p class="q-stem">Por que o perfil p<sub>n</sub>(x) decai, em vez de ficar constante ao longo do lado n?</p>
+              <div class="opts">
+                <button class="opt" data-ok="0"><span class="k">a)</span> Porque o campo elétrico da bateria empurra as lacunas de volta.</button>
+                <button class="opt" data-ok="1"><span class="k">b)</span> Porque as lacunas em excesso se recombinam com os elétrons majoritários enquanto difundem para dentro.</button>
+                <button class="opt" data-ok="0"><span class="k">c)</span> Porque a lei da junção só vale exatamente em x<sub>n</sub> e não tem sentido fora dali.</button>
+                <button class="opt" data-ok="0"><span class="k">d)</span> Porque a concentração de elétrons cai, e n·p tem de continuar igual a n<sub>i</sub>².</button>
+              </div>
+              <div class="q-fb" role="status"><b>b)</b> — Recombinação é a chave, e é ela que introduz τ e portanto L. Fora da depleção a região é <strong>neutra e sem campo apreciável</strong>, o que elimina (a) e é justamente o que permite usar difusão pura na próxima seção. Sobre (d): dentro do diodo polarizado não há equilíbrio térmico, então n·p &gt; n<sub>i</sub>² ali — a relação não pode ser usada para amarrar os perfis. E um caso-limite que vale conhecer: se a região n fosse <em>mais curta</em> que L<sub>p</sub> e terminasse num contato metálico (o chamado <em>diodo de base curta</em>), quase nenhuma lacuna recombinaria e o perfil seria praticamente uma <strong>reta</strong> — com L<sub>p</sub> substituído pela largura física da região. É exatamente essa a situação na base de um transistor bipolar.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             10.5 · DERIVANDO
+             ============================================================ -->
+        <section class="content-section" id="m10-densidade">
+          <div class="eyebrow">A CONTA · J NAS BORDAS DA DEPLEÇÃO</div>
+          <h2>Uma derivada, uma substituição, e a densidade de corrente</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>Tendo o perfil, a corrente é só derivar e avaliar na borda — e derivar uma exponencial não muda a exponencial, o que é exatamente por que a lei do diodo sobrevive intacta até o fim.</p>
+          </div>
+          <p class="lead">Fora da depleção não há campo apreciável: a região é neutra. Então a corrente de lacunas ali é <strong>puramente de difusão</strong>, e vale a fórmula do <a href="#m9-difusao">Módulo 09</a>:</p>
+
+          <div class="eq" style="text-align:center">
+            J<sub class="dim">p</sub>(x) = − q · D<sub class="dim">p</sub> · dp(x)/dx &nbsp;&nbsp;&nbsp;&nbsp; J<sub class="dim">p</sub>(x<sub class="dim">n</sub>) = − q · D<sub class="dim">p</sub> · dp(x)/dx <span class="dim">|</span><sub class="dim">x = x<sub>n</sub></sub>
+          </div>
+
+          <div class="passo">
+            <div class="cab">a derivada, passo a passo — exatamente como na lousa</div>
+            <div class="lin"><div class="pq"><b>1 ·</b> Substitua o perfil dentro da fórmula da difusão. Só o segundo termo depende de x; p<sub>n0</sub> é constante e sua derivada é zero.</div><div class="ct">J<sub>p</sub>(x<sub>n</sub>) = −q D<sub>p</sub> · d{ p<sub>n0</sub> + [p<sub>n</sub>(x<sub>n</sub>) − p<sub>n0</sub>] e<sup>−(x−x<sub>n</sub>)/L<sub>p</sub></sup> } / dx</div></div>
+            <div class="lin"><div class="pq"><b>2 ·</b> Derive a exponencial. A regra da cadeia produz o fator −1/L<sub>p</sub>, cujo sinal negativo cancela o «−» que estava na frente. É daí que sai o «+» que a lousa destaca.</div><div class="ct">= <span class="y">+</span> q D<sub>p</sub>/L<sub>p</sub> · [p<sub>n</sub>(x<sub>n</sub>) − p<sub>n0</sub>] · e<sup>−(x−x<sub>n</sub>)/L<sub>p</sub></sup></div></div>
+            <div class="lin"><div class="pq"><b>3 ·</b> Avalie em x = x<sub>n</sub>. O expoente zera e a exponencial vale 1 — a lousa marca isso escrevendo «1» sobre o termo.</div><div class="ct">J<sub>p</sub>(x<sub>n</sub>) = q D<sub>p</sub>/L<sub>p</sub> · [p<sub>n</sub>(x<sub>n</sub>) − p<sub>n0</sub>] &nbsp;<span class="dim">(e⁰ = 1)</span></div></div>
+            <div class="lin"><div class="pq"><b>4 ·</b> Agora entre com a lei da junção no lugar de p<sub>n</sub>(x<sub>n</sub>) e ponha p<sub>n0</sub> em evidência. <strong>Aqui nasce o «− 1»</strong> da equação do diodo.</div><div class="ct">J<sub>p</sub>(x<sub>n</sub>) = q D<sub>p</sub>/L<sub>p</sub> · p<sub>n0</sub> · <span class="y">[ e<sup>V/V<sub>T</sub></sup> − 1 ]</span></div></div>
+            <div class="lin"><div class="pq"><b>5 ·</b> Por fim substitua p<sub>n0</sub> = n<sub>i</sub>²/N<sub>D</sub>, que é o número da Seção 10.2. Nenhuma física nova: só troca de nome.</div><div class="ct"><span class="hand-box">J<sub>p</sub>(x<sub>n</sub>) = q D<sub>p</sub> n<sub>i</sub><sup>2</sup> / (N<sub>D</sub> L<sub>p</sub>) · ( e<sup>V<sub>D</sub>/V<sub>T</sub></sup> − 1 )</span></div></div>
+          </div>
+
+          <div class="attn">
+            <span class="tag">de onde vem o «− 1», afinal</span>
+            Do passo 4, e de nenhum outro lugar. Ele é o <strong>p<sub>n0</sub> de equilíbrio sendo subtraído</strong>: a corrente é proporcional ao <em>excesso</em> de minoritários, não à concentração total. Em V = 0 o excesso é zero, e<sup>0</sup> − 1 = 0, e a corrente é zero — como tem de ser num dispositivo sem tensão aplicada. Em direta forte, e<sup>V/V<sub>T</sub></sup> ≫ 1 e o «− 1» é irrelevante. Em inversa, a exponencial vai a zero e sobra <strong>−1</strong>: a corrente satura em −I<sub>S</sub>, independente de quão negativa seja a tensão. Com apenas −100 mV já se tem e<sup>−3,9</sup> − 1 = −0,98, isto é, <strong>98% da saturação reversa</strong>. É esse termo, aparentemente decorativo, que explica o patamar horizontal do diodo em polarização inversa.
+          </div>
+
+          <p>O lado p é a imagem no espelho: mesma dedução com elétrons, D<sub>n</sub>, L<sub>n</sub>, N<sub>A</sub>, avaliada em x<sub>p</sub>. O resultado é a outra linha da lousa:</p>
+
+          <div class="eq" style="text-align:center;font-size:1.2rem">
+            J<sub class="dim">n</sub>(x<sub class="dim">p</sub>) = q D<sub class="dim">n</sub> n<sub class="dim">i</sub><sup>2</sup> / ( N<sub class="dim">A</sub> · L<sub class="dim">n</sub> ) · ( e<sup>V<sub class="dim">D</sub>/V<sub class="dim">T</sub></sup> − 1 )
+          </div>
+
+          <div class="erro">
+            <span class="lbl">por que as duas correntes se somam, se andam para lados opostos</span>
+            <p>As lacunas atravessam a depleção do lado p para o lado n; os elétrons, do lado n para o lado p. São sentidos <em>físicos</em> opostos — mas as cargas também são opostas. Carga positiva indo para a direita e carga negativa indo para a esquerda são a <strong>mesma corrente convencional</strong>. Daí <span class="certo">J<sub>total</sub> = J<sub>n</sub> + J<sub>p</sub></span>, e nunca <span class="errado">J<sub>n</sub> − J<sub>p</sub></span>.</p>
+            <p>É literalmente o mesmo argumento da figura de deriva do <a href="#m9-deriva">Módulo 09</a>. Se você entendeu lá, não precisa reaprender aqui.</p>
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+            <div class="q">
+              <div class="q-head">conceitual <span class="tagq">múltipla escolha · onde avaliar</span></div>
+              <p class="q-stem">Por que se avalia J<sub>p</sub> exatamente em x = x<sub>n</sub>, e não num ponto qualquer do lado n?</p>
+              <div class="opts">
+                <button class="opt" data-ok="0"><span class="k">a)</span> Porque é onde a corrente de lacunas é máxima, e o diodo é limitado pelo máximo.</button>
+                <button class="opt" data-ok="1"><span class="k">b)</span> Porque ali toda a corrente de lacunas ainda é de difusão dos injetados; mais adentro, parte dela já se converteu em corrente de elétrons pela recombinação.</button>
+                <button class="opt" data-ok="0"><span class="k">c)</span> Porque a lei da junção só é válida nesse ponto.</button>
+                <button class="opt" data-ok="0"><span class="k">d)</span> Porque em x<sub>n</sub> a exponencial vale 1 e a conta fica mais simples.</button>
+              </div>
+              <div class="q-fb" role="status"><b>b)</b> — A alternativa (a) descreve um fato verdadeiro por um motivo errado, e (d) confunde a <em>conveniência</em> algébrica com a <em>razão</em> física. O ponto é este: a <strong>corrente total</strong> tem de ser a mesma em qualquer seção do diodo (conservação de carga em regime permanente), mas a <em>divisão</em> entre lacunas e elétrons muda com x. Nas bordas da depleção a corrente é toda de minoritários injetados; longe dela, é toda de majoritários que vêm repor os que recombinaram. Avaliar nas duas bordas é o único lugar onde a soma J<sub>n</sub> + J<sub>p</sub> conta cada portador <strong>exatamente uma vez</strong>.</div>
+            </div>
+
+            <div class="q">
+              <div class="q-head">álgebra <span class="tagq">refaça a derivada</span></div>
+              <p class="q-stem">Mostre que o sinal final é positivo, partindo de J<sub>p</sub> = −qD<sub>p</sub>·dp/dx com o perfil da Seção 10.4.</p>
+              <details class="reveal"><summary>ver a resposta</summary>
+                <div class="ans">
+                  <p>Chame Δ = p<sub>n</sub>(x<sub>n</sub>) − p<sub>n0</sub> (uma constante). O perfil é p(x) = p<sub>n0</sub> + Δ·e<sup>−(x−x<sub>n</sub>)/L<sub>p</sub></sup>.</p>
+                  <p>dp/dx = Δ · e<sup>−(x−x<sub>n</sub>)/L<sub>p</sub></sup> · (<strong>−1/L<sub>p</sub></strong>) = <strong>−(Δ/L<sub>p</sub>)</strong> e<sup>−(x−x<sub>n</sub>)/L<sub>p</sub></sup> &nbsp;— <em>negativa</em>, como se espera de um perfil que desce.</p>
+                  <p>J<sub>p</sub> = −qD<sub>p</sub> · (número negativo) = <strong>positivo</strong>. Em x = x<sub>n</sub>: J<sub>p</sub>(x<sub>n</sub>) = +q D<sub>p</sub>Δ/L<sub>p</sub>.</p>
+                  <p><strong>Os dois sinais negativos se cancelam</strong> — um vem da carga da lacuna (a corrente segue o fluxo, e a fórmula da difusão de lacunas já carrega o «−»), o outro vem da derivada de um perfil decrescente. O resultado positivo diz que a corrente vai no sentido de x crescente, isto é, do lado p para o lado n: o sentido direto do diodo. <span class="note">Se você chegou a um sinal negativo, quase certamente derivou e<sup>−(x−x<sub>n</sub>)/L<sub>p</sub></sup> como se o expoente fosse +(x−x<sub>n</sub>)/L<sub>p</sub>.</span></p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             10.6 · A SOMA — A EQUAÇÃO DO DIODO
+             ============================================================ -->
+        <section class="content-section" id="m10-corrente">
+          <div class="eyebrow">O FECHAMENTO · I<sub>D</sub> = I<sub>S</sub>(e<sup>V/V<sub>T</sub></sup> − 1)</div>
+          <h2>Soma, multiplica pela área, põe em evidência</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>As duas densidades de corrente têm o mesmo fator exponencial, então ele sai em evidência — e o que fica na frente dele é, por definição, I<sub>S</sub>.</p>
+          </div>
+          <p class="lead">Densidade de corrente é corrente por unidade de área. Para chegar à corrente do diodo basta somar as duas contribuições e multiplicar pela área A da junção:</p>
+
+          <div class="passo">
+            <div class="cab">as três últimas linhas da lousa</div>
+            <div class="lin"><div class="pq">Soma das duas contribuições, vezes a área.</div><div class="ct">I<sub>D</sub> = A · ( J<sub>n</sub>(x<sub>p</sub>) + J<sub>p</sub>(x<sub>n</sub>) )</div></div>
+            <div class="lin"><div class="pq">Substitua as duas expressões. Os fatores comuns — A, q, n<sub>i</sub>² e o parêntese exponencial — aparecem nas duas parcelas e podem ser postos em evidência.</div><div class="ct">I<sub>D</sub> = A · q · n<sub>i</sub><sup>2</sup> <span class="y">[ D<sub>p</sub>/(N<sub>D</sub>L<sub>p</sub>) + D<sub>n</sub>/(N<sub>A</sub>L<sub>n</sub>) ]</span> · ( e<sup>V<sub>D</sub>/V<sub>T</sub></sup> − 1 )</div></div>
+            <div class="lin"><div class="pq">Tudo o que está antes do parêntese é constante para um dado diodo a uma dada temperatura. Batize de I<sub>S</sub> — é o que a lousa circula e nomeia.</div><div class="ct">I<sub>S</sub> ≡ A q n<sub>i</sub><sup>2</sup> [ D<sub>p</sub>/(N<sub>D</sub>L<sub>p</sub>) + D<sub>n</sub>/(N<sub>A</sub>L<sub>n</sub>) ]</div></div>
+            <div class="lin"><div class="pq">E a equação fica com a cara que você já conhecia desde o Módulo 03 — agora deduzida, não postulada.</div><div class="ct"><span class="hand-box" style="font-size:1.25em"><span class="y">I<sub>D</sub> = I<sub>S</sub> ( e<sup>V<sub>D</sub>/V<sub>T</sub></sup> − 1 )</span></span></div></div>
+          </div>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 300" xmlns="http://www.w3.org/2000/svg">
+              <!-- bloco do diodo -->
+              <rect x="60" y="70" width="150" height="110" fill="rgba(237,237,225,.035)" stroke="var(--chalk)" stroke-width="2"/>
+              <rect x="210" y="70" width="56" height="110" fill="rgba(237,237,225,.02)" stroke="var(--chalk)" stroke-width="1.8"/>
+              <rect x="266" y="70" width="150" height="110" fill="rgba(237,237,225,.035)" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="110" y="132" text-anchor="middle" font-family="Kalam" font-size="22" fill="var(--chalk)">P</text>
+              <text x="360" y="132" text-anchor="middle" font-family="Kalam" font-size="22" fill="var(--chalk)">N</text>
+              <text x="238" y="200" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">depleção</text>
+              <text x="210" y="60" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">x</text>
+              <text x="219" y="65" font-family="Kalam" font-size="10" fill="var(--chalk-faint)">p</text>
+              <text x="266" y="60" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">x</text>
+              <text x="275" y="65" font-family="Kalam" font-size="10" fill="var(--chalk-faint)">n</text>
+
+              <!-- J_p: lacunas p -> n -->
+              <line x1="150" y1="102" x2="320" y2="102" stroke="var(--yellow)" stroke-width="3"/>
+              <polygon points="320,95 338,102 320,109" fill="var(--yellow)"/>
+              <text x="170" y="88" font-family="Kalam" font-size="16" fill="var(--yellow)">J</text>
+              <text x="180" y="93" font-family="Kalam" font-size="11" fill="var(--yellow)">p</text>
+              <text x="192" y="88" font-family="Kalam" font-size="14" fill="var(--yellow)">: lacunas p → n</text>
+              <!-- J_n: eletrons n -> p, corrente para a direita -->
+              <line x1="320" y1="150" x2="150" y2="150" stroke="var(--pink)" stroke-width="3"/>
+              <polygon points="150,143 132,150 150,157" fill="var(--pink)"/>
+              <text x="216" y="172" font-family="Kalam" font-size="16" fill="var(--pink)">J</text>
+              <text x="226" y="177" font-family="Kalam" font-size="11" fill="var(--pink)">n</text>
+              <text x="238" y="172" font-family="Kalam" font-size="14" fill="var(--pink)">: elétrons n → p</text>
+
+              <!-- resultado da soma -->
+              <line x1="450" y1="30" x2="450" y2="270" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <text x="480" y="66" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">cargas opostas indo para</text>
+              <text x="480" y="88" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">lados opostos =</text>
+              <text x="480" y="110" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">mesma corrente convencional</text>
+              <g transform="translate(480,136)">
+                <rect x="0" y="0" width="212" height="52" rx="8" fill="rgba(229,212,128,.10)" stroke="var(--yellow)" stroke-width="2"/>
+                <text x="32" y="34" font-family="Kalam" font-size="20" fill="var(--yellow)">I = A ( J</text>
+                <text x="110" y="39" font-family="Kalam" font-size="13" fill="var(--yellow)">n</text>
+                <text x="122" y="34" font-family="Kalam" font-size="20" fill="var(--yellow)">+ J</text>
+                <text x="154" y="39" font-family="Kalam" font-size="13" fill="var(--yellow)">p</text>
+                <text x="164" y="34" font-family="Kalam" font-size="20" fill="var(--yellow)">)</text>
+              </g>
+              <text x="480" y="220" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">a corrente TOTAL é a mesma em</text>
+              <text x="480" y="242" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">toda seção; só a divisão entre</text>
+              <text x="480" y="264" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">lacunas e elétrons muda com x</text>
+            </svg>
+            <figcaption>As duas componentes atravessando a depleção. A corrente total é constante ao longo do dispositivo, mas ela <em>troca de portador</em>: perto de x<sub>n</sub> é quase toda de lacunas; alguns micrômetros adentro do lado n, as lacunas já recombinaram e a mesma corrente é conduzida por elétrons vindos do contato. É por isso que a soma tem de ser avaliada nas bordas — é o único lugar em que as duas parcelas são independentes.</figcaption>
+          </figure>
+
+          <div class="example">
+            <div class="ex-head">Exemplo numérico — calculando I<sub>S</sub> de verdade</div>
+            <p>Dados típicos: A = 10⁻⁴ cm² (100 μm × 100 μm), N<sub>A</sub> = 10¹⁸, N<sub>D</sub> = 10¹⁶ cm⁻³, D<sub>p</sub> = 12 e D<sub>n</sub> = 34 cm²/s, L<sub>p</sub> = 5 μm, L<sub>n</sub> = 10 μm, n<sub>i</sub> = 1,5 × 10¹⁰ cm⁻³.</p>
+            <div class="passo" style="margin-top:14px">
+              <div class="lin"><div class="pq">Parcela das lacunas injetadas no lado n (o lado <em>pouco</em> dopado).</div><div class="ct">D<sub>p</sub>/(N<sub>D</sub>L<sub>p</sub>) = 12/(10¹⁶ · 5×10⁻⁴) = <span class="y">2,4 × 10⁻¹²</span></div></div>
+              <div class="lin"><div class="pq">Parcela dos elétrons injetados no lado p (o lado <em>muito</em> dopado).</div><div class="ct">D<sub>n</sub>/(N<sub>A</sub>L<sub>n</sub>) = 34/(10¹⁸ · 10⁻³) = <span class="y">3,4 × 10⁻¹⁴</span></div></div>
+              <div class="lin"><div class="pq">Razão entre as duas — a confirmação numérica da regra «manda quem é menos dopado».</div><div class="ct">2,4×10⁻¹² / 3,4×10⁻¹⁴ ≅ 71 &nbsp;→&nbsp; <span class="y">98,6% da corrente é de lacunas</span></div></div>
+              <div class="lin"><div class="pq">Montando I<sub>S</sub>.</div><div class="ct">I<sub>S</sub> = 10⁻⁴ · 1,6×10⁻¹⁹ · 2,25×10²⁰ · 2,43×10⁻¹² = <span class="y">8,8 × 10⁻¹⁵ A ≅ 8,8 fA</span></div></div>
+              <div class="lin"><div class="pq">E daí a corrente em três tensões. Note o salto entre linhas: 60 mV por década.</div><div class="ct">V<sub>D</sub> = 0,6 V → <span class="y">0,10 mA</span> &nbsp;·&nbsp; 0,7 V → <span class="y">4,8 mA</span> &nbsp;·&nbsp; 0,8 V → <span class="r">228 mA</span></div></div>
+            </div>
+            <p style="margin-top:14px"><strong>Três leituras.</strong> Primeira: I<sub>S</sub> é <em>femtoampères</em> — dezenas de milhões de vezes menor que a corrente de operação, e é por isso que a corrente reversa de um diodo pequeno é imperceptível num multímetro. Segunda: 0,7 V dá alguns miliampères, o que <strong>justifica a posteriori</strong> o modelo de queda constante que você usou no Módulo 03. Terceira: 0,8 V daria 228 mA, o que na prática não acontece — a resistência série do próprio silício e dos contatos passa a dominar antes disso, e a curva real se afasta da exponencial. A equação deduzida aqui é excelente entre ≈ 1 μA e ≈ 10 mA, e só nessa faixa.</p>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             10.7 · O QUE EXISTE DENTRO DE I_S
+             ============================================================ -->
+        <section class="content-section" id="m10-is">
+          <div class="eyebrow">LEITURA DE I<sub>S</sub> · O PARÂMETRO QUE DEIXOU DE SER LETRA</div>
+          <h2>Quatro coisas que você aprende olhando dentro de I<sub>S</sub></h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>I<sub>S</sub> não é uma constante do silício: é geometria, dopagem e temperatura — e é por isso que dois diodos «iguais» nunca têm a mesma curva.</p>
+          </div>
+          <p class="lead">A expressão de I<sub>S</sub> é o produto mais útil desta aula, porque transforma um parâmetro de folha de dados em algo que se pode <em>projetar</em>. Leia termo por termo:</p>
+
+          <table class="spec">
+            <tr><th>fator</th><th>o que ele diz</th><th>consequência prática</th></tr>
+            <tr><td class="sym">A</td><td>I<sub>S</sub> é proporcional à <strong>área</strong> da junção</td><td>Dobrar a área dobra I<sub>S</sub> e dobra a corrente à mesma tensão — ou seja, a mesma corrente é obtida com V<sub>D</sub> 18 mV menor. Um diodo de potência tem I<sub>S</sub> milhares de vezes maior que um de sinal</td></tr>
+            <tr><td class="sym">n<sub>i</sub><sup>2</sup></td><td>o único termo fortemente dependente de <strong>T</strong></td><td>É daqui que vem o «I<sub>S</sub> dobra a cada ≈ 5 °C» e a queda de 2 mV/°C do diodo a corrente fixa. O n<sub>i</sub>² é literalmente o do <a href="#m9-intro">Módulo 09</a> — e note que quem aparece é n<sub>i</sub><sup>2</sup>, o que casa com a forma T³e<sup>−E<sub>G</sub>/kT</sup> escrita na lousa daquela aula</td></tr>
+            <tr><td class="sym">1/N<sub>D</sub> e 1/N<sub>A</sub></td><td>dopar <strong>mais</strong> dá I<sub>S</sub> <strong>menor</strong></td><td>Parece contraintuitivo: mais dopante, menos corrente. Mas é coerente — dopar mais afunda os minoritários, e são eles que carregam a corrente. A parcela dominante é sempre a do lado <em>menos</em> dopado</td></tr>
+            <tr><td class="sym">D/L</td><td>razão entre difusividade e comprimento de difusão</td><td>D/L = L/τ tem dimensão de velocidade — é a «velocidade efetiva» com que os minoritários escoam. Regiões com tempo de vida curto (muitos defeitos) têm L pequeno e portanto I<sub>S</sub> <em>maior</em></td></tr>
+          </table>
+
+          <div class="attn">
+            <span class="tag">o mesmo E<sub>G</sub> do módulo anterior, agora visível na folha de dados</span>
+            Como I<sub>S</sub> ∝ n<sub>i</sub>² ∝ e<sup>−E<sub>G</sub>/kT</sup>, um semicondutor de faixa proibida maior tem I<sub>S</sub> <strong>exponencialmente</strong> menor — e portanto precisa de mais tensão para a mesma corrente. Compare: germânio (E<sub>G</sub> = 0,66 eV) conduz com ≈ 0,3 V; silício (1,12 eV) com ≈ 0,7 V; um LED de arseneto de gálio (1,42 eV) com ≈ 1,5 V; um LED azul de nitreto de gálio (3,4 eV) com ≈ 3,0 V. <strong>A tensão direta de um LED é a sua faixa proibida em volts</strong> — e é também a cor da luz que ele emite, porque o fóton sai com energia E<sub>G</sub>. As duas coisas são o mesmo número, e a raiz está nesta equação.
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+            <div class="q">
+              <div class="q-head">conceitual <span class="tagq">múltipla escolha · dopagem</span></div>
+              <p class="q-stem">Você dopa dez vezes mais o lado n de um diodo (N<sub>D</sub> de 10¹⁶ para 10¹⁷), mantendo tudo o mais igual. O que acontece com a corrente a V<sub>D</sub> = 0,7 V?</p>
+              <div class="opts">
+                <button class="opt" data-ok="0"><span class="k">a)</span> Cresce dez vezes: mais dopante, mais portadores, mais corrente.</button>
+                <button class="opt" data-ok="1"><span class="k">b)</span> Cai cerca de dez vezes, porque I<sub>S</sub> ∝ 1/N<sub>D</sub> na parcela dominante.</button>
+                <button class="opt" data-ok="0"><span class="k">c)</span> Não muda, porque a exponencial domina tudo.</button>
+                <button class="opt" data-ok="0"><span class="k">d)</span> Cai cem vezes, porque N<sub>D</sub> aparece ao quadrado.</button>
+              </div>
+              <div class="q-fb" role="status"><b>b)</b> — A armadilha da (a) é confundir <em>majoritários</em> com <em>portadores de corrente</em>. Aumentar N<sub>D</sub> enche o lado n de elétrons, mas a corrente do diodo é feita das <strong>lacunas injetadas</strong> nesse lado, e elas ficam mais escassas: p<sub>n0</sub> = n<sub>i</sub>²/N<sub>D</sub> cai por dez. Rigorosamente a queda não é exatamente dez vezes, porque a parcela do lado p (que não mudou) passa a pesar mais: I<sub>S</sub> vai de 8,8 fA para cerca de 1,0 fA, um fator 8,6. Para ter a corrente de antes, seria preciso subir V<sub>D</sub> em 60 mV — a década de sempre.</div>
+            </div>
+
+            <div class="q">
+              <div class="q-head">numérico <span class="tagq">temperatura</span></div>
+              <p class="q-stem">Um diodo tem V<sub>D</sub> = 0,70 V a 1 mA e 25 °C. Estime V<sub>D</sub> na mesma corrente a 75 °C.</p>
+              <details class="reveal"><summary>ver a resposta</summary>
+                <div class="ans">
+                  <p>Com o coeficiente empírico de <strong>−2 mV/°C</strong>: ΔV = −2 mV × 50 = −100 mV, logo <strong>V<sub>D</sub> ≅ 0,60 V</strong>.</p>
+                  <p>O interessante é que os dois efeitos brigam. V<sub>T</sub> = kT/q <em>cresce</em> de 25,7 para 30,0 mV, o que por si só <em>aumentaria</em> a tensão necessária. Mas I<sub>S</sub> ∝ n<sub>i</sub>² cresce muitíssimo mais — cerca de <strong>três ordens de grandeza</strong> nesses 50 °C — e ganha com folga. Resultado: a queda diminui.</p>
+                  <p><strong>Por que isso importa em circuito.</strong> Este coeficiente é previsível e reprodutível, e por isso é usado de propósito: é o princípio dos sensores de temperatura de junção embutidos em quase todo microcontrolador e CPU. Do lado ruim, é ele que faz um espelho de corrente derivar com o aquecimento do chip, e é a razão de existirem as referências <i>bandgap</i>, que somam uma tensão de coeficiente positivo para cancelar exatamente estes −2 mV/°C.</p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             10.8 · FATOR DE IDEALIDADE
+             ============================================================ -->
+        <section class="content-section" id="m10-idealidade">
+          <div class="eyebrow">O DIODO REAL · I<sub>D</sub> = I<sub>S</sub> e<sup>V<sub>D</sub>/nV<sub>T</sub></sup></div>
+          <h2>A correção que a lousa escreve em amarelo, no canto</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>O diodo real tem uma inclinação um pouco menos íngreme que a teoria prevê, e isso é absorvido num único número entre 1 e 2 no denominador do expoente.</p>
+          </div>
+          <p class="lead">A dedução das seções anteriores contou apenas um mecanismo: difusão de minoritários injetados. Num diodo real existe outro, a <strong>recombinação dentro da própria região de depleção</strong>, que produz uma corrente com dependência e<sup>V/2V<sub>T</sub></sup> em vez de e<sup>V/V<sub>T</sub></sup>. Em vez de somar os dois termos, a prática é escrever um único com um expoente ajustável:</p>
+
+          <div class="eq" style="text-align:center;font-size:1.4rem">
+            <span class="hand-box"><span class="y">I<sub class="dim">D</sub> = I<sub class="dim">S</sub> · e<sup>V<sub class="dim">D</sub> / (n V<sub class="dim">T</sub>)</sup></span></span> &nbsp;&nbsp;<span class="dim">com 1 ≤ n ≤ 2</span>
+          </div>
+
+          <table class="spec">
+            <tr><th>n</th><th>mecanismo dominante</th><th>onde se observa</th></tr>
+            <tr><td class="sym">n ≅ 1</td><td>difusão de minoritários — a dedução deste módulo</td><td>Correntes moderadas em diodos de silício bem fabricados; é a região em que a teoria acima é exata</td></tr>
+            <tr><td class="sym">n ≅ 2</td><td>recombinação na região de depleção</td><td>Correntes muito baixas; diodos com muitos defeitos cristalinos; LEDs; células solares na região de baixa iluminação</td></tr>
+            <tr><td class="sym">n &gt; 2 aparente</td><td>não é mais idealidade: é resistência série</td><td>Correntes altas, onde a queda em r<sub>S</sub> «achata» a curva. Não se corrige com n, e sim somando r<sub>S</sub> ao modelo</td></tr>
+          </table>
+
+          <p>Duas observações sobre a forma escrita na lousa. A primeira: o <strong>«− 1» desapareceu</strong>. Isso não é descuido — é a hipótese explícita de polarização direta, onde e<sup>V/nV<sub>T</sub></sup> ≫ 1. Para V<sub>D</sub> = 0,4 V o termo exponencial já vale 4 × 10⁶, e subtrair 1 dele é ruído. A segunda: com n = 2, a inclinação passa de 60 para <strong>120 mV por década</strong>. Medir a inclinação de log(I) contra V num diodo é, portanto, uma forma direta de <em>medir n</em> — e é exatamente assim que se caracteriza a qualidade de uma célula solar ou de um LED na bancada.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 320" xmlns="http://www.w3.org/2000/svg">
+              <line x1="90" y1="270" x2="470" y2="270" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <line x1="90" y1="270" x2="90" y2="40" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <text x="462" y="294" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">V</text>
+              <text x="474" y="299" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">D</text>
+              <text x="96" y="32" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">log I</text>
+              <text x="130" y="37" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">D</text>
+              <g stroke="var(--chalk-faint)" stroke-width="1.1" stroke-dasharray="3,5">
+                <line x1="90" y1="224" x2="470" y2="224"/><line x1="90" y1="178" x2="470" y2="178"/>
+                <line x1="90" y1="132" x2="470" y2="132"/><line x1="90" y1="86" x2="470" y2="86"/>
+              </g>
+              <g font-family="Kalam" font-size="12" fill="var(--chalk-faint)" text-anchor="end">
+                <text x="84" y="274">1 nA</text><text x="84" y="228">1 μA</text><text x="84" y="182">1 mA</text>
+                <text x="84" y="136">1 A</text>
+              </g>
+              <!-- n = 1 -->
+              <line x1="100" y1="266" x2="330" y2="56" stroke="var(--yellow)" stroke-width="3.2"/>
+              <text x="338" y="58" font-family="Kalam" font-size="16" fill="var(--yellow)">n = 1</text>
+              <text x="338" y="78" font-family="Kalam" font-size="13" fill="var(--yellow)">60 mV/década</text>
+              <!-- n = 2 -->
+              <line x1="100" y1="266" x2="330" y2="160" stroke="var(--pink)" stroke-width="3.2" stroke-dasharray="9,6"/>
+              <text x="338" y="158" font-family="Kalam" font-size="16" fill="var(--pink)">n = 2</text>
+              <text x="338" y="178" font-family="Kalam" font-size="13" fill="var(--pink)">120 mV/década</text>
+              <!-- resistencia serie -->
+              <path d="M280,110 C300,92 330,86 380,86" fill="none" stroke="var(--orange)" stroke-width="3"/>
+              <text x="298" y="122" font-family="Kalam" font-size="13" fill="var(--orange)">r</text>
+              <text x="306" y="127" font-family="Kalam" font-size="10" fill="var(--orange)">S</text>
+              <text x="318" y="122" font-family="Kalam" font-size="13" fill="var(--orange)">achata aqui</text>
+
+              <!-- coluna direita -->
+              <line x1="510" y1="30" x2="510" y2="290" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <text x="540" y="70" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">medir a inclinação é</text>
+              <text x="540" y="92" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">medir n:</text>
+              <text x="540" y="132" font-family="Kalam" font-size="16" fill="var(--yellow)">n = ΔV / (2,3·V</text>
+              <text x="664" y="137" font-family="Kalam" font-size="12" fill="var(--yellow)">T</text>
+              <text x="672" y="132" font-family="Kalam" font-size="16" fill="var(--yellow)">)</text>
+              <text x="540" y="158" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">por década de corrente</text>
+              <text x="540" y="204" font-family="Kalam" font-size="14" fill="var(--pink)">n é um remendo honesto:</text>
+              <text x="540" y="226" font-family="Kalam" font-size="14" fill="var(--pink)">não explica nada, mas</text>
+              <text x="540" y="248" font-family="Kalam" font-size="14" fill="var(--pink)">ajusta a curva medida</text>
+            </svg>
+            <figcaption>Num gráfico semilogarítmico a equação do diodo é uma <strong>reta</strong>, e n é o inverso da inclinação. Nos extremos a reta se estraga por motivos opostos: em corrente muito baixa, a recombinação na depleção levanta a curva (n → 2); em corrente alta, a resistência série a achata. A faixa reta do meio — tipicamente quatro a seis décadas — é onde o modelo deduzido neste módulo vale.</figcaption>
+          </figure>
+        </section>
+
+        <!-- ============================================================
+             10.9 · CARGA ARMAZENADA E CAPACITÂNCIA DE DIFUSÃO
+             ============================================================ -->
+        <section class="content-section" id="m10-carga">
+          <div class="eyebrow">EFEITOS CAPACITIVOS · Q = τ·I E C<sub>d</sub></div>
+          <h2>Aquelas caudas exponenciais são carga guardada — e carga guardada é capacitância</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>Um diodo em condução tem minoritários em excesso estacionados dentro dele; para desligá-lo é preciso retirar essa carga, e é isso que o faz lento.</p>
+          </div>
+          <p class="lead">Volte às áreas sombreadas da figura da Seção 10.1. Elas são a <em class="term">carga armazenada</em> de minoritários em excesso. Integrar a exponencial dá um resultado notavelmente simples — é a área de um triângulo de base L<sub>p</sub>, e a lousa a escreve assim:</p>
+
+          <div class="eq" style="text-align:center;font-size:1.3rem">
+            Q<sub class="dim">p</sub> = <span class="y">(L<sub class="dim">p</sub><sup>2</sup> / D<sub class="dim">p</sub>)</span> · I<sub class="dim">p</sub> &nbsp;&nbsp;&nbsp;<span class="dim">e como L<sub>p</sub>² / D<sub>p</sub> = τ<sub>p</sub> :</span>&nbsp;&nbsp; <span class="hand-box">Q<sub class="dim">p</sub> = τ<sub class="dim">p</sub> · I<sub class="dim">p</sub></span>
+          </div>
+
+          <div class="intu">
+            <span class="lbl">a relação de controle de carga, em uma imagem</span>
+            <p>Q = τ·I é uma das equações mais reutilizáveis de toda a eletrônica de dispositivos, e ela é quase óbvia quando lida assim: <strong>se cada portador vive um tempo τ e a corrente reposta é I, a população estacionária é τ·I</strong>. É exatamente a lei de Little das filas — o número médio de pessoas numa fila é a taxa de chegada vezes o tempo médio de permanência.</p>
+            <p>Uma padaria que atende 2 pessoas por minuto, e em que cada pessoa fica 5 minutos, tem sempre umas 10 pessoas dentro. O diodo é a padaria; τ é quanto tempo a lacuna fica antes de recombinar; I é a taxa de chegada.</p>
+          </div>
+
+          <p>Agora o passo final. Capacitância, na sua definição mais crua, é C = Q/V; mas como a relação entre Q e V não é linear, o que interessa é a versão <strong>incremental</strong>. Derivando Q = τ<sub>T</sub>·I<sub>D</sub> com I<sub>D</sub> = I<sub>S</sub>e<sup>V/V<sub>T</sub></sup>, e lembrando que a derivada de uma exponencial é ela mesma dividida por V<sub>T</sub>:</p>
+
+          <div class="eq" style="text-align:center;font-size:1.35rem">
+            C<sub class="dim">d</sub> = dQ/dV = <span class="hand-box"><span class="y">(τ<sub class="dim">T</sub> / V<sub class="dim">T</sub>) · I<sub class="dim">D</sub></span></span>
+          </div>
+
+          <p>com τ<sub>T</sub> = f(τ<sub>p</sub>, τ<sub>n</sub>) — o <em class="term">tempo de trânsito médio</em>, uma combinação ponderada dos dois tempos de vida, na qual pesa mais o lado que injeta mais. A lousa deixa τ<sub>T</sub> como função dos dois justamente porque a ponderação depende das dopagens; num diodo de um lado só, τ<sub>T</sub> é simplesmente o τ desse lado.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 330" xmlns="http://www.w3.org/2000/svg">
+              <!-- grafico Cd vs ID -->
+              <line x1="90" y1="270" x2="420" y2="270" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <line x1="90" y1="270" x2="90" y2="40" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <text x="412" y="294" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">I</text>
+              <text x="420" y="299" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">D</text>
+              <text x="84" y="34" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">C</text>
+              <text x="88" y="39" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">d</text>
+              <!-- reta Cd proporcional a I -->
+              <line x1="90" y1="270" x2="400" y2="56" stroke="var(--yellow)" stroke-width="3.2"/>
+              <text x="252" y="128" font-family="Kalam" font-size="16" fill="var(--yellow)">C</text>
+              <text x="266" y="133" font-family="Kalam" font-size="12" fill="var(--yellow)">d</text>
+              <text x="276" y="128" font-family="Kalam" font-size="16" fill="var(--yellow)">∝ I</text>
+              <text x="300" y="133" font-family="Kalam" font-size="12" fill="var(--yellow)">D</text>
+              <text x="312" y="128" font-family="Kalam" font-size="14" fill="var(--yellow)">— reta!</text>
+              <!-- Cj constante para comparar -->
+              <line x1="90" y1="258" x2="420" y2="258" stroke="var(--pink)" stroke-width="2.6" stroke-dasharray="8,5"/>
+              <text x="100" y="250" font-family="Kalam" font-size="14" fill="var(--pink)">C</text>
+              <text x="112" y="255" font-family="Kalam" font-size="10" fill="var(--pink)">j</text>
+              <text x="124" y="250" font-family="Kalam" font-size="13" fill="var(--pink)">(de depleção, ≈ pF)</text>
+              <!-- marcador 1 mA -->
+              <line x1="230" y1="270" x2="230" y2="173" stroke="var(--chalk-faint)" stroke-width="1.3" stroke-dasharray="4,4"/>
+              <circle cx="230" cy="173" r="5" fill="var(--yellow)"/>
+              <text x="230" y="290" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">1 mA</text>
+
+              <!-- coluna direita: numeros -->
+              <line x1="470" y1="30" x2="470" y2="300" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <text x="500" y="62" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">com τ</text>
+              <text x="546" y="67" font-family="Kalam" font-size="11" fill="var(--chalk-dim)">T</text>
+              <text x="556" y="62" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">= 20 ns, a 1 mA:</text>
+              <text x="500" y="104" font-family="Kalam" font-size="19" fill="var(--yellow)">C</text>
+              <text x="514" y="110" font-family="Kalam" font-size="13" fill="var(--yellow)">d</text>
+              <text x="526" y="104" font-family="Kalam" font-size="19" fill="var(--yellow)">≅ 770 pF</text>
+              <text x="500" y="132" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">(centenas de vezes maior</text>
+              <text x="500" y="152" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">que a C</text>
+              <text x="546" y="157" font-family="Kalam" font-size="10" fill="var(--chalk-faint)">j</text>
+              <text x="552" y="152" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">de depleção!)</text>
+              <line x1="500" y1="174" x2="700" y2="174" stroke="var(--line-strong)" stroke-width="1.4" stroke-dasharray="5,5"/>
+              <text x="500" y="204" font-family="Kalam" font-size="15" fill="var(--chalk)">Q = τ</text>
+              <text x="544" y="209" font-family="Kalam" font-size="11" fill="var(--chalk)">T</text>
+              <text x="554" y="204" font-family="Kalam" font-size="15" fill="var(--chalk)">·I = 20 pC</text>
+              <text x="500" y="232" font-family="Kalam" font-size="15" fill="var(--chalk)">r</text>
+              <text x="508" y="237" font-family="Kalam" font-size="11" fill="var(--chalk)">d</text>
+              <text x="518" y="232" font-family="Kalam" font-size="15" fill="var(--chalk)">= V</text>
+              <text x="546" y="237" font-family="Kalam" font-size="11" fill="var(--chalk)">T</text>
+              <text x="556" y="232" font-family="Kalam" font-size="15" fill="var(--chalk)">/I = 25,9 Ω</text>
+              <g transform="translate(500,250)">
+                <rect x="0" y="0" width="212" height="50" rx="8" fill="rgba(227,169,188,.10)" stroke="var(--pink)" stroke-width="2"/>
+                <text x="18" y="24" font-family="Kalam" font-size="15" fill="var(--pink)">r</text>
+                <text x="26" y="29" font-family="Kalam" font-size="11" fill="var(--pink)">d</text>
+                <text x="36" y="24" font-family="Kalam" font-size="15" fill="var(--pink)">· C</text>
+                <text x="60" y="29" font-family="Kalam" font-size="11" fill="var(--pink)">d</text>
+                <text x="70" y="24" font-family="Kalam" font-size="15" fill="var(--pink)">= τ</text>
+                <text x="94" y="29" font-family="Kalam" font-size="11" fill="var(--pink)">T</text>
+                <text x="104" y="24" font-family="Kalam" font-size="15" fill="var(--pink)">= 20 ns</text>
+                <text x="18" y="43" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">— a qualquer corrente</text>
+              </g>
+            </svg>
+            <figcaption>A capacitância de difusão é <strong>proporcional à corrente</strong> — dobrar a corrente dobra C<sub>d</sub>. Compare com a capacitância de depleção C<sub>j</sub> do <a href="#m9-reversa">Módulo 09</a>, que é da ordem de picofarads e <em>cai</em> com a tensão inversa: são dois mecanismos distintos, cada um dominando num regime. E repare no produto r<sub>d</sub>·C<sub>d</sub>: como r<sub>d</sub> = V<sub>T</sub>/I<sub>D</sub> e C<sub>d</sub> = τ<sub>T</sub>I<sub>D</sub>/V<sub>T</sub>, a corrente cancela e sobra <strong>exatamente τ<sub>T</sub></strong>. O diodo tem uma constante de tempo intrínseca que nenhuma polarização consegue melhorar.</figcaption>
+          </figure>
+
+          <div class="attn">
+            <span class="tag">é por isto que existe o diodo Schottky</span>
+            Aquela carga de 20 pC tem de ser <strong>retirada</strong> antes que o diodo bloqueie. Enquanto ela está lá, o diodo continua conduzindo mesmo já com tensão inversa aplicada — é o <em>tempo de recuperação reversa</em> (t<sub>rr</sub>), da ordem de dezenas a centenas de nanossegundos num diodo comum. Numa fonte comutada a 100 kHz isso já custa eficiência; a 1 MHz, é inviável.
+            <br><br>
+            A solução não é fabricar melhor: é <strong>trocar de mecanismo</strong>. O diodo <em>Schottky</em> é uma junção metal-semicondutor cuja corrente é de majoritários — não há minoritários injetados, não há cauda exponencial, <strong>não há carga armazenada</strong>. Ele comuta essencialmente sem t<sub>rr</sub>, e é por isso que está em toda fonte comutada. O preço: queda direta menor (0,3 V, ótimo) mas corrente reversa muito maior (ruim). Toda a discussão desta seção é o que explica por que essa troca existe.
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+            <div class="q">
+              <div class="q-head">conceitual <span class="tagq">múltipla escolha · qual capacitância</span></div>
+              <p class="q-stem">Num diodo usado como varactor (Módulo 09) e num diodo retificador comutando a 500 kHz, qual capacitância domina em cada caso?</p>
+              <div class="opts">
+                <button class="opt" data-ok="0"><span class="k">a)</span> C<sub>j</sub> nos dois, porque é a única capacitância física real.</button>
+                <button class="opt" data-ok="1"><span class="k">b)</span> C<sub>j</sub> no varactor (que vive em inversa) e C<sub>d</sub> no retificador durante o semiciclo de condução.</button>
+                <button class="opt" data-ok="0"><span class="k">c)</span> C<sub>d</sub> nos dois, porque é centenas de vezes maior.</button>
+                <button class="opt" data-ok="0"><span class="k">d)</span> Depende só da frequência, não da polarização.</button>
+              </div>
+              <div class="q-fb" role="status"><b>b)</b> — A regra é o <strong>regime de polarização</strong>, não a frequência. Em inversa não há minoritários injetados, logo C<sub>d</sub> ≈ 0 e sobra só C<sub>j</sub> — é o mundo do varactor. Em direta há carga armazenada e C<sub>d</sub> ≫ C<sub>j</sub>, tornando C<sub>j</sub> irrelevante. O retificador vive alternando entre os dois mundos a cada semiciclo, e é justamente a transição de um para o outro — esvaziar a carga de C<sub>d</sub> — que produz o pico de corrente reversa na comutação.</div>
+            </div>
+
+            <div class="q">
+              <div class="q-head">numérico <span class="tagq">C<sub>d</sub> e velocidade</span></div>
+              <p class="q-stem">Um diodo com τ<sub>T</sub> = 50 ns conduz 20 mA. Calcule Q armazenada e C<sub>d</sub>, e estime a corrente reversa de pico se o circuito tentar desligá-lo em 5 ns.</p>
+              <details class="reveal"><summary>ver a resposta</summary>
+                <div class="ans">
+                  <p><strong>Carga:</strong> Q = τ<sub>T</sub>·I = 50 ns × 20 mA = <strong>1,0 nC</strong>.</p>
+                  <p><strong>C<sub>d</sub>:</strong> (50 × 10⁻⁹/0,0259) × 0,020 = 1,93 × 10⁻⁶ × 0,020 = <strong>38,6 nF</strong>. Um diodo de sinal se comportando, em direta, como um capacitor de dezenas de nanofarads.</p>
+                  <p><strong>Pico reverso:</strong> retirar 1,0 nC em 5 ns exige I = Q/t = 1,0 × 10⁻⁹/5 × 10⁻⁹ = <strong>0,2 A</strong> — dez vezes a corrente direta, e é isso que o resto do circuito tem de fornecer.</p>
+                  <p>Esse pico é real e mensurável, e é a origem de metade dos problemas de interferência eletromagnética em fontes comutadas: 200 mA aparecendo e desaparecendo em nanossegundos, num laço com alguma indutância, é uma antena. As duas saídas são reduzir τ<sub>T</sub> (diodos <i>fast recovery</i>) ou eliminá-lo (Schottky).</p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             10.10 · RESUMO
+             ============================================================ -->
+        <section class="content-section" id="m10-resumo">
+          <div class="eyebrow">§ · RESUMO E ARMADILHAS</div>
+          <h2>A dedução em uma página</h2>
+
+          <div class="passo">
+            <div class="cab">a cadeia completa, do início ao fim</div>
+            <div class="lin"><div class="pq"><b>1 ·</b> Minoritários em equilíbrio, dos dois lados</div><div class="ct">p<sub>n0</sub> = n<sub>i</sub>²/N<sub>D</sub> &nbsp;·&nbsp; n<sub>p0</sub> = n<sub>i</sub>²/N<sub>A</sub></div></div>
+            <div class="lin"><div class="pq"><b>2 ·</b> A lei da junção — <span class="y">a única exponencial</span></div><div class="ct">p<sub>n</sub>(x<sub>n</sub>) = p<sub>n0</sub>·e<sup>V/V<sub>T</sub></sup></div></div>
+            <div class="lin"><div class="pq"><b>3 ·</b> O perfil: equilíbrio + excesso × decaimento</div><div class="ct">p<sub>n</sub>(x) = p<sub>n0</sub> + [p<sub>n</sub>(x<sub>n</sub>) − p<sub>n0</sub>]e<sup>−(x−x<sub>n</sub>)/L<sub>p</sub></sup></div></div>
+            <div class="lin"><div class="pq"><b>4 ·</b> O alcance do excesso</div><div class="ct">L<sub>p</sub> = √(D<sub>p</sub>·τ<sub>p</sub>) &nbsp;·&nbsp; τ<sub>p</sub> = L<sub>p</sub>²/D<sub>p</sub></div></div>
+            <div class="lin"><div class="pq"><b>5 ·</b> Difusão: deriva o perfil e avalia na borda</div><div class="ct">J<sub>p</sub>(x<sub>n</sub>) = qD<sub>p</sub>n<sub>i</sub>²/(N<sub>D</sub>L<sub>p</sub>)·(e<sup>V/V<sub>T</sub></sup>−1)</div></div>
+            <div class="lin"><div class="pq"><b>6 ·</b> O lado espelhado</div><div class="ct">J<sub>n</sub>(x<sub>p</sub>) = qD<sub>n</sub>n<sub>i</sub>²/(N<sub>A</sub>L<sub>n</sub>)·(e<sup>V/V<sub>T</sub></sup>−1)</div></div>
+            <div class="lin"><div class="pq"><b>7 ·</b> Soma, área, evidência</div><div class="ct">I<sub>S</sub> = Aqn<sub>i</sub>²[D<sub>p</sub>/(N<sub>D</sub>L<sub>p</sub>) + D<sub>n</sub>/(N<sub>A</sub>L<sub>n</sub>)]</div></div>
+            <div class="lin"><div class="pq"><b>8 ·</b> A equação</div><div class="ct"><span class="y">I<sub>D</sub> = I<sub>S</sub>(e<sup>V<sub>D</sub>/V<sub>T</sub></sup> − 1)</span> &nbsp;·&nbsp; real: e<sup>V<sub>D</sub>/nV<sub>T</sub></sup></div></div>
+            <div class="lin"><div class="pq"><b>9 ·</b> A carga que sobra guardada</div><div class="ct">Q = τ<sub>T</sub>·I<sub>D</sub> &nbsp;·&nbsp; <span class="y">C<sub>d</sub> = (τ<sub>T</sub>/V<sub>T</sub>)·I<sub>D</sub></span> &nbsp;·&nbsp; r<sub>d</sub>C<sub>d</sub> = τ<sub>T</sub></div></div>
+          </div>
+
+          <div class="erro">
+            <span class="lbl">as armadilhas, em ordem de frequência em prova</span>
+            <p><strong>Perder o «− 1».</strong> Ele vem de subtrair a concentração de equilíbrio, e é o que dá a saturação reversa. Em direta pode ser desprezado; em inversa <em>ele é a resposta inteira</em>.</p>
+            <p><strong>Errar o sinal da derivada.</strong> A exponencial do perfil é <span class="certo">e<sup>−(x−x<sub>n</sub>)/L<sub>p</sub></sup></span>. Derivando, aparece −1/L<sub>p</sub>, que cancela o «−» da fórmula da difusão de lacunas. Dois negativos, resultado positivo.</p>
+            <p><strong>Achar que I<sub>S</sub> é constante do material.</strong> I<sub>S</sub> ∝ A·n<sub>i</sub>²·(...): depende de <em>geometria</em>, <em>dopagem</em> e <em>temperatura</em>. Dois diodos do mesmo lote podem ter I<sub>S</sub> diferindo por um fator 2 — e é por isso que espelhos de corrente exigem transistores casados no mesmo chip.</p>
+            <p><strong>Trocar N<sub>A</sub> por N<sub>D</sub> nas parcelas.</strong> A parcela das <em>lacunas</em> (que vão para o lado n) leva <span class="certo">N<sub>D</sub></span> e L<sub>p</sub>; a dos <em>elétrons</em> (que vão para o lado p) leva <span class="certo">N<sub>A</sub></span> e L<sub>n</sub>. A regra mnemônica: cada parcela carrega a dopagem da região de <strong>destino</strong>, porque é lá que o portador é minoritário.</p>
+            <p><strong>Usar n·p = n<sub>i</sub>² dentro do diodo polarizado.</strong> Só vale em <em>equilíbrio térmico</em>. Com tensão aplicada, n·p &gt; n<sub>i</sub>² na região de injeção. A relação serve para fixar p<sub>n0</sub> e n<sub>p0</sub>, nada mais.</p>
+            <p><strong>Somar C<sub>d</sub> e C<sub>j</sub> sempre.</strong> Elas coexistem no modelo, mas cada uma domina num regime: <span class="certo">C<sub>j</sub> em inversa, C<sub>d</sub> em direta</span>. Somar as duas não é erro grave, mas achar que C<sub>j</sub> importa num diodo conduzindo 10 mA é perder o ponto por um fator de mil.</p>
+          </div>
+
+          <div class="attn">
+            <span class="tag">o que esta aula fechou</span>
+            Você começou o <a href="#mod3">Módulo 03</a> aceitando i<sub>D</sub> = I<sub>S</sub>(e<sup>v/V<sub>T</sub></sup> − 1) como dado. Agora ela está deduzida, e três coisas que pareciam arbitrárias ganharam explicação: <strong>por que exponencial</strong> (Boltzmann, na lei da junção), <strong>por que V<sub>T</sub> = kT/q no expoente</strong> (mesma origem), e <strong>por que I<sub>S</sub> dobra a cada poucos graus</strong> (porque contém n<sub>i</sub>²). O modelo de pequenos sinais r<sub>d</sub> = V<sub>T</sub>/I<sub>D</sub> que você usou lá é a derivada desta equação; a capacitância de difusão desta última seção é o que falta nele para funcionar em alta frequência. E a próxima peça — o que acontece quando se põe <em>duas</em> junções em série, com a região do meio mais fina que um comprimento de difusão — é o transistor bipolar.
           </div>
         </section>
 
@@ -13645,7 +14867,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
 
     <footer class="page-footer">
       <span>guias · poli usp</span>
-      <span>módulo 01 · amplificadores &nbsp;·&nbsp; módulo 02 · amp ops &nbsp;·&nbsp; módulo 03 · diodos e zener &nbsp;·&nbsp; módulo 04 · retificadores e fontes &nbsp;·&nbsp; módulo 05 · teste 4 &nbsp;·&nbsp; módulo 06 · exercícios de revisão &nbsp;·&nbsp; módulo 07 · reconhecer circuitos &nbsp;·&nbsp; módulo 08 · p1 2024 &nbsp;·&nbsp; módulo 09 · semicondutores</span>
+      <span>módulo 01 · amplificadores &nbsp;·&nbsp; módulo 02 · amp ops &nbsp;·&nbsp; módulo 03 · diodos e zener &nbsp;·&nbsp; módulo 04 · retificadores e fontes &nbsp;·&nbsp; módulo 05 · teste 4 &nbsp;·&nbsp; módulo 06 · exercícios de revisão &nbsp;·&nbsp; módulo 07 · reconhecer circuitos &nbsp;·&nbsp; módulo 08 · p1 2024 &nbsp;·&nbsp; módulo 09 · semicondutores &nbsp;·&nbsp; módulo 10 · equação do diodo</span>
     </footer>
 
   </div>
