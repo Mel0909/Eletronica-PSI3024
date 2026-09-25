@@ -640,6 +640,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <li><a href="#m10-is"><span class="n">§</span>O que existe dentro de I<sub>S</sub></a></li>
         <li><a href="#m10-idealidade"><span class="n">§</span>Fator de idealidade</a></li>
         <li><a href="#m10-carga"><span class="n">3.6</span>Carga armazenada e C<sub>d</sub></a></li>
+        <li><a href="#teste7-2025"><span class="n">T7</span>Teste 7 · 2025 — base curta</a></li>
         <li><a href="#m10-resumo"><span class="n">§</span>Resumo e armadilhas</a></li>
       </ul>
     </nav>
@@ -13895,7 +13896,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <div class="hero-eyebrow">MÓDULO 10 · SEDRA &amp; SMITH, SEÇÕES 3.5 E 3.6 · AULA NA LOUSA</div>
         <h1><span class="w1">Você usou i = I<sub>S</sub>(e<sup>v/V<sub>T</sub></sup> − 1) durante um capítulo inteiro.</span> <span class="w2">Esta aula deduz essa equação do zero — e mostra que a exponencial não vem do diodo, vem de uma condição de contorno.</span></h1>
         <p class="dek">A lei do diodo não é um ajuste empírico de curva: sai de quatro ingredientes que você já tem. As concentrações de minoritários em equilíbrio, a <em>lei da junção</em> (que é a única exponencial da história), um perfil de concentração que decai com distância característica L, e a corrente de difusão. Derive o perfil, avalie na borda, some as duas contribuições, multiplique pela área — e a equação aparece, com I<sub>S</sub> deixando de ser uma letra e passando a ser uma expressão que você pode calcular. No fim, a carga armazenada nessas caudas exponenciais dá origem à capacitância de difusão, que é a razão pela qual um diodo comum não desliga instantaneamente.</p>
-        <div class="meta-row"><b>Curso</b> PSI3024 — Eletrônica &nbsp;&nbsp;&nbsp; <b>Referência</b> Sedra &amp; Smith, <i>Microeletrônica</i>, Seções 3.5 e 3.6 &nbsp;&nbsp;&nbsp; <b>Pré-requisito</b> <a href="#mod9" style="color:var(--yellow)">Módulo 09</a> &nbsp;&nbsp;&nbsp; <b>Fonte</b> notas de lousa</div>
+        <div class="meta-row"><b>Curso</b> PSI3024 — Eletrônica &nbsp;&nbsp;&nbsp; <b>Referência</b> Sedra &amp; Smith, <i>Microeletrônica</i>, Seções 3.5 e 3.6 &nbsp;&nbsp;&nbsp; <b>Pré-requisito</b> <a href="#mod9" style="color:var(--yellow)">Módulo 09</a> &nbsp;&nbsp;&nbsp; <b>Prova</b> <a href="#teste7-2025" style="color:var(--yellow)">Teste 7 · 2025</a> resolvido</div>
 
         <svg class="hero-deco" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <!-- eixos do perfil -->
@@ -13944,6 +13945,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <a href="#m10-is">O que existe dentro de I<sub>S</sub></a>
         <a href="#m10-idealidade">Fator de idealidade</a>
         <a href="#m10-carga">Carga armazenada e C<sub>d</sub></a>
+        <a href="#teste7-2025">Teste 7 · 2025</a>
         <a href="#m10-resumo">Resumo e armadilhas</a>
       </nav>
     </div>
@@ -14404,7 +14406,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
                 <button class="opt" data-ok="0"><span class="k">c)</span> Porque a lei da junção só vale exatamente em x<sub>n</sub> e não tem sentido fora dali.</button>
                 <button class="opt" data-ok="0"><span class="k">d)</span> Porque a concentração de elétrons cai, e n·p tem de continuar igual a n<sub>i</sub>².</button>
               </div>
-              <div class="q-fb" role="status"><b>b)</b> — Recombinação é a chave, e é ela que introduz τ e portanto L. Fora da depleção a região é <strong>neutra e sem campo apreciável</strong>, o que elimina (a) e é justamente o que permite usar difusão pura na próxima seção. Sobre (d): dentro do diodo polarizado não há equilíbrio térmico, então n·p &gt; n<sub>i</sub>² ali — a relação não pode ser usada para amarrar os perfis. E um caso-limite que vale conhecer: se a região n fosse <em>mais curta</em> que L<sub>p</sub> e terminasse num contato metálico (o chamado <em>diodo de base curta</em>), quase nenhuma lacuna recombinaria e o perfil seria praticamente uma <strong>reta</strong> — com L<sub>p</sub> substituído pela largura física da região. É exatamente essa a situação na base de um transistor bipolar.</div>
+              <div class="q-fb" role="status"><b>b)</b> — Recombinação é a chave, e é ela que introduz τ e portanto L. Fora da depleção a região é <strong>neutra e sem campo apreciável</strong>, o que elimina (a) e é justamente o que permite usar difusão pura na próxima seção. Sobre (d): dentro do diodo polarizado não há equilíbrio térmico, então n·p &gt; n<sub>i</sub>² ali — a relação não pode ser usada para amarrar os perfis. E um caso-limite que vale conhecer: se a região n fosse <em>mais curta</em> que L<sub>p</sub> e terminasse num contato metálico (o chamado <em>diodo de base curta</em>), quase nenhuma lacuna recombinaria e o perfil seria praticamente uma <strong>reta</strong> — com L<sub>p</sub> substituído pela largura física da região. É exatamente essa a situação na base de um transistor bipolar — e é o caso do <a href="#teste7-2025">Teste 7 · 2025</a>, resolvido no fim deste módulo.</div>
             </div>
           </div>
         </section>
@@ -14809,6 +14811,260 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
                   <p>Esse pico é real e mensurável, e é a origem de metade dos problemas de interferência eletromagnética em fontes comutadas: 200 mA aparecendo e desaparecendo em nanossegundos, num laço com alguma indutância, é uma antena. As duas saídas são reduzir τ<sub>T</sub> (diodos <i>fast recovery</i>) ou eliminá-lo (Schottky).</p>
                 </div>
               </details>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ============================================================
+             TESTE 7 · 2025 — DIODO DE BASE CURTA
+             ============================================================ -->
+        <section class="content-section" id="teste7-2025">
+          <div class="eyebrow">TESTE 7 · 2° SEMESTRE DE 2025 · RESOLVIDO</div>
+          <h2>O teste em que o perfil é uma reta — e por isso a corrente sai com uma régua</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>Quando a região neutra é muito mais curta que o comprimento de difusão, o perfil de minoritários deixa de ser exponencial e vira uma <em>reta</em> — e aí o gradiente é só «altura dividida por base».</p>
+          </div>
+          <p class="lead">Este é o teste que fecha o módulo, porque ele usa a mesma física da <a href="#m10-densidade">Seção 10.5</a> na sua versão mais limpa. O enunciado dá o perfil <strong>já desenhado</strong>, e desenhado como duas retas: é um <em class="term">diodo de base curta</em>, o caso-limite que apareceu no exercício da <a href="#m10-perfil">Seção 10.4</a>. Nada de L<sub>p</sub>, nada de exponencial — só dois triângulos e três contas.</p>
+
+          <div class="enunciado">
+            <div class="en-head">Enunciado</div>
+            <p>A figura mostra um diodo em <strong>polarização direta</strong> com as concentrações de minoritários em cada região quase neutra. Os contatos metálicos forçam a concentração de minoritários a <strong>zero</strong>; na borda da depleção, ela vale <strong>10¹⁵ cm⁻³</strong> dos dois lados. As regiões quase neutras têm <strong>1 μm</strong> cada, e a região de depleção <strong>0,25 + 0,25 μm</strong>.</p>
+            <div class="dados">
+              <b>Circuito 1</b> &nbsp; q·D<sub>n</sub> = 5 × 10⁻²⁰ A·cm² &nbsp;·&nbsp; q·D<sub>p</sub> = 2,5 × 10⁻²⁰ A·cm² &nbsp;<span class="dim">(Versão A)</span><br>
+              <b>Versão B</b> &nbsp; q·D<sub>n</sub> = 10 × 10⁻²⁰ A·cm² &nbsp;·&nbsp; q·D<sub>p</sub> = 5 × 10⁻²⁰ A·cm²<br>
+              A (área da junção) = 2 × 10⁻⁵ cm² &nbsp;·&nbsp; N<sub>A</sub> (lado P) = 1 × 10¹⁵ cm⁻³ &nbsp;·&nbsp; x<sub>n</sub> = x<sub>p</sub>
+            </div>
+            <p><b>Pede-se:</b> a corrente de difusão de lacunas I<sub>p</sub>, a de elétrons I<sub>n</sub>, a corrente total I<sub>T</sub>, a dopagem N<sub>D</sub> do lado N, e o número total de portadores armazenados na região quase neutra do lado N (a partir da área A<sub>n</sub> sob o perfil).</p>
+            <p class="fonte">PSI3024 — Eletrônica · Teste 7 · 2º semestre de 2025 · gabarito de divulgação, versões A e B.</p>
+          </div>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 440" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="t7hatch" width="8" height="8" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+                  <line x1="0" y1="0" x2="0" y2="8" stroke="var(--chalk-faint)" stroke-width="1.4"/>
+                </pattern>
+              </defs>
+
+              <!-- cotas superiores -->
+              <g stroke="var(--chalk-faint)" stroke-width="1.4">
+                <line x1="86" y1="40" x2="286" y2="40"/>
+                <line x1="286" y1="40" x2="336" y2="40"/>
+                <line x1="336" y1="40" x2="386" y2="40"/>
+                <line x1="386" y1="40" x2="586" y2="40"/>
+                <line x1="86" y1="32" x2="86" y2="48"/><line x1="286" y1="32" x2="286" y2="48"/>
+                <line x1="336" y1="32" x2="336" y2="48"/><line x1="386" y1="32" x2="386" y2="48"/>
+                <line x1="586" y1="32" x2="586" y2="48"/>
+              </g>
+              <text x="186" y="26" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">1 μm</text>
+              <text x="306" y="26" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--chalk-dim)">0,25</text>
+              <text x="366" y="26" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--chalk-dim)">0,25</text>
+              <text x="486" y="26" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">1 μm</text>
+
+              <!-- contatos -->
+              <rect x="70" y="58" width="16" height="242" fill="rgba(237,237,225,.55)" stroke="var(--chalk)" stroke-width="1.6"/>
+              <rect x="586" y="58" width="16" height="242" fill="rgba(237,237,225,.55)" stroke="var(--chalk)" stroke-width="1.6"/>
+              <text x="66" y="52" text-anchor="end" font-family="Kalam" font-size="13" fill="var(--chalk-dim)">contato</text>
+              <text x="606" y="52" font-family="Kalam" font-size="13" fill="var(--chalk-dim)">contato</text>
+
+              <!-- corpo -->
+              <rect x="86" y="58" width="200" height="242" fill="rgba(227,169,188,.07)" stroke="var(--chalk-faint)" stroke-width="1.4"/>
+              <rect x="286" y="58" width="100" height="242" fill="rgba(229,212,128,.08)" stroke="var(--yellow)" stroke-width="1.4"/>
+              <rect x="386" y="58" width="200" height="242" fill="rgba(160,210,230,.07)" stroke="var(--chalk-faint)" stroke-width="1.4"/>
+              <line x1="336" y1="58" x2="336" y2="132" stroke="var(--yellow)" stroke-width="1.2" stroke-dasharray="4,4"/>
+              <line x1="336" y1="178" x2="336" y2="300" stroke="var(--yellow)" stroke-width="1.2" stroke-dasharray="4,4"/>
+              <text x="110" y="86" font-family="Kalam" font-size="24" fill="var(--pink)">P</text>
+              <text x="556" y="86" font-family="Kalam" font-size="24" fill="var(--chalk-dim)">N</text>
+
+              <!-- eixo x -->
+              <line x1="70" y1="300" x2="700" y2="300" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <polygon points="700,294 714,300 700,306" fill="var(--chalk-faint)"/>
+              <text x="706" y="322" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">x</text>
+
+              <!-- perfil no lado P: n_p(x) sobe de 0 no contato até 1e15 na borda -->
+              <path d="M86,300 L286,100 L286,300 Z" fill="rgba(227,169,188,.12)" stroke="none"/>
+              <line x1="86" y1="300" x2="286" y2="100" stroke="var(--pink)" stroke-width="3.2"/>
+              <text x="130" y="168" font-family="Kalam" font-size="16" fill="var(--pink)">n</text>
+              <text x="141" y="173" font-family="Kalam" font-size="11" fill="var(--pink)">p</text>
+              <text x="148" y="168" font-family="Kalam" font-size="16" fill="var(--pink)">(x)</text>
+              <line x1="136" y1="184" x2="176" y2="222" stroke="var(--pink)" stroke-width="1.2"/>
+
+              <!-- perfil no lado N: p_n(x) cai de 1e15 na borda até 0 no contato -->
+              <path d="M386,100 L586,300 L386,300 Z" fill="url(#t7hatch)" stroke="none" opacity=".55"/>
+              <line x1="386" y1="100" x2="586" y2="300" stroke="var(--chalk)" stroke-width="3.2"/>
+              <text x="462" y="150" font-family="Kalam" font-size="16" fill="var(--chalk)">p</text>
+              <text x="472" y="155" font-family="Kalam" font-size="11" fill="var(--chalk)">n</text>
+              <text x="479" y="150" font-family="Kalam" font-size="16" fill="var(--chalk)">(x)</text>
+              <line x1="460" y1="162" x2="436" y2="188" stroke="var(--chalk)" stroke-width="1.2"/>
+              <text x="438" y="268" font-family="Kalam" font-size="22" fill="var(--yellow)">A</text>
+              <text x="455" y="275" font-family="Kalam" font-size="15" fill="var(--yellow)">n</text>
+
+              <!-- cotas verticais de 1e15 -->
+              <line x1="300" y1="100" x2="300" y2="300" stroke="var(--yellow)" stroke-width="1.8"/>
+              <polygon points="294,108 306,108 300,94" fill="var(--yellow)"/>
+              <polygon points="294,292 306,292 300,306" fill="var(--yellow)"/>
+              <line x1="372" y1="100" x2="372" y2="300" stroke="var(--yellow)" stroke-width="1.8"/>
+              <polygon points="366,108 378,108 372,94" fill="var(--yellow)"/>
+              <polygon points="366,292 378,292 372,306" fill="var(--yellow)"/>
+              <text x="336" y="148" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--yellow)">10¹⁵</text>
+              <text x="336" y="166" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--yellow)">cm⁻³</text>
+              <text x="336" y="332" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--yellow)">depleção</text>
+
+              <!-- correntes -->
+              <line x1="196" y1="120" x2="246" y2="120" stroke="var(--pink)" stroke-width="2.4"/>
+              <polygon points="246,114 260,120 246,126" fill="var(--pink)"/>
+              <text x="176" y="125" font-family="Kalam" font-size="18" fill="var(--pink)">I</text>
+              <text x="185" y="130" font-family="Kalam" font-size="12" fill="var(--pink)">n</text>
+              <line x1="512" y1="112" x2="558" y2="112" stroke="var(--chalk)" stroke-width="2.4"/>
+              <polygon points="558,106 572,112 558,118" fill="var(--chalk)"/>
+              <text x="492" y="117" font-family="Kalam" font-size="18" fill="var(--chalk)">I</text>
+              <text x="501" y="122" font-family="Kalam" font-size="12" fill="var(--chalk)">p</text>
+
+              <!-- terminais -->
+              <line x1="70" y1="180" x2="30" y2="180" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="26" cy="180" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="24" y="166" text-anchor="middle" font-family="Kalam" font-size="16" fill="var(--yellow)">V</text>
+              <text x="34" y="171" font-family="Kalam" font-size="11" fill="var(--yellow)">D</text>
+              <line x1="602" y1="180" x2="646" y2="180" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="646" y1="180" x2="646" y2="206" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="632" y1="206" x2="660" y2="206" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="637" y1="213" x2="655" y2="213" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="642" y1="220" x2="650" y2="220" stroke="var(--chalk)" stroke-width="2"/>
+
+              <!-- notas de leitura do gradiente -->
+              <line x1="86" y1="360" x2="286" y2="360" stroke="var(--pink)" stroke-width="1.6"/>
+              <line x1="86" y1="354" x2="86" y2="366" stroke="var(--pink)" stroke-width="1.6"/>
+              <line x1="286" y1="354" x2="286" y2="366" stroke="var(--pink)" stroke-width="1.6"/>
+              <text x="186" y="382" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--pink)">Δx = 10⁻⁴ cm</text>
+              <line x1="386" y1="360" x2="586" y2="360" stroke="var(--chalk)" stroke-width="1.6"/>
+              <line x1="386" y1="354" x2="386" y2="366" stroke="var(--chalk)" stroke-width="1.6"/>
+              <line x1="586" y1="354" x2="586" y2="366" stroke="var(--chalk)" stroke-width="1.6"/>
+              <text x="486" y="382" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk)">Δx = 10⁻⁴ cm</text>
+              <text x="370" y="416" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--yellow)">gradiente = 10¹⁵ ÷ 10⁻⁴ = 10¹⁹ cm⁻⁴ — igual dos dois lados</text>
+            </svg>
+            <figcaption>A figura do enunciado. Os dois perfis são <strong>retas</strong>, e não exponenciais, porque o contato metálico a 1 μm força os minoritários a zero antes que eles tenham tempo de recombinar — a região é curta demais para que a recombinação importe. Consequência prática: o gradiente é constante ao longo de toda a região, e vale simplesmente 10¹⁵ cm⁻³ ÷ 10⁻⁴ cm = 10¹⁹ cm⁻⁴, o mesmo nos dois lados. As duas setas de corrente apontam no mesmo sentido — é por isso que as parcelas <em>somam</em>.</figcaption>
+          </figure>
+
+          <div class="attn">
+            <span class="tag">o que muda em um diodo de base curta</span>
+            No diodo «longo» da <a href="#m10-perfil">Seção 10.4</a>, o perfil decai com e<sup>−x/L<sub>p</sub></sup> e o gradiente na borda é Δp/L<sub>p</sub>. Aqui, o comprimento que aparece no denominador <strong>não é L<sub>p</sub>: é a largura física W da região quase neutra</strong>, porque o contato impõe a condição de contorno antes de L<sub>p</sub>. Troque L por W e todas as fórmulas do módulo continuam valendo:
+            <br><br>
+            <b>gradiente</b> = Δp/W &nbsp;·&nbsp; <b>corrente</b> I = qD·A·Δp/W &nbsp;·&nbsp; <b>carga armazenada</b> = ½·Δp·W·A (área do triângulo) &nbsp;·&nbsp; <b>tempo de trânsito</b> τ = W²/2D.
+            <br><br>
+            E há uma vantagem enorme nisso: com W ≪ L, a carga armazenada é muito menor, e o diodo comuta muito mais rápido. É por isso que diodos rápidos são fabricados com base curta — a mesma ideia que, levada ao extremo, é a base de um transistor bipolar.
+          </div>
+
+          <h3 style="margin-top:40px;font-size:1.25rem">Resolução — Versão A (q·D<sub>p</sub> = 2,5 × 10⁻²⁰, q·D<sub>n</sub> = 5 × 10⁻²⁰)</h3>
+
+          <div class="passo">
+            <div class="cab">parte 1 · o gradiente, que é o mesmo para os dois portadores</div>
+            <div class="lin"><div class="pq">Converta a largura da região para centímetros, para casar com as concentrações em cm⁻³. 1 μm = 10⁻⁴ cm.</div><div class="ct">Δx = 1 μm = 10<sup>−4</sup> cm</div></div>
+            <div class="lin"><div class="pq">O perfil é linear: a derivada é a razão entre a variação total e a largura. Vale em qualquer ponto da região.</div><div class="ct">|∂p/∂x| = 10<sup>15</sup>/10<sup>−4</sup> = <span class="hand-box"><span class="y">10<sup>19</sup> cm<sup>−4</sup></span></span></div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">parte 2 · as duas correntes e a total</div>
+            <div class="lin"><div class="pq"><b>Lacunas.</b> O gradiente de lacunas está no <em>lado n</em>, onde elas são minoritárias. Os dados já vêm com q·D<sub>p</sub> junto, então é só multiplicar três números.</div><div class="ct">I<sub>p</sub> = q·D<sub>p</sub>·A·|∂p/∂x| = 2,5×10<sup>−20</sup> · 2×10<sup>−5</sup> · 10<sup>19</sup> = <span class="y">5 μA</span></div></div>
+            <div class="lin"><div class="pq"><b>Elétrons.</b> O gradiente de elétrons está no <em>lado p</em>. Mesmo gradiente, mesma área — só muda a difusividade, que é o dobro.</div><div class="ct">I<sub>n</sub> = q·D<sub>n</sub>·A·|∂n/∂x| = 5×10<sup>−20</sup> · 2×10<sup>−5</sup> · 10<sup>19</sup> = <span class="y">10 μA</span></div></div>
+            <div class="lin"><div class="pq"><b>Total.</b> As duas parcelas somam, porque carga positiva indo para a direita e carga negativa indo para a esquerda são a mesma corrente convencional.</div><div class="ct">I<sub>T</sub> = I<sub>p</sub> + I<sub>n</sub> = 5 + 10 = <span class="hand-box"><span class="y">15 μA</span></span></div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">parte 3 · a dopagem do lado N, de graça</div>
+            <div class="lin"><div class="pq">O enunciado diz que a depleção é <strong>simétrica</strong>. Use a relação de neutralidade, a mesma do <a href="#teste6-2025">Teste 6</a>.</div><div class="ct">x<sub>n</sub>/x<sub>p</sub> = N<sub>A</sub>/N<sub>D</sub> &nbsp;e&nbsp; x<sub>n</sub> = x<sub>p</sub> &nbsp;⇒&nbsp; N<sub>A</sub>/N<sub>D</sub> = 1</div></div>
+            <div class="lin"><div class="pq">Ou seja, depleção simétrica é o mesmo que junção simetricamente dopada. Não há conta nenhuma a fazer.</div><div class="ct">N<sub>D</sub> = N<sub>A</sub> = <span class="hand-box"><span class="y">1 × 10<sup>15</sup> cm<sup>−3</sup></span></span></div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">parte 4 · quantos portadores estão guardados no lado N</div>
+            <div class="lin"><div class="pq">A área sob o perfil conta portadores por unidade de <em>área de junção</em>: é uma concentração (cm⁻³) integrada ao longo de um comprimento (cm). Como o perfil é um triângulo, a área é ½·base·altura.</div><div class="ct">A<sub>n</sub> = (10<sup>−4</sup> · 10<sup>15</sup>)/2 = <span class="y">5 × 10<sup>10</sup> cm<sup>−2</sup></span></div></div>
+            <div class="lin"><div class="pq">Multiplique pela área da junção para obter o número absoluto de portadores. O resultado é <strong>adimensional</strong> — é uma contagem.</div><div class="ct">Q<sub>n</sub> = A·A<sub>n</sub> = 2×10<sup>−5</sup> · 5×10<sup>10</sup> = <span class="hand-box"><span class="y">1 × 10<sup>6</sup> portadores</span></span></div></div>
+            <div class="lin"><div class="pq">Se o enunciado pedisse a <em>carga</em> em coulombs, multiplique por q. Cuidado: o gabarito chama de «Q<sub>n</sub>» uma contagem, não uma carga.</div><div class="ct">Q = q·1×10<sup>6</sup> = 1,6×10<sup>−13</sup> C = <span class="y">0,16 pC</span></div></div>
+          </div>
+
+          <table class="inst">
+            <caption>Respostas — as duas versões</caption>
+            <tr>
+              <th>parâmetro</th>
+              <th>Versão A</th>
+              <th>Versão B</th>
+              <th class="obs">observação</th>
+            </tr>
+            <tr><td>q·D<sub>p</sub> / q·D<sub>n</sub></td><td>2,5 / 5 × 10⁻²⁰</td><td>5 / 10 × 10⁻²⁰</td><td class="obs">dado de entrada — a Versão B é o dobro</td></tr>
+            <tr><td>I<sub>p</sub></td><td class="saida">5 μA</td><td class="saida">10 μA</td><td class="obs">gradiente de lacunas, no lado n</td></tr>
+            <tr><td>I<sub>n</sub></td><td class="saida">10 μA</td><td class="saida">20 μA</td><td class="obs">gradiente de elétrons, no lado p</td></tr>
+            <tr class="marco"><td>I<sub>T</sub></td><td class="saida">15 μA</td><td class="saida">30 μA</td><td class="obs">a soma — nunca a diferença</td></tr>
+            <tr><td>N<sub>D</sub></td><td class="saida">10¹⁵ cm⁻³</td><td class="saida">10¹⁵ cm⁻³</td><td class="obs">de x<sub>n</sub> = x<sub>p</sub>; não depende das difusividades</td></tr>
+            <tr><td>A<sub>n</sub></td><td class="saida">5 × 10¹⁰ cm⁻²</td><td class="saida">5 × 10¹⁰ cm⁻²</td><td class="obs">área do triângulo — é geometria, não depende de D</td></tr>
+            <tr class="marco"><td>Q<sub>n</sub></td><td class="saida">1 × 10⁶</td><td class="saida">1 × 10⁶</td><td class="obs">contagem de portadores (0,16 pC se multiplicar por q)</td></tr>
+          </table>
+
+          <div class="intu">
+            <span class="lbl">por que a Versão B dá exatamente o dobro</span>
+            <p>Porque I = <strong>(q·D)</strong> · A · gradiente é <em>linear</em> em q·D, e a Versão B dobra as duas difusividades. Nada mais muda: a área é a mesma, o gradiente é o mesmo, a geometria é a mesma. Já A<sub>n</sub> e Q<sub>n</sub> <strong>não mudam nada</strong>, porque são puramente geométricos — a quantidade de portadores guardados depende do <em>perfil</em>, e o perfil foi dado.</p>
+            <p>Isso é um bom teste de leitura de enunciado: antes de recalcular a Versão B inteira, pergunte-se <em>o que de fato mudou</em>. Metade das respostas é idêntica.</p>
+          </div>
+
+          <div class="erro">
+            <span class="lbl">as quatro armadilhas deste teste</span>
+            <p><strong>1 · Somar um comprimento errado no denominador.</strong> O gradiente usa <span class="certo">1 μm</span>, a largura da <em>região quase neutra</em> — e não os 0,25 μm da depleção, nem os 2,5 μm do dispositivo todo, nem L<sub>p</sub>. O perfil que você está derivando existe <em>só</em> dentro daquela região de 1 μm.</p>
+            <p><strong>2 · Subtrair as correntes.</strong> <span class="errado">I<sub>T</sub> = I<sub>n</sub> − I<sub>p</sub> = 5 μA</span> é o erro mais comum, e vem de olhar o desenho e ver os portadores atravessando em sentidos opostos. Mas as cargas também são opostas: <span class="certo">I<sub>T</sub> = I<sub>p</sub> + I<sub>n</sub></span>. É o mesmo argumento da <a href="#m10-corrente">Seção 10.6</a>.</p>
+            <p><strong>3 · Esquecer o ½ na área.</strong> O perfil é triangular, não retangular. Usar Δp·W em vez de ½·Δp·W dá <span class="errado">2 × 10⁶</span> — exatamente o dobro. O ½ é o que distingue «a concentração na borda» de «a média ao longo da região».</p>
+            <p><strong>4 · Chamar Q<sub>n</sub> de carga.</strong> O que o gabarito calcula é uma <strong>contagem de portadores</strong>, adimensional. Cheque pela unidade: cm⁻² × cm² = 1. Para coulombs, falta o q — e aí dá 0,16 pC.</p>
+            <p class="note">Um último detalhe de sanidade, para quem gosta de conferir dimensões: q·D<sub>p</sub> = 2,5 × 10⁻²⁰ A·cm² implica D<sub>p</sub> = 0,16 cm²/s, cem vezes menor que os 12 cm²/s do silício real. Os números do enunciado foram escolhidos para a conta fechar redonda, não para retratar um diodo de bancada. Isso não afeta nenhuma resposta — só evita que você desconfie do método quando comparar com uma tabela de propriedades.</p>
+          </div>
+
+          <div class="example">
+            <div class="ex-head">O fecho do módulo — a carga guardada e o tempo de trânsito</div>
+            <p>A Parte 4 calculou exatamente a grandeza da <a href="#m10-carga">Seção 10.9</a>: a carga armazenada de minoritários. Vale gastar três linhas para ver a coerência do módulo inteiro se fechar.</p>
+            <div class="passo" style="margin-top:14px">
+              <div class="lin"><div class="pq">A carga de lacunas guardada no lado n, em coulombs.</div><div class="ct">Q<sub>p</sub> = q·A·½·Δp·W = 1,6×10<sup>−19</sup> · 10<sup>6</sup> = <span class="y">0,16 pC</span></div></div>
+              <div class="lin"><div class="pq">Pela relação de controle de carga Q = τ·I, o tempo de trânsito sai da razão entre a carga guardada e a corrente que a repõe.</div><div class="ct">τ = Q<sub>p</sub>/I<sub>p</sub> = 1,6×10<sup>−13</sup>/5×10<sup>−6</sup> = <span class="y">32 ns</span></div></div>
+              <div class="lin"><div class="pq">E a fórmula fechada de base curta, deduzida do triângulo: τ = ½ΔpW·A·q ÷ (qD·A·Δp/W). Os Δp, A e q se cancelam e sobra só geometria e difusividade.</div><div class="ct">τ = W²/(2D<sub>p</sub>) = (10<sup>−4</sup>)²/(2·0,156) = <span class="y">32 ns ✓</span></div></div>
+              <div class="lin"><div class="pq">Com o tempo de trânsito em mãos, a capacitância de difusão no ponto de operação.</div><div class="ct">C<sub>d</sub> = (τ/V<sub>T</sub>)·I<sub>p</sub> = (32×10<sup>−9</sup>/0,025)·5×10<sup>−6</sup> = <span class="y">6,4 pF</span></div></div>
+            </div>
+            <p style="margin-top:14px">Os dois caminhos para τ dão o mesmo número, e isso não é coincidência: <strong>τ = W²/2D é a relação Q = τ·I escrita para um perfil triangular</strong>. Guarde a fórmula — ela é a versão de base curta do L = √(Dτ) da Seção 10.4, e é o parâmetro que se otimiza quando se quer um diodo (ou um transistor) rápido. Encurtar W pela metade divide o tempo de trânsito por quatro.</p>
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+            <div class="q">
+              <div class="q-head">conceitual <span class="tagq">múltipla escolha · por que reta</span></div>
+              <p class="q-stem">Por que os perfis do enunciado são retas, e não as exponenciais da Seção 10.4?</p>
+              <div class="opts">
+                <button class="opt" data-ok="0"><span class="k">a)</span> Porque a polarização direta é fraca, e para pequenos sinais a exponencial se aproxima de uma reta.</button>
+                <button class="opt" data-ok="1"><span class="k">b)</span> Porque a região quase neutra (1 μm) é muito mais curta que o comprimento de difusão: quase nenhum minoritário recombina antes de chegar ao contato.</button>
+                <button class="opt" data-ok="0"><span class="k">c)</span> Porque o contato metálico impõe concentração zero, e isso lineariza qualquer perfil.</button>
+                <button class="opt" data-ok="0"><span class="k">d)</span> Porque a junção é simétrica, e em junções simétricas os perfis são lineares.</button>
+              </div>
+              <div class="q-fb" role="status"><b>b)</b> — A exponencial existe porque há <strong>recombinação</strong> ao longo do caminho: é ela que introduz τ e, portanto, L = √(Dτ). Se o portador atravessa a região inteira antes de ter chance de recombinar, o que sobra é difusão pura em regime permanente — e difusão pura sem sumidouro dá <strong>fluxo constante</strong>, o que exige gradiente constante, o que é uma reta. A alternativa (c) chega perto: o contato realmente impõe p = 0, mas isso por si só não linearizaria nada — num diodo longo com contato distante, o perfil ainda seria exponencial até quase zerar sozinho. É a <em>razão W/L</em> que decide, não a existência do contato.</div>
+            </div>
+
+            <div class="q">
+              <div class="q-head">numérico <span class="tagq">variação do enunciado</span></div>
+              <p class="q-stem">Mantendo todos os dados da Versão A, o fabricante encurta as duas regiões quase neutras de 1 μm para 0,5 μm. O que acontece com I<sub>T</sub>, com Q<sub>n</sub> e com τ?</p>
+              <details class="reveal"><summary>ver a resposta</summary>
+                <div class="ans">
+                  <p><strong>Corrente: dobra.</strong> O gradiente é Δp/W, e W caiu pela metade: |∂p/∂x| = 10¹⁵/0,5×10⁻⁴ = 2 × 10¹⁹ cm⁻⁴. Logo I<sub>p</sub> = 10 μA, I<sub>n</sub> = 20 μA, <strong>I<sub>T</sub> = 30 μA</strong>.</p>
+                  <p><strong>Carga: cai pela metade.</strong> A<sub>n</sub> = ½·0,5×10⁻⁴·10¹⁵ = 2,5 × 10¹⁰ cm⁻², então <strong>Q<sub>n</sub> = 5 × 10⁵ portadores</strong> (0,08 pC). O triângulo tem a mesma altura e metade da base.</p>
+                  <p><strong>Tempo de trânsito: cai a um quarto.</strong> τ = W²/2D<sub>p</sub> = <strong>8 ns</strong> — e confere por Q/I: 0,08 pC / 10 μA = 8 ns.</p>
+                  <p><strong>A moral.</strong> Encurtar a base é um ganho duplo e desproporcional: <em>mais</em> corrente para a mesma tensão e <em>menos</em> carga guardada, ou seja, um diodo simultaneamente mais eficiente e mais rápido. O limite é de fabricação — e é exatamente essa corrida por bases finas que produziu os transistores de alta frequência.</p>
+                </div>
+              </details>
+            </div>
+
+            <div class="q">
+              <div class="q-head">conceitual <span class="tagq">múltipla escolha · leitura do enunciado</span></div>
+              <p class="q-stem">Quais respostas mudam da Versão A para a Versão B?</p>
+              <div class="opts">
+                <button class="opt" data-ok="0"><span class="k">a)</span> Todas, porque as difusividades dobraram.</button>
+                <button class="opt" data-ok="1"><span class="k">b)</span> Só I<sub>p</sub>, I<sub>n</sub> e I<sub>T</sub>, que dobram; N<sub>D</sub>, A<sub>n</sub> e Q<sub>n</sub> ficam idênticos.</button>
+                <button class="opt" data-ok="0"><span class="k">c)</span> Só Q<sub>n</sub>, porque mais difusão significa mais portadores guardados.</button>
+                <button class="opt" data-ok="0"><span class="k">d)</span> Nenhuma: as difusividades se cancelam na corrente total.</button>
+              </div>
+              <div class="q-fb" role="status"><b>b)</b> — A separação é nítida e vale como hábito: <strong>D entra na corrente, não no perfil</strong>. O perfil (e portanto A<sub>n</sub> e Q<sub>n</sub>) foi <em>dado no desenho</em>; a dopagem N<sub>D</sub> veio de uma relação geométrica (x<sub>n</sub> = x<sub>p</sub>). Nenhuma das três sabe o que é D. E note a consequência interessante: dobrando D a corrente dobra mas a carga guardada não muda, então o tempo de trânsito τ = Q/I <em>cai pela metade</em> — coerente com τ = W²/2D.</div>
             </div>
           </div>
         </section>
