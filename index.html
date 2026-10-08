@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Amp Ops · Diodos · Semicondutores · Transistor MOS · Polarização — Guias · Poli USP</title>
+<title>Amp Ops · Diodos · Semicondutores · Transistor MOS · Polarização · Pequenos sinais — Guias · Poli USP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
@@ -663,13 +663,24 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <li><a href="#m12-ex42"><span class="n">4.2</span>Ex 4.2 — projeto de R<sub>D</sub> e R<sub>S</sub></a></li>
         <li><a href="#m12-ex43"><span class="n">4.3</span>Ex 4.3 — diodo-conectado e triodo</a></li>
         <li><a href="#m12-divisor"><span class="n">§</span>Divisor de porta com R<sub>S</sub></a></li>
+        <li><a href="#m12-ex45"><span class="n">4.5</span>Ex 4.5 — resolver em I<sub>D</sub></a></li>
+        <li><a href="#m12-ex46"><span class="n">4.6</span>Ex 4.6 — PMOS</a></li>
+        <li><a href="#m12-ex49"><span class="n">4.9</span>Ex 4.9 — projeto completo</a></li>
         <li><a href="#m12-resumo"><span class="n">§</span>Resumo e armadilhas</a></li>
       </ul>
-      <a class="module-item" href="#mod13"><span class="num">13</span> Gaveta de testes</a>
+      <a class="module-item" href="#mod13"><span class="num">13</span> Pequenos sinais</a>
       <ul class="sub-list" data-mod="mod13">
-        <li><a href="#m13-sobre"><span class="n">§</span>Sobre esta gaveta</a></li>
+        <li><a href="#m13-ideia"><span class="n">§</span>Sinal pequeno em cima do Q</a></li>
+        <li><a href="#m13-gm"><span class="n">§</span>A dedução de g<sub>m</sub></a></li>
+        <li><a href="#m13-pi"><span class="n">§</span>Modelo π híbrido e r<sub>o</sub></a></li>
+        <li><a href="#m13-t"><span class="n">§</span>Modelo T</a></li>
+        <li><a href="#m13-grandezas"><span class="n">§</span>A<sub>v</sub>, G<sub>v</sub>, R<sub>in</sub>, R<sub>out</sub></a></li>
         <li><a href="#m13-fontecomum"><span class="n">T7</span>Fonte comum — T7·24 e T8·25</a></li>
         <li><a href="#m13-portacomum"><span class="n">T8</span>Porta comum — T8·24 e T9·25</a></li>
+        <li><a href="#m13-resumo"><span class="n">§</span>Resumo e armadilhas</a></li>
+      </ul>
+      <a class="module-item" href="#mod14"><span class="num">14</span> Gaveta de testes</a>
+      <ul class="sub-list" data-mod="mod14">
         <li><a href="#m13-logica"><span class="n">T9</span>Lógica CMOS — T9·2024</a></li>
       </ul>
     </nav>
@@ -696,7 +707,8 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <a href="#mod10">10 · Equação do diodo</a>
         <a href="#mod11">11 · Transistor MOS</a>
         <a href="#mod12">12 · Polarização do MOSFET</a>
-        <a href="#mod13">13 · Gaveta de testes</a>
+        <a href="#mod13">13 · Pequenos sinais</a>
+        <a href="#mod14">14 · Gaveta de testes</a>
       </nav>
     </div>
 
@@ -16385,6 +16397,9 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <a href="#m12-ex42">Ex 4.2 — projeto de R<sub>D</sub> e R<sub>S</sub></a>
         <a href="#m12-ex43">Ex 4.3 — diodo-conectado e triodo</a>
         <a href="#m12-divisor">Divisor de porta com R<sub>S</sub></a>
+        <a href="#m12-ex45">Ex 4.5 — em I<sub>D</sub></a>
+        <a href="#m12-ex46">Ex 4.6 — PMOS</a>
+        <a href="#m12-ex49">Ex 4.9 — projeto</a>
         <a href="#m12-resumo">Resumo e armadilhas</a>
       </nav>
     </div>
@@ -17190,8 +17205,244 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           </div>
         </section>
 
+
         <!-- ============================================================
-             12.7 · RESUMO
+             12.7 · EX 4.5 — A MESMA EQUAÇÃO, RESOLVIDA EM I_D
+             ============================================================ -->
+        <section class="content-section" id="m12-ex45">
+          <div class="eyebrow">EX 4.5 · O MESMO CIRCUITO, OUTRA INCÓGNITA</div>
+          <h2>Ex 4.5 — resolver em I<sub>D</sub> em vez de V<sub>GS</sub></h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>É o circuito da seção anterior, mas isolando a corrente em vez da tensão — e a raiz espúria, que antes aparecia como uma tensão negativa, passa a aparecer como uma corrente perfeitamente plausível.</p>
+          </div>
+          <p class="lead">O enunciado é exatamente o da <a href="#m12-divisor">Seção 12.6</a>: V<sub>DD</sub> = 10 V, R<sub>G1</sub> = R<sub>G2</sub> = 10 MΩ, R<sub>D</sub> = R<sub>S</sub> = 6 kΩ, V<sub>t</sub> = 1 V, k′<sub>n</sub>(W/L) = 1 mA/V². O que muda é só a ordem algébrica — e vale fazer as duas, porque conforme o enunciado uma sai muito mais rápido que a outra.</p>
+
+          <div class="passo">
+            <div class="cab">resolução — substituindo ao contrário</div>
+            <div class="lin"><div class="pq"><b>1 ·</b> O mesmo par de equações. Mas agora isole V<sub>GS</sub> na malha e leve <em>na equação do dispositivo</em>, em vez do contrário.</div><div class="ct">V<sub>GS</sub> = 5 − 6 kΩ·I<sub>D</sub></div></div>
+            <div class="lin"><div class="pq"><b>2 ·</b> Substitua. Com I<sub>D</sub> em mA e R<sub>S</sub> em kΩ, o produto 6·I<sub>D</sub> já sai em volts.</div><div class="ct">I<sub>D</sub> = 0,5·(5 − 6I<sub>D</sub> − 1)<sup>2</sup> = 0,5·(4 − 6I<sub>D</sub>)<sup>2</sup></div></div>
+            <div class="lin"><div class="pq"><b>3 ·</b> Expanda o quadrado.</div><div class="ct">I<sub>D</sub> = 0,5·[ 16 − 48I<sub>D</sub> + 36I<sub>D</sub><sup>2</sup> ]</div></div>
+            <div class="lin"><div class="pq"><b>4 ·</b> Agrupe tudo de um lado.</div><div class="ct"><span class="y">18I<sub>D</sub><sup>2</sup> − 25I<sub>D</sub> + 8 = 0</span></div></div>
+            <div class="lin"><div class="pq"><b>5 ·</b> Bhaskara. O discriminante sai redondo outra vez: 625 − 576 = 49.</div><div class="ct">I<sub>D</sub> = (25 ± √49)/36 = (25 ± 7)/36</div></div>
+            <div class="lin"><div class="pq"><b>6 ·</b> As duas raízes — e repare que <strong>as duas são positivas e de ordem de grandeza razoável</strong>.</div><div class="ct">I<sub>D</sub> = 32/36 = <span class="crossed">0,89 mA</span> &nbsp;ou&nbsp; I<sub>D</sub> = 18/36 = <span class="y">0,5 mA</span></div></div>
+            <div class="lin"><div class="pq"><b>7 · O critério de descarte.</b> Volte à malha e veja que tensão de porta cada corrente implica.</div><div class="ct">I<sub>D</sub> = 0,89 → V<sub>GS</sub> = 5 − 5,33 = <span class="r">−0,33 V</span> &nbsp;<span class="dim">(&lt; V<sub>t</sub>: cortado)</span></div></div>
+            <div class="lin"><div class="pq"></div><div class="ct">I<sub>D</sub> = 0,50 → V<sub>GS</sub> = 5 − 3 = <span class="y">2 V</span> ✓ &nbsp;&nbsp;⇒&nbsp;&nbsp; <span class="hand-box"><span class="y">I<sub>D</sub> = 0,5 mA</span></span></div></div>
+          </div>
+
+          <div class="attn">
+            <span class="tag">por que esta versão é mais perigosa</span>
+            Compare as duas raízes espúrias. Resolvendo em V<sub>GS</sub>, a falsa era <strong>−0,33 V</strong> — negativa, e portanto um alarme que dispara sozinho. Resolvendo em I<sub>D</sub>, a falsa é <strong>0,89 mA</strong>: positiva, da mesma ordem de grandeza da verdadeira, e absolutamente plausível à primeira vista.
+            <br><br>
+            A moral vale para qualquer exercício de MOS: <strong>o descarte nunca se faz olhando a raiz isolada</strong>. Volte ao circuito, calcule V<sub>GS</sub>, e compare com V<sub>t</sub>. Aqui, 0,89 mA só poderia circular com a porta a −0,33 V, o que é um transistor cortado conduzindo quase um miliampère — uma contradição.
+          </div>
+
+          <div class="intu">
+            <span class="lbl">qual das duas rotas escolher</span>
+            <p>São equivalentes, e dão o mesmo ponto Q. Na prática:</p>
+            <p><strong>Resolva em V<sub>GS</sub></strong> quando o enunciado der V<sub>t</sub> e pedir tensões. A quadrática sai mais limpa, e o descarte é imediato.</p>
+            <p><strong>Resolva em I<sub>D</sub></strong> quando o enunciado já envolver a corrente de forma natural — por exemplo, quando R<sub>S</sub> aparece como resistor de realimentação e o que se quer é a corrente de polarização. Foi o caminho que a lousa escolheu aqui.</p>
+            <p>O importante é saber que as duas existem, porque numa prova com tempo curto a escolha errada custa duas linhas de álgebra a mais.</p>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             12.8 · EX 4.6 — PMOS
+             ============================================================ -->
+        <section class="content-section" id="m12-ex46">
+          <div class="eyebrow">EX 4.6 · O PRIMEIRO PMOS</div>
+          <h2>Ex 4.6 — o transistor de canal p, onde tudo fica negativo</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>No PMOS, V<sub>GS</sub>, V<sub>DS</sub> e V<sub>t</sub> são todos negativos e as desigualdades de região se invertem — mas a corrente continua saindo da mesma fórmula quadrática.</p>
+          </div>
+
+          <div class="enunciado">
+            <div class="en-head">Enunciado</div>
+            <p>No circuito, o transistor é de <strong>canal p</strong>. Determine R<sub>D</sub>, V<sub>GS</sub>, V<sub>G</sub> e os resistores R<sub>G1</sub> e R<sub>G2</sub> do divisor de porta, sabendo que a resistência de entrada R<sub>G1</sub> ∥ R<sub>G2</sub> deve valer 1,2 MΩ.</p>
+            <div class="dados">
+              V<sub>DD</sub> = 5 V &nbsp;·&nbsp; I<sub>D</sub> = 0,5 mA &nbsp;·&nbsp; V<sub>D</sub> = 3 V<br>
+              V<sub>t</sub> = <strong>−1 V</strong> &nbsp;·&nbsp; μ<sub>p</sub>C<sub>ox</sub>(W/L) = k′<sub>p</sub>(W/L) = 1 mA/V² &nbsp;·&nbsp; λ = 0
+            </div>
+          </div>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 380" xmlns="http://www.w3.org/2000/svg">
+              <!-- V_DD -->
+              <line x1="300" y1="48" x2="300" y2="70" stroke="var(--chalk)" stroke-width="2"/>
+              <polygon points="292,48 308,48 300,34" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="314" y="46" font-family="Kalam" font-size="16" fill="var(--yellow)">5 V</text>
+              <line x1="140" y1="70" x2="300" y2="70" stroke="var(--chalk)" stroke-width="2"/>
+              <!-- R_G1 -->
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="140,70 140,96 132,102 148,112 132,122 148,132 140,138 140,164"/>
+              </g>
+              <text x="92" y="118" font-family="Kalam" font-size="15" fill="var(--chalk)">R</text>
+              <text x="104" y="123" font-family="Kalam" font-size="11" fill="var(--chalk)">G1</text>
+              <!-- R_G2 -->
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="140,164 140,214 132,220 148,230 132,240 148,250 140,256 140,310"/>
+              </g>
+              <text x="92" y="236" font-family="Kalam" font-size="15" fill="var(--chalk)">R</text>
+              <text x="104" y="241" font-family="Kalam" font-size="11" fill="var(--chalk)">G2</text>
+              <line x1="126" y1="310" x2="154" y2="310" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="131" y1="317" x2="149" y2="317" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="136" y1="324" x2="144" y2="324" stroke="var(--chalk)" stroke-width="2"/>
+              <!-- PMOS: fonte em cima -->
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <line x1="246" y1="92" x2="246" y2="156"/>
+                <line x1="246" y1="96" x2="300" y2="96"/><line x1="300" y1="96" x2="300" y2="70"/>
+                <line x1="246" y1="124" x2="300" y2="124"/>
+                <line x1="246" y1="152" x2="300" y2="152"/><line x1="300" y1="152" x2="300" y2="182"/>
+                <line x1="232" y1="124" x2="240" y2="124"/>
+                <line x1="232" y1="104" x2="232" y2="144"/>
+              </g>
+              <polygon points="258,92 258,100 248,96" fill="var(--chalk)"/>
+              <text x="308" y="92" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">S</text>
+              <text x="308" y="158" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">D</text>
+              <text x="200" y="120" text-anchor="end" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">G</text>
+              <line x1="140" y1="164" x2="232" y2="164" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="232" y1="164" x2="232" y2="144" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="140" cy="164" r="3.6" fill="var(--chalk)"/>
+              <!-- V_GS -->
+              <path d="M228,112 C206,100 202,138 216,152" fill="none" stroke="var(--yellow)" stroke-width="1.6"/>
+              <text x="176" y="96" font-family="Kalam" font-size="15" fill="var(--yellow)">V</text>
+              <text x="188" y="101" font-family="Kalam" font-size="11" fill="var(--yellow)">GS</text>
+              <text x="206" y="96" font-family="Kalam" font-size="15" fill="var(--pink)">= −2 V</text>
+              <!-- V_DS -->
+              <path d="M320,104 C342,118 342,142 320,158" fill="none" stroke="var(--yellow)" stroke-width="1.6"/>
+              <text x="348" y="132" font-family="Kalam" font-size="15" fill="var(--yellow)">V</text>
+              <text x="360" y="137" font-family="Kalam" font-size="11" fill="var(--yellow)">DS</text>
+              <text x="378" y="132" font-family="Kalam" font-size="15" fill="var(--pink)">= −2 V</text>
+              <!-- nó do dreno -->
+              <circle cx="300" cy="182" r="3.6" fill="var(--chalk)"/>
+              <text x="314" y="188" font-family="Kalam" font-size="15" fill="var(--yellow)">V</text>
+              <text x="326" y="193" font-family="Kalam" font-size="11" fill="var(--yellow)">D</text>
+              <text x="336" y="188" font-family="Kalam" font-size="15" fill="var(--yellow)">= 3 V</text>
+              <!-- R_D -->
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="300,182 300,214 292,220 308,230 292,240 308,250 300,256 300,310"/>
+              </g>
+              <text x="248" y="238" font-family="Kalam" font-size="15" fill="var(--chalk)">R</text>
+              <text x="260" y="243" font-family="Kalam" font-size="11" fill="var(--chalk)">D</text>
+              <line x1="268" y1="200" x2="268" y2="232" stroke="var(--yellow)" stroke-width="2"/>
+              <polygon points="262,232 274,232 268,246" fill="var(--yellow)"/>
+              <text x="236" y="216" font-family="Kalam" font-size="16" fill="var(--yellow)">I</text>
+              <text x="245" y="221" font-family="Kalam" font-size="11" fill="var(--yellow)">D</text>
+              <line x1="286" y1="310" x2="314" y2="310" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="291" y1="317" x2="309" y2="317" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="296" y1="324" x2="304" y2="324" stroke="var(--chalk)" stroke-width="2"/>
+
+              <!-- coluna de sinais -->
+              <line x1="440" y1="34" x2="440" y2="360" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <text x="466" y="68" font-family="Kalam" font-size="16" fill="var(--pink)">no PMOS, tudo inverte</text>
+              <text x="466" y="106" font-family="Kalam" font-size="15" fill="var(--chalk)">V</text>
+              <text x="478" y="111" font-family="Kalam" font-size="11" fill="var(--chalk)">GS</text>
+              <text x="494" y="106" font-family="Kalam" font-size="15" fill="var(--chalk)">&lt; 0</text>
+              <text x="466" y="134" font-family="Kalam" font-size="15" fill="var(--chalk)">V</text>
+              <text x="478" y="139" font-family="Kalam" font-size="11" fill="var(--chalk)">DS</text>
+              <text x="494" y="134" font-family="Kalam" font-size="15" fill="var(--chalk)">&lt; 0</text>
+              <text x="466" y="162" font-family="Kalam" font-size="15" fill="var(--chalk)">V</text>
+              <text x="478" y="167" font-family="Kalam" font-size="11" fill="var(--chalk)">t</text>
+              <text x="488" y="162" font-family="Kalam" font-size="15" fill="var(--chalk)">&lt; 0</text>
+              <line x1="466" y1="186" x2="700" y2="186" stroke="var(--line-strong)" stroke-width="1.4" stroke-dasharray="5,5"/>
+              <text x="466" y="216" font-family="Kalam" font-size="15" fill="var(--yellow)">saturação:</text>
+              <text x="466" y="244" font-family="Kalam" font-size="16" fill="var(--yellow)">V</text>
+              <text x="478" y="249" font-family="Kalam" font-size="11" fill="var(--yellow)">DS</text>
+              <text x="494" y="244" font-family="Kalam" font-size="16" fill="var(--yellow)">≤ V</text>
+              <text x="522" y="249" font-family="Kalam" font-size="11" fill="var(--yellow)">GS</text>
+              <text x="538" y="244" font-family="Kalam" font-size="16" fill="var(--yellow)">− V</text>
+              <text x="562" y="249" font-family="Kalam" font-size="11" fill="var(--yellow)">t</text>
+              <text x="466" y="274" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">−2 V ≤ −2 − (−1) = −1 V</text>
+              <text x="466" y="300" font-family="Kalam" font-size="15" fill="var(--yellow)">✓ saturado</text>
+              <text x="466" y="340" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">a corrente sai da fonte e</text>
+              <text x="466" y="358" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">desce para o terra por R</text>
+              <text x="692" y="363" font-family="Kalam" font-size="10" fill="var(--chalk-faint)">D</text>
+            </svg>
+            <figcaption>O PMOS de cabeça para baixo em relação ao que o site vinha usando: a <strong>fonte fica em cima</strong>, ligada a V<sub>DD</sub>, e a corrente desce pelo dreno até o terra através de R<sub>D</sub>. Consequência direta: V<sub>GS</sub> = V<sub>G</sub> − V<sub>DD</sub> é negativa, V<sub>DS</sub> = V<sub>D</sub> − V<sub>DD</sub> também, e V<sub>t</sub> é negativa por construção do dispositivo. <strong>A desigualdade de saturação se inverte</strong>: no NMOS era V<sub>DS</sub> ≥ V<sub>GS</sub>−V<sub>t</sub>; aqui é ≤.</figcaption>
+          </figure>
+
+          <div class="passo">
+            <div class="cab">resolução</div>
+            <div class="lin"><div class="pq"><b>1 · R<sub>D</sub>.</b> Toda a corrente desce por R<sub>D</sub> até o terra, e sobre ele cai exatamente V<sub>D</sub>.</div><div class="ct">R<sub>D</sub> = V<sub>D</sub>/I<sub>D</sub> = 3 V / 0,5 mA = <span class="hand-box"><span class="y">6 kΩ</span></span></div></div>
+            <div class="lin"><div class="pq"><b>2 · V<sub>GS</sub>.</b> A equação de saturação é a mesma de sempre — com V<sub>t</sub> = −1 V entrando com o seu sinal.</div><div class="ct">0,5 mA = (1 mA/V²/2)·( V<sub>GS</sub> − (−1) )<sup>2</sup></div></div>
+            <div class="lin"><div class="pq"><b>3 ·</b> Isole e extraia a raiz com os dois sinais.</div><div class="ct">(V<sub>GS</sub> + 1)<sup>2</sup> = 1 V² &nbsp;⇒&nbsp; V<sub>GS</sub> + 1 = ± 1 V</div></div>
+            <div class="lin"><div class="pq"><b>4 · O descarte.</b> V<sub>GS</sub> = 0 não forma canal nenhum — é a raiz que a lousa risca.</div><div class="ct">V<sub>GS</sub> = <span class="crossed">0 V</span> &nbsp;ou&nbsp; <span class="hand-box"><span class="y">V<sub>GS</sub> = −2 V</span></span></div></div>
+            <div class="lin"><div class="pq"><b>5 · V<sub>G</sub>.</b> A fonte está em V<sub>DD</sub>, então a tensão de porta é a soma — e com V<sub>GS</sub> negativa a porta fica <em>abaixo</em> da alimentação.</div><div class="ct">V<sub>G</sub> = V<sub>DD</sub> + V<sub>GS</sub> = 5 + (−2) = <span class="hand-box"><span class="y">3 V</span></span></div></div>
+            <div class="lin"><div class="pq"><b>6 · A razão do divisor.</b> V<sub>G</sub> = V<sub>DD</sub>·R<sub>G2</sub>/(R<sub>G1</sub>+R<sub>G2</sub>) = 3, logo R<sub>G2</sub>/(R<sub>G1</sub>+R<sub>G2</sub>) = 3/5.</div><div class="ct">R<sub>G1</sub>/R<sub>G2</sub> = <span class="y">2/3</span></div></div>
+            <div class="lin"><div class="pq"><b>7 · Os valores.</b> Com a razão 2:3 e o paralelo imposto em 1,2 MΩ, os números redondos são imediatos.</div><div class="ct">R<sub>G1</sub> = <span class="y">2 MΩ</span>, R<sub>G2</sub> = <span class="y">3 MΩ</span> &nbsp;⇒&nbsp; 2·3/5 = <span class="y">1,2 MΩ ✓</span></div></div>
+            <div class="lin"><div class="pq"><b>8 · Verificação.</b> V<sub>DS</sub> = V<sub>D</sub> − V<sub>S</sub> = 3 − 5 = −2 V, e a desigualdade invertida do PMOS.</div><div class="ct">−2 ≤ V<sub>GS</sub>−V<sub>t</sub> = −2−(−1) = −1 &nbsp;<span class="y">✓ saturação</span></div></div>
+          </div>
+
+          <div class="erro">
+            <span class="lbl">o PMOS em três regras — e o erro que cada uma evita</span>
+            <p><strong>1 · V<sub>GS</sub> é medido da porta <em>para a fonte</em>, e a fonte está no topo.</strong> Então V<sub>GS</sub> = V<sub>G</sub> − V<sub>DD</sub>, negativa. Quem escreve <span class="errado">V<sub>GS</sub> = V<sub>G</sub></span> por analogia com o NMOS acha V<sub>G</sub> = −2 V, que nem existe neste circuito.</p>
+            <p><strong>2 · As desigualdades de região invertem.</strong> Saturação é <span class="certo">V<sub>DS</sub> ≤ V<sub>GS</sub> − V<sub>t</sub></span> e triodo é ≥ — o contrário do NMOS. Uma forma de não errar: pense em <em>módulos</em>. |V<sub>DS</sub>| ≥ |V<sub>GS</sub>| − |V<sub>t</sub>| é saturação nos dois tipos.</p>
+            <p><strong>3 · O descarte muda de aparência.</strong> Aqui a raiz falsa foi <span class="errado">V<sub>GS</sub> = 0</span>, não um valor pequeno positivo. O critério continua o mesmo em espírito: a raiz boa é a que de fato forma canal, isto é, <span class="certo">V<sub>GS</sub> &lt; V<sub>t</sub></span> no PMOS (−2 &lt; −1 ✓, enquanto 0 &gt; −1 ✗).</p>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             12.9 · EX 4.9
+             ============================================================ -->
+        <section class="content-section" id="m12-ex49">
+          <div class="eyebrow">EX 4.9 · PROJETO COMPLETO A PARTIR DO PONTO Q</div>
+          <h2>Ex 4.9 — dado o ponto de operação, projete os quatro resistores</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>Com I<sub>D</sub>, V<sub>D</sub> e V<sub>S</sub> dados, cada resistor sai de uma divisão — e o divisor de porta sai da tensão que V<sub>GS</sub> exige.</p>
+          </div>
+
+          <div class="enunciado">
+            <div class="en-head">Enunciado</div>
+            <p>Projete R<sub>D</sub>, R<sub>S</sub>, R<sub>G1</sub> e R<sub>G2</sub> para que o transistor opere no ponto indicado.</p>
+            <div class="dados">
+              V<sub>DD</sub> = 15 V &nbsp;·&nbsp; I<sub>D</sub> = 0,5 mA &nbsp;·&nbsp; V<sub>D</sub> = 10 V &nbsp;·&nbsp; V<sub>S</sub> = 5 V<br>
+              V<sub>t</sub> = 1 V &nbsp;·&nbsp; k′<sub>n</sub>(W/L) = 1 mA/V² &nbsp;·&nbsp; λ = 0
+            </div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">resolução — os resistores de dreno e de fonte saem direto</div>
+            <div class="lin"><div class="pq"><b>1 · R<sub>D</sub>.</b> A queda sobre ele é o que falta de V<sub>D</sub> até a alimentação.</div><div class="ct">R<sub>D</sub> = (V<sub>DD</sub> − V<sub>D</sub>)/I<sub>D</sub> = (15 − 10)/0,5 mA = <span class="hand-box"><span class="y">10 kΩ</span></span></div></div>
+            <div class="lin"><div class="pq"><b>2 · R<sub>S</sub>.</b> E sobre ele cai V<sub>S</sub> inteira, porque o pé está no terra.</div><div class="ct">R<sub>S</sub> = V<sub>S</sub>/I<sub>D</sub> = 5/0,5 mA = <span class="hand-box"><span class="y">10 kΩ</span></span></div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">resolução — o divisor de porta exige passar pelo transistor</div>
+            <div class="lin"><div class="pq"><b>3 · V<sub>GS</sub>.</b> Só o dispositivo sabe que tensão de porta produz 0,5 mA.</div><div class="ct">0,5 mA = (1 mA/V²/2)(V<sub>GS</sub> − 1)<sup>2</sup> &nbsp;⇒&nbsp; (V<sub>GS</sub>−1)<sup>2</sup> = 1</div></div>
+            <div class="lin"><div class="pq"><b>4 ·</b> Duas raízes; 0 V está abaixo do limiar.</div><div class="ct">V<sub>GS</sub> − 1 = ±1 &nbsp;⇒&nbsp; V<sub>GS</sub> = <span class="y">2 V</span> ou <span class="crossed">0 V</span></div></div>
+            <div class="lin"><div class="pq"><b>5 · V<sub>G</sub>.</b> A porta tem de ficar V<sub>GS</sub> acima da fonte.</div><div class="ct">V<sub>G</sub> = V<sub>S</sub> + V<sub>GS</sub> = 5 + 2 = <span class="hand-box"><span class="y">7 V</span></span></div></div>
+            <div class="lin"><div class="pq"><b>6 · O divisor.</b> Imponha V<sub>G</sub> = V<sub>DD</sub>·R<sub>G2</sub>/(R<sub>G1</sub>+R<sub>G2</sub>).</div><div class="ct">15·R<sub>G2</sub>/(R<sub>G1</sub>+R<sub>G2</sub>) = 7 &nbsp;⇒&nbsp; R<sub>G2</sub>/(R<sub>G1</sub>+R<sub>G2</sub>) = 7/15</div></div>
+            <div class="lin"><div class="pq"><b>7 ·</b> Qualquer par na proporção 8 : 7 serve; a soma é livre e escolhe-se grande, para não gastar corrente.</div><div class="ct">R<sub>G1</sub> = <span class="y">8 MΩ</span>, R<sub>G2</sub> = <span class="y">7 MΩ</span> &nbsp;<span class="dim">(I do divisor = 1 μA)</span></div></div>
+            <div class="lin"><div class="pq"><b>8 · Verificação.</b> V<sub>DS</sub> = 10 − 5 = 5 V contra a sobrecarga de 1 V.</div><div class="ct">5 ≥ 1 &nbsp;<span class="y">✓ saturação</span></div></div>
+          </div>
+
+          <div class="intu">
+            <span class="lbl">a soma do divisor é livre — e é isso que se explora</span>
+            <p>Repare no passo 7: a condição do divisor fixa apenas a <strong>razão</strong> R<sub>G1</sub>:R<sub>G2</sub> = 8:7. Os valores absolutos ficam livres, e é por isso que se escolhem megohms em vez de quilohms — a porta não puxa corrente, então resistores grandes dão a mesma V<sub>G</sub> consumindo mil vezes menos (aqui, 1 μA contra os 500 μA do dreno), e ainda mantêm alta a impedância de entrada para o sinal.</p>
+            <p>É o mesmo raciocínio da <a href="#m12-divisor">Seção 12.6</a>, e o limite prático também é o mesmo: acima de uns 10 MΩ as correntes de fuga e o ruído começam a atrapalhar.</p>
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+            <div class="q">
+              <div class="q-head">numérico <span class="tagq">variação do enunciado</span></div>
+              <p class="q-stem">O fabricante entrega transistores com V<sub>t</sub> = 1,5 V em vez de 1 V. Mantendo os mesmos resistores do projeto acima, que V<sub>GS</sub> seria necessário para os mesmos 0,5 mA — e o circuito ainda entregaria essa corrente?</p>
+              <details class="reveal"><summary>ver a resposta</summary>
+                <div class="ans">
+                  <p><strong>A tensão necessária:</strong> 0,5 = 0,5(V<sub>GS</sub>−1,5)² ⇒ (V<sub>GS</sub>−1,5)² = 1 ⇒ V<sub>GS</sub> = <strong>2,5 V</strong> (a outra raiz, 0,5 V, está abaixo do limiar).</p>
+                  <p><strong>Mas o circuito entrega isso?</strong> Não exatamente. Com V<sub>G</sub> preso em 7 V pelo divisor, a malha exige 7 − V<sub>GS</sub> − 10k·I<sub>D</sub> = 0. Pedindo V<sub>GS</sub> = 2,5 V, sobrariam 4,5 V em R<sub>S</sub>, o que dá I<sub>D</sub> = 0,45 mA — e não 0,5 mA.</p>
+                  <p>Resolvendo o sistema de verdade: I<sub>D</sub> = 0,5(V<sub>GS</sub>−1,5)² com V<sub>GS</sub> = 7 − 10·I<sub>D</sub> leva a 50I<sub>D</sub>² − 56I<sub>D</sub> + 15,125 = 0, cuja raiz válida é <strong>I<sub>D</sub> ≅ 0,455 mA</strong>, com V<sub>GS</sub> ≅ 2,45 V.</p>
+                  <p><strong>Variação de −9%</strong> para um V<sub>t</sub> 50% maior. <span class="note">É a realimentação de R<sub>S</sub> trabalhando de novo — e aqui ela é ainda mais eficaz que na Seção 12.6, porque R<sub>S</sub> = 10 kΩ é maior e o produto que amortece a perturbação é maior junto.</span></p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             12.10 · RESUMO
              ============================================================ -->
         <section class="content-section" id="m12-resumo">
           <div class="eyebrow">§ · RESUMO E ARMADILHAS</div>
@@ -17231,90 +17482,558 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
 
           <div class="attn">
             <span class="tag">o que vem depois</span>
-            Com o ponto Q no lugar, o próximo passo é o <strong>modelo de pequenos sinais</strong>: linearizar a curva no ponto Q e trocar o transistor por g<sub>m</sub> e r<sub>o</sub> — os dois parâmetros que o <a href="#m11-lambda">Módulo 11</a> já deduziu. Aí o ganho do amplificador fonte-comum da Seção 12.1 sai de uma linha, e o «−30» daquela figura deixa de ser um número solto. Tudo o que foi feito aqui é o pré-requisito: <em>não existe modelo de pequenos sinais sem um ponto de operação para linearizar em volta dele</em>.
+            Com o ponto Q no lugar, o próximo passo é o <strong>modelo de pequenos sinais</strong> — que é o <a href="#mod13">Módulo 13</a>: linearizar a curva no ponto Q e trocar o transistor por g<sub>m</sub> e r<sub>o</sub>, os dois parâmetros que o <a href="#m11-lambda">Módulo 11</a> já deduziu. Aí o ganho do amplificador fonte-comum da Seção 12.1 sai de uma linha, e o «−30» daquela figura deixa de ser um número solto. Tudo o que foi feito aqui é o pré-requisito: <em>não existe modelo de pequenos sinais sem um ponto de operação para linearizar em volta dele</em>.
           </div>
         </section>
 
       </div>
     </div>
 
+
     <!-- ============================================================
-         MÓDULO 13 — GAVETA DE TESTES (sem módulo teórico ainda)
+         MÓDULO 13 — AMPLIFICADORES MOS · PEQUENOS SINAIS
          ============================================================ -->
     <div class="module-wrap">
       <section class="hero-module module-break" id="mod13">
-        <div class="hero-eyebrow">MÓDULO 13 · GAVETA · TESTES À ESPERA DO SEU MÓDULO</div>
-        <h1><span class="w1">Cinco testes resolvidos cuja teoria ainda não está no site.</span> <span class="w2">Ficam aqui, inteiros e conferidos, até que os módulos de pequenos sinais e de lógica CMOS sejam escritos — e então migram.</span></h1>
-        <p class="dek">Dois assuntos, cinco provas. Os <strong>amplificadores MOS em pequenos sinais</strong> aparecem em quatro testes que, no fundo, são dois circuitos repetidos: fonte comum com resistor de fonte, e porta comum. A <strong>lógica CMOS combinacional</strong> aparece em um. Cada seção traz o enunciado, o formulário que a própria prova fornece, a resolução passo a passo e a leitura do resultado — o suficiente para estudar por eles agora, sem esperar pela teoria completa.</p>
-        <div class="meta-row"><b>Curso</b> PSI3024 — Eletrônica &nbsp;&nbsp;&nbsp; <b>Provas</b> T7·2024 · T8·2024 · T8·2025 · T9·2025 · T9·2024 &nbsp;&nbsp;&nbsp; <b>Status</b> aguardando módulo teórico</div>
+        <div class="hero-eyebrow">MÓDULO 13 · MODELO DE PEQUENOS SINAIS · AULA NA LOUSA</div>
+        <h1><span class="w1">A equação do MOS é uma parábola, e parábola não amplifica sem distorcer.</span> <span class="w2">Mas se o sinal for pequeno o bastante, o trecho da curva em torno do ponto Q é uma reta — e aí o transistor vira três símbolos.</span></h1>
+        <p class="dek">Com o ponto Q fixado pelo <a href="#mod12" style="color:var(--yellow)">Módulo 12</a>, falta descrever o que acontece com o <em>sinal</em>. A aula faz isso de um jeito só: escreve v<sub>GS</sub> = V<sub>GS</sub> + v<sub>gs</sub>, leva na equação quadrática, expande o quadrado e joga fora o termo em v<sub>gs</sub>² — desde que o sinal seja pequeno. O que sobra é linear, e a constante de proporcionalidade é a transcondutância g<sub>m</sub>. A partir daí o transistor pode ser substituído por um circuito equivalente: o modelo π híbrido, ou o modelo T, que é o mesmo circuito redesenhado. Com eles, ganho, impedância de entrada e impedância de saída saem por divisores de tensão.</p>
+        <div class="meta-row"><b>Curso</b> PSI3024 — Eletrônica &nbsp;&nbsp;&nbsp; <b>Pré-requisito</b> <a href="#mod12" style="color:var(--yellow)">Módulo 12</a> &nbsp;&nbsp;&nbsp; <b>Provas</b> T7·2024 · T8·2024 · T8·2025 · T9·2025 &nbsp;&nbsp;&nbsp; <b>Fonte</b> notas de lousa</div>
 
         <svg class="hero-deco" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- gaveta -->
-          <rect x="60" y="120" width="290" height="70" rx="6" fill="none" stroke="var(--chalk-faint)" stroke-width="2"/>
-          <rect x="60" y="205" width="290" height="70" rx="6" fill="none" stroke="var(--chalk-faint)" stroke-width="2"/>
-          <rect x="60" y="290" width="290" height="70" rx="6" fill="rgba(229,212,128,.07)" stroke="var(--yellow)" stroke-width="2.4"/>
-          <line x1="178" y1="155" x2="232" y2="155" stroke="var(--chalk-faint)" stroke-width="4" stroke-linecap="round"/>
-          <line x1="178" y1="240" x2="232" y2="240" stroke="var(--chalk-faint)" stroke-width="4" stroke-linecap="round"/>
-          <line x1="178" y1="325" x2="232" y2="325" stroke="var(--yellow)" stroke-width="4" stroke-linecap="round"/>
-          <!-- gm v_gs -->
-          <circle cx="205" cy="60" r="26" fill="none" stroke="var(--yellow)" stroke-width="2.4"/>
-          <line x1="205" y1="44" x2="205" y2="72" stroke="var(--yellow)" stroke-width="2"/>
-          <polygon points="199,72 211,72 205,86" fill="var(--yellow)"/>
-          <text x="244" y="58" font-family="Kalam" font-size="22" fill="var(--yellow)">g</text>
-          <text x="258" y="64" font-family="Kalam" font-size="14" fill="var(--yellow)">m</text>
-          <text x="272" y="58" font-family="Kalam" font-size="22" fill="var(--yellow)">v</text>
-          <text x="284" y="64" font-family="Kalam" font-size="14" fill="var(--yellow)">gs</text>
-          <!-- portas logicas -->
-          <text x="80" y="430" font-family="Kalam" font-size="26" fill="var(--chalk-faint)">A + B·(C + D)</text>
-          <line x1="80" y1="402" x2="300" y2="402" stroke="var(--chalk-faint)" stroke-width="2.4"/>
+          <!-- curva com ponto Q e tangente -->
+          <line x1="40" y1="300" x2="370" y2="300" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+          <line x1="40" y1="300" x2="40" y2="80" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+          <path d="M80,300 C140,290 200,230 250,140 C272,100 286,84 300,76" fill="none" stroke="var(--chalk-faint)" stroke-width="2.6"/>
+          <line x1="150" y1="310" x2="290" y2="150" stroke="var(--yellow)" stroke-width="3"/>
+          <circle cx="222" cy="228" r="8" fill="var(--yellow)"/>
+          <text x="238" y="220" font-family="Kalam" font-size="24" fill="var(--yellow)">Q</text>
+          <text x="48" y="70" font-family="Kalam" font-size="17" fill="var(--chalk-faint)">i</text>
+          <text x="56" y="75" font-family="Kalam" font-size="12" fill="var(--chalk-faint)">D</text>
+          <text x="374" y="322" font-family="Kalam" font-size="17" fill="var(--chalk-faint)">v</text>
+          <text x="386" y="327" font-family="Kalam" font-size="12" fill="var(--chalk-faint)">GS</text>
+          <!-- inclinação = gm -->
+          <text x="250" y="282" font-family="Kalam" font-size="20" fill="var(--yellow)">g</text>
+          <text x="264" y="288" font-family="Kalam" font-size="13" fill="var(--yellow)">m</text>
+          <!-- fonte controlada -->
+          <g transform="translate(130,400)">
+            <polygon points="40,0 72,22 40,44 8,22" fill="none" stroke="var(--yellow)" stroke-width="2.4"/>
+            <line x1="40" y1="10" x2="40" y2="30" stroke="var(--yellow)" stroke-width="2"/>
+            <polygon points="34,30 46,30 40,42" fill="var(--yellow)"/>
+            <text x="88" y="20" font-family="Kalam" font-size="22" fill="var(--yellow)">g</text>
+            <text x="102" y="26" font-family="Kalam" font-size="14" fill="var(--yellow)">m</text>
+            <text x="114" y="20" font-family="Kalam" font-size="22" fill="var(--yellow)">v</text>
+            <text x="126" y="26" font-family="Kalam" font-size="14" fill="var(--yellow)">gs</text>
+          </g>
         </svg>
       </section>
 
     <div class="mod-nav-bar">
       <nav class="mod-nav">
-        <a href="#m13-sobre">Sobre esta gaveta</a>
-        <a href="#m13-fontecomum">Fonte comum com R<sub>S</sub> — T7·2024 e T8·2025</a>
-        <a href="#m13-portacomum">Porta comum — T8·2024 e T9·2025</a>
-        <a href="#m13-logica">Lógica CMOS — T9·2024</a>
+        <a href="#m13-ideia">A ideia — sinal pequeno em cima do Q</a>
+        <a href="#m13-gm">A dedução de g<sub>m</sub></a>
+        <a href="#m13-pi">Modelo π híbrido e r<sub>o</sub></a>
+        <a href="#m13-t">Modelo T</a>
+        <a href="#m13-grandezas">A<sub>v</sub>, G<sub>v</sub>, R<sub>in</sub>, R<sub>out</sub></a>
+        <a href="#m13-fontecomum">Fonte comum — T7·24 e T8·25</a>
+        <a href="#m13-portacomum">Porta comum — T8·24 e T9·25</a>
+        <a href="#m13-resumo">Resumo e armadilhas</a>
       </nav>
     </div>
 
       <div class="content">
 
         <!-- ============================================================
-             SOBRE
+             13.1 · A IDEIA
              ============================================================ -->
-        <section class="content-section" id="m13-sobre">
-          <div class="eyebrow">§ · O QUE É ESTA GAVETA</div>
-          <h2>Testes que chegaram antes da teoria</h2>
+        <section class="content-section" id="m13-ideia">
+          <div class="eyebrow">§ · A IDEIA · O SINAL CAVALGANDO O PONTO Q</div>
+          <h2>Separar o que é polarização do que é sinal — e linearizar só o sinal</h2>
           <div class="frase">
             <span class="lbl">em uma frase</span>
-            <p>Estes cinco testes dependem de dois assuntos que o site ainda não cobre — eles ficam aqui, completos, e serão realocados quando os módulos correspondentes existirem.</p>
+            <p>Toda tensão e toda corrente do circuito passam a ter duas parcelas: um valor contínuo, que o Módulo 12 calculou, e uma oscilação pequena em volta dele — e é só a segunda que interessa aqui.</p>
           </div>
+          <p class="lead">A notação da lousa deixa isso explícito, e vale aprender o código de maiúsculas e minúsculas antes de qualquer conta:</p>
 
           <table class="spec">
-            <tr><th>teste</th><th>assunto</th><th>módulo de destino</th></tr>
-            <tr><td class="sym">T7 · 2024</td><td>amplificador fonte comum com R<sub>S</sub> — g<sub>m</sub> e G<sub>v</sub></td><td rowspan="4">Amplificadores MOS · pequenos sinais <span class="note">(a escrever)</span></td></tr>
-            <tr><td class="sym">T8 · 2025</td><td>o <em>mesmo</em> circuito e os mesmos dados do T7·2024, Versão 2</td></tr>
-            <tr><td class="sym">T8 · 2024</td><td>amplificador porta comum — g<sub>m</sub> e G<sub>v</sub></td></tr>
-            <tr><td class="sym">T9 · 2025</td><td>o <em>mesmo</em> circuito e os mesmos números do T8·2024</td></tr>
-            <tr><td class="sym">T9 · 2024</td><td>lógica CMOS combinacional — ler e desenhar redes</td><td>Lógica CMOS <span class="note">(a escrever)</span></td></tr>
+            <tr><th>símbolo</th><th>o que é</th><th>exemplo</th></tr>
+            <tr><td class="sym">V<sub>GS</sub>, I<sub>D</sub></td><td>maiúscula com índice maiúsculo — <strong>só a polarização</strong></td><td>2 V, 0,5 mA (do ponto Q)</td></tr>
+            <tr><td class="sym">v<sub>gs</sub>, i<sub>d</sub></td><td>minúscula com índice minúsculo — <strong>só o sinal</strong></td><td>0,1·sen ωt</td></tr>
+            <tr><td class="sym">v<sub>GS</sub>, i<sub>D</sub></td><td>minúscula com índice maiúsculo — <strong>o total instantâneo</strong></td><td>2 + 0,1·sen ωt</td></tr>
           </table>
 
-          <div class="attn">
-            <span class="tag">quatro provas, dois circuitos</span>
-            Vale notar antes de começar: os quatro testes de pequenos sinais são <strong>dois circuitos repetidos</strong>. O T8·2025 é exatamente a Versão 2 do T7·2024 — mesmos W/L, mesmos resistores, mesma resposta. O T9·2025 é o T8·2024 com as duas versões trocadas de lugar. Resolver os dois circuitos resolve as quatro provas.
-            <br><br>
-            O que muda entre as versões é só <strong>W/L</strong>, e por consequência g<sub>m</sub>. Todo o resto do procedimento é idêntico.
+          <div class="eq" style="text-align:center;font-size:1.25rem">
+            v<sub class="dim">GS</sub> = V<sub class="dim">GS</sub> + v<sub class="dim">gs</sub> &nbsp;&nbsp;&nbsp;&nbsp; i<sub class="dim">D</sub> = I<sub class="dim">D</sub> + i<sub class="dim">d</sub>
           </div>
 
+          <figure class="panel">
+            <svg viewBox="0 0 740 400" xmlns="http://www.w3.org/2000/svg">
+              <!-- ===== amplificador ===== -->
+              <text x="24" y="26" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">o amplificador completo — polarização e sinal no mesmo desenho</text>
+              <line x1="258" y1="50" x2="258" y2="72" stroke="var(--chalk)" stroke-width="2"/>
+              <polygon points="250,50 266,50 258,36" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="272" y="48" font-family="Kalam" font-size="15" fill="var(--yellow)">V</text>
+              <text x="285" y="53" font-family="Kalam" font-size="11" fill="var(--yellow)">DD</text>
+              <line x1="104" y1="72" x2="258" y2="72" stroke="var(--chalk)" stroke-width="2"/>
+              <!-- R_G1 -->
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="104,72 104,96 96,102 112,112 96,122 112,132 104,138 104,164"/>
+              </g>
+              <text x="60" y="118" font-family="Kalam" font-size="13" fill="var(--chalk-dim)">R</text>
+              <text x="70" y="123" font-family="Kalam" font-size="9" fill="var(--chalk-dim)">G1</text>
+              <!-- R_G2 -->
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="104,164 104,190 96,196 112,206 96,216 112,226 104,232 104,258"/>
+              </g>
+              <text x="60" y="212" font-family="Kalam" font-size="13" fill="var(--chalk-dim)">R</text>
+              <text x="70" y="217" font-family="Kalam" font-size="9" fill="var(--chalk-dim)">G2</text>
+              <line x1="90" y1="258" x2="118" y2="258" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="95" y1="265" x2="113" y2="265" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="100" y1="272" x2="108" y2="272" stroke="var(--chalk)" stroke-width="2"/>
+              <!-- R_D -->
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="258,72 258,94 250,100 266,110 250,120 266,130 258,136 258,158"/>
+              </g>
+              <text x="272" y="118" font-family="Kalam" font-size="13" fill="var(--chalk-dim)">R</text>
+              <text x="282" y="123" font-family="Kalam" font-size="9" fill="var(--chalk-dim)">D</text>
+              <!-- transistor -->
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <line x1="220" y1="170" x2="220" y2="234"/>
+                <line x1="220" y1="174" x2="258" y2="174"/><line x1="258" y1="174" x2="258" y2="158"/>
+                <line x1="220" y1="202" x2="258" y2="202"/>
+                <line x1="220" y1="230" x2="258" y2="230"/><line x1="258" y1="230" x2="258" y2="260"/>
+                <line x1="206" y1="202" x2="214" y2="202"/>
+                <line x1="206" y1="182" x2="206" y2="222"/>
+              </g>
+              <polygon points="232,226 232,234 242,230" fill="var(--chalk)"/>
+              <line x1="104" y1="164" x2="206" y2="164" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="206" y1="164" x2="206" y2="182" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="104" cy="164" r="3.6" fill="var(--chalk)"/>
+              <text x="166" y="158" font-family="Kalam" font-size="13" fill="var(--yellow)">7 V</text>
+              <!-- C_C1 e sinal -->
+              <circle cx="152" cy="164" r="3.6" fill="var(--chalk)"/>
+              <line x1="152" y1="164" x2="152" y2="164" stroke="none"/>
+              <line x1="62" y1="164" x2="86" y2="164" stroke="none"/>
+              <line x1="30" y1="164" x2="56" y2="164" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="56" y1="152" x2="56" y2="176" stroke="var(--yellow)" stroke-width="2.6"/>
+              <line x1="64" y1="152" x2="64" y2="176" stroke="var(--yellow)" stroke-width="2.6"/>
+              <line x1="64" y1="164" x2="104" y2="164" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="48" y="144" font-family="Kalam" font-size="13" fill="var(--yellow)">C</text>
+              <text x="58" y="149" font-family="Kalam" font-size="9" fill="var(--yellow)">C1</text>
+              <circle cx="24" cy="164" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="14" y="194" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">v</text>
+              <text x="22" y="199" font-family="Kalam" font-size="9" fill="var(--chalk-faint)">sig</text>
+              <!-- R_S e C_S -->
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="258,260 258,278 250,284 266,294 250,304 266,314 258,320 258,340"/>
+              </g>
+              <text x="222" y="302" font-family="Kalam" font-size="13" fill="var(--chalk-dim)">R</text>
+              <text x="232" y="307" font-family="Kalam" font-size="9" fill="var(--chalk-dim)">S</text>
+              <circle cx="258" cy="260" r="3.6" fill="var(--chalk)"/>
+              <line x1="258" y1="260" x2="316" y2="260" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="316" y1="260" x2="316" y2="288" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="304" y1="288" x2="328" y2="288" stroke="var(--yellow)" stroke-width="2.6"/>
+              <line x1="304" y1="296" x2="328" y2="296" stroke="var(--yellow)" stroke-width="2.6"/>
+              <line x1="316" y1="296" x2="316" y2="340" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="334" y="288" font-family="Kalam" font-size="13" fill="var(--yellow)">C</text>
+              <text x="344" y="293" font-family="Kalam" font-size="9" fill="var(--yellow)">S</text>
+              <line x1="244" y1="340" x2="330" y2="340" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="273" y1="340" x2="301" y2="340" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="278" y1="347" x2="296" y2="347" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="283" y1="354" x2="291" y2="354" stroke="var(--chalk)" stroke-width="2"/>
+              <!-- C_C2, R_L e saída -->
+              <circle cx="258" cy="158" r="3.6" fill="var(--chalk)"/>
+              <line x1="258" y1="158" x2="320" y2="158" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="320" y1="146" x2="320" y2="170" stroke="var(--yellow)" stroke-width="2.6"/>
+              <line x1="328" y1="146" x2="328" y2="170" stroke="var(--yellow)" stroke-width="2.6"/>
+              <line x1="328" y1="158" x2="378" y2="158" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="312" y="136" font-family="Kalam" font-size="13" fill="var(--yellow)">C</text>
+              <text x="322" y="141" font-family="Kalam" font-size="9" fill="var(--yellow)">C2</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="378,158 378,182 370,188 386,198 370,208 386,218 378,224 378,248"/>
+              </g>
+              <text x="392" y="204" font-family="Kalam" font-size="13" fill="var(--chalk-dim)">R</text>
+              <text x="402" y="209" font-family="Kalam" font-size="9" fill="var(--chalk-dim)">L</text>
+              <line x1="364" y1="248" x2="392" y2="248" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="369" y1="255" x2="387" y2="255" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="374" y1="262" x2="382" y2="262" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="378" cy="158" r="3.6" fill="var(--chalk)"/>
+              <text x="396" y="154" font-family="Kalam" font-size="15" fill="var(--yellow)">v</text>
+              <text x="406" y="159" font-family="Kalam" font-size="11" fill="var(--yellow)">o</text>
+              <text x="24" y="382" font-family="Kalam" font-size="14" fill="var(--yellow)">Z</text>
+              <text x="33" y="387" font-family="Kalam" font-size="10" fill="var(--yellow)">C</text>
+              <text x="42" y="382" font-family="Kalam" font-size="14" fill="var(--yellow)">= 1/ωC</text>
+              <text x="118" y="382" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">— grande em cc, ≅ 0 no sinal</text>
+
+              <!-- ===== curva com o Q e a oscilação ===== -->
+              <line x1="440" y1="36" x2="440" y2="380" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <line x1="500" y1="300" x2="712" y2="300" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <line x1="500" y1="300" x2="500" y2="70" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <text x="694" y="322" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">v</text>
+              <text x="726" y="327" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">GS</text>
+              <text x="508" y="64" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">i</text>
+              <text x="514" y="69" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">D</text>
+              <!-- parabola -->
+              <path d="M540,300 C580,294 620,250 652,186 C668,152 680,122 690,98" fill="none" stroke="var(--chalk)" stroke-width="2.8"/>
+              <!-- tangente no Q -->
+              <line x1="598" y1="300" x2="684" y2="146" stroke="var(--yellow)" stroke-width="2.6" stroke-dasharray="7,5"/>
+              <circle cx="645" cy="214" r="6.5" fill="var(--yellow)"/>
+              <text x="660" y="236" font-family="Kalam" font-size="18" fill="var(--yellow)">Q</text>
+              <!-- oscilação na entrada -->
+              <line x1="645" y1="300" x2="645" y2="222" stroke="var(--chalk-faint)" stroke-width="1.2" stroke-dasharray="4,4"/>
+              <path d="M604,340 C614,326 624,326 634,340 C644,354 654,354 664,340 C674,326 684,326 694,340" fill="none" stroke="var(--pink)" stroke-width="2.2"/>
+              <text x="582" y="372" font-family="Kalam" font-size="13" fill="var(--pink)">v</text>
+              <text x="613" y="377" font-family="Kalam" font-size="9" fill="var(--pink)">gs</text>
+              <text x="624" y="372" font-family="Kalam" font-size="13" fill="var(--pink)">pequeno</text>
+              <!-- oscilação na saída -->
+              <line x1="500" y1="214" x2="638" y2="214" stroke="var(--chalk-faint)" stroke-width="1.2" stroke-dasharray="4,4"/>
+              <path d="M452,186 C462,172 472,172 482,186 C492,200 502,200 512,186" fill="none" stroke="var(--pink)" stroke-width="2.2" transform="translate(0,28)"/>
+              <text x="452" y="196" font-family="Kalam" font-size="13" fill="var(--pink)">i</text>
+              <text x="457" y="201" font-family="Kalam" font-size="9" fill="var(--pink)">d</text>
+              <text x="500" y="88" font-family="Kalam" font-size="13" fill="var(--yellow)">no trecho curto,</text>
+              <text x="500" y="106" font-family="Kalam" font-size="13" fill="var(--yellow)">a parábola é reta</text>
+            </svg>
+            <figcaption>À esquerda, o amplificador que a aula desenha — note o <strong>C<sub>S</sub> em paralelo com R<sub>S</sub></strong>, que é novo: em contínua ele é aberto e R<sub>S</sub> faz a realimentação que estabiliza o ponto Q (<a href="#m12-divisor">§12.6</a>); no sinal ele é curto e põe a fonte no terra, <em>eliminando</em> a degeneração e devolvendo o ganho cheio. À direita, a razão de tudo: num trecho suficientemente curto da parábola, a curva e sua tangente são indistinguíveis — e a inclinação dessa tangente é g<sub>m</sub>.</figcaption>
+          </figure>
+
           <div class="intu">
-            <span class="lbl">o pouco de teoria que estes testes exigem</span>
-            <p>As provas fornecem o <strong>modelo T</strong> no próprio enunciado, e é só isso que é preciso saber: no modelo de pequenos sinais, o transistor em saturação vira <em>duas coisas</em> — uma resistência <strong>1/g<sub>m</sub></strong> entre a porta e a fonte, e uma <strong>fonte de corrente g<sub>m</sub>v<sub>gs</sub></strong> entrando pelo dreno.</p>
-            <p>E g<sub>m</sub> sai da polarização, com a fórmula que o <a href="#m11-saturacao">Módulo 11</a> já deduziu: <strong>g<sub>m</sub> = k′<sub>n</sub>(W/L)(V<sub>GS</sub> − V<sub>t</sub>)</strong>. Daí o roteiro de todos os quatro testes ser o mesmo: ache V<sub>GS</sub> pela corrente de polarização, ache g<sub>m</sub>, desenhe o equivalente, e aplique divisores de tensão.</p>
+            <span class="lbl">o capacitor de desvio é um truque de dois mundos</span>
+            <p>R<sub>S</sub> é indispensável para a polarização e <em>péssimo</em> para o ganho: ele estabiliza o ponto Q, mas divide o sinal (foi o que o Teste 7 mostrou, com o ganho caindo de 25 para 20). C<sub>S</sub> resolve o impasse sem compromisso, porque a impedância dele depende da frequência: <strong>Z<sub>C</sub> = 1/ωC</strong>.</p>
+            <p>Em contínua, ω = 0 e Z<sub>C</sub> = ∞: o capacitor some, R<sub>S</sub> fica sozinho, e a realimentação funciona. Na frequência do sinal, Z<sub>C</sub> ≅ 0: o capacitor curto-circuita R<sub>S</sub>, a fonte do transistor vai ao terra <em>do ponto de vista do sinal</em>, e o ganho volta a ser o máximo possível. <strong>O mesmo resistor, dois comportamentos — escolhidos pela frequência.</strong></p>
           </div>
         </section>
 
+        <!-- ============================================================
+             13.2 · A DEDUÇÃO DE g_m
+             ============================================================ -->
+        <section class="content-section" id="m13-gm">
+          <div class="eyebrow">§ · A DEDUÇÃO · DE ONDE SAI g<sub>m</sub></div>
+          <h2>Expanda o quadrado e jogue fora o termo pequeno</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>Substituir V<sub>GS</sub> por V<sub>GS</sub> + v<sub>gs</sub> na equação de saturação produz três termos: o ponto Q, um termo linear em v<sub>gs</sub> — que é o sinal — e um termo quadrático, que é a distorção e que se despreza.</p>
+          </div>
+
+          <div class="passo">
+            <div class="cab">a dedução da lousa, linha por linha</div>
+            <div class="lin"><div class="pq"><b>1 ·</b> Parta da equação de saturação instantânea, com a tensão total na porta.</div><div class="ct">I<sub>D</sub> + i<sub>d</sub> = (k<sub>n</sub>/2)(W/L)·( V<sub>GS</sub> + v<sub>gs</sub> − V<sub>t</sub> )<sup>2</sup></div></div>
+            <div class="lin"><div class="pq"><b>2 ·</b> Expanda o quadrado agrupando (V<sub>GS</sub> − V<sub>t</sub>) como um bloco só. Saem exatamente três parcelas.</div><div class="ct">= (k<sub>n</sub>/2)(W/L)[ (V<sub>GS</sub>−V<sub>t</sub>)<sup>2</sup> + 2(V<sub>GS</sub>−V<sub>t</sub>)·v<sub>gs</sub> + <span class="crossed">v<sub>gs</sub><sup>2</sup></span> ]</div></div>
+            <div class="lin"><div class="pq"><b>3 · A hipótese de pequenos sinais.</b> É ela que autoriza o corte — e a lousa escreve a condição explicitamente.</div><div class="ct">v<sub>gs</sub> ≪ 2(V<sub>GS</sub>−V<sub>t</sub>) &nbsp;⇒&nbsp; v<sub>gs</sub><sup>2</sup> ≪ 2(V<sub>GS</sub>−V<sub>t</sub>)·v<sub>gs</sub></div></div>
+            <div class="lin"><div class="pq"><b>4 ·</b> Sem o quadrático, restam dois termos — e o primeiro é, letra por letra, a corrente de polarização.</div><div class="ct">I<sub>D</sub> + i<sub>d</sub> = <span class="dim">(k<sub>n</sub>/2)(W/L)(V<sub>GS</sub>−V<sub>t</sub>)<sup>2</sup></span> + (k<sub>n</sub>/2)(W/L)·2(V<sub>GS</sub>−V<sub>t</sub>)·v<sub>gs</sub></div></div>
+            <div class="lin"><div class="pq"><b>5 ·</b> Cancele I<sub>D</sub> dos dois lados — o 2 do numerador corta com o 2 do denominador.</div><div class="ct"><span class="crossed">I<sub>D</sub></span> + i<sub>d</sub> = <span class="crossed">I<sub>D</sub></span> + k′<sub>n</sub>(W/L)(V<sub>GS</sub>−V<sub>t</sub>) · v<sub>gs</sub></div></div>
+            <div class="lin"><div class="pq"><b>6 ·</b> O que multiplica v<sub>gs</sub> é a <em class="term">transcondutância</em>.</div><div class="ct"><span class="hand-box"><span class="y">i<sub>d</sub> = g<sub>m</sub>·v<sub>gs</sub></span></span> &nbsp;com&nbsp; <span class="hand-box"><span class="y">g<sub>m</sub> = k′<sub>n</sub>(W/L)(V<sub>GS</sub> − V<sub>t</sub>)</span></span></div></div>
+          </div>
+
+          <div class="attn">
+            <span class="tag">g<sub>m</sub> é a derivada — e isso dá três fórmulas pelo preço de uma</span>
+            O resultado acima é exatamente ∂i<sub>D</sub>/∂v<sub>GS</sub> avaliado no ponto Q, isto é, <strong>a inclinação da tangente</strong>. E como I<sub>D</sub> também é conhecido no ponto Q, a mesma grandeza pode ser escrita de três maneiras equivalentes — vale conhecer as três, porque cada exercício dá um conjunto diferente de dados:
+            <br><br>
+            <b>g<sub>m</sub> = k′<sub>n</sub>(W/L)·V<sub>ov</sub></b> &nbsp;·&nbsp; <b>g<sub>m</sub> = 2I<sub>D</sub>/V<sub>ov</sub></b> &nbsp;·&nbsp; <b>g<sub>m</sub> = √(2k′<sub>n</sub>(W/L)·I<sub>D</sub>)</b>
+            <br><br>
+            com V<sub>ov</sub> = V<sub>GS</sub> − V<sub>t</sub>. A terceira é a mais reveladora: <strong>g<sub>m</sub> cresce com a raiz da corrente</strong>, não proporcionalmente a ela. Dobrar o consumo de um estágio MOS aumenta o ganho em apenas 41% — uma desvantagem notória do MOS em relação ao bipolar, onde g<sub>m</sub> = I<sub>C</sub>/V<sub>T</sub> é proporcional à corrente.
+          </div>
+
+          <div class="erro">
+            <span class="lbl">o que «pequeno sinal» significa em volts</span>
+            <p>A condição da linha 3 não é vaga: ela diz <span class="certo">v<sub>gs</sub> ≪ 2V<sub>ov</sub></span>. Com V<sub>ov</sub> = 1 V, isso significa manter v<sub>gs</sub> bem abaixo de 2 V — na prática, algumas centenas de milivolts para um erro de poucos por cento.</p>
+            <p>Quando o sinal cresce além disso, o termo v<sub>gs</sub>² volta a importar, e ele é exatamente a <strong>distorção harmônica</strong>: um quadrado aplicado a uma senoide gera segundo harmônico. Ou seja, o termo que jogamos fora não é «erro de cálculo» — é a distorção do amplificador, e desprezá-lo é a mesma coisa que afirmar que o amplificador está operando linearmente.</p>
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+            <div class="q">
+              <div class="q-head">conceitual <span class="tagq">múltipla escolha · as três fórmulas</span></div>
+              <p class="q-stem">Dois transistores operam com a mesma I<sub>D</sub> = 1 mA, mas um tem W/L = 5 e o outro W/L = 20 (mesmo k′<sub>n</sub>). Qual tem maior g<sub>m</sub>?</p>
+              <div class="opts">
+                <button class="opt" data-ok="1"><span class="k">a)</span> O de W/L = 20, por um fator 2 — porque g<sub>m</sub> = √(2k′(W/L)I<sub>D</sub>) e W/L aparece dentro da raiz.</button>
+                <button class="opt" data-ok="0"><span class="k">b)</span> O de W/L = 20, por um fator 4, porque g<sub>m</sub> é proporcional a W/L.</button>
+                <button class="opt" data-ok="0"><span class="k">c)</span> São iguais, porque a corrente é a mesma.</button>
+                <button class="opt" data-ok="0"><span class="k">d)</span> O de W/L = 5, porque precisa de mais sobrecarga.</button>
+              </div>
+              <div class="q-fb" role="status"><b>a)</b> — São exatamente os dois transistores dos testes deste módulo: W/L = 5 dá g<sub>m</sub> = 1 mS e W/L = 20 dá 2 mS. A alternativa (b) é a armadilha: g<sub>m</sub> é proporcional a W/L <em>a sobrecarga constante</em>, mas aqui o que está fixo é a <strong>corrente</strong> — e aí o transistor mais largo opera com menos sobrecarga (1 V contra 2 V), o que cancela metade do ganho. Dobrar W/L a corrente fixa dá √2·√2 = 2, não 4. <span class="note">Em projeto, o compromisso é esse: transistor largo dá mais g<sub>m</sub> por ampère, mas ocupa área e adiciona capacitância parasita.</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             13.3 · MODELO π HÍBRIDO
+             ============================================================ -->
+        <section class="content-section" id="m13-pi">
+          <div class="eyebrow">§ · MODELO π HÍBRIDO · g<sub>m</sub> E r<sub>o</sub></div>
+          <h2>Três terminais, dois componentes — o transistor some do desenho</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>Como i<sub>d</sub> = g<sub>m</sub>v<sub>gs</sub> é linear, o transistor pode ser substituído por uma fonte de corrente comandada — e a única coisa que falta é a inclinação residual da saturação, que vira um resistor r<sub>o</sub> em paralelo.</p>
+          </div>
+          <p class="lead">A porta não puxa corrente, então entre <strong>g</strong> e <strong>s</strong> não há nada: circuito aberto. Entre <strong>d</strong> e <strong>s</strong>, a fonte g<sub>m</sub>v<sub>gs</sub>. E o λ do <a href="#m11-lambda">Módulo 11</a> — que fazia a saturação não ser plana — aparece como uma resistência finita entre dreno e fonte.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 330" xmlns="http://www.w3.org/2000/svg">
+              <text x="24" y="26" font-family="Kalam" font-size="16" fill="var(--yellow)">MODELO π HÍBRIDO</text>
+
+              <!-- terminal g -->
+              <line x1="60" y1="90" x2="150" y2="90" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="56" cy="90" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="48" y="74" font-family="Kalam" font-size="17" fill="var(--chalk)">g</text>
+              <line x1="104" y1="96" x2="140" y2="96" stroke="var(--chalk-faint)" stroke-width="1.8"/>
+              <polygon points="140,91 154,96 140,101" fill="var(--chalk-faint)"/>
+              <text x="108" y="120" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">i = 0</text>
+              <!-- v_gs -->
+              <path d="M84,100 C64,140 64,200 84,236" fill="none" stroke="var(--pink)" stroke-width="1.8"/>
+              <text x="32" y="176" font-family="Kalam" font-size="17" fill="var(--pink)">v</text>
+              <text x="44" y="182" font-family="Kalam" font-size="12" fill="var(--pink)">gs</text>
+              <!-- barra s -->
+              <line x1="60" y1="250" x2="520" y2="250" stroke="var(--chalk)" stroke-width="2.4"/>
+              <text x="286" y="276" text-anchor="middle" font-family="Kalam" font-size="17" fill="var(--chalk)">s</text>
+              <!-- fonte controlada -->
+              <line x1="240" y1="90" x2="420" y2="90" stroke="var(--chalk)" stroke-width="2"/>
+              <polygon points="240,140 272,164 240,188 208,164" fill="none" stroke="var(--yellow)" stroke-width="2.4"/>
+              <line x1="240" y1="90" x2="240" y2="140" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="240" y1="188" x2="240" y2="250" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="240" y1="150" x2="240" y2="170" stroke="var(--yellow)" stroke-width="2"/>
+              <polygon points="234,170 246,170 240,182" fill="var(--yellow)"/>
+              <text x="286" y="160" font-family="Kalam" font-size="17" fill="var(--yellow)">g</text>
+              <text x="298" y="166" font-family="Kalam" font-size="12" fill="var(--yellow)">m</text>
+              <text x="310" y="160" font-family="Kalam" font-size="17" fill="var(--yellow)">v</text>
+              <text x="322" y="166" font-family="Kalam" font-size="12" fill="var(--yellow)">gs</text>
+              <!-- r_o -->
+              <g stroke="var(--yellow)" stroke-width="2.2" fill="none">
+                <polyline points="420,90 420,130 412,136 428,146 412,156 428,166 420,172 420,250"/>
+              </g>
+              <text x="436" y="136" font-family="Kalam" font-size="18" fill="var(--yellow)">r</text>
+              <text x="446" y="142" font-family="Kalam" font-size="12" fill="var(--yellow)">o</text>
+              <!-- terminal d -->
+              <line x1="420" y1="90" x2="520" y2="90" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="524" cy="90" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="530" y="76" font-family="Kalam" font-size="17" fill="var(--chalk)">d</text>
+              <line x1="468" y1="112" x2="468" y2="80" stroke="var(--pink)" stroke-width="2"/>
+              <polygon points="462,80 474,80 468,66" fill="var(--pink)"/>
+              <text x="478" y="106" font-family="Kalam" font-size="16" fill="var(--pink)">i</text>
+              <text x="485" y="111" font-family="Kalam" font-size="11" fill="var(--pink)">d</text>
+
+              <!-- coluna direita -->
+              <line x1="552" y1="30" x2="552" y2="310" stroke="var(--line-strong)" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <text x="594" y="86" font-family="Kalam" font-size="19" fill="var(--chalk)">g</text>
+              <text x="606" y="92" font-family="Kalam" font-size="13" fill="var(--chalk)">m</text>
+              <text x="620" y="86" font-family="Kalam" font-size="19" fill="var(--chalk)">= k′</text>
+              <text x="656" y="92" font-family="Kalam" font-size="13" fill="var(--chalk)">n</text>
+              <text x="594" y="112" font-family="Kalam" font-size="17" fill="var(--chalk)">(W/L)(V</text>
+              <text x="664" y="117" font-family="Kalam" font-size="12" fill="var(--chalk)">GS</text>
+              <text x="680" y="112" font-family="Kalam" font-size="17" fill="var(--chalk)">−V</text>
+              <text x="702" y="117" font-family="Kalam" font-size="12" fill="var(--chalk)">t</text>
+              <text x="710" y="112" font-family="Kalam" font-size="17" fill="var(--chalk)">)</text>
+              <line x1="594" y1="136" x2="716" y2="136" stroke="var(--line-strong)" stroke-width="1.4" stroke-dasharray="5,5"/>
+              <text x="594" y="176" font-family="Kalam" font-size="22" fill="var(--yellow)">r</text>
+              <text x="606" y="183" font-family="Kalam" font-size="14" fill="var(--yellow)">o</text>
+              <text x="620" y="176" font-family="Kalam" font-size="22" fill="var(--yellow)">= V</text>
+              <text x="654" y="183" font-family="Kalam" font-size="14" fill="var(--yellow)">A</text>
+              <text x="668" y="176" font-family="Kalam" font-size="22" fill="var(--yellow)">/ I</text>
+              <text x="696" y="183" font-family="Kalam" font-size="14" fill="var(--yellow)">D</text>
+              <text x="594" y="212" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">V</text>
+              <text x="604" y="217" font-family="Kalam" font-size="10" fill="var(--chalk-faint)">A</text>
+              <text x="610" y="212" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">= 1/λ (Early)</text>
+              <text x="572" y="256" font-family="Kalam" font-size="14" fill="var(--pink)">com λ = 0: r</text>
+              <text x="654" y="261" font-family="Kalam" font-size="10" fill="var(--pink)">o</text>
+              <text x="662" y="256" font-family="Kalam" font-size="14" fill="var(--pink)">= ∞,</text>
+              <text x="572" y="278" font-family="Kalam" font-size="14" fill="var(--pink)">some do desenho</text>
+            </svg>
+            <figcaption>O modelo π híbrido. A porta é um terminal de <strong>comando puro</strong>: não entra corrente nela, mas a tensão v<sub>gs</sub> que ali aparece controla a fonte do lado direito. O resistor r<sub>o</sub> é a tradução do λ: ele é a inclinação residual da região de saturação, e vale V<sub>A</sub>/I<sub>D</sub>. Nos quatro testes deste módulo o enunciado dá <strong>λ = 0</strong>, e aí r<sub>o</sub> = ∞ — um circuito aberto, que simplesmente se apaga do desenho.</figcaption>
+          </figure>
+
+          <div class="attn">
+            <span class="tag">a conexão com a modulação de canal</span>
+            A lousa deduz r<sub>o</sub> de onde ele nasce, retomando o <a href="#m11-lambda">Módulo 11</a>: I<sub>D</sub> = (k<sub>n</sub>/2)·W/(L−ΔL)·V<sub>ov</sub><sup>2</sup>, que vira (k<sub>n</sub>/2)(W/L)·1/(1−ΔL/L)·V<sub>ov</sub><sup>2</sup> ≅ (1 + ΔL/L), com ΔL = λ′V<sub>DS</sub> — logo I<sub>D</sub> = (k<sub>n</sub>/2)(W/L)V<sub>ov</sub><sup>2</sup>(1 + λV<sub>DS</sub>).
+            <br><br>
+            Derivando essa expressão em V<sub>DS</sub> obtém-se a condutância de saída λI<sub>D</sub>, e portanto <strong>r<sub>o</sub> = 1/(λI<sub>D</sub>) = V<sub>A</sub>/I<sub>D</sub></strong>. As duas formas são a mesma coisa; a segunda é a preferida porque V<sub>A</sub> é um parâmetro de processo tabelado.
+          </div>
+        </section>
+
+        <!-- ============================================================
+             13.4 · MODELO T
+             ============================================================ -->
+        <section class="content-section" id="m13-t">
+          <div class="eyebrow">§ · MODELO T · O MESMO CIRCUITO, OUTRO DESENHO</div>
+          <h2>Por que vale a pena ter dois modelos do mesmo transistor</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>O modelo T é o π redesenhado com a fonte de corrente desdobrada em duas — o que faz aparecer uma resistência 1/g<sub>m</sub> entre porta e fonte, e torna trivial qualquer circuito em que o sinal entra ou sai pela fonte.</p>
+          </div>
+          <p class="lead">A transformação é um truque de três passos, e a lousa a executa em sequência. A ideia é somar e subtrair a mesma fonte de corrente — operação que não muda nada — e depois reinterpretar o resultado.</p>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 440" xmlns="http://www.w3.org/2000/svg">
+              <!-- ===== (1) o π ===== -->
+              <text x="24" y="24" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">(1) o modelo π: uma fonte entre d e s</text>
+              <line x1="40" y1="56" x2="120" y2="56" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="30" y="48" font-family="Kalam" font-size="14" fill="var(--chalk)">g</text>
+              <line x1="80" y1="60" x2="110" y2="60" stroke="var(--chalk-faint)" stroke-width="1.4"/>
+              <polygon points="110,56 120,60 110,64" fill="var(--chalk-faint)"/>
+              <text x="84" y="80" font-family="Kalam" font-size="12" fill="var(--chalk-faint)">i = 0</text>
+              <path d="M56,64 C44,86 44,120 56,142" fill="none" stroke="var(--pink)" stroke-width="1.5"/>
+              <text x="26" y="110" font-family="Kalam" font-size="13" fill="var(--pink)">v</text>
+              <text x="35" y="115" font-family="Kalam" font-size="9" fill="var(--pink)">gs</text>
+              <line x1="40" y1="150" x2="230" y2="150" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="134" y="170" font-family="Kalam" font-size="14" fill="var(--chalk)">s</text>
+              <line x1="180" y1="56" x2="230" y2="56" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="236" y="50" font-family="Kalam" font-size="14" fill="var(--chalk)">d</text>
+              <polygon points="180,86 202,102 180,118 158,102" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="180" y1="56" x2="180" y2="86" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="180" y1="118" x2="180" y2="150" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="180" y1="92" x2="180" y2="106" stroke="var(--chalk)" stroke-width="1.8"/>
+              <polygon points="175,106 185,106 180,116" fill="var(--chalk)"/>
+              <text x="210" y="100" font-family="Kalam" font-size="13" fill="var(--chalk)">g</text>
+              <text x="219" y="105" font-family="Kalam" font-size="9" fill="var(--chalk)">m</text>
+              <text x="227" y="100" font-family="Kalam" font-size="13" fill="var(--chalk)">v</text>
+              <text x="236" y="105" font-family="Kalam" font-size="9" fill="var(--chalk)">gs</text>
+
+              <text x="258" y="104" font-family="Kalam" font-size="26" fill="var(--yellow)">=</text>
+
+              <!-- ===== (2) desdobrada em duas ===== -->
+              <text x="300" y="24" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">(2) desdobre em DUAS fontes iguais, em série pelo nó x</text>
+              <line x1="316" y1="56" x2="396" y2="56" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="306" y="48" font-family="Kalam" font-size="14" fill="var(--chalk)">g</text>
+              <path d="M332,64 C320,86 320,120 332,142" fill="none" stroke="var(--pink)" stroke-width="1.5"/>
+              <text x="302" y="110" font-family="Kalam" font-size="13" fill="var(--pink)">v</text>
+              <text x="311" y="115" font-family="Kalam" font-size="9" fill="var(--pink)">gs</text>
+              <line x1="316" y1="150" x2="620" y2="150" stroke="var(--chalk)" stroke-width="2.2"/>
+              <text x="464" y="170" font-family="Kalam" font-size="14" fill="var(--chalk)">s</text>
+              <!-- nó x -->
+              <circle cx="440" cy="56" r="4" fill="var(--yellow)"/>
+              <text x="434" y="40" font-family="Kalam" font-size="14" fill="var(--yellow)">x</text>
+              <line x1="396" y1="56" x2="440" y2="56" stroke="var(--chalk)" stroke-width="2"/>
+              <!-- fonte vertical (x -> s) -->
+              <polygon points="440,86 462,102 440,118 418,102" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="440" y1="56" x2="440" y2="86" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="440" y1="118" x2="440" y2="150" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="440" y1="92" x2="440" y2="106" stroke="var(--chalk)" stroke-width="1.8"/>
+              <polygon points="435,106 445,106 440,116" fill="var(--chalk)"/>
+              <text x="396" y="124" text-anchor="end" font-family="Kalam" font-size="13" fill="var(--chalk)">g</text>
+              <text x="398" y="129" font-family="Kalam" font-size="9" fill="var(--chalk)">m</text>
+              <text x="406" y="124" font-family="Kalam" font-size="13" fill="var(--chalk)">v</text>
+              <text x="415" y="129" font-family="Kalam" font-size="9" fill="var(--chalk)">gs</text>
+              <!-- fonte horizontal (x -> d) -->
+              <polygon points="520,56 544,42 568,56 544,70" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="440" y1="56" x2="520" y2="56" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="568" y1="56" x2="620" y2="56" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="552" y1="56" x2="538" y2="56" stroke="var(--chalk)" stroke-width="1.8"/>
+              <polygon points="538,51 528,56 538,61" fill="var(--chalk)"/>
+              <text x="520" y="34" font-family="Kalam" font-size="13" fill="var(--chalk)">g</text>
+              <text x="529" y="39" font-family="Kalam" font-size="9" fill="var(--chalk)">m</text>
+              <text x="537" y="34" font-family="Kalam" font-size="13" fill="var(--chalk)">v</text>
+              <text x="546" y="39" font-family="Kalam" font-size="9" fill="var(--chalk)">gs</text>
+              <text x="626" y="50" font-family="Kalam" font-size="14" fill="var(--chalk)">d</text>
+              <text x="316" y="196" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">no nó x a corrente que entra é a mesma que sai — nada mudou</text>
+
+              <!-- ===== (3) o T ===== -->
+              <text x="24" y="244" font-family="Kalam" font-size="14" fill="var(--yellow)">(3) a fonte vertical conduz g</text>
+              <text x="218" y="249" font-family="Kalam" font-size="10" fill="var(--yellow)">m</text>
+              <text x="226" y="244" font-family="Kalam" font-size="14" fill="var(--yellow)">v</text>
+              <text x="235" y="249" font-family="Kalam" font-size="10" fill="var(--yellow)">gs</text>
+              <text x="248" y="244" font-family="Kalam" font-size="14" fill="var(--yellow)">e tem v</text>
+              <text x="298" y="249" font-family="Kalam" font-size="10" fill="var(--yellow)">gs</text>
+              <text x="310" y="244" font-family="Kalam" font-size="14" fill="var(--yellow)">entre os terminais:</text>
+              <text x="24" y="266" font-family="Kalam" font-size="14" fill="var(--yellow)">é um RESISTOR de valor 1/g</text>
+              <text x="212" y="271" font-family="Kalam" font-size="10" fill="var(--yellow)">m</text>
+              <!-- desenho final -->
+              <line x1="60" y1="300" x2="200" y2="300" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="56" cy="300" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="44" y="288" font-family="Kalam" font-size="16" fill="var(--chalk)">g</text>
+              <line x1="110" y1="306" x2="146" y2="306" stroke="var(--chalk-faint)" stroke-width="1.4"/>
+              <polygon points="146,301 158,306 146,311" fill="var(--chalk-faint)"/>
+              <text x="112" y="328" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">i = 0</text>
+              <!-- 1/gm vertical -->
+              <g stroke="var(--yellow)" stroke-width="2.4" fill="none">
+                <polyline points="200,300 200,324 192,330 208,340 192,350 208,360 200,366 200,392"/>
+              </g>
+              <text x="216" y="342" font-family="Kalam" font-size="18" fill="var(--yellow)">1/g</text>
+              <text x="246" y="348" font-family="Kalam" font-size="13" fill="var(--yellow)">m</text>
+              <circle cx="200" cy="300" r="4" fill="var(--yellow)"/>
+              <!-- fonte para o dreno -->
+              <polygon points="300,278 326,262 352,278 326,294" fill="none" stroke="var(--yellow)" stroke-width="2.4"/>
+              <line x1="200" y1="300" x2="200" y2="278" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="200" y1="278" x2="300" y2="278" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="352" y1="278" x2="430" y2="278" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="334" y1="278" x2="320" y2="278" stroke="var(--yellow)" stroke-width="2"/>
+              <polygon points="320,273 310,278 320,283" fill="var(--yellow)"/>
+              <text x="300" y="252" font-family="Kalam" font-size="15" fill="var(--yellow)">g</text>
+              <text x="312" y="257" font-family="Kalam" font-size="11" fill="var(--yellow)">m</text>
+              <text x="322" y="252" font-family="Kalam" font-size="15" fill="var(--yellow)">v</text>
+              <text x="333" y="257" font-family="Kalam" font-size="11" fill="var(--yellow)">gs</text>
+              <!-- r_o -->
+              <g stroke="var(--chalk-faint)" stroke-width="2" fill="none">
+                <polyline points="430,278 430,310 422,316 438,326 422,336 438,346 430,352 430,392"/>
+              </g>
+              <text x="446" y="320" font-family="Kalam" font-size="16" fill="var(--chalk-faint)">r</text>
+              <text x="455" y="325" font-family="Kalam" font-size="11" fill="var(--chalk-faint)">o</text>
+              <line x1="430" y1="278" x2="510" y2="278" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="514" cy="278" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="522" y="272" font-family="Kalam" font-size="16" fill="var(--chalk)">d</text>
+              <line x1="60" y1="392" x2="510" y2="392" stroke="var(--chalk)" stroke-width="2.4"/>
+              <text x="284" y="416" text-anchor="middle" font-family="Kalam" font-size="16" fill="var(--chalk)">s</text>
+              <g transform="translate(560,300)">
+                <rect x="0" y="0" width="156" height="54" rx="9" fill="rgba(229,212,128,.10)" stroke="var(--yellow)" stroke-width="2.2"/>
+                <text x="78" y="34" text-anchor="middle" font-family="Kalam" font-size="22" fill="var(--yellow)">MODELO T</text>
+              </g>
+            </svg>
+            <figcaption>A transformação. No passo (2) a fonte única é substituída por duas idênticas ligadas ao nó x: uma de x para s e outra de x para d. Isso não altera corrente nenhuma — o que entra em x sai de x. No passo (3) vem a observação decisiva: a fonte vertical conduz g<sub>m</sub>v<sub>gs</sub> e tem exatamente v<sub>gs</sub> entre seus terminais, e um elemento cuja corrente é proporcional à sua própria tensão <strong>é um resistor</strong> — de valor 1/g<sub>m</sub>.</figcaption>
+          </figure>
+
+          <div class="intu">
+            <span class="lbl">quando usar cada um</span>
+            <p>Os dois modelos são <em>exatamente</em> equivalentes — qualquer circuito pode ser resolvido com qualquer um dos dois, e o resultado é idêntico. A escolha é de conveniência:</p>
+            <p><strong>Modelo π</strong> quando o sinal entra pela <em>porta</em> e a fonte está no terra. É o caso mais comum e o mais intuitivo: v<sub>gs</sub> é simplesmente a tensão de entrada.</p>
+            <p><strong>Modelo T</strong> quando a fonte <em>não</em> está no terra — porque há R<sub>S</sub> sem capacitor de desvio, ou porque o sinal entra pela própria fonte. Nesses casos o 1/g<sub>m</sub> transforma o problema num <strong>divisor de tensão</strong>, e o ganho sai por inspeção. É exatamente por isso que os quatro testes deste módulo fornecem o modelo T no enunciado.</p>
+          </div>
+
+          <div class="attn">
+            <span class="tag">1/g<sub>m</sub> é a impedância vista da fonte</span>
+            O modelo T revela de imediato um fato que o π esconde: olhando para dentro do terminal de <strong>fonte</strong>, o transistor parece uma resistência de <strong>1/g<sub>m</sub></strong>. Com g<sub>m</sub> = 1 mS isso é 1 kΩ; com 2 mS, 500 Ω.
+            <br><br>
+            Esse número governa dois comportamentos aparentemente distintos: a <em>degeneração</em> do amplificador fonte comum, onde 1/g<sub>m</sub> divide a tensão com R<sub>S</sub>; e a <em>impedância de entrada</em> do amplificador porta comum, que é literalmente 1/g<sub>m</sub>. As duas seções de testes a seguir são, cada uma, um desses casos.
+          </div>
+        </section>
+
+        <!-- ============================================================
+             13.5 · AS QUATRO GRANDEZAS
+             ============================================================ -->
+        <section class="content-section" id="m13-grandezas">
+          <div class="eyebrow">§ · AS QUATRO GRANDEZAS QUE SE PEDEM</div>
+          <h2>A<sub>v</sub>, G<sub>v</sub>, R<sub>in</sub> e R<sub>out</sub> — e a diferença entre as duas primeiras</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>A<sub>v</sub> mede o que o amplificador faz com o sinal que de fato chegou nele; G<sub>v</sub> mede o que ele faz com o sinal que a fonte tentou entregar — e os dois só coincidem se a impedância de entrada for infinita.</p>
+          </div>
+
+          <div class="passo">
+            <div class="cab">as definições que a lousa registra</div>
+            <div class="lin"><div class="pq"><b>Ganho de tensão</b> — da entrada <em>do amplificador</em> para a saída.</div><div class="ct">A<sub>v</sub> = v<sub>o</sub> / v<sub>i</sub></div></div>
+            <div class="lin"><div class="pq"><b>Ganho global</b> — da fonte de sinal, <em>antes</em> de R<sub>sig</sub>, até a saída. É o que o enunciado dos testes pede.</div><div class="ct"><span class="y">G<sub>v</sub> = v<sub>o</sub> / v<sub>sig</sub></span></div></div>
+            <div class="lin"><div class="pq"><b>Resistência de entrada</b> — o que a fonte de sinal enxerga.</div><div class="ct">R<sub>in</sub> = v<sub>i</sub> / i<sub>i</sub></div></div>
+            <div class="lin"><div class="pq"><b>Resistência de saída</b> — vista pela carga, com a fonte de sinal <strong>zerada</strong> (curto-circuitada).</div><div class="ct">R<sub>out</sub> = v<sub>x</sub> / i<sub>x</sub> &nbsp;<span class="dim">com v<sub>sig</sub> = 0</span></div></div>
+            <div class="lin"><div class="pq">E a ponte entre os dois ganhos é um divisor de tensão puro.</div><div class="ct"><span class="hand-box"><span class="y">G<sub>v</sub> = A<sub>v</sub> · R<sub>in</sub>/(R<sub>in</sub> + R<sub>sig</sub>)</span></span></div></div>
+          </div>
+
+          <div class="erro">
+            <span class="lbl">é esta distinção que os testes cobram</span>
+            <p>Nos quatro testes deste módulo, o divisor de entrada <strong>come metade do sinal</strong> — e isso não é acidente de enunciado, é o ponto da questão. No fonte comum, R<sub>sig</sub> = R<sub>G</sub> = 5 MΩ, e o fator vale ½. No porta comum, R<sub>sig</sub> é igual a 1/g<sub>m</sub>, e o fator vale ½ de novo.</p>
+            <p>Quem calcula apenas A<sub>v</sub> e responde isso como G<sub>v</sub> <span class="errado">erra por um fator 2</span> nas quatro provas. <span class="certo">Leia sempre qual dos dois ganhos está sendo pedido</span> — e, nestes enunciados, é sempre o global.</p>
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+            <div class="q">
+              <div class="q-head">conceitual <span class="tagq">múltipla escolha · A<sub>v</sub> × G<sub>v</sub></span></div>
+              <p class="q-stem">Em que situação A<sub>v</sub> e G<sub>v</sub> são iguais?</p>
+              <div class="opts">
+                <button class="opt" data-ok="1"><span class="k">a)</span> Quando R<sub>in</sub> ≫ R<sub>sig</sub> — ou seja, quando a fonte de sinal não é carregada pelo amplificador.</button>
+                <button class="opt" data-ok="0"><span class="k">b)</span> Quando o ganho é alto o bastante para que a diferença seja desprezível.</button>
+                <button class="opt" data-ok="0"><span class="k">c)</span> Sempre, porque R<sub>sig</sub> é interno à fonte e não afeta o amplificador.</button>
+                <button class="opt" data-ok="0"><span class="k">d)</span> Quando λ = 0 e portanto r<sub>o</sub> = ∞.</button>
+              </div>
+              <div class="q-fb" role="status"><b>a)</b> — O fator R<sub>in</sub>/(R<sub>in</sub>+R<sub>sig</sub>) só tende a 1 quando R<sub>in</sub> domina. É justamente por isso que a porta MOS, de impedância praticamente infinita, é tão atraente num amplificador de instrumentação — mas repare que nos testes do fonte comum R<sub>in</sub> <em>não</em> é a porta, e sim R<sub>G</sub> = 5 MΩ, que é o divisor de polarização visto pelo sinal. Resistência enorme para um resistor, mas da mesma ordem de R<sub>sig</sub>, e por isso metade do sinal se perde. <span class="note">A alternativa (d) confunde duas coisas: r<sub>o</sub> afeta o ganho A<sub>v</sub>, mas não tem nada a ver com a relação entre A<sub>v</sub> e G<sub>v</sub>, que é puramente de entrada.</span></div>
+            </div>
+          </div>
+        </section>
         <!-- ============================================================
              FONTE COMUM COM R_S
              ============================================================ -->
@@ -17325,6 +18044,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
             <span class="lbl">em uma frase</span>
             <p>Três fatores multiplicados: o divisor de entrada, a atenuação que R<sub>S</sub> impõe a v<sub>gs</sub>, e o ganho bruto g<sub>m</sub>R<sub>L</sub> — com sinal negativo, porque é fonte comum.</p>
           </div>
+          <p class="lead">Primeira aplicação do que as seções anteriores construíram. Aqui <strong>não há C<sub>S</sub></strong>: R<sub>S</sub> fica no caminho do sinal, a fonte do transistor não está no terra, e é exatamente a situação em que o <a href="#m13-t">modelo T</a> paga o investimento — o 1/g<sub>m</sub> e o R<sub>S</sub> formam um divisor de tensão, e o ganho sai por inspeção.</p>
 
           <div class="enunciado">
             <div class="en-head">Enunciado</div>
@@ -17478,6 +18198,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
             <span class="lbl">em uma frase</span>
             <p>O sinal entra pela <em>fonte</em>, e a impedância que ele encontra é 1/g<sub>m</sub> — pequena — então o divisor com R<sub>sig</sub> come boa parte dele antes de qualquer amplificação.</p>
           </div>
+          <p class="lead">A segunda topologia, e o outro uso do 1/g<sub>m</sub>: na <a href="#m13-fontecomum">seção anterior</a> ele dividia tensão com R<sub>S</sub>; aqui ele <em>é</em> a resistência de entrada do amplificador. O mesmo elemento do <a href="#m13-t">modelo T</a>, dois papéis diferentes.</p>
 
           <div class="enunciado">
             <div class="en-head">Enunciado</div>
@@ -17601,6 +18322,82 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           </table>
         </section>
 
+
+        <!-- ============================================================
+             13.8 · RESUMO
+             ============================================================ -->
+        <section class="content-section" id="m13-resumo">
+          <div class="eyebrow">§ · RESUMO E ARMADILHAS</div>
+          <h2>O módulo em uma página</h2>
+
+          <div class="passo">
+            <div class="cab">a cadeia completa</div>
+            <div class="lin"><div class="pq"><b>1 ·</b> Separe polarização de sinal</div><div class="ct">v<sub>GS</sub> = V<sub>GS</sub> + v<sub>gs</sub> &nbsp;·&nbsp; i<sub>D</sub> = I<sub>D</sub> + i<sub>d</sub></div></div>
+            <div class="lin"><div class="pq"><b>2 ·</b> Expanda o quadrado e descarte o termo v<sub>gs</sub>²</div><div class="ct">válido se <span class="y">v<sub>gs</sub> ≪ 2(V<sub>GS</sub>−V<sub>t</sub>)</span></div></div>
+            <div class="lin"><div class="pq"><b>3 ·</b> O que sobra é linear</div><div class="ct"><span class="y">i<sub>d</sub> = g<sub>m</sub>v<sub>gs</sub></span> &nbsp;·&nbsp; g<sub>m</sub> = k′<sub>n</sub>(W/L)V<sub>ov</sub> = 2I<sub>D</sub>/V<sub>ov</sub> = √(2k′<sub>n</sub>(W/L)I<sub>D</sub>)</div></div>
+            <div class="lin"><div class="pq"><b>4 ·</b> A inclinação da saturação vira resistor</div><div class="ct">r<sub>o</sub> = V<sub>A</sub>/I<sub>D</sub> = 1/(λI<sub>D</sub>) &nbsp;<span class="dim">(λ = 0 ⇒ r<sub>o</sub> = ∞)</span></div></div>
+            <div class="lin"><div class="pq"><b>5 ·</b> Dois desenhos equivalentes do mesmo transistor</div><div class="ct">π: fonte entre d e s &nbsp;·&nbsp; T: <span class="y">1/g<sub>m</sub></span> entre g e s + fonte</div></div>
+            <div class="lin"><div class="pq"><b>6 ·</b> Capacitores: aberto em cc, curto no sinal</div><div class="ct">Z<sub>C</sub> = 1/ωC &nbsp;·&nbsp; C<sub>S</sub> apaga R<sub>S</sub> <em>só</em> para o sinal</div></div>
+            <div class="lin"><div class="pq"><b>7 ·</b> E as quatro grandezas</div><div class="ct">A<sub>v</sub>=v<sub>o</sub>/v<sub>i</sub> &nbsp;·&nbsp; <span class="y">G<sub>v</sub>=v<sub>o</sub>/v<sub>sig</sub></span> &nbsp;·&nbsp; R<sub>in</sub>=v<sub>i</sub>/i<sub>i</sub> &nbsp;·&nbsp; R<sub>out</sub>=v<sub>x</sub>/i<sub>x</sub>|<sub>v<sub>sig</sub>=0</sub></div></div>
+          </div>
+
+          <table class="inst">
+            <caption>As duas topologias deste módulo</caption>
+            <tr><th>&nbsp;</th><th>fonte comum com R<sub>S</sub></th><th>porta comum</th></tr>
+            <tr><td>entrada pela</td><td class="saida">porta</td><td class="saida">fonte</td></tr>
+            <tr><td>R<sub>in</sub></td><td class="saida">R<sub>G</sub> (megohms)</td><td class="saida">1/g<sub>m</sub> (centenas de Ω)</td></tr>
+            <tr class="marco"><td>sinal</td><td class="saida">inverte (−)</td><td class="saida">não inverte (+)</td></tr>
+            <tr><td>fórmula compacta</td><td class="saida">−g<sub>m</sub>R<sub>L</sub>/(1+g<sub>m</sub>R<sub>S</sub>) × divisor</td><td class="saida">R<sub>out</sub>/(R<sub>sig</sub> + 1/g<sub>m</sub>)</td></tr>
+            <tr><td>G<sub>v</sub> · V1 / V2</td><td class="saida">−25 / −20</td><td class="saida">2 / 1</td></tr>
+          </table>
+
+          <div class="erro">
+            <span class="lbl">as armadilhas, em ordem de frequência em prova</span>
+            <p><strong>Responder A<sub>v</sub> quando pediram G<sub>v</sub>.</strong> Nos quatro testes o divisor de entrada vale exatamente ½, então o erro é um fator 2 — grande o bastante para zerar a questão e pequeno o bastante para não parecer absurdo.</p>
+            <p><strong>Usar V<sub>GS</sub> no lugar da sobrecarga em g<sub>m</sub>.</strong> É <span class="certo">g<sub>m</sub> = k′(W/L)(V<sub>GS</sub> − V<sub>t</sub>)</span>. Com V<sub>GS</sub> = 3 V e V<sub>t</sub> = 1 V, o que entra é 2.</p>
+            <p><strong>Esquecer o sinal do fonte comum.</strong> Ele <span class="certo">inverte</span>; a porta comum, não.</p>
+            <p><strong>Deixar r<sub>o</sub> no circuito quando λ = 0.</strong> r<sub>o</sub> = V<sub>A</sub>/I<sub>D</sub> e V<sub>A</sub> = 1/λ: com λ = 0, r<sub>o</sub> é infinito, isto é, <em>circuito aberto</em> — apague-o do desenho.</p>
+            <p><strong>Manter os capacitores na análise de sinal.</strong> C<sub>C1</sub>, C<sub>C2</sub> e C<sub>S</sub> são <span class="certo">curto</span> no sinal (e aberto em cc — veja o <a href="#mod12">Módulo 12</a>). O erro simétrico também existe: deixá-los curtos na hora de achar o ponto Q.</p>
+            <p><strong>Misturar o modelo π com o T.</strong> São o mesmo transistor desenhado de dois jeitos. Escolha um, desenhe o circuito inteiro com ele, e resolva — não combine pedaços dos dois.</p>
+          </div>
+
+          <div class="attn">
+            <span class="tag">o arco do curso, fechado</span>
+            Olhe para trás: o <a href="#mod9">Módulo 09</a> explicou o silício, o <a href="#mod10">10</a> deduziu o diodo, o <a href="#mod11">11</a> deduziu o MOSFET, o <a href="#mod12">12</a> escolheu onde ele opera, e este linearizou o que sobra. O produto final — uma fonte de corrente comandada por tensão, com g<sub>m</sub> e r<sub>o</sub> — é o <strong>elemento ativo</strong> com que se constroem, por dentro, os amplificadores operacionais dos <a href="#mod2">Módulos 02</a> e <a href="#mod5">06</a>.
+            <br><br>
+            Dito de outro jeito: o curso começou tratando o amp op como uma caixa com ganho A, e termina com as equações que permitem abrir essa caixa. O par diferencial de entrada, o espelho de corrente que o polariza e o estágio de ganho são feitos dos dois símbolos desta página.
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- ============================================================
+         MÓDULO 14 — GAVETA (testes sem módulo teórico)
+         ============================================================ -->
+    <div class="module-wrap">
+      <section class="hero-module module-break" id="mod14">
+        <div class="hero-eyebrow">MÓDULO 14 · GAVETA · TESTES À ESPERA DO SEU MÓDULO</div>
+        <h1><span class="w1">Um teste resolvido cuja teoria ainda não está no site.</span> <span class="w2">Fica aqui, inteiro e conferido, até que o módulo de lógica CMOS seja escrito — e então migra.</span></h1>
+        <p class="dek">Esta gaveta começou com cinco testes. Quatro deles — os de amplificador MOS em pequenos sinais — já migraram para o <a href="#mod13" style="color:var(--yellow)">Módulo 13</a>, assim que a teoria do modelo π e do modelo T foi escrita. Resta um, de lógica CMOS combinacional, que espera o seu módulo. Ele está completo: enunciado, a regra de leitura das redes, resolução e as armadilhas.</p>
+        <div class="meta-row"><b>Curso</b> PSI3024 — Eletrônica &nbsp;&nbsp;&nbsp; <b>Prova</b> T9 · 2024 &nbsp;&nbsp;&nbsp; <b>Destino</b> módulo de Lógica CMOS, a escrever</div>
+        <svg class="hero-deco" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="60" y="150" width="290" height="70" rx="6" fill="none" stroke="var(--chalk-faint)" stroke-width="2" stroke-dasharray="7,6"/>
+          <rect x="60" y="235" width="290" height="70" rx="6" fill="none" stroke="var(--chalk-faint)" stroke-width="2" stroke-dasharray="7,6"/>
+          <rect x="60" y="320" width="290" height="70" rx="6" fill="rgba(229,212,128,.07)" stroke="var(--yellow)" stroke-width="2.4"/>
+          <line x1="178" y1="185" x2="232" y2="185" stroke="var(--chalk-faint)" stroke-width="4" stroke-linecap="round"/>
+          <line x1="178" y1="270" x2="232" y2="270" stroke="var(--chalk-faint)" stroke-width="4" stroke-linecap="round"/>
+          <line x1="178" y1="355" x2="232" y2="355" stroke="var(--yellow)" stroke-width="4" stroke-linecap="round"/>
+          <text x="86" y="110" font-family="Kalam" font-size="28" fill="var(--chalk-faint)">A + B·(C + D)</text>
+          <line x1="86" y1="82" x2="306" y2="82" stroke="var(--chalk-faint)" stroke-width="2.4"/>
+        </svg>
+      </section>
+    <div class="mod-nav-bar">
+      <nav class="mod-nav">
+        <a href="#m13-logica">Lógica CMOS — Teste 9 · 2024</a>
+      </nav>
+    </div>
+      <div class="content">
         <!-- ============================================================
              LÓGICA CMOS
              ============================================================ -->
@@ -17878,9 +18675,9 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
           </div>
         </section>
 
+
       </div>
     </div>
-
 
     <!-- contêiner de revelação do catálogo -->
     <div class="cdlg-back" id="cdlgBack"></div>
@@ -17896,7 +18693,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
 
     <footer class="page-footer">
       <span>guias · poli usp</span>
-      <span>módulo 01 · amplificadores &nbsp;·&nbsp; módulo 02 · amp ops &nbsp;·&nbsp; módulo 03 · diodos e zener &nbsp;·&nbsp; módulo 04 · retificadores e fontes &nbsp;·&nbsp; módulo 05 · teste 4 &nbsp;·&nbsp; módulo 06 · exercícios de revisão &nbsp;·&nbsp; módulo 07 · reconhecer circuitos &nbsp;·&nbsp; módulo 08 · p1 2024 &nbsp;·&nbsp; módulo 09 · semicondutores &nbsp;·&nbsp; módulo 10 · equação do diodo &nbsp;·&nbsp; módulo 11 · transistor mos &nbsp;·&nbsp; módulo 12 · polarização &nbsp;·&nbsp; módulo 13 · gaveta de testes</span>
+      <span>módulo 01 · amplificadores &nbsp;·&nbsp; módulo 02 · amp ops &nbsp;·&nbsp; módulo 03 · diodos e zener &nbsp;·&nbsp; módulo 04 · retificadores e fontes &nbsp;·&nbsp; módulo 05 · teste 4 &nbsp;·&nbsp; módulo 06 · exercícios de revisão &nbsp;·&nbsp; módulo 07 · reconhecer circuitos &nbsp;·&nbsp; módulo 08 · p1 2024 &nbsp;·&nbsp; módulo 09 · semicondutores &nbsp;·&nbsp; módulo 10 · equação do diodo &nbsp;·&nbsp; módulo 11 · transistor mos &nbsp;·&nbsp; módulo 12 · polarização &nbsp;·&nbsp; módulo 13 · pequenos sinais &nbsp;·&nbsp; módulo 14 · gaveta</span>
     </footer>
 
   </div>
