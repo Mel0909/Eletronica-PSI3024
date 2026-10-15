@@ -701,6 +701,13 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <li><a href="#m15-preco"><span class="n">15.5</span>O preço: excursão</a></li>
         <li><a href="#m15-resumo"><span class="n">15.6</span>Resumo</a></li>
       </ul>
+      <a class="module-item" href="#mod16"><span class="num">16</span> Gaveta de testes</a>
+      <ul class="sub-list" data-mod="mod16">
+        <li><a href="#g-pseudonmos"><span class="n">T10</span>Pseudo-NMOS — T10·24 e T12·25</a></li>
+        <li><a href="#g-passagem"><span class="n">T11</span>Porta de passagem — T11·24</a></li>
+        <li><a href="#g-dinamica"><span class="n">T12</span>Lógica dinâmica — T12·24</a></li>
+        <li><a href="#g-potencia"><span class="n">T11</span>Potência e atraso — T11·25</a></li>
+      </ul>
     </nav>
     <div class="more-soon">+ novos módulos em breve</div>
   </aside>
@@ -728,6 +735,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <a href="#mod13">13 · Pequenos sinais</a>
         <a href="#mod14">14 · Lógica CMOS</a>
         <a href="#mod15">15 · Amp ops CMOS</a>
+        <a href="#mod16">16 · Gaveta de testes</a>
       </nav>
     </div>
 
@@ -20508,6 +20516,651 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
       </div>
     </div>
 
+        <!-- ============================================================
+         MÓDULO 16 — GAVETA DE TESTES
+         ============================================================ -->
+    <div class="module-wrap">
+      <section class="hero-module module-break" id="mod16">
+        <div class="hero-eyebrow">MÓDULO 16 · GAVETA · TESTES À ESPERA DO SEU MÓDULO</div>
+        <h1><span class="w1">Quatro testes resolvidos cuja teoria ainda não está no site.</span> <span class="w2">Ficam aqui, inteiros e conferidos, até que os módulos sejam escritos — e então migram.</span></h1>
+        <p class="dek">Todos os quatro são de lógica digital, e todos encostam no <a href="#mod14" style="color:var(--yellow)">Módulo 14</a> sem caber nele: o Módulo 14 cobre CMOS estático complementar, e estes tratam de <em>pseudo-NMOS</em>, <em>porta de passagem com efeito de corpo</em>, <em>lógica dinâmica</em> e <em>potência e atraso</em>. Cada seção traz o enunciado, o circuito redesenhado, a resolução das duas versões e uma nota dizendo para onde ela vai quando a matéria chegar.</p>
+        <div class="meta-row"><b>Curso</b> PSI3024 — Eletrônica &nbsp;&nbsp;&nbsp; <b>Provas</b> T10·2024 = T12·2025 &nbsp;·&nbsp; T11·2024 &nbsp;·&nbsp; T12·2024 &nbsp;·&nbsp; T11·2025 &nbsp;&nbsp;&nbsp; <b>Destino</b> Módulo 14</div>
+
+        <svg class="hero-deco" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="60" y="90" width="290" height="68" rx="6" fill="rgba(229,212,128,.07)" stroke="var(--yellow)" stroke-width="2.4"/>
+          <rect x="60" y="178" width="290" height="68" rx="6" fill="rgba(229,212,128,.07)" stroke="var(--yellow)" stroke-width="2.4"/>
+          <rect x="60" y="266" width="290" height="68" rx="6" fill="rgba(229,212,128,.07)" stroke="var(--yellow)" stroke-width="2.4"/>
+          <rect x="60" y="354" width="290" height="68" rx="6" fill="rgba(229,212,128,.07)" stroke="var(--yellow)" stroke-width="2.4"/>
+          <line x1="178" y1="124" x2="232" y2="124" stroke="var(--yellow)" stroke-width="4" stroke-linecap="round"/>
+          <line x1="178" y1="212" x2="232" y2="212" stroke="var(--yellow)" stroke-width="4" stroke-linecap="round"/>
+          <line x1="178" y1="300" x2="232" y2="300" stroke="var(--yellow)" stroke-width="4" stroke-linecap="round"/>
+          <line x1="178" y1="388" x2="232" y2="388" stroke="var(--yellow)" stroke-width="4" stroke-linecap="round"/>
+          <text x="84" y="60" font-family="Kalam" font-size="22" fill="var(--chalk-faint)">4 testes</text>
+          <text x="84" y="466" font-family="Kalam" font-size="18" fill="var(--chalk-faint)">destino: módulo 14</text>
+        </svg>
+      </section>
+
+    <div class="mod-nav-bar">
+      <nav class="mod-nav">
+        <a href="#g-pseudonmos">Pseudo-NMOS — T10·24 e T12·25</a>
+        <a href="#g-passagem">Porta de passagem — T11·24</a>
+        <a href="#g-dinamica">Lógica dinâmica — T12·24</a>
+        <a href="#g-potencia">Potência e atraso — T11·25</a>
+      </nav>
+    </div>
+
+      <div class="content">
+
+        <!-- ============================================================
+             PSEUDO-NMOS
+             ============================================================ -->
+        <section class="content-section" id="g-pseudonmos">
+          <div class="eyebrow">TESTE 10 · 2024 &nbsp;E&nbsp; TESTE 12 · 2025 · RESOLVIDOS</div>
+          <h2>Pseudo-NMOS — dimensionar a rede n para que o zero seja baixo o bastante</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>Troca-se a rede p inteira por um único pMOS sempre ligado, e o preço é que o nível zero deixa de ser 0 V: passa a ser o resultado de uma disputa de correntes.</p>
+          </div>
+
+          <div class="enunciado">
+            <div class="en-head">Enunciado</div>
+            <p>Para a porta pseudo-NMOS da figura, projete os valores <strong>mínimos</strong> de W/L dos transistores Q<sub>NA</sub>, Q<sub>NB</sub>, Q<sub>NC</sub>, Q<sub>ND</sub> e Q<sub>NE</sub> de forma que a tensão na saída Y seja no máximo 0,2 V.</p>
+            <div class="dados">
+              V<sub>DD</sub> = 5 V &nbsp;·&nbsp; k′<sub>n</sub> = 200 μA/V² &nbsp;·&nbsp; |V<sub>tp</sub>| = |V<sub>tn</sub>| = 1 V &nbsp;·&nbsp; (W/L)<sub>p</sub> = 1 &nbsp;·&nbsp; λ = 0<br>
+              <b>Versão 1</b> k′<sub>p</sub> = 39 μA/V² &nbsp;&nbsp;·&nbsp;&nbsp; <b>Versão 2</b> k′<sub>p</sub> = 78 μA/V²
+            </div>
+            <p class="fonte">PSI3024 — Teste 10 · 2024 e Teste 12 · 2º semestre de 2025 · gabaritos de divulgação. <span class="note">As duas provas são o mesmo teste, com os mesmos dados e a mesma resolução — só mudou o número da prova.</span></p>
+          </div>
+
+                    <figure class="panel">
+            <svg viewBox="0 0 740 518" xmlns="http://www.w3.org/2000/svg">
+              <text x="20" y="24" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">a porta pseudo-NMOS: um pMOS sempre ligado puxando contra a rede n</text>
+              <g transform="translate(0,18)">
+              <line x1="190" y1="44" x2="190" y2="28" stroke="var(--chalk)" stroke-width="2"/>
+              <polygon points="182,28 198,28 190,14" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="252" y="40" font-family="Kalam" font-size="15" fill="var(--yellow)">V</text>
+              <text x="261" y="45" font-family="Kalam" font-size="10" fill="var(--yellow)">DD</text>
+              <line x1="240" y1="64" x2="240" y2="44" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="190" y1="44" x2="240" y2="44" stroke="var(--chalk)" stroke-width="2"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="190" y1="60" x2="190" y2="124"/>
+              <line x1="190" y1="64" x2="240" y2="64"/>
+              <line x1="190" y1="92" x2="228" y2="92"/>
+              <line x1="190" y1="120" x2="240" y2="120"/>
+              <line x1="176" y1="92" x2="168" y2="92"/>
+              <line x1="176" y1="72" x2="176" y2="112"/>
+              </g>
+              <polygon points="202,60 202,68 192,64" fill="var(--chalk)"/>
+              <line x1="176" y1="92" x2="130" y2="92" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="130" y1="92" x2="130" y2="116" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="116" y1="120" x2="144" y2="120" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="121" y1="128" x2="139" y2="128" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="126" y1="136" x2="134" y2="136" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="32" y="62" font-family="Kalam" font-size="13" fill="var(--pink)">porta no terra:</text>
+              <text x="32" y="80" font-family="Kalam" font-size="13" fill="var(--pink)">sempre ligado</text>
+              <text x="262" y="84" font-family="Kalam" font-size="15" fill="var(--pink)">Q</text>
+              <text x="271" y="89" font-family="Kalam" font-size="10" fill="var(--pink)">P</text>
+              <line x1="240" y1="120" x2="240" y2="150" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="240" cy="150" r="3.6" fill="var(--yellow)"/>
+              <line x1="240" y1="150" x2="600" y2="150" stroke="var(--yellow)" stroke-width="2"/>
+              <circle cx="604" cy="150" r="4.5" fill="none" stroke="var(--yellow)" stroke-width="2"/>
+              <text x="616" y="156" font-family="Kalam" font-size="16" fill="var(--yellow)">Y</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="190" y1="180" x2="190" y2="244"/>
+              <line x1="190" y1="184" x2="240" y2="184"/>
+              <line x1="190" y1="212" x2="228" y2="212"/>
+              <line x1="190" y1="240" x2="240" y2="240"/>
+              <line x1="176" y1="212" x2="168" y2="212"/>
+              <line x1="176" y1="192" x2="176" y2="232"/>
+              </g>
+              <polygon points="202,236 202,244 212,240" fill="var(--chalk)"/>
+              <line x1="240" y1="184" x2="240" y2="150" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="240" y1="240" x2="240" y2="266" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="176" y1="212" x2="130" y2="212" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="122" y="217" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk)">A</text>
+              <circle cx="126" cy="212" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="254" y="206" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">Q</text>
+              <text x="265" y="211" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">NA</text>
+              <line x1="150" y1="266" x2="330" y2="266" stroke="var(--chalk)" stroke-width="2"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="100" y1="284" x2="100" y2="348"/>
+              <line x1="100" y1="288" x2="150" y2="288"/>
+              <line x1="100" y1="316" x2="138" y2="316"/>
+              <line x1="100" y1="344" x2="150" y2="344"/>
+              <line x1="86" y1="316" x2="78" y2="316"/>
+              <line x1="86" y1="296" x2="86" y2="336"/>
+              </g>
+              <polygon points="112,340 112,348 122,344" fill="var(--chalk)"/>
+              <line x1="150" y1="288" x2="150" y2="266" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="150" y1="344" x2="150" y2="370" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="86" y1="316" x2="44" y2="316" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="36" y="321" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk)">B</text>
+              <circle cx="40" cy="316" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="164" y="308" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">Q</text>
+              <text x="175" y="313" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">NB</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="280" y1="284" x2="280" y2="348"/>
+              <line x1="280" y1="288" x2="330" y2="288"/>
+              <line x1="280" y1="316" x2="318" y2="316"/>
+              <line x1="280" y1="344" x2="330" y2="344"/>
+              <line x1="266" y1="316" x2="258" y2="316"/>
+              <line x1="266" y1="296" x2="266" y2="336"/>
+              </g>
+              <polygon points="292,340 292,348 302,344" fill="var(--chalk)"/>
+              <line x1="330" y1="288" x2="330" y2="266" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="330" y1="344" x2="330" y2="370" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="266" y1="316" x2="224" y2="316" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="216" y="321" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk)">C</text>
+              <circle cx="220" cy="316" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="344" y="290" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">Q</text>
+              <text x="355" y="295" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">NC</text>
+              <line x1="150" y1="370" x2="330" y2="370" stroke="var(--chalk)" stroke-width="2"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="190" y1="388" x2="190" y2="452"/>
+              <line x1="190" y1="392" x2="240" y2="392"/>
+              <line x1="190" y1="420" x2="228" y2="420"/>
+              <line x1="190" y1="448" x2="240" y2="448"/>
+              <line x1="176" y1="420" x2="168" y2="420"/>
+              <line x1="176" y1="400" x2="176" y2="440"/>
+              </g>
+              <polygon points="202,444 202,452 212,448" fill="var(--chalk)"/>
+              <line x1="240" y1="392" x2="240" y2="370" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="240" y1="448" x2="240" y2="474" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="226" y1="478" x2="254" y2="478" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="231" y1="486" x2="249" y2="486" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="236" y1="494" x2="244" y2="494" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="176" y1="420" x2="130" y2="420" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="122" y="425" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk)">D</text>
+              <circle cx="126" cy="420" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="254" y="414" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">Q</text>
+              <text x="265" y="419" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">ND</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="470" y1="250" x2="470" y2="314"/>
+              <line x1="470" y1="254" x2="520" y2="254"/>
+              <line x1="470" y1="282" x2="508" y2="282"/>
+              <line x1="470" y1="310" x2="520" y2="310"/>
+              <line x1="456" y1="282" x2="448" y2="282"/>
+              <line x1="456" y1="262" x2="456" y2="302"/>
+              </g>
+              <polygon points="482,306 482,314 492,310" fill="var(--chalk)"/>
+              <line x1="520" y1="254" x2="520" y2="150" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="520" y1="310" x2="520" y2="400" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="506" y1="404" x2="534" y2="404" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="511" y1="412" x2="529" y2="412" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="516" y1="420" x2="524" y2="420" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="456" y1="282" x2="414" y2="282" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="406" y="287" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk)">E</text>
+              <circle cx="410" cy="282" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="534" y="256" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">Q</text>
+              <text x="545" y="261" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">NE</text>
+              <text x="400" y="460" font-family="Kalam" font-size="16" fill="var(--yellow)">Y = NOT [ E + A·(B+C)·D ]</text>
+              <text x="400" y="484" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">e o 0 da saída não é 0 V: é VOL</text>
+              </g>
+            </svg>
+            <figcaption>A porta pseudo-NMOS do teste. Q<sub>P</sub> tem a porta no terra e por isso nunca desliga: ele é uma fonte de corrente permanente puxando para cima. A rede n é a de sempre — série é «e», paralelo é «ou», como em <a href="#m14-redes">§14.2</a> — mas agora ela não precisa só <em>conduzir</em>: precisa conduzir <strong>forte o bastante</strong> para vencer Q<sub>P</sub> e manter a saída abaixo de 0,2 V.</figcaption>
+          </figure>
+
+          <div class="passo">
+            <div class="cab">por que a resposta não é «qualquer W/L»</div>
+            <div class="lin"><div class="pq">No CMOS complementar do <a href="#m14-porque">Módulo 14</a>, quando a rede n conduz a rede p está cortada: não há disputa, e a saída desce a 0 V exatos.</div><div class="ct">CMOS: V<sub>OL</sub> = 0 V, sempre</div></div>
+            <div class="lin"><div class="pq">Aqui o pMOS tem a porta no terra e <em>nunca</em> desliga. Quando a rede n conduz, os dois puxam ao mesmo tempo, em sentidos opostos, e a saída para onde as correntes se igualam.</div><div class="ct">pseudo-NMOS: V<sub>OL</sub> &gt; 0</div></div>
+            <div class="lin"><div class="pq">Logo V<sub>OL</sub> depende da <em>razão</em> entre as forças dos dois lados — daí o nome <em class="term">lógica razão</em>. Quanto mais largo o nMOS, mais baixo o zero.</div><div class="ct"><span class="hand-box">dimensionar = escolher a razão</span></div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">(1) a corrente que o pMOS impõe — Versão 1</div>
+            <div class="lin"><div class="pq">Estado do pMOS. Porta no terra e fonte em V<sub>DD</sub>, então V<sub>SG</sub> = 5 V e a sobrecarga é 5 − 1 = 4 V. Com a saída em 0,2 V, V<sub>SD</sub> = 4,8 V, maior que 4 — <strong>saturado</strong>.</div><div class="ct">|V<sub>ov,p</sub>| = 4 V &nbsp;·&nbsp; V<sub>SD</sub> = 4,8 V &gt; 4 V</div></div>
+            <div class="lin"><div class="pq">A corrente, pela equação de saturação.</div><div class="ct">I = ½ · 39 μ · 1 · (−5 − (−1))² = ½ · 39μ · 16</div></div>
+            <div class="lin"><div class="pq">Esse é o valor que a rede n precisa escoar sem deixar a saída passar de 0,2 V.</div><div class="ct"><span class="hand-box">I = <span class="y">312 μA</span></span></div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">(2) o nMOS que escoa essa corrente a 0,2 V</div>
+            <div class="lin"><div class="pq">Estado do nMOS. V<sub>GS</sub> = 5 V dá sobrecarga 4 V, e V<sub>DS</sub> = 0,2 V é muito menor que isso — <strong>triodo</strong>, bem fundo. É por isso que o enunciado fixa 0,2 V: para o transistor ser essencialmente um resistor.</div><div class="ct">V<sub>DS</sub> = 0,2 V ≪ V<sub>ov</sub> = 4 V</div></div>
+            <div class="lin"><div class="pq">A equação de triodo, com os números.</div><div class="ct">312μ = 200μ · (W/L) · [ (5−1)·0,2 − 0,2²/2 ]</div></div>
+            <div class="lin"><div class="pq">O colchete vale 0,8 − 0,02 = 0,78. Note que o termo quadrático tira só 2,5% — é a medida de quão «resistivo» o canal está.</div><div class="ct">(W/L) = 312 / (200 · 0,78) = 312/156</div></div>
+            <div class="lin"><div class="pq">Esse é o valor para <strong>um</strong> transistor sozinho entre a saída e o terra — o caso de Q<sub>NE</sub>.</div><div class="ct"><span class="hand-box">(W/L)<sub>NE</sub> = <span class="y">2</span></span></div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">(3) os quatro que ficam em série — o pior caso</div>
+            <div class="lin"><div class="pq">Leia a rede n: Q<sub>NE</sub> sozinho num ramo, e no outro Q<sub>NA</sub> em série com (Q<sub>NB</sub> ∥ Q<sub>NC</sub>) em série com Q<sub>ND</sub>.</div><div class="ct">f<sub>n</sub> = E + A·(B+C)·D</div></div>
+            <div class="lin"><div class="pq">O pior caso do ramo da esquerda é ter só <em>um</em> dos paralelos ligado: aí são <strong>três transistores em série</strong> — A, um de B/C, e D.</div><div class="ct">três resistores em série</div></div>
+            <div class="lin"><div class="pq">Três em série só dão a mesma condutância se cada um for três vezes mais largo — a regra de dimensionamento da <a href="#m14-dimensionar">Seção 14.4</a>.</div><div class="ct">(W/L) = 3 × 2</div></div>
+            <div class="lin"><div class="pq">E como qualquer um dos quatro pode estar nesse caminho, todos recebem o mesmo valor.</div><div class="ct"><span class="hand-box">(W/L)<sub>NA</sub> = (W/L)<sub>NB</sub> = (W/L)<sub>NC</sub> = (W/L)<sub>ND</sub> = <span class="y">6</span></span></div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">Versão 2 — o pMOS é o dobro de forte, e tudo dobra</div>
+            <div class="lin"><div class="pq">Com k′<sub>p</sub> = 78 μA/V², a corrente que a rede n precisa escoar dobra.</div><div class="ct">I = ½ · 78μ · 16 = 624 μA</div></div>
+            <div class="lin"><div class="pq">E o W/L unitário dobra junto, porque a equação é linear em W/L.</div><div class="ct">(W/L)<sub>NE</sub> = 624/156 = <span class="y">4</span></div></div>
+            <div class="lin"><div class="pq">Os quatro em série, três vezes isso.</div><div class="ct"><span class="hand-box">(W/L)<sub>NA..ND</sub> = <span class="y">12</span></span></div></div>
+          </div>
+
+          <div class="intu">
+            <span class="lbl">o que se ganha e o que se perde trocando a rede p por um pMOS só</span>
+            <p><strong>Ganha-se área e velocidade de subida.</strong> A porta de quatro entradas acima tem 6 transistores em vez de 10, e a entrada de cada variável enxerga <em>uma</em> porta de transistor em vez de duas — metade da capacitância, metade da carga para o estágio anterior.</p>
+            <p><strong>Perde-se o consumo estático.</strong> Sempre que a saída está em zero há um caminho de V<sub>DD</sub> ao terra conduzindo 312 μA, <em>permanentemente</em>. É exatamente a propriedade que o <a href="#m14-porque">CMOS complementar</a> garante não existir. Numa pastilha com milhões de portas, isso é proibitivo — razão pela qual a pseudo-NMOS vive hoje só em nichos (memórias, portas de muitas entradas, barramentos).</p>
+            <p><strong>E perde-se margem de ruído.</strong> Com V<sub>OL</sub> = 0,2 V em vez de 0, a janela que separa «zero» de «um» encolhe. Projetar para V<sub>OL</sub> menor exige nMOS ainda mais largos — e aí o ganho de área evapora.</p>
+          </div>
+
+          <div class="erro">
+            <span class="lbl">as armadilhas deste teste</span>
+            <p><strong>Pôr o pMOS em triodo.</strong> Ele está <span class="certo">saturado</span>: V<sub>SD</sub> = 4,8 V é maior que a sobrecarga de 4 V. Quem usa a equação de triodo do lado p erra a corrente e, com ela, todos os cinco W/L.</p>
+            <p><strong>Pôr o nMOS em saturação.</strong> Simetricamente: com V<sub>DS</sub> = 0,2 V ele está em <span class="certo">triodo profundo</span>. É a assimetria característica da pseudo-NMOS — um em saturação, o outro em triodo.</p>
+            <p><strong>Esquecer o termo V<sub>DS</sub>²/2.</strong> Ele vale só 0,02 contra 0,8, mas sem ele (W/L) daria 1,95 em vez de 2 — e o gabarito pede o valor exato.</p>
+            <p><strong>Dimensionar o paralelo como se fossem dois.</strong> B e C estão em paralelo, mas o pior caso é só <span class="certo">um deles</span> conduzindo. Contar com os dois produz transistores pequenos demais.</p>
+            <p><strong>Dar a Q<sub>NE</sub> o mesmo valor dos outros.</strong> Ele está sozinho no seu ramo: precisa de 2, não de 6. Pedir «os valores mínimos» é pedir que cada um receba só o que o seu pior caminho exige.</p>
+          </div>
+
+          <div class="attn">
+            <span class="tag">destino desta seção</span>
+            Vai para o <a href="#mod14">Módulo 14</a>, numa seção sobre <strong>lógica razão</strong> — pseudo-NMOS e suas parentes — logo depois de <a href="#m14-dimensionar">§14.4</a>, que já estabelece a regra «k em série ⇒ cada um k vezes mais largo» usada aqui.
+          </div>
+        </section>
+
+        <!-- ============================================================
+             PORTA DE PASSAGEM
+             ============================================================ -->
+        <section class="content-section" id="g-passagem">
+          <div class="eyebrow">TESTE 11 · 2024 · RESOLVIDO</div>
+          <h2>Porta de passagem — o «transmite 1 mal», agora com número</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>A carga para quando V<sub>GS</sub> chega a V<sub>t</sub>, mas V<sub>t</sub> cresce enquanto a saída sobe — então a equação é implícita e se resolve iterando.</p>
+          </div>
+          <p class="lead">A <a href="#m14-porque">Seção 14.1</a> afirma que um nMOS transmite o nível 1 mal, travando em V<sub>DD</sub> − V<sub>t</sub>. Este teste cobra o número — e revela que a perda é ainda maior do que aquela frase sugere, porque V<sub>t</sub> não é constante.</p>
+
+          <div class="enunciado">
+            <div class="en-head">Enunciado</div>
+            <p>Considere o transistor NMOS habilitado como porta de passagem (v<sub>C</sub> = V<sub>DD</sub>), com o substrato (B) aterrado. Determine o valor numérico do nível lógico de saída sobre o capacitor C após a carga completa, com precisão de duas casas decimais.</p>
+            <div class="dados">
+              V<sub>DD</sub> = 5 V &nbsp;·&nbsp; 2φ<sub>F</sub> = 0,6 V<br>
+              <b>Versão 1</b> k′<sub>n</sub> = 200 μA/V², V<sub>t0</sub> = 1,0 V, (W/L)<sub>n</sub> = 1, γ = 0,5 V<sup>½</sup><br>
+              <b>Versão 2</b> k′<sub>n</sub> = 100 μA/V², V<sub>t0</sub> = 1,5 V, (W/L)<sub>n</sub> = 2, γ = 0,3 V<sup>½</sup>
+            </div>
+            <p class="fonte">PSI3024 — Teste 11 · 2024 · gabarito de divulgação, versões 1 e 2.</p>
+          </div>
+
+                    <figure class="panel">
+            <svg viewBox="0 0 740 350" xmlns="http://www.w3.org/2000/svg">
+              <text x="20" y="24" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">a porta de passagem: o nMOS como chave — e por que ela não entrega VDD</text>
+              <circle cx="302" cy="78" r="4.5" fill="none" stroke="var(--yellow)" stroke-width="2"/>
+              <line x1="302" y1="82" x2="302" y2="128" stroke="var(--yellow)" stroke-width="2"/>
+              <text x="318" y="84" font-family="Kalam" font-size="16" fill="var(--yellow)">v</text>
+              <text x="328" y="89" font-family="Kalam" font-size="11" fill="var(--yellow)">C</text>
+              <text x="338" y="84" font-family="Kalam" font-size="15" fill="var(--yellow)">= VDD</text>
+              <line x1="302" y1="128" x2="302" y2="140" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="272" y1="140" x2="332" y2="140" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="268" y1="156" x2="336" y2="156" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="302" y1="156" x2="302" y2="186" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="312" y="180" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">B</text>
+              <polygon points="296,170 308,170 302,180" fill="var(--chalk)"/>
+              <line x1="302" y1="186" x2="302" y2="206" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="288" y1="210" x2="316" y2="210" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="293" y1="218" x2="311" y2="218" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="298" y1="226" x2="306" y2="226" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="268" y1="156" x2="268" y2="196" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="268" y1="196" x2="180" y2="196" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="256" y="182" text-anchor="end" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">D</text>
+              <line x1="336" y1="156" x2="336" y2="196" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="336" y1="196" x2="424" y2="196" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="348" y="182" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">S</text>
+              <circle cx="176" cy="196" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="160" y="190" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk)">vI = VDD</text>
+              <circle cx="424" cy="196" r="3.6" fill="var(--yellow)"/>
+              <line x1="424" y1="196" x2="500" y2="196" stroke="var(--yellow)" stroke-width="2"/>
+              <circle cx="504" cy="196" r="4.5" fill="none" stroke="var(--yellow)" stroke-width="2"/>
+              <text x="518" y="202" font-family="Kalam" font-size="16" fill="var(--yellow)">v</text>
+              <text x="528" y="207" font-family="Kalam" font-size="11" fill="var(--yellow)">O</text>
+              <line x1="424" y1="196" x2="424" y2="222" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="406" y1="222" x2="442" y2="222" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="406" y1="230" x2="442" y2="230" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="424" y1="230" x2="424" y2="256" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="410" y1="260" x2="438" y2="260" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="415" y1="268" x2="433" y2="268" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="420" y1="276" x2="428" y2="276" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="450" y="232" font-family="Kalam" font-size="16" fill="var(--chalk)">C</text>
+              <text x="30" y="300" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">a fonte do transistor é a própria saída: quando vO sobe, VGS encolhe</text>
+              <text x="30" y="322" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">e VSB cresce — o que ainda aumenta Vt. A carga para quando VGS = Vt.</text>
+              <text x="466" y="100" font-family="Kalam" font-size="14" fill="var(--yellow)">Vt = Vt0 + γ ( √(VSB+2φF) − √(2φF) )</text>
+              <text x="466" y="128" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">com VSB = vO  ⇒  equação implícita</text>
+              <text x="466" y="148" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">resolvida por iteração</text>
+            </svg>
+            <figcaption>A porta de passagem. Como a corrente entra pelo lado esquerdo e sai pelo capacitor, o terminal da direita é a <strong>fonte</strong> — o de menor potencial. O substrato está no terra, então V<sub>SB</sub> é exatamente a tensão de saída, e é isso que torna a equação implícita.</figcaption>
+          </figure>
+
+          <div class="attn">
+            <span class="tag">o efeito de corpo, em uma linha — é a ferramenta nova deste teste</span>
+            A tensão de limiar não é uma constante do transistor: ela depende da tensão entre a <strong>fonte e o substrato</strong>. Polarizar o substrato mais negativo que a fonte engrossa a região de depleção sob o canal, e é preciso mais tensão de porta para inverter a superfície.
+            <br><br>
+            <span class="hand-box">V<sub>t</sub> = V<sub>t0</sub> + γ ( √(V<sub>SB</sub> + 2φ<sub>F</sub>) − √(2φ<sub>F</sub>) )</span>
+            <br><br>
+            V<sub>t0</sub> é o limiar com a fonte no substrato, γ é o <em class="term">coeficiente de efeito de corpo</em> (em √V, tipicamente 0,3 a 0,6) e 2φ<sub>F</sub> é o potencial de superfície na inversão. Com V<sub>SB</sub> = 0 a raiz se cancela e V<sub>t</sub> = V<sub>t0</sub>, como seria de esperar.
+          </div>
+
+          <div class="passo">
+            <div class="cab">por que a equação é implícita</div>
+            <div class="lin"><div class="pq"><b>1 ·</b> O transistor para de conduzir quando a tensão porta-fonte chega ao limiar. A porta está fixa em V<sub>DD</sub>; a fonte é o terminal de <em>menor</em> potencial — aqui, o lado da saída, porque a corrente entra pelo outro lado.</div><div class="ct">a carga cessa quando V<sub>GS</sub> = V<sub>t</sub></div></div>
+            <div class="lin"><div class="pq"><b>2 ·</b> Com a porta em V<sub>DD</sub> e a fonte em v<sub>O</sub>, isso dá o valor final da saída.</div><div class="ct">v<sub>O</sub> = V<sub>DD</sub> − V<sub>t</sub></div></div>
+            <div class="lin"><div class="pq"><b>3 ·</b> Mas o substrato está no terra e a fonte está em v<sub>O</sub>, então V<sub>SB</sub> = v<sub>O</sub> — e V<sub>t</sub> depende de v<sub>O</sub>, que depende de V<sub>t</sub>.</div><div class="ct"><span class="hand-box">V<sub>SB</sub> = v<sub>O</sub> = V<sub>DD</sub> − V<sub>t</sub>(V<sub>SB</sub>)</span></div></div>
+            <div class="lin"><div class="pq"><b>4 ·</b> A raiz quadrada impede isolar V<sub>t</sub>. Itera-se: chuta-se V<sub>SB</sub>, calcula-se V<sub>t</sub>, atualiza-se V<sub>SB</sub>, repete.</div><div class="ct">converge em três passos</div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">a iteração — Versão 1 (V<sub>t0</sub> = 1,0 V, γ = 0,5)</div>
+            <div class="lin"><div class="pq"><b>Chute inicial.</b> Ignore o efeito de corpo: V<sub>t</sub> = V<sub>t0</sub> = 1,0, logo v<sub>O</sub> = 4,0 e V<sub>SB</sub> = 4,0 V.</div><div class="ct">V<sub>t</sub> = 1,0 + 0,5(√4,6 − √0,6) = <span class="y">1,685 V</span></div></div>
+            <div class="lin"><div class="pq"><b>Iteração 2.</b> Com esse V<sub>t</sub>, a saída não chega a 4 V — chega a 3,315 V, e V<sub>SB</sub> cai junto.</div><div class="ct">V<sub>SB</sub> = 3,315 &nbsp;⇒&nbsp; V<sub>t</sub> = 1,0 + 0,5(√3,915 − √0,6) = <span class="y">1,602 V</span></div></div>
+            <div class="lin"><div class="pq"><b>Iteração 3.</b> O valor subiu de volta um pouco — a sequência oscila em torno da solução, com amplitude cada vez menor.</div><div class="ct">V<sub>SB</sub> = 3,398 &nbsp;⇒&nbsp; V<sub>t</sub> = <span class="y">1,613 V</span> ≈ 1,61 V</div></div>
+            <div class="lin"><div class="pq">Duas casas já estão estáveis. A resposta.</div><div class="ct"><span class="hand-box">v<sub>O</sub> = 5 − 1,61 = <span class="y">3,39 V</span></span></div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">Versão 2 (V<sub>t0</sub> = 1,5 V, γ = 0,3) — limiar maior, corpo mais fraco</div>
+            <div class="lin"><div class="pq">Chute: V<sub>SB</sub> = 5 − 1,5 = 3,5 V.</div><div class="ct">V<sub>t</sub> = 1,5 + 0,3(√4,1 − √0,6) = 1,875 V</div></div>
+            <div class="lin"><div class="pq">Iteração 2.</div><div class="ct">V<sub>SB</sub> = 3,125 &nbsp;⇒&nbsp; V<sub>t</sub> = 1,847 V</div></div>
+            <div class="lin"><div class="pq">Iteração 3 — já estabilizou.</div><div class="ct">V<sub>SB</sub> = 3,153 &nbsp;⇒&nbsp; V<sub>t</sub> = 1,849 ≈ 1,85 V</div></div>
+            <div class="lin"><div class="pq">A resposta.</div><div class="ct"><span class="hand-box">v<sub>O</sub> = 5 − 1,85 = <span class="y">3,15 V</span></span></div></div>
+          </div>
+
+          <div class="intu">
+            <span class="lbl">três leituras que valem mais que o número</span>
+            <p><strong>k′<sub>n</sub> e W/L não aparecem na resposta.</strong> Os dois são dados e os dois são inúteis para esta pergunta — eles determinam <em>quanto tempo</em> a carga leva, não <em>onde</em> ela para. É uma pegadinha honesta: a prova dá dados a mais para ver se você sabe de quais precisa.</p>
+            <p><strong>O efeito de corpo custa mais que o limiar.</strong> Sem ele, a saída travaria em 5 − 1,0 = 4,0 V. Com ele, trava em 3,39 V. A perda extra de 0,61 V é maior do que metade do V<sub>t0</sub> original — não é uma correção de segunda ordem.</p>
+            <p><strong>Por que a iteração oscila.</strong> V<sub>t</sub> alto ⇒ v<sub>O</sub> baixo ⇒ V<sub>SB</sub> baixo ⇒ V<sub>t</sub> mais baixo ⇒ v<sub>O</sub> alto… A realimentação é negativa, e a raiz quadrada é suave, então a amplitude cai depressa: 1,685 → 1,602 → 1,613 → 1,611. Três passos bastam para duas casas.</p>
+          </div>
+
+          <div class="erro">
+            <span class="lbl">as armadilhas</span>
+            <p><strong>Trocar fonte e dreno.</strong> No MOSFET eles são definidos pela tensão, não pelo desenho: a <span class="certo">fonte é o terminal de menor potencial</span> num nMOS. Como a corrente entra pelo lado de V<sub>DD</sub>, o lado do capacitor é a fonte — e é por isso que V<sub>SB</sub> = v<sub>O</sub> e não V<sub>DD</sub>.</p>
+            <p><strong>Usar V<sub>t0</sub> direto e responder 4 V.</strong> É o erro que o enunciado está caçando ao dar γ e 2φ<sub>F</sub>.</p>
+            <p><strong>Parar na primeira iteração</strong> e responder 5 − 1,685 = 3,32 V. A primeira iteração parte de um chute que já se sabe errado.</p>
+            <p><strong>Achar que o capacitor muda a resposta.</strong> C <span class="certo">não aparece</span> — ele define a constante de tempo, não o valor final.</p>
+          </div>
+
+          <div class="attn">
+            <span class="tag">destino desta seção</span>
+            Vai para o <a href="#mod14">Módulo 14</a>, numa seção sobre <strong>porta de passagem e efeito de corpo</strong>, logo depois de <a href="#m14-porque">§14.1</a> — que é onde a frase «o nMOS transmite 1 mal» é afirmada sem ser quantificada. Parte do conteúdo (a equação de V<sub>t</sub> com V<sub>SB</sub>) também pertence ao <a href="#mod11">Módulo 11</a>, que hoje trata V<sub>t</sub> como constante.
+          </div>
+        </section>
+
+        <!-- ============================================================
+             LÓGICA DINÂMICA
+             ============================================================ -->
+        <section class="content-section" id="g-dinamica">
+          <div class="eyebrow">TESTE 12 · 2024 · RESOLVIDO</div>
+          <h2>Lógica dinâmica — atraso pelo método da corrente média</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>A corrente de descarga não é constante, mas varia pouco — então troca-se a integral pela média aritmética entre o começo e o fim, e o atraso sai de uma regra de três.</p>
+          </div>
+
+          <div class="enunciado">
+            <div class="en-head">Enunciado</div>
+            <p>Para a porta lógica dinâmica da figura, determine o <strong>tempo de atraso máximo</strong>, considerando as razões W/L fornecidas. Sabe-se que a razão W/L de Q<sub>e</sub> é elevada e que V<sub>e</sub> ≅ 0 V quando ele está habilitado (φ = V<sub>DD</sub>). Calcule, na condição de maior atraso, o valor de i<sub>DNméd</sub> = [i<sub>DN</sub>(0) + i<sub>DN</sub>(t<sub>P</sub>)] / 2.</p>
+            <div class="dados">
+              V<sub>DD</sub> = 5 V &nbsp;·&nbsp; |V<sub>tp</sub>| = |V<sub>tn</sub>| = 1 V &nbsp;·&nbsp; λ = 0 &nbsp;·&nbsp; C<sub>L</sub> = 446,25 fF<br>
+              (W/L)<sub>QP</sub> = 6 &nbsp;·&nbsp; (W/L)<sub>QA</sub> = 3 &nbsp;·&nbsp; (W/L)<sub>QB</sub> = 6 &nbsp;·&nbsp; (W/L)<sub>QC</sub> = 6<br>
+              <b>Versão 1</b> k′<sub>n</sub> = 200 nA/V² &nbsp;&nbsp;·&nbsp;&nbsp; <b>Versão 2</b> k′<sub>n</sub> = 400 nA/V²
+            </div>
+            <p class="fonte">PSI3024 — Teste 12 · 2024 · gabarito de divulgação, versões 1 e 2. <span class="note">A relação de carga e descarga usada é i<sub>méd</sub> · Δt = (V<sub>DD</sub>/2) · C<sub>L</sub>.</span></p>
+          </div>
+
+                    <figure class="panel">
+            <svg viewBox="0 0 740 518" xmlns="http://www.w3.org/2000/svg">
+              <text x="20" y="24" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">a porta dinâmica: pré-carrega no clock baixo, avalia no clock alto</text>
+              <g transform="translate(0,18)">
+              <line x1="190" y1="44" x2="190" y2="28" stroke="var(--chalk)" stroke-width="2"/>
+              <polygon points="182,28 198,28 190,14" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="252" y="40" font-family="Kalam" font-size="15" fill="var(--yellow)">V</text>
+              <text x="261" y="45" font-family="Kalam" font-size="10" fill="var(--yellow)">DD</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="190" y1="60" x2="190" y2="124"/>
+              <line x1="190" y1="64" x2="240" y2="64"/>
+              <line x1="190" y1="92" x2="228" y2="92"/>
+              <line x1="190" y1="120" x2="240" y2="120"/>
+              <line x1="176" y1="92" x2="168" y2="92"/>
+              <line x1="176" y1="72" x2="176" y2="112"/>
+              </g>
+              <polygon points="202,60 202,68 192,64" fill="var(--chalk)"/>
+              <line x1="240" y1="64" x2="240" y2="44" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="190" y1="44" x2="240" y2="44" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="176" y1="92" x2="124" y2="92" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="120" cy="92" r="4.5" fill="none" stroke="var(--pink)" stroke-width="2"/>
+              <text x="108" y="97" text-anchor="end" font-family="Kalam" font-size="16" fill="var(--pink)">φ</text>
+              <text x="262" y="84" font-family="Kalam" font-size="15" fill="var(--pink)">Q</text>
+              <text x="271" y="89" font-family="Kalam" font-size="10" fill="var(--pink)">P</text>
+              <line x1="240" y1="120" x2="240" y2="150" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="180" y1="150" x2="340" y2="150" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="240" cy="150" r="3.6" fill="var(--yellow)"/>
+              <line x1="340" y1="150" x2="500" y2="150" stroke="var(--yellow)" stroke-width="2"/>
+              <circle cx="380" cy="150" r="3.6" fill="var(--yellow)"/>
+              <circle cx="504" cy="150" r="4.5" fill="none" stroke="var(--yellow)" stroke-width="2"/>
+              <text x="516" y="156" font-family="Kalam" font-size="16" fill="var(--yellow)">Y</text>
+              <line x1="380" y1="150" x2="380" y2="182" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="362" y1="182" x2="398" y2="182" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="362" y1="190" x2="398" y2="190" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="380" y1="190" x2="380" y2="216" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="366" y1="220" x2="394" y2="220" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="371" y1="228" x2="389" y2="228" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="376" y1="236" x2="384" y2="236" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="406" y="192" font-family="Kalam" font-size="16" fill="var(--chalk)">C</text>
+              <text x="417" y="197" font-family="Kalam" font-size="11" fill="var(--chalk)">L</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="130" y1="190" x2="130" y2="254"/>
+              <line x1="130" y1="194" x2="180" y2="194"/>
+              <line x1="130" y1="222" x2="168" y2="222"/>
+              <line x1="130" y1="250" x2="180" y2="250"/>
+              <line x1="116" y1="222" x2="108" y2="222"/>
+              <line x1="116" y1="202" x2="116" y2="242"/>
+              </g>
+              <polygon points="142,246 142,254 152,250" fill="var(--chalk)"/>
+              <line x1="180" y1="194" x2="180" y2="150" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="180" y1="250" x2="180" y2="356" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="116" y1="222" x2="70" y2="222" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="62" y="227" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk)">A</text>
+              <circle cx="66" cy="222" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="194" y="196" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">Q</text>
+              <text x="205" y="201" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">A</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="290" y1="190" x2="290" y2="254"/>
+              <line x1="290" y1="194" x2="340" y2="194"/>
+              <line x1="290" y1="222" x2="328" y2="222"/>
+              <line x1="290" y1="250" x2="340" y2="250"/>
+              <line x1="276" y1="222" x2="268" y2="222"/>
+              <line x1="276" y1="202" x2="276" y2="242"/>
+              </g>
+              <polygon points="302,246 302,254 312,250" fill="var(--chalk)"/>
+              <line x1="340" y1="194" x2="340" y2="150" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="340" y1="250" x2="340" y2="262" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="276" y1="222" x2="234" y2="222" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="226" y="227" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk)">B</text>
+              <circle cx="230" cy="222" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="250" y="196" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">Q</text>
+              <text x="261" y="201" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">B</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="290" y1="272" x2="290" y2="336"/>
+              <line x1="290" y1="276" x2="340" y2="276"/>
+              <line x1="290" y1="304" x2="328" y2="304"/>
+              <line x1="290" y1="332" x2="340" y2="332"/>
+              <line x1="276" y1="304" x2="268" y2="304"/>
+              <line x1="276" y1="284" x2="276" y2="324"/>
+              </g>
+              <polygon points="302,328 302,336 312,332" fill="var(--chalk)"/>
+              <line x1="340" y1="276" x2="340" y2="262" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="340" y1="332" x2="340" y2="356" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="276" y1="304" x2="234" y2="304" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="226" y="309" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk)">C</text>
+              <circle cx="230" cy="304" r="4.5" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="250" y="278" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">Q</text>
+              <text x="261" y="283" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">C</text>
+              <line x1="180" y1="356" x2="340" y2="356" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="260" cy="356" r="3.6" fill="var(--orange)"/>
+              <text x="300" y="376" font-family="Kalam" font-size="15" fill="var(--orange)">V</text>
+              <text x="309" y="381" font-family="Kalam" font-size="10" fill="var(--orange)">e</text>
+              <text x="324" y="376" font-family="Kalam" font-size="14" fill="var(--orange)">≈ 0</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="210" y1="380" x2="210" y2="444"/>
+              <line x1="210" y1="384" x2="260" y2="384"/>
+              <line x1="210" y1="412" x2="248" y2="412"/>
+              <line x1="210" y1="440" x2="260" y2="440"/>
+              <line x1="196" y1="412" x2="188" y2="412"/>
+              <line x1="196" y1="392" x2="196" y2="432"/>
+              </g>
+              <polygon points="222,436 222,444 232,440" fill="var(--chalk)"/>
+              <line x1="260" y1="384" x2="260" y2="356" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="260" y1="440" x2="260" y2="466" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="246" y1="470" x2="274" y2="470" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="251" y1="478" x2="269" y2="478" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="256" y1="486" x2="264" y2="486" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="196" y1="412" x2="144" y2="412" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="140" cy="412" r="4.5" fill="none" stroke="var(--pink)" stroke-width="2"/>
+              <text x="128" y="417" text-anchor="end" font-family="Kalam" font-size="16" fill="var(--pink)">φ</text>
+              <text x="282" y="406" font-family="Kalam" font-size="15" fill="var(--pink)">Q</text>
+              <text x="291" y="411" font-family="Kalam" font-size="10" fill="var(--pink)">e</text>
+              <text x="470" y="250" font-family="Kalam" font-size="14" fill="var(--pink)">φ = 0  →  QP liga, Qe corta:</text>
+              <text x="470" y="272" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">CL carrega até VDD  (pré-carga)</text>
+              <text x="470" y="310" font-family="Kalam" font-size="14" fill="var(--pink)">φ = VDD  →  QP corta, Qe liga:</text>
+              <text x="470" y="332" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">se a rede n conduzir, CL descarrega</text>
+              <text x="470" y="352" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">(avaliação)</text>
+              <text x="470" y="398" font-family="Kalam" font-size="16" fill="var(--yellow)">Y = NOT ( A + B·C )</text>
+              </g>
+            </svg>
+            <figcaption>A porta dinâmica. Q<sub>P</sub> e Q<sub>e</sub> são comandados pelo mesmo relógio φ, em oposição: um liga quando o outro corta, e nunca há caminho de V<sub>DD</sub> ao terra. A rede n entre eles é a mesma de uma porta estática — só que a rede p inteira foi substituída por Q<sub>P</sub>.</figcaption>
+          </figure>
+
+          <div class="passo">
+            <div class="cab">(1) qual é a condição de maior atraso</div>
+            <div class="lin"><div class="pq">A rede n tem dois caminhos até V<sub>e</sub>: Q<sub>A</sub> sozinho, ou Q<sub>B</sub> em série com Q<sub>C</sub>.</div><div class="ct">f<sub>n</sub> = A + B·C</div></div>
+            <div class="lin"><div class="pq">Q<sub>A</sub> sozinho tem W/L = 3. Q<sub>B</sub> e Q<sub>C</sub> têm 6 cada, mas em série equivalem a 6/2 = 3.</div><div class="ct">os dois caminhos empatam em <span class="y">W/L = 3</span></div></div>
+            <div class="lin"><div class="pq">O pior caso é ter <em>só um</em> dos dois ativo. Se as duas portas estiverem ligadas, as correntes somam e o atraso cai pela metade.</div><div class="ct">só Q<sub>A</sub>, ou só Q<sub>B</sub> e Q<sub>C</sub></div></div>
+            <div class="lin"><div class="pq">Q<sub>e</sub> não entra na conta: o enunciado garante W/L elevada e V<sub>e</sub> ≅ 0, isto é, resistência desprezível em série.</div><div class="ct">a fonte do transistor ativo está no terra</div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">(2) a corrente no começo e no fim — Versão 1</div>
+            <div class="lin"><div class="pq"><b>Em t = 0</b> a saída ainda está pré-carregada em V<sub>DD</sub> = 5 V. Com V<sub>GS</sub> = 5 e sobrecarga 4 V, V<sub>DS</sub> = 5 V &gt; 4 V: <strong>saturação</strong>.</div><div class="ct">i(0) = ½ · 200n · 3 · (5 − 1)² = ½·200n·3·16</div></div>
+            <div class="lin"><div class="pq">O valor.</div><div class="ct">i<sub>DN</sub>(0) = <span class="y">4800 nA</span></div></div>
+            <div class="lin"><div class="pq"><b>Em t = t<sub>P</sub></b> a saída já caiu a V<sub>DD</sub>/2 = 2,5 V. Agora V<sub>DS</sub> = 2,5 V &lt; 4 V: <strong>triodo</strong>.</div><div class="ct">i(t<sub>P</sub>) = 200n · 3 · [ 4·2,5 − 2,5²/2 ]</div></div>
+            <div class="lin"><div class="pq">O colchete: 10 − 3,125 = 6,875.</div><div class="ct">i<sub>DN</sub>(t<sub>P</sub>) = 600n · 6,875 = <span class="y">4125 nA</span></div></div>
+            <div class="lin"><div class="pq">A média — e repare que os dois valores diferem só 14%, o que é a justificativa de substituir a integral pela média.</div><div class="ct"><span class="hand-box">i<sub>méd</sub> = (4800 + 4125)/2 = <span class="y">4462,5 nA</span></span></div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">(3) o atraso</div>
+            <div class="lin"><div class="pq">A carga que precisa sair do capacitor para a saída cair de V<sub>DD</sub> a V<sub>DD</sub>/2.</div><div class="ct">ΔQ = (V<sub>DD</sub>/2) · C<sub>L</sub> = 2,5 · 446,25 fF</div></div>
+            <div class="lin"><div class="pq">E o tempo, pela corrente média.</div><div class="ct">t<sub>PHL</sub> = 2,5 · 446,25×10⁻¹⁵ / 4462,5×10⁻⁹</div></div>
+            <div class="lin"><div class="pq">Note que 2,5 · 446,25 = 1115,625 e 1115,625/4462,5 = 0,25 — os números foram escolhidos para fechar redondo.</div><div class="ct"><span class="hand-box">t<sub>atraso</sub> = <span class="y">0,25 μs</span></span></div></div>
+            <div class="lin"><div class="pq"><b>Versão 2.</b> Com k′<sub>n</sub> dobrado, as três correntes dobram e o tempo cai pela metade.</div><div class="ct">9600 / 8250 / 8925 nA &nbsp;⇒&nbsp; t = <span class="y">0,125 μs</span></div></div>
+          </div>
+
+          <div class="intu">
+            <span class="lbl">o que é lógica dinâmica, e por que ela existe</span>
+            <p>Numa porta CMOS estática, a rede p é a dual da rede n: n entradas custam 2n transistores (<a href="#m14-redes">§14.2</a>). Na dinâmica, a rede p inteira é substituída por <strong>um único pMOS de pré-carga</strong>, e acrescenta-se um nMOS de avaliação embaixo. São n + 2 transistores — para quatro entradas, 6 em vez de 8; para oito, 10 em vez de 16.</p>
+            <p>O preço é o relógio. Com φ = 0 o pMOS liga e carrega C<sub>L</sub> até V<sub>DD</sub>: é a <strong>pré-carga</strong>, e nessa fase a saída é 1 independentemente das entradas. Com φ = V<sub>DD</sub> o pMOS corta, o nMOS de avaliação liga, e <em>se</em> a rede n conduzir, C<sub>L</sub> descarrega. É a <strong>avaliação</strong>.</p>
+            <p>Note o que isso implica: a saída em 1 não é mantida por transistor nenhum — ela é <em>carga guardada no capacitor</em>. Daí o nome «dinâmica», e daí também as fragilidades que a lógica estática não tem: fuga, acoplamento capacitivo, e a exigência de que as entradas não mudem durante a avaliação.</p>
+          </div>
+
+          <div class="erro">
+            <span class="lbl">as armadilhas</span>
+            <p><strong>Usar saturação nos dois instantes.</strong> Em t = 0 o transistor está saturado, em t<sub>P</sub> está em <span class="certo">triodo</span>. Usar saturação nos dois dá 4800 nA de média e um atraso 7% menor.</p>
+            <p><strong>Achar que o pior caso é Q<sub>B</sub> e Q<sub>C</sub>.</strong> Eles estão em série, mas são o dobro de largos — <span class="certo">empatam</span> com Q<sub>A</sub> sozinho. Os dois são o pior caso.</p>
+            <p><strong>Somar os dois caminhos.</strong> O pior caso é o de <span class="certo">menor</span> corrente, não o de maior. Ligar A, B e C ao mesmo tempo dobra a corrente e reduz o atraso.</p>
+            <p><strong>Usar V<sub>DD</sub> em vez de V<sub>DD</sub>/2 na carga.</strong> Atraso de propagação é definido até o ponto <span class="certo">médio</span> da excursão, não até o fim dela.</p>
+            <p><strong>Incluir Q<sub>e</sub> na resistência.</strong> O enunciado o neutraliza de propósito, dizendo que V<sub>e</sub> ≅ 0.</p>
+          </div>
+
+          <div class="attn">
+            <span class="tag">destino desta seção</span>
+            Vai para o <a href="#mod14">Módulo 14</a>, numa seção sobre <strong>lógica dinâmica</strong>, depois da seção de potência e atraso — que é onde a relação i·Δt = ΔV·C precisa ser estabelecida antes de ser usada aqui.
+          </div>
+        </section>
+
+        <!-- ============================================================
+             POTÊNCIA E ATRASO
+             ============================================================ -->
+        <section class="content-section" id="g-potencia">
+          <div class="eyebrow">TESTE 11 · 2025 · RESOLVIDO</div>
+          <h2>Potência dinâmica, atraso e o inversor equilibrado — cinco itens de múltipla escolha</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>Toda a potência de um circuito CMOS está em carregar e descarregar capacitores, e todo o atraso está em quanto tempo isso leva.</p>
+          </div>
+          <p class="lead">Os itens 3 e 4 deste teste são palavra por palavra o <a href="#teste9-tr2">Teste 9 · 2024 (TR2)</a> que já está no Módulo 11 — mesmos dados, mesma resposta. Os itens 1, 2 e 5 são novos, e é por eles que o teste está na gaveta.</p>
+
+          <div class="enunciado">
+            <div class="en-head">Enunciado</div>
+            <p>Para o inversor CMOS dado, responda: <strong>(1)</strong> a potência dinâmica consumida; <strong>(2)</strong> o tempo de descarga t<sub>PHL</sub> do capacitor de V<sub>DD</sub> a V<sub>DD</sub>/2; <strong>(3)</strong> a tensão de entrada da transição abrupta; <strong>(4)</strong> a corrente máxima na transição; <strong>(5)</strong> o novo (W/L)<sub>p</sub> para que a transição ocorra em 2,5 V.</p>
+            <div class="dados">
+              V<sub>DD</sub> = 5 V &nbsp;·&nbsp; C = 4 pF &nbsp;·&nbsp; f = 1 GHz &nbsp;·&nbsp; V<sub>tn</sub> = +1 V, V<sub>tp</sub> = −1 V<br>
+              k′<sub>p</sub> = 100 μA/V², k′<sub>n</sub> = 200 μA/V²<br>
+              <b>Versão 1</b> (W/L)<sub>p</sub> = 8, (W/L)<sub>n</sub> = 1 &nbsp;&nbsp;·&nbsp;&nbsp; <b>Versão 2</b> (W/L)<sub>p</sub> = 1, (W/L)<sub>n</sub> = 2<br>
+              Fórmula fornecida: t<sub>PHL</sub> = 1,6·C / [ k′<sub>n</sub>·(W/L)<sub>n</sub>·V<sub>DD</sub> ]
+            </div>
+            <p class="fonte">PSI3024 — Teste 11 · 2º semestre de 2025 · gabarito de divulgação, versões 1 e 2.</p>
+          </div>
+
+          <div class="passo">
+            <div class="cab">(1) potência dinâmica — e de onde vem a fórmula</div>
+            <div class="lin"><div class="pq"><b>Subindo.</b> Carregar C de 0 a V<sub>DD</sub> tira da fonte uma carga Q = C·V<sub>DD</sub>, a uma tensão constante V<sub>DD</sub>: a fonte entrega C·V<sub>DD</sub>². Metade fica guardada no capacitor, metade queima no pMOS.</div><div class="ct">energia da fonte por subida = C V<sub>DD</sub>²</div></div>
+            <div class="lin"><div class="pq"><b>Descendo.</b> A metade guardada queima no nMOS. A fonte não entrega nada.</div><div class="ct">energia da fonte por descida = 0</div></div>
+            <div class="lin"><div class="pq">Logo cada ciclo completo custa C·V<sub>DD</sub>², independentemente de quais transistores são, de quão rápidos são ou de quanto valem as resistências.</div><div class="ct"><span class="hand-box">P<sub>D</sub> = <span class="y">C · f · V<sub>DD</sub>²</span></span></div></div>
+            <div class="lin"><div class="pq">Com os números.</div><div class="ct">P = 4×10⁻¹² · 1×10⁹ · 5² = 4×10⁻³ · 25</div></div>
+            <div class="lin"><div class="pq">A resposta, igual nas duas versões (W/L não entra).</div><div class="ct"><span class="hand-box">P<sub>D</sub> = <span class="y">100 mW</span></span></div></div>
+          </div>
+
+          <div class="attn">
+            <span class="tag">por que o V<sub>DD</sub> ao quadrado manda em tudo</span>
+            A potência não depende de resistência nenhuma, mas depende do <strong>quadrado</strong> da alimentação. Cortar V<sub>DD</sub> pela metade corta a potência a um quarto — e é por isso que a tensão de alimentação dos circuitos integrados caiu de 5 V, nos anos 1980, para menos de 1 V hoje, mesmo ao custo de toda a dor de cabeça com excursão que o <a href="#m15-preco">Módulo 15</a> descreve.
+            <br><br>
+            <span class="note">Os 100 mW deste exercício são para <em>um</em> inversor, porque C = 4 pF e f = 1 GHz são valores propositalmente grandes. Um inversor real de carga típica comuta algumas dezenas de femtofarads — mas há bilhões deles numa pastilha, e a conta volta a ser a mesma.</span>
+          </div>
+
+          <div class="passo">
+            <div class="cab">(2) o tempo de descarga</div>
+            <div class="lin"><div class="pq">A fórmula é dada pelo enunciado. Ela vem de integrar a descarga em dois trechos — saturação de V<sub>DD</sub> até V<sub>DD</sub>−V<sub>t</sub>, triodo daí até V<sub>DD</sub>/2 — e o 1,6 é o que sobra dessa integral com V<sub>t</sub> ≈ 0,2 V<sub>DD</sub>.</div><div class="ct">t<sub>PHL</sub> = 1,6·C / [ k′<sub>n</sub>(W/L)<sub>n</sub> V<sub>DD</sub> ]</div></div>
+            <div class="lin"><div class="pq"><b>Versão 1</b> com (W/L)<sub>n</sub> = 1.</div><div class="ct">1,6·4×10⁻¹² / (200×10⁻⁶ · 1 · 5) = 6,4×10⁻¹² / 10⁻³</div></div>
+            <div class="lin"><div class="pq">O resultado.</div><div class="ct"><span class="hand-box">t<sub>PHL</sub> = <span class="y">6,4 ns</span></span></div></div>
+            <div class="lin"><div class="pq"><b>Versão 2</b> com (W/L)<sub>n</sub> = 2: o dobro de largura, metade do tempo.</div><div class="ct">t<sub>PHL</sub> = <span class="y">3,2 ns</span> &nbsp;<span class="dim">(item anulado na prova)</span></div></div>
+          </div>
+
+          <div class="erro">
+            <span class="lbl">uma incoerência do próprio enunciado, que vale notar</span>
+            <p>A frequência dada no item 1 é <strong>1 GHz</strong>, ou seja, um período de 1 ns. Mas o item 2 calcula um tempo de descarga de <strong>6,4 ns</strong> — mais de seis vezes o período inteiro. Nenhum circuito descarrega em 6,4 ns operando a 1 GHz.</p>
+            <p>Os dois itens são, na prática, exercícios independentes que compartilham a folha de dados. <span class="certo">Não tente conciliá-los</span>: cada um usa a sua fórmula e os seus números, e é isso que o gabarito faz. O item 2 da Versão 2 foi, aliás, <strong>anulado</strong> na correção.</p>
+          </div>
+
+          <div class="passo">
+            <div class="cab">(3) e (4) — a transição, que já está resolvida no Módulo 11</div>
+            <div class="lin"><div class="pq">Iguale as correntes dos dois transistores em saturação. A conta completa, com a álgebra passo a passo, está no <a href="#teste9-tr2">Teste 9 · 2024 (TR2)</a>.</div><div class="ct">½k′<sub>p</sub>(W/L)<sub>p</sub>(v<sub>I</sub>−5+1)² = ½k′<sub>n</sub>(W/L)<sub>n</sub>(v<sub>I</sub>−1)²</div></div>
+            <div class="lin"><div class="pq"><b>Versão 1.</b></div><div class="ct">v<sub>I</sub> = <span class="y">3 V</span> &nbsp;·&nbsp; i<sub>Dmáx</sub> = ½·200μ·1·(3−1)² = <span class="y">400 μA</span></div></div>
+            <div class="lin"><div class="pq"><b>Versão 2.</b> Aqui os termos lineares se cancelam e sobra 3v<sub>I</sub>² = 12.</div><div class="ct">v<sub>I</sub> = <span class="y">2 V</span> &nbsp;·&nbsp; i<sub>Dmáx</sub> = ½·200μ·2·(2−1)² = <span class="y">200 μA</span></div></div>
+          </div>
+
+          <div class="passo">
+            <div class="cab">(5) o reprojeto — pôr a transição no meio</div>
+            <div class="lin"><div class="pq">Imponha v<sub>I</sub> = 2,5 V na mesma igualdade e isole (W/L)<sub>p</sub>. Note que (2,5 − 5 + 1)² = (−1,5)² e (2,5 − 1)² = (1,5)² — <strong>os dois parênteses dão 2,25</strong> e se cancelam.</div><div class="ct">½·100μ·(W/L)<sub>p</sub>·2,25 = ½·200μ·(W/L)<sub>n</sub>·2,25</div></div>
+            <div class="lin"><div class="pq">Sobra uma condição que não depende da tensão nenhuma.</div><div class="ct"><span class="hand-box">(W/L)<sub>p</sub> / (W/L)<sub>n</sub> = <span class="y">k′<sub>n</sub> / k′<sub>p</sub></span> = 2</span></div></div>
+            <div class="lin"><div class="pq"><b>Versão 1</b> com (W/L)<sub>n</sub> = 1.</div><div class="ct">(W/L)<sub>p</sub> = <span class="y">2</span></div></div>
+            <div class="lin"><div class="pq"><b>Versão 2</b> com (W/L)<sub>n</sub> = 2.</div><div class="ct">(W/L)<sub>p</sub> = <span class="y">4</span></div></div>
+          </div>
+
+          <div class="intu">
+            <span class="lbl">o item 5 é a Seção 14.4 por outro caminho</span>
+            <p>A <a href="#m14-dimensionar">Seção 14.4</a> diz que o inversor equilibrado quer W<sub>p</sub>/W<sub>n</sub> = μ<sub>n</sub>/μ<sub>p</sub>, deduzido de igualar as <em>resistências de canal</em> para que subir e descer demorem o mesmo. Aqui a mesma razão apareceu de uma condição aparentemente diferente: igualar as <em>correntes de saturação</em> para que a transição caia no meio.</p>
+            <p>As duas condições coincidem porque k′ = μC<sub>ox</sub>: a razão k′<sub>n</sub>/k′<sub>p</sub> <em>é</em> μ<sub>n</sub>/μ<sub>p</sub>, já que C<sub>ox</sub> é o mesmo óxido para os dois tipos. Aqui vale 2 — um pouco menor que os 2,5 usados na §14.4, porque a razão de mobilidades varia com o processo.</p>
+            <p>É um resultado que vale guardar: <strong>centrar a curva de transferência e equilibrar os tempos de subida e descida são o mesmo pedido</strong>, escrito de dois jeitos. Um inversor com a transição em V<sub>DD</sub>/2 tem automaticamente margens de ruído simétricas e atrasos iguais nos dois sentidos.</p>
+          </div>
+
+          <div class="attn">
+            <span class="tag">destino desta seção</span>
+            Os itens 1 e 2 vão para o <a href="#mod14">Módulo 14</a>, numa seção sobre <strong>potência e atraso</strong> — que precisa vir antes da seção de lógica dinâmica, porque é lá que se estabelece i·Δt = ΔV·C. Os itens 3, 4 e 5 já têm casa: a seção do <a href="#teste9-tr2">Teste 9 · TR2</a> no Módulo 11, que ganhará o item 5 como extensão.
+          </div>
+        </section>
+
+      </div>
+    </div>
+
     <div class="cdlg-back" id="cdlgBack"></div>
     <div class="cdlg" id="cdlg" role="dialog" aria-modal="true" aria-labelledby="cdlgNome" aria-hidden="true">
       <button class="cdlg-x" id="cdlgX" type="button" aria-label="Fechar">×</button>
@@ -20521,7 +21174,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
 
     <footer class="page-footer">
       <span>guias · poli usp</span>
-      <span>módulo 01 · amplificadores &nbsp;·&nbsp; módulo 02 · amp ops &nbsp;·&nbsp; módulo 03 · diodos e zener &nbsp;·&nbsp; módulo 04 · retificadores e fontes &nbsp;·&nbsp; módulo 05 · teste 4 &nbsp;·&nbsp; módulo 06 · exercícios de revisão &nbsp;·&nbsp; módulo 07 · reconhecer circuitos &nbsp;·&nbsp; módulo 08 · p1 2024 &nbsp;·&nbsp; módulo 09 · semicondutores &nbsp;·&nbsp; módulo 10 · equação do diodo &nbsp;·&nbsp; módulo 11 · transistor mos &nbsp;·&nbsp; módulo 12 · polarização &nbsp;·&nbsp; módulo 13 · pequenos sinais &nbsp;·&nbsp; módulo 14 · lógica cmos &nbsp;·&nbsp; módulo 15 · amp ops cmos</span>
+      <span>módulo 01 · amplificadores &nbsp;·&nbsp; módulo 02 · amp ops &nbsp;·&nbsp; módulo 03 · diodos e zener &nbsp;·&nbsp; módulo 04 · retificadores e fontes &nbsp;·&nbsp; módulo 05 · teste 4 &nbsp;·&nbsp; módulo 06 · exercícios de revisão &nbsp;·&nbsp; módulo 07 · reconhecer circuitos &nbsp;·&nbsp; módulo 08 · p1 2024 &nbsp;·&nbsp; módulo 09 · semicondutores &nbsp;·&nbsp; módulo 10 · equação do diodo &nbsp;·&nbsp; módulo 11 · transistor mos &nbsp;·&nbsp; módulo 12 · polarização &nbsp;·&nbsp; módulo 13 · pequenos sinais &nbsp;·&nbsp; módulo 14 · lógica cmos &nbsp;·&nbsp; módulo 15 · amp ops cmos &nbsp;·&nbsp; módulo 16 · gaveta</span>
     </footer>
 
   </div>
