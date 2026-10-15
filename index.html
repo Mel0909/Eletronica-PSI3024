@@ -680,6 +680,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <li><a href="#m13-exnum"><span class="n">§</span>Exercício — fonte comum</a></li>
         <li><a href="#m13-fontecomum"><span class="n">T7</span>Fonte comum — T7·24 e T8·25</a></li>
         <li><a href="#m13-portacomum"><span class="n">T8</span>Porta comum — T8·24 e T9·25</a></li>
+        <li><a href="#m13-ex3"><span class="n">§</span>Exercício — projeto em porta comum</a></li>
         <li><a href="#m13-resumo"><span class="n">§</span>Resumo e armadilhas</a></li>
       </ul>
       <a class="module-item" href="#mod14"><span class="num">14</span> Lógica CMOS</a>
@@ -690,6 +691,15 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <li><a href="#m14-dimensionar"><span class="n">14.4</span>Dimensionar os transistores</a></li>
         <li><a href="#m14-logica"><span class="n">T9</span>Teste 9 · 2024 (v1)</a></li>
         <li><a href="#m14-resumo"><span class="n">14.5</span>Resumo</a></li>
+      </ul>
+      <a class="module-item" href="#mod15"><span class="num">15</span> Amp ops CMOS</a>
+      <ul class="sub-list" data-mod="mod15">
+        <li><a href="#m15-teto"><span class="n">15.1</span>O teto de um estágio</a></li>
+        <li><a href="#m15-cascode"><span class="n">15.2</span>O cascode</a></li>
+        <li><a href="#m15-telescopico"><span class="n">15.3</span>O telescópico</a></li>
+        <li><a href="#m15-folded"><span class="n">15.4</span>O dobrado</a></li>
+        <li><a href="#m15-preco"><span class="n">15.5</span>O preço: excursão</a></li>
+        <li><a href="#m15-resumo"><span class="n">15.6</span>Resumo</a></li>
       </ul>
     </nav>
     <div class="more-soon">+ novos módulos em breve</div>
@@ -717,6 +727,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <a href="#mod12">12 · Polarização do MOSFET</a>
         <a href="#mod13">13 · Pequenos sinais</a>
         <a href="#mod14">14 · Lógica CMOS</a>
+        <a href="#mod15">15 · Amp ops CMOS</a>
       </nav>
     </div>
 
@@ -17711,6 +17722,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <a href="#m13-exnum">Exercício — fonte comum</a>
         <a href="#m13-fontecomum">Fonte comum — T7·24 e T8·25</a>
         <a href="#m13-portacomum">Porta comum — T8·24 e T9·25</a>
+        <a href="#m13-ex3">Exercício — projeto em porta comum</a>
         <a href="#m13-resumo">Resumo e armadilhas</a>
       </nav>
     </div>
@@ -18774,6 +18786,349 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
         <!-- ============================================================
              13.8 · RESUMO
              ============================================================ -->
+        <!-- ============================================================
+             EXERCÍCIO 3º · PORTA COMUM · PROJETO
+             ============================================================ -->
+        <section class="content-section" id="m13-ex3">
+          <div class="eyebrow">EXERCÍCIO · PORTA COMUM · AGORA PROJETANDO, NÃO SÓ ANALISANDO</div>
+          <h2>Dimensionar o transistor e dois resistores para ganhos encomendados</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>A<sub>v</sub> fixa a carga do dreno e G<sub>v</sub> fixa a resistência da fonte de sinal — duas equações, duas incógnitas, nessa ordem.</p>
+          </div>
+          <p class="lead">Os testes da <a href="#m13-portacomum">seção anterior</a> davam o circuito e pediam o ganho. Este inverte a pergunta: dá o ganho e pede o circuito. É o mesmo modelo T, lido de trás para frente — e o caminho tem uma ordem obrigatória, porque A<sub>v</sub> depende só do dreno e G<sub>v</sub> depende também da entrada.</p>
+
+          <div class="enunciado">
+            <div class="en-head">Enunciado</div>
+            <p>Para o amplificador abaixo, com todos os capacitores de valor muito grande: <strong>(a)</strong> determine W/L para que g<sub>m</sub> = 5 mA/V; <strong>(b)</strong> desenhe o circuito equivalente usando o modelo T; <strong>(c)</strong> determine R<sub>3</sub> e R<sub>1</sub> para que A<sub>v</sub> = 5 V/V e G<sub>v</sub> = 4 V/V; <strong>(d)</strong> calcule R<sub>in</sub> e R<sub>out</sub>.</p>
+            <div class="dados">
+              V<sub>DD</sub> = V<sub>SS</sub> = 10 V &nbsp;·&nbsp; R<sub>4</sub> = R<sub>5</sub> = 2 kΩ &nbsp;·&nbsp; μ<sub>n</sub>C<sub>ox</sub> = 100 μA/V²<br>
+              V<sub>t</sub> = 1 V &nbsp;·&nbsp; V<sub>GS</sub> = 2 V &nbsp;·&nbsp; I = 2,5 mA &nbsp;·&nbsp; λ = 0
+            </div>
+            <p class="fonte">PSI3024 — exercício resolvido em aula (3º da lista do dia).</p>
+          </div>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 500" xmlns="http://www.w3.org/2000/svg">
+              <text x="20" y="24" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">o circuito — repare onde o sinal entra e onde a porta está presa</text>
+              <text x="40" y="84" font-family="Kalam" font-size="15" fill="var(--pink)">o sinal entra pela FONTE, não pela porta</text>
+              <text x="40" y="108" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">— é isso que faz a topologia ser PORTA COMUM</text>
+
+              <!-- ===== V_DD ===== -->
+              <line x1="470" y1="50" x2="470" y2="74" stroke="var(--chalk)" stroke-width="2"/>
+              <polygon points="462,50 478,50 470,36" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="488" y="48" font-family="Kalam" font-size="15" fill="var(--yellow)">V</text>
+              <text x="500" y="53" font-family="Kalam" font-size="11" fill="var(--yellow)">DD</text>
+              <text x="518" y="48" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">= 10 V</text>
+
+              <!-- ===== R3 ===== -->
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="470,74 470,94 462,100 478,110 462,120 478,130 470,136 470,166"/>
+              </g>
+              <text x="436" y="106" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--orange)">R</text>
+              <text x="436" y="111" font-family="Kalam" font-size="11" fill="var(--orange)">3</text>
+              <text x="436" y="132" text-anchor="end" font-family="Kalam" font-size="14" fill="var(--orange)">= ?</text>
+
+              <!-- ===== transistor ===== -->
+              <circle cx="470" cy="166" r="3.6" fill="var(--chalk)"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <line x1="396" y1="178" x2="396" y2="242"/>
+                <line x1="396" y1="182" x2="470" y2="182"/><line x1="470" y1="182" x2="470" y2="166"/>
+                <line x1="396" y1="210" x2="434" y2="210"/>
+                <line x1="396" y1="238" x2="470" y2="238"/><line x1="470" y1="238" x2="470" y2="330"/>
+                <line x1="382" y1="210" x2="390" y2="210"/>
+                <line x1="382" y1="190" x2="382" y2="230"/>
+              </g>
+              <polygon points="408,234 408,242 418,238" fill="var(--chalk)"/>
+              <text x="486" y="178" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">d</text>
+              <text x="486" y="252" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">s</text>
+
+              <!-- ===== porta: R2 e C2 ===== -->
+              <line x1="382" y1="210" x2="280" y2="210" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="280" cy="210" r="3.6" fill="var(--chalk)"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="280,210 280,230 272,236 288,246 272,256 288,266 280,272 280,290"/>
+              </g>
+              <text x="302" y="248" font-family="Kalam" font-size="15" fill="var(--chalk)">R</text>
+              <text x="314" y="253" font-family="Kalam" font-size="11" fill="var(--chalk)">2</text>
+              <line x1="266" y1="290" x2="294" y2="290" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="271" y1="298" x2="289" y2="298" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="276" y1="306" x2="284" y2="306" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="280" y1="210" x2="238" y2="210" stroke="var(--yellow)" stroke-width="2"/>
+              <line x1="238" y1="196" x2="238" y2="224" stroke="var(--yellow)" stroke-width="2.4"/>
+              <line x1="230" y1="196" x2="230" y2="224" stroke="var(--yellow)" stroke-width="2.4"/>
+              <line x1="230" y1="210" x2="192" y2="210" stroke="var(--yellow)" stroke-width="2"/>
+              <line x1="192" y1="210" x2="192" y2="238" stroke="var(--yellow)" stroke-width="2"/>
+              <line x1="178" y1="238" x2="206" y2="238" stroke="var(--yellow)" stroke-width="2.4"/>
+              <line x1="183" y1="246" x2="201" y2="246" stroke="var(--yellow)" stroke-width="2"/>
+              <line x1="188" y1="254" x2="196" y2="254" stroke="var(--yellow)" stroke-width="2"/>
+              <text x="226" y="184" font-family="Kalam" font-size="15" fill="var(--yellow)">C</text>
+              <text x="238" y="189" font-family="Kalam" font-size="11" fill="var(--yellow)">2</text>
+              <text x="96" y="158" font-family="Kalam" font-size="13" fill="var(--yellow)">porta no terra</text>
+              <text x="96" y="176" font-family="Kalam" font-size="13" fill="var(--yellow)">de sinal</text>
+
+              <!-- ===== C3, R5 e a saída ===== -->
+              <line x1="470" y1="166" x2="536" y2="166" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="536" y1="152" x2="536" y2="180" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="544" y1="152" x2="544" y2="180" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="544" y1="166" x2="610" y2="166" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="528" y="140" font-family="Kalam" font-size="15" fill="var(--chalk)">C</text>
+              <text x="540" y="145" font-family="Kalam" font-size="11" fill="var(--chalk)">3</text>
+              <circle cx="610" cy="166" r="3.6" fill="var(--yellow)"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="610,166 610,186 602,192 618,202 602,212 618,222 610,228 610,250"/>
+              </g>
+              <text x="588" y="200" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk)">R</text>
+              <text x="588" y="205" font-family="Kalam" font-size="11" fill="var(--chalk)">5</text>
+              <text x="588" y="226" text-anchor="end" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">2 kΩ</text>
+              <line x1="596" y1="250" x2="624" y2="250" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="601" y1="258" x2="619" y2="258" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="606" y1="266" x2="614" y2="266" stroke="var(--chalk)" stroke-width="2"/>
+              <path d="M634,178 C652,196 652,222 634,240" fill="none" stroke="var(--yellow)" stroke-width="1.6"/>
+              <text x="660" y="206" font-family="Kalam" font-size="18" fill="var(--yellow)">v</text>
+              <text x="671" y="212" font-family="Kalam" font-size="12" fill="var(--yellow)">o</text>
+
+              <!-- ===== entrada: vsig, R1, C1 ===== -->
+              <circle cx="90" cy="330" r="14" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="64" y="302" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk)">v</text>
+              <text x="64" y="308" font-family="Kalam" font-size="11" fill="var(--chalk)">sig</text>
+              <line x1="90" y1="344" x2="90" y2="372" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="76" y1="372" x2="104" y2="372" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="81" y1="380" x2="99" y2="380" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="86" y1="388" x2="94" y2="388" stroke="var(--chalk)" stroke-width="2"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="104,330 136,330 142,322 152,338 162,322 172,338 178,330 230,330"/>
+              </g>
+              <text x="140" y="312" font-family="Kalam" font-size="15" fill="var(--orange)">R</text>
+              <text x="152" y="317" font-family="Kalam" font-size="11" fill="var(--orange)">1</text>
+              <text x="164" y="312" font-family="Kalam" font-size="14" fill="var(--orange)">= ?</text>
+              <circle cx="230" cy="330" r="3.6" fill="var(--yellow)"/>
+              <line x1="238" y1="314" x2="266" y2="314" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <polygon points="266,310 276,314 266,318" fill="var(--chalk-faint)"/>
+              <text x="244" y="306" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">i</text>
+              <text x="252" y="310" font-family="Kalam" font-size="10" fill="var(--chalk-faint)">i</text>
+              <path d="M216,340 C198,358 198,382 216,398" fill="none" stroke="var(--pink)" stroke-width="1.6"/>
+              <text x="176" y="374" font-family="Kalam" font-size="18" fill="var(--pink)">v</text>
+              <text x="187" y="380" font-family="Kalam" font-size="12" fill="var(--pink)">i</text>
+              <line x1="230" y1="330" x2="326" y2="330" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="326" y1="316" x2="326" y2="344" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="334" y1="316" x2="334" y2="344" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="334" y1="330" x2="470" y2="330" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="318" y="304" font-family="Kalam" font-size="15" fill="var(--chalk)">C</text>
+              <text x="330" y="309" font-family="Kalam" font-size="11" fill="var(--chalk)">1</text>
+              <circle cx="470" cy="330" r="3.6" fill="var(--chalk)"/>
+
+              <!-- ===== R4 e a fonte de corrente ===== -->
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="470,340 470,352 462,358 478,366 462,374 478,382 470,388 470,400"/>
+              </g>
+              <text x="496" y="366" font-family="Kalam" font-size="15" fill="var(--chalk)">R</text>
+              <text x="508" y="371" font-family="Kalam" font-size="11" fill="var(--chalk)">4</text>
+              <text x="520" y="366" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">2 kΩ</text>
+              <circle cx="470" cy="420" r="16" fill="none" stroke="var(--pink)" stroke-width="2"/>
+              <line x1="470" y1="410" x2="470" y2="422" stroke="var(--pink)" stroke-width="2"/>
+              <polygon points="465,422 475,422 470,432" fill="var(--pink)"/>
+              <text x="496" y="416" font-family="Kalam" font-size="15" fill="var(--pink)">I = 2,5 mA</text>
+              <text x="496" y="436" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">aberta no sinal</text>
+              <line x1="470" y1="436" x2="470" y2="460" stroke="var(--chalk)" stroke-width="2"/>
+              <polygon points="462,460 478,460 470,474" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="496" y="470" font-family="Kalam" font-size="15" fill="var(--yellow)">− V</text>
+              <text x="520" y="475" font-family="Kalam" font-size="11" fill="var(--yellow)">SS</text>
+              <text x="536" y="470" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">= −10 V</text>
+            </svg>
+            <figcaption>O circuito do enunciado. Três detalhes decidem tudo: <strong>C<sub>2</sub> prende a porta no terra de sinal</strong> (é o que faz a topologia ser porta comum), <strong>C<sub>1</sub> entrega o sinal à fonte</strong>, e a <strong>fonte de corrente I é um circuito aberto para o sinal</strong> — e é por isso que R<sub>4</sub>, apesar de dado, não aparece em nenhuma resposta. R<sub>1</sub> e R<sub>3</sub> estão em laranja porque são as incógnitas do item (c).</figcaption>
+          </figure>
+
+          <div class="attn">
+            <span class="tag">antes de começar: os dados são coerentes?</span>
+            Vale conferir, porque dados redundantes são a chance de pegar um erro de leitura cedo. Com a porta em 0 V de contínua (R<sub>2</sub> não conduz corrente), V<sub>GS</sub> = 2 V coloca a fonte em <strong>V<sub>S</sub> = −2 V</strong>. Da fonte até −V<sub>SS</sub> há 8 V de queda: R<sub>4</sub> = 2 kΩ com 2,5 mA consome 5 V, e os 3 V restantes ficam sobre a fonte de corrente — que é um dispositivo real, e precisa mesmo de alguma tensão para funcionar.
+            <br><br>
+            E a corrente bate com a geometria: I<sub>D</sub> = ½·100 μA/V²·50·(1 V)² = <strong>2,5 mA</strong>, o valor dado. Os três dados — V<sub>GS</sub>, I e o W/L que o item (a) vai encontrar — são o mesmo fato dito de três jeitos.
+          </div>
+
+          <div class="passo">
+            <div class="cab">(a) o W/L que entrega g<sub>m</sub> = 5 mA/V</div>
+            <div class="lin"><div class="pq">A transcondutância na forma que mistura geometria e polarização — a dedução está na <a href="#m13-gm">Seção 13.2</a>.</div><div class="ct">g<sub>m</sub> = μ<sub>n</sub>C<sub>ox</sub> (W/L) (V<sub>GS</sub> − V<sub>t</sub>)</div></div>
+            <div class="lin"><div class="pq">Substitua. A sobrecarga é V<sub>GS</sub> − V<sub>t</sub> = 2 − 1 = 1 V, o que deixa a conta limpa.</div><div class="ct">5 mA/V = 100 μA/V² · (W/L) · 1 V</div></div>
+            <div class="lin"><div class="pq">E isole.</div><div class="ct"><span class="hand-box">W/L = 5 mA/V ÷ 100 μA/V = <span class="y">50</span></span></div></div>
+          </div>
+
+          <div class="intu">
+            <span class="lbl">três caminhos, um resultado — e vale conhecer os três</span>
+            <p>A mesma g<sub>m</sub> sai de três expressões, e a prova pode dar os dados que favorecem qualquer uma delas:</p>
+            <p><strong>pela geometria e pela sobrecarga</strong> — g<sub>m</sub> = μ<sub>n</sub>C<sub>ox</sub>(W/L)·V<sub>ov</sub> = 100 μ · 50 · 1 = 5 mA/V, que é o caminho usado acima;</p>
+            <p><strong>pela corrente e pela sobrecarga</strong> — g<sub>m</sub> = 2I<sub>D</sub>/V<sub>ov</sub> = 2·2,5 mA / 1 V = 5 mA/V, o mais rápido quando I<sub>D</sub> já é conhecida;</p>
+            <p><strong>pela corrente e pela geometria</strong> — g<sub>m</sub> = √(2 μ<sub>n</sub>C<sub>ox</sub>(W/L)·I<sub>D</sub>) = √(2·100μ·50·2,5m) = 5 mA/V, útil quando a sobrecarga não é dada.</p>
+            <p>Se as três não derem o mesmo número, algum dado foi lido errado — e descobrir isso agora custa menos do que descobrir no item (c).</p>
+          </div>
+
+          <figure class="panel">
+            <svg viewBox="0 0 740 420" xmlns="http://www.w3.org/2000/svg">
+              <text x="20" y="24" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">(b) o equivalente de sinais com o modelo T — com λ = 0 não há r&#8202;o no desenho</text>
+
+              <!-- nó d e o barramento do dreno -->
+              <circle cx="380" cy="90" r="3.6" fill="var(--chalk)"/>
+              <text x="368" y="80" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk)">d</text>
+              <line x1="380" y1="90" x2="600" y2="90" stroke="var(--chalk)" stroke-width="2"/>
+
+              <!-- fonte controlada -->
+              <polygon points="380,116 402,140 380,164 358,140" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="380" y1="90" x2="380" y2="116" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="380" y1="122" x2="380" y2="144" stroke="var(--chalk)" stroke-width="1.8"/>
+              <polygon points="375,144 385,144 380,156" fill="var(--chalk)"/>
+              <text x="412" y="146" font-family="Kalam" font-size="18" fill="var(--chalk)">i</text>
+              <text x="430" y="146" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">= g</text>
+              <text x="452" y="151" font-family="Kalam" font-size="10" fill="var(--chalk-faint)">m</text>
+              <text x="460" y="146" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">v</text>
+              <text x="469" y="151" font-family="Kalam" font-size="10" fill="var(--chalk-faint)">gs</text>
+              <line x1="380" y1="164" x2="380" y2="190" stroke="var(--chalk)" stroke-width="2"/>
+
+              <!-- nó g, aterrado -->
+              <circle cx="380" cy="190" r="3.6" fill="var(--yellow)"/>
+              <line x1="380" y1="190" x2="300" y2="190" stroke="var(--yellow)" stroke-width="2"/>
+              <line x1="300" y1="190" x2="300" y2="212" stroke="var(--yellow)" stroke-width="2"/>
+              <line x1="286" y1="212" x2="314" y2="212" stroke="var(--yellow)" stroke-width="2.4"/>
+              <line x1="291" y1="220" x2="309" y2="220" stroke="var(--yellow)" stroke-width="2"/>
+              <line x1="296" y1="228" x2="304" y2="228" stroke="var(--yellow)" stroke-width="2"/>
+              <text x="332" y="182" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--yellow)">g</text>
+
+              <!-- 1/gm -->
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="380,190 380,208 372,214 388,224 372,234 388,244 380,250 380,270"/>
+              </g>
+              <text x="400" y="222" font-family="Kalam" font-size="15" fill="var(--chalk)">1/g</text>
+              <text x="425" y="227" font-family="Kalam" font-size="11" fill="var(--chalk)">m</text>
+              <text x="400" y="244" font-family="Kalam" font-size="14" fill="var(--yellow)">= 0,2 kΩ</text>
+
+              <!-- nó s -->
+              <circle cx="380" cy="270" r="3.6" fill="var(--chalk)"/>
+              <text x="396" y="286" font-family="Kalam" font-size="15" fill="var(--chalk)">s</text>
+
+              <!-- R3 -->
+              <circle cx="520" cy="90" r="3.6" fill="var(--chalk)"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="520,90 520,110 512,116 528,126 512,136 528,146 520,152 520,176"/>
+              </g>
+              <text x="496" y="124" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--orange)">R</text>
+              <text x="496" y="129" font-family="Kalam" font-size="11" fill="var(--orange)">3</text>
+              <line x1="506" y1="176" x2="534" y2="176" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="511" y1="184" x2="529" y2="184" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="516" y1="192" x2="524" y2="192" stroke="var(--chalk)" stroke-width="2"/>
+
+              <!-- R5 -->
+              <circle cx="600" cy="90" r="3.6" fill="var(--yellow)"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="600,90 600,110 592,116 608,126 592,136 608,146 600,152 600,176"/>
+              </g>
+              <text x="556" y="124" font-family="Kalam" font-size="15" fill="var(--chalk)">R</text>
+              <text x="568" y="129" font-family="Kalam" font-size="11" fill="var(--chalk)">5</text>
+              <text x="548" y="146" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">2 kΩ</text>
+              <line x1="586" y1="176" x2="614" y2="176" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="591" y1="184" x2="609" y2="184" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="596" y1="192" x2="604" y2="192" stroke="var(--chalk)" stroke-width="2"/>
+              <path d="M636,104 C654,120 654,146 636,162" fill="none" stroke="var(--yellow)" stroke-width="1.6"/>
+              <text x="662" y="138" font-family="Kalam" font-size="18" fill="var(--yellow)">v</text>
+              <text x="673" y="144" font-family="Kalam" font-size="12" fill="var(--yellow)">o</text>
+
+              <!-- entrada -->
+              <line x1="380" y1="270" x2="248" y2="270" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="248" cy="270" r="3.6" fill="var(--yellow)"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+                <polyline points="248,270 196,270 190,262 180,278 170,262 160,278 154,270 122,270"/>
+              </g>
+              <text x="166" y="248" font-family="Kalam" font-size="15" fill="var(--orange)">R</text>
+              <text x="178" y="253" font-family="Kalam" font-size="11" fill="var(--orange)">1</text>
+              <circle cx="108" cy="270" r="14" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="82" y="242" text-anchor="end" font-family="Kalam" font-size="15" fill="var(--chalk)">v</text>
+              <text x="82" y="248" font-family="Kalam" font-size="11" fill="var(--chalk)">sig</text>
+              <line x1="108" y1="284" x2="108" y2="312" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="94" y1="312" x2="122" y2="312" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="99" y1="320" x2="117" y2="320" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="104" y1="328" x2="112" y2="328" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="256" y1="254" x2="286" y2="254" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <polygon points="286,250 296,254 286,258" fill="var(--chalk-faint)"/>
+              <text x="262" y="246" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">i</text>
+              <text x="270" y="250" font-family="Kalam" font-size="10" fill="var(--chalk-faint)">i</text>
+              <path d="M240,282 C222,300 222,324 240,340" fill="none" stroke="var(--pink)" stroke-width="1.6"/>
+              <text x="200" y="316" font-family="Kalam" font-size="18" fill="var(--pink)">v</text>
+              <text x="211" y="322" font-family="Kalam" font-size="12" fill="var(--pink)">i</text>
+
+              <!-- notas -->
+              <text x="30" y="378" font-family="Kalam" font-size="14" fill="var(--yellow)">a porta está no terra: a tensão de controle é a entrada com o sinal trocado</text>
+              <text x="30" y="400" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">dois sinais trocados se cancelam — a porta comum NÃO inverte</text>
+            </svg>
+            <figcaption>O modelo T aplicado. Compare com o <a href="#m13-t">desenho genérico da Seção 13.4</a>: o 1/g<sub>m</sub> aparece entre a porta e a fonte, e como a porta está aterrada, <strong>ele é literalmente a resistência que o sinal vê ao entrar</strong>. R<sub>4</sub> e R<sub>2</sub> sumiram do desenho — R<sub>4</sub> porque está em série com a fonte de corrente, que é um aberto no sinal; R<sub>2</sub> porque está preso entre a porta e o terra, e a porta já é terra.</figcaption>
+          </figure>
+
+          <div class="passo">
+            <div class="cab">(d) as duas resistências — saem antes dos ganhos, e simplificam o item (c)</div>
+            <div class="lin"><div class="pq"><b>R<sub>in</sub>.</b> Olhando para dentro pela fonte, com a porta aterrada: só o 1/g<sub>m</sub> do modelo T. A fonte de corrente é um aberto, então R<sub>4</sub> não entra no paralelo.</div><div class="ct"><span class="hand-box">R<sub>in</sub> = 1/g<sub>m</sub> = <span class="y">0,2 kΩ</span></span></div></div>
+            <div class="lin"><div class="pq"><b>R<sub>out</sub>.</b> Com v<sub>sig</sub> = 0 a fonte do transistor fica aterrada pelo 1/g<sub>m</sub>, v<sub>gs</sub> = 0 e a fonte controlada se anula — vira aberto. Olhando para o dreno com a carga desligada, sobra R<sub>3</sub>.</div><div class="ct"><span class="hand-box">R<sub>out</sub> = R<sub>3</sub> = <span class="y">2 kΩ</span></span></div></div>
+            <div class="lin"><div class="pq"><span class="dim">O valor de R<sub>out</sub> só fica numérico depois de (c), que é quem determina R<sub>3</sub>. R<sub>5</sub> é carga e não entra — resistência de saída se mede com a carga removida.</span></div><div class="ct"></div></div>
+          </div>
+
+          <div class="attn">
+            <span class="tag">R<sub>in</sub> = 200 Ω é o traço de caráter da porta comum</span>
+            Compare com a fonte comum da <a href="#m13-exnum">Seção 13.7</a>, onde R<sub>in</sub> era R<sub>2</sub>∥R<sub>3</sub> = 50 kΩ — duzentas e cinquenta vezes maior. É o mesmo transistor; o que mudou foi por onde o sinal entra.
+            <br><br>
+            Entrar pela porta é entrar por um isolante: a resistência é a dos resistores de polarização, e pode valer megohms. Entrar pela fonte é entrar <em>por dentro</em> do canal: a resistência é 1/g<sub>m</sub>, e cai quando a polarização sobe. Isso torna a porta comum péssima para receber sinal de uma fonte de alta impedância — e <em>ótima</em> para receber corrente, ou para casar com uma linha de 50 Ω em radiofrequência.
+          </div>
+
+          <div class="passo">
+            <div class="cab">(c) o projeto — A<sub>v</sub> primeiro, porque só ele depende do dreno</div>
+            <div class="lin"><div class="pq"><b>1 ·</b> O ganho do amplificador, da fonte ao dreno. A corrente que entra pela fonte sai pelo dreno e cai sobre o paralelo da carga; não há inversão.</div><div class="ct">A<sub>v</sub> = v<sub>o</sub>/v<sub>i</sub> = (R<sub>3</sub>∥R<sub>5</sub>) / (1/g<sub>m</sub>)</div></div>
+            <div class="lin"><div class="pq"><b>2 ·</b> Imponha A<sub>v</sub> = 5 e descubra de quanto a carga do dreno precisa ser.</div><div class="ct">(R<sub>3</sub>∥R<sub>5</sub>) = 5 · 0,2 kΩ = 1 kΩ</div></div>
+            <div class="lin"><div class="pq"><b>3 ·</b> Com R<sub>5</sub> = 2 kΩ fixo, um paralelo que dá 1 kΩ exige o outro ramo igual a 2 kΩ.</div><div class="ct"><span class="hand-box">R<sub>3</sub> = <span class="y">2 kΩ</span></span></div></div>
+            <div class="lin"><div class="pq"><b>4 ·</b> Agora o ganho global, que inclui o divisor de entrada entre R<sub>1</sub> e R<sub>in</sub>. Note que o 1/g<sub>m</sub> cancela entre os dois fatores.</div><div class="ct">G<sub>v</sub> = A<sub>v</sub> · R<sub>in</sub>/(R<sub>1</sub> + R<sub>in</sub>) = (R<sub>3</sub>∥R<sub>5</sub>)/(R<sub>1</sub> + 1/g<sub>m</sub>)</div></div>
+            <div class="lin"><div class="pq"><b>5 ·</b> Imponha G<sub>v</sub> = 4 com o numerador já conhecido.</div><div class="ct">1 kΩ / (R<sub>1</sub> + 0,2 kΩ) = 4</div></div>
+            <div class="lin"><div class="pq"><b>6 ·</b> Abra e isole.</div><div class="ct">1 kΩ = 4R<sub>1</sub> + 0,8 kΩ &nbsp;⇒&nbsp; 4R<sub>1</sub> = 0,2 kΩ</div></div>
+            <div class="lin"><div class="pq">E o resultado.</div><div class="ct"><span class="hand-box">R<sub>1</sub> = 200 Ω / 4 = <span class="y">50 Ω</span></span></div></div>
+          </div>
+
+          <div class="intu">
+            <span class="lbl">por que a ordem dos itens não é livre</span>
+            <p>A<sub>v</sub> envolve R<sub>3</sub> e nada mais do lado da entrada; G<sub>v</sub> envolve R<sub>3</sub> <em>e</em> R<sub>1</sub>. Logo há uma equação com uma incógnita e outra com duas — e começar pela segunda é se condenar a um sistema que não precisava existir.</p>
+            <p>A regra geral: <strong>resolva primeiro a condição que toca menos incógnitas</strong>. Em amplificadores isso quase sempre significa ir do interior para as bordas — ganho interno antes de ganho global, carga antes de fonte de sinal.</p>
+            <p>Repare também no que o resultado diz: para que o divisor de entrada deixe passar 4/5 do sinal, R<sub>1</sub> teve de ficar em 50 Ω, um quarto de R<sub>in</sub>. Com uma fonte de sinal de 1 kΩ, G<sub>v</sub> cairia para 1 kΩ/1,2 kΩ ≈ 0,83 — o amplificador de ganho 5 entregaria menos de 1. A porta comum é implacável com a impedância da fonte.</p>
+          </div>
+
+          <div class="erro">
+            <span class="lbl">as armadilhas deste exercício</span>
+            <p><strong>Incluir R<sub>4</sub> em R<sub>in</sub>.</strong> R<sub>4</sub> está em série com uma fonte de corrente ideal, que é <span class="certo">circuito aberto</span> no sinal. O ramo inteiro some. Quem põe R<sub>in</sub> = 1/g<sub>m</sub> ∥ R<sub>4</sub> = 182 Ω erra por 9% e, pior, erra o método.</p>
+            <p><strong>Pôr sinal negativo em A<sub>v</sub>.</strong> Porta comum <span class="certo">não inverte</span>. O sinal negativo é da fonte comum, por causa do v<sub>gs</sub> medido da porta para a fonte; aqui a entrada é a própria fonte e os dois sinais se cancelam.</p>
+            <p><strong>Usar g<sub>m</sub> = ½ μ<sub>n</sub>C<sub>ox</sub>(W/L)V<sub>ov</sub>.</strong> O ½ pertence à equação da <span class="certo">corrente</span>, não à da transcondutância — g<sub>m</sub> é a derivada de I<sub>D</sub>, e derivar o quadrado traz um 2 que cancela o ½.</p>
+            <p><strong>Incluir R<sub>5</sub> em R<sub>out</sub>.</strong> R<sub>5</sub> é a <span class="certo">carga</span>. R<sub>out</sub> se mede com ela desligada, olhando para dentro do amplificador.</p>
+            <p><strong>Esquecer de verificar a saturação no fim.</strong> Com R<sub>3</sub> = 2 kΩ, V<sub>D</sub> = 10 − 2,5 mA·2 kΩ = 5 V e V<sub>DS</sub> = 5 − (−2) = 7 V, muito acima de V<sub>ov</sub> = 1 V. O projeto é viável — e, se não fosse, o modelo de pequenos sinais usado não valeria.</p>
+          </div>
+
+          <div class="ex-block">
+            <div class="ex-label">Exercícios</div>
+            <div class="q">
+              <div class="q-head">variação <span class="tagq">múltipla escolha</span></div>
+              <p class="q-stem">Mantendo tudo igual, o projetista dobra a corrente de polarização para I = 5 mA (ajustando a fonte de corrente e mantendo W/L = 50). O que acontece com G<sub>v</sub>?</p>
+              <div class="opts">
+                <button class="opt" data-ok="0"><span class="k">a)</span> Dobra, porque g<sub>m</sub> dobra.</button>
+                <button class="opt" data-ok="1"><span class="k">b)</span> Sobe, mas menos que o dobro — g<sub>m</sub> cresce com √I, e o divisor de entrada melhora junto.</button>
+                <button class="opt" data-ok="0"><span class="k">c)</span> Não muda, porque o 1/g<sub>m</sub> cancela na fórmula de G<sub>v</sub>.</button>
+                <button class="opt" data-ok="0"><span class="k">d)</span> Cai, porque R<sub>in</sub> diminui.</button>
+              </div>
+              <div class="q-fb" role="status"><b>b)</b> — Com W/L fixo, g<sub>m</sub> = √(2μ<sub>n</sub>C<sub>ox</sub>(W/L)I<sub>D</sub>) cresce com a <em>raiz</em> da corrente: dobrar I multiplica g<sub>m</sub> por √2, levando a 7,07 mA/V e R<sub>in</sub> a 141 Ω. Em G<sub>v</sub> = (R<sub>3</sub>∥R<sub>5</sub>)/(R<sub>1</sub> + 1/g<sub>m</sub>), o denominador cai de 250 Ω para 191 Ω, e G<sub>v</sub> sobe de 4 para 5,2 — um ganho de 31%, não de 100%. <span class="note">A alternativa (c) confunde as coisas: o 1/g<sub>m</sub> cancela entre A<sub>v</sub> e o divisor, mas <em>sobrevive</em> no denominador somado a R<sub>1</sub>. Só cancelaria de verdade se R<sub>1</sub> fosse zero — e aí G<sub>v</sub> = A<sub>v</sub> = g<sub>m</sub>(R<sub>3</sub>∥R<sub>5</sub>), que de fato cresce com g<sub>m</sub>.</span></div>
+            </div>
+
+            <div class="q">
+              <div class="q-head">projeto <span class="tagq">refaça a conta</span></div>
+              <p class="q-stem">Com os mesmos dados, que R<sub>1</sub> seria necessário para G<sub>v</sub> = 4,5 V/V? E qual é o maior G<sub>v</sub> alcançável, por melhor que seja a fonte de sinal?</p>
+              <details class="reveal"><summary>ver a resposta</summary>
+                <div class="ans">
+                  <p><strong>R<sub>1</sub>:</strong> 1 kΩ/(R<sub>1</sub> + 0,2 kΩ) = 4,5 ⇒ R<sub>1</sub> + 0,2 k = 222 Ω ⇒ <strong>R<sub>1</sub> = 22 Ω</strong>. Exigir meio ponto a mais de ganho global custou mais que o dobro de qualidade na fonte de sinal.</p>
+                  <p><strong>O teto:</strong> com R<sub>1</sub> → 0, G<sub>v</sub> → 1 kΩ/0,2 kΩ = <strong>5 V/V</strong>, que é exatamente A<sub>v</sub>. Faz sentido: sem resistência em série, v<sub>i</sub> = v<sub>sig</sub> e o ganho global vira o ganho do amplificador.</p>
+                  <p><strong>A leitura:</strong> o pedido G<sub>v</sub> = 4 já consumia 80% do ganho disponível, e G<sub>v</sub> = 4,5 consome 90%. Os últimos pontos percentuais custam caríssimo — e é isso que a curva G<sub>v</sub>/A<sub>v</sub> = R<sub>in</sub>/(R<sub>1</sub>+R<sub>in</sub>) diz, por ser uma hipérbole, não uma reta. <span class="note">Em projeto real, quando o divisor de entrada come o ganho desse jeito, a resposta não é apertar R<sub>1</sub> — é pôr um estágio de alta impedância de entrada na frente, ou aumentar g<sub>m</sub>.</span></p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </section>
+
         <section class="content-section" id="m13-resumo">
           <div class="eyebrow">§ · RESUMO E ARMADILHAS</div>
           <h2>O módulo em uma página</h2>
@@ -19248,8 +19603,8 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
             <table class="spec">
               <tr><th>porta</th><th>rede n</th><th>cada nMOS</th><th>rede p</th><th>cada pMOS</th><th>largura total</th></tr>
               <tr><td><b>inversor</b></td><td>1 transistor</td><td>1,0·W</td><td>1 transistor</td><td>2,5·W</td><td>3,5·W</td></tr>
-              <tr><td><b>NAND2</b></td><td>2 em série</td><td><span class="y">2,0·W</span></td><td>2 em paralelo</td><td><span class="y">2,5·W</span></td><td><b>9,0·W</b></td></tr>
-              <tr><td><b>NOR2</b></td><td>2 em paralelo</td><td><span class="y">1,0·W</span></td><td>2 em série</td><td><span class="y">5,0·W</span></td><td><b>12,0·W</b></td></tr>
+              <tr><td><b>NAND2</b></td><td>2 em série</td><td><span style="color:var(--yellow)">2,0·W</span></td><td>2 em paralelo</td><td><span style="color:var(--yellow)">2,5·W</span></td><td><b>9,0·W</b></td></tr>
+              <tr><td><b>NOR2</b></td><td>2 em paralelo</td><td><span style="color:var(--yellow)">1,0·W</span></td><td>2 em série</td><td><span style="color:var(--yellow)">5,0·W</span></td><td><b>12,0·W</b></td></tr>
             </table>
             <div class="passo">
               <div class="lin"><div class="pq">NAND: os n estão em série, então dobram (2·1,0); os p estão em paralelo e ficam no valor do inversor.</div><div class="ct">2·(2,0) + 2·(2,5) = 9,0·W</div></div>
@@ -19514,6 +19869,645 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
     </div>
 
     <!-- contêiner de revelação do catálogo -->
+        <!-- ============================================================
+         MÓDULO 15 — AMP OPS CMOS: O CASCODE
+         ============================================================ -->
+    <div class="module-wrap">
+      <section class="hero-module module-break" id="mod15">
+        <div class="hero-eyebrow">MÓDULO 15 · AMP OPS CMOS · O CASCODE</div>
+        <h1><span class="w1">Um transistor sozinho dá 40 dB de ganho, e um amp op precisa de 80.</span> <span class="w2">A saída não é empilhar estágios — é empilhar transistores.</span></h1>
+        <p class="dek">O <a href="#mod13" style="color:var(--yellow)">Módulo 13</a> terminou dizendo que o par diferencial e o espelho de corrente são feitos de g<sub>m</sub> e r<sub>o</sub>. Este módulo abre a caixa. Começa com um teto incômodo — o ganho de um estágio é g<sub>m</sub>r<sub>o</sub>, e esse número não depende da corrente que você gasta — e mostra a saída que a indústria encontrou: pôr um segundo transistor em cima do primeiro, para blindar o dreno dele. O ganho vira (g<sub>m</sub>r<sub>o</sub>)², e a conta que se paga é sempre a mesma: excursão de saída.</p>
+        <div class="meta-row"><b>Curso</b> PSI3024 — Eletrônica &nbsp;&nbsp;&nbsp; <b>Pré-requisito</b> <a href="#mod13" style="color:var(--yellow)">Módulo 13</a> &nbsp;&nbsp;&nbsp; <b>Fonte</b> slides de aula (figuras 9.10, 9.18 e 9.19) &nbsp;&nbsp;&nbsp; <b>Estado</b> em construção</div>
+
+        <svg class="hero-deco" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="80" y1="60" x2="320" y2="60" stroke="var(--chalk-faint)" stroke-width="2"/>
+          <line x1="200" y1="60" x2="200" y2="92" stroke="var(--chalk-faint)" stroke-width="2"/>
+          <g stroke="var(--pink)" stroke-width="2.6" fill="none">
+            <line x1="150" y1="92" x2="150" y2="156"/>
+            <line x1="150" y1="96" x2="224" y2="96"/>
+            <line x1="150" y1="124" x2="188" y2="124"/>
+            <line x1="150" y1="152" x2="224" y2="152"/>
+            <line x1="136" y1="124" x2="144" y2="124"/>
+            <line x1="136" y1="104" x2="136" y2="144"/>
+          </g>
+          <line x1="224" y1="96" x2="224" y2="60" stroke="var(--chalk-faint)" stroke-width="2"/>
+          <line x1="224" y1="152" x2="224" y2="188" stroke="var(--chalk-faint)" stroke-width="2"/>
+          <g stroke="var(--pink)" stroke-width="2.6" fill="none">
+            <line x1="150" y1="188" x2="150" y2="252"/>
+            <line x1="150" y1="192" x2="224" y2="192"/>
+            <line x1="150" y1="220" x2="188" y2="220"/>
+            <line x1="150" y1="248" x2="224" y2="248"/>
+            <line x1="136" y1="220" x2="144" y2="220"/>
+            <line x1="136" y1="200" x2="136" y2="240"/>
+          </g>
+          <circle cx="224" cy="270" r="7" fill="var(--yellow)"/>
+          <line x1="224" y1="248" x2="224" y2="270" stroke="var(--yellow)" stroke-width="2.4"/>
+          <line x1="224" y1="270" x2="340" y2="270" stroke="var(--yellow)" stroke-width="2.4"/>
+          <line x1="224" y1="270" x2="224" y2="292" stroke="var(--chalk-faint)" stroke-width="2"/>
+          <g stroke="var(--chalk)" stroke-width="2.6" fill="none">
+            <line x1="150" y1="292" x2="150" y2="356"/>
+            <line x1="150" y1="296" x2="224" y2="296"/>
+            <line x1="150" y1="324" x2="188" y2="324"/>
+            <line x1="150" y1="352" x2="224" y2="352"/>
+            <line x1="136" y1="324" x2="144" y2="324"/>
+            <line x1="136" y1="304" x2="136" y2="344"/>
+          </g>
+          <line x1="224" y1="352" x2="224" y2="388" stroke="var(--chalk-faint)" stroke-width="2"/>
+          <g stroke="var(--chalk)" stroke-width="2.6" fill="none">
+            <line x1="150" y1="388" x2="150" y2="452"/>
+            <line x1="150" y1="392" x2="224" y2="392"/>
+            <line x1="150" y1="420" x2="188" y2="420"/>
+            <line x1="150" y1="448" x2="224" y2="448"/>
+            <line x1="136" y1="420" x2="144" y2="420"/>
+            <line x1="136" y1="400" x2="136" y2="440"/>
+          </g>
+          <line x1="224" y1="448" x2="224" y2="468" stroke="var(--chalk-faint)" stroke-width="2"/>
+          <line x1="200" y1="468" x2="248" y2="468" stroke="var(--chalk-faint)" stroke-width="3"/>
+          <line x1="208" y1="478" x2="240" y2="478" stroke="var(--chalk-faint)" stroke-width="2.4"/>
+          <line x1="216" y1="488" x2="232" y2="488" stroke="var(--chalk-faint)" stroke-width="2"/>
+        </svg>
+      </section>
+
+    <div class="mod-nav-bar">
+      <nav class="mod-nav">
+        <a href="#m15-teto">O teto de ganho de um estágio</a>
+        <a href="#m15-cascode">O cascode</a>
+        <a href="#m15-telescopico">O telescópico</a>
+        <a href="#m15-folded">O dobrado</a>
+        <a href="#m15-preco">O preço: excursão</a>
+        <a href="#m15-resumo">Resumo</a>
+      </nav>
+    </div>
+
+      <div class="content">
+
+        <!-- ============================================================
+             15.1 · O TETO
+             ============================================================ -->
+        <section class="content-section" id="m15-teto">
+          <div class="eyebrow">§ · O TETO · POR QUE UM ESTÁGIO NÃO BASTA</div>
+          <h2>O ganho máximo de um transistor não depende da corrente</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>Na melhor das hipóteses um estágio dá g<sub>m</sub>r<sub>o</sub>, e esse produto só melhora com transistores mais longos e sobrecargas menores — nunca com mais corrente.</p>
+          </div>
+
+          <div class="passo">
+            <div class="cab">a conta que fecha a porta</div>
+            <div class="lin"><div class="pq"><b>1 ·</b> O ganho de uma fonte comum é g<sub>m</sub> vezes tudo o que estiver no dreno. A melhor carga possível é uma fonte de corrente ideal, e aí sobra só r<sub>o</sub>.</div><div class="ct">A<sub>v</sub> = −g<sub>m</sub>(r<sub>o</sub> ∥ R<sub>L</sub>) &nbsp;⟶&nbsp; −g<sub>m</sub>r<sub>o</sub></div></div>
+            <div class="lin"><div class="pq"><b>2 ·</b> Escreva os dois fatores em função da polarização, com as expressões do <a href="#m13-gm">Módulo 13</a>.</div><div class="ct">g<sub>m</sub> = 2I<sub>D</sub>/V<sub>ov</sub> &nbsp;·&nbsp; r<sub>o</sub> = V<sub>A</sub>/I<sub>D</sub></div></div>
+            <div class="lin"><div class="pq"><b>3 ·</b> Multiplique — e veja I<sub>D</sub> cancelar.</div><div class="ct"><span class="hand-box">g<sub>m</sub>r<sub>o</sub> = <span class="y">2V<sub>A</sub> / V<sub>ov</sub></span></span></div></div>
+            <div class="lin"><div class="pq"><b>4 ·</b> Com números típicos — V<sub>A</sub> ≈ 10 V para um canal de 1 μm, V<sub>ov</sub> = 0,2 V.</div><div class="ct">g<sub>m</sub>r<sub>o</sub> ≈ 100 &nbsp;⇒&nbsp; <span class="y">40 dB</span></div></div>
+          </div>
+
+          <div class="attn">
+            <span class="tag">o que o cancelamento de I<sub>D</sub> quer dizer</span>
+            Gastar mais corrente aumenta g<sub>m</sub>, mas derruba r<sub>o</sub> na mesma proporção. O produto não se move. <strong>Ganho intrínseco não se compra com potência</strong> — é uma propriedade do transistor naquela sobrecarga, não do orçamento de consumo.
+            <br><br>
+            As duas alavancas que sobram são o <strong>comprimento do canal</strong> (V<sub>A</sub> cresce com L, porque a modulação do canal pesa menos num canal longo — veja a <a href="#m11-lambda">Seção 11.7</a>) e a <strong>sobrecarga</strong> (V<sub>ov</sub> menor dá mais ganho, à custa de velocidade e de margem de saturação). Ambas são caras, e nenhuma delas tira 40 dB de 100.
+          </div>
+
+                    <figure class="panel">
+            <svg viewBox="0 0 740 330" xmlns="http://www.w3.org/2000/svg">
+              <text x="20" y="24" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">quanto ganho cabe em um estágio — e quanto um amp op precisa</text>
+              <text x="20" y="56" font-family="Kalam" font-size="15" fill="var(--yellow)">ganho intrínseco:  gm · ro  =  2 VA / Vov  =  2 · 10 V / 0,2 V  ≈  100  (40 dB)</text>
+              <rect x="291" y="206" width="211" height="46" fill="rgba(229,212,128,.10)" stroke="var(--yellow)" stroke-width="1.6" stroke-dasharray="6,5"/>
+              <text x="298.9090909090909" y="272" font-family="Kalam" font-size="14" fill="var(--yellow)">o que um amp op precisa: 60 a 100 dB</text>
+              <line x1="80" y1="200" x2="660" y2="200" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="80.0" y1="200" x2="80.0" y2="194" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <text x="80.0" y="190" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">20</text>
+              <line x1="185.45454545454544" y1="200" x2="185.45454545454544" y2="194" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <text x="185.45454545454544" y="190" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">40</text>
+              <line x1="290.9090909090909" y1="200" x2="290.9090909090909" y2="194" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <text x="290.9090909090909" y="190" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">60</text>
+              <line x1="396.3636363636364" y1="200" x2="396.3636363636364" y2="194" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <text x="396.3636363636364" y="190" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">80</text>
+              <line x1="501.8181818181818" y1="200" x2="501.8181818181818" y2="194" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <text x="501.8181818181818" y="190" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">100</text>
+              <line x1="607.2727272727273" y1="200" x2="607.2727272727273" y2="194" stroke="var(--chalk-faint)" stroke-width="1.6"/>
+              <text x="607.2727272727273" y="190" text-anchor="middle" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">120</text>
+              <text x="674" y="206" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">dB</text>
+              <line x1="185.45454545454544" y1="200" x2="185.45454545454544" y2="152" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="185" cy="200" r="5" fill="var(--chalk)"/>
+              <text x="185.45454545454544" y="144" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--chalk)">1 estágio</text>
+              <text x="185.45454545454544" y="124" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">gm · ro ≈ 100</text>
+              <line x1="396.3636363636364" y1="200" x2="396.3636363636364" y2="152" stroke="var(--yellow)" stroke-width="2"/>
+              <circle cx="396" cy="200" r="5" fill="var(--yellow)"/>
+              <text x="396.3636363636364" y="144" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--yellow)">cascode</text>
+              <text x="396.3636363636364" y="124" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">( gm · ro )² ≈ 10⁴</text>
+              <line x1="607.2727272727273" y1="200" x2="607.2727272727273" y2="152" stroke="var(--pink)" stroke-width="2"/>
+              <circle cx="607" cy="200" r="5" fill="var(--pink)"/>
+              <text x="607.2727272727273" y="144" text-anchor="middle" font-family="Kalam" font-size="15" fill="var(--pink)">cascode triplo</text>
+              <text x="607.2727272727273" y="124" text-anchor="middle" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">( gm · ro )³ ≈ 10⁶</text>
+              <text x="20" y="312" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">cada andar multiplica o ganho por gm·ro outra vez — e custa uma sobrecarga de excursão</text>
+            </svg>
+            <figcaption>O teto, em escala logarítmica. O número decisivo é g<sub>m</sub>r<sub>o</sub> = 2V<sub>A</sub>/V<sub>ov</sub>: ele não contém I<sub>D</sub>, e é por isso que gastar mais corrente não compra ganho. Um amp op precisa de pelo menos 60 dB para que o erro de ganho da realimentação seja desprezível — e um estágio simples não chega lá.</figcaption>
+          </figure>
+
+          <div class="intu">
+            <span class="lbl">as duas saídas, e por que a segunda venceu</span>
+            <p><strong>Cascatear estágios.</strong> Dois estágios de 40 dB dão 80 dB. Funciona, e é o que faz o amp op de dois estágios clássico. O problema é a <em>realimentação</em>: cada estágio traz um polo, e dois polos próximos tornam o laço instável. Corrigir isso exige compensação — um capacitor que derruba a banda de propósito. Paga-se em velocidade.</p>
+            <p><strong>Empilhar transistores.</strong> Um cascode multiplica o ganho por g<sub>m</sub>r<sub>o</sub> <em>sem</em> criar um novo nó de alta impedância, porque o nó interno X é de <em>baixa</em> impedância (1/g<sub>m</sub>, como na porta comum da <a href="#m13-portacomum">Seção 13.9</a>). O polo que ele introduz fica longe, em alta frequência, e não atrapalha o laço.</p>
+            <p>É por isso que, em CMOS analógico, <strong>cascode é a primeira resposta e cascata é a segunda</strong>. Um estágio só, 80 dB, um polo dominante — o sonho de quem projeta realimentação.</p>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             15.2 · O CASCODE
+             ============================================================ -->
+        <section class="content-section" id="m15-cascode">
+          <div class="eyebrow">§ · O CASCODE · FONTE COMUM COM PORTA COMUM EM CIMA</div>
+          <h2>Blindar o dreno é o mesmo que apagar o efeito Early</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>O transistor de cima segura a tensão do dreno de baixo quase fixa, e r<sub>o</sub> só importa quando o dreno se mexe.</p>
+          </div>
+          <p class="lead">O nome engana: não há nada de novo nesta topologia. São as duas configurações que o <a href="#m13-config">Módulo 13</a> já descreveu, uma em cima da outra — uma fonte comum, que converte tensão em corrente, e uma porta comum, que recebe essa corrente pela fonte e a entrega pelo dreno. Toda a mágica está em <em>onde</em> a porta comum põe o seu nó de entrada.</p>
+
+                    <figure class="panel">
+            <svg viewBox="0 0 740 400" xmlns="http://www.w3.org/2000/svg">
+              <text x="20" y="24" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">o cascode: uma fonte comum com uma porta comum montada em cima dela</text>
+              <line x1="254" y1="46" x2="254" y2="64" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="254" y1="38" x2="254" y2="46" stroke="var(--chalk)" stroke-width="2"/>
+              <polygon points="246,38 262,38 254,24" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="270" y="44" font-family="Kalam" font-size="15" fill="var(--yellow)">V</text>
+              <text x="279" y="49" font-family="Kalam" font-size="10" fill="var(--yellow)">DD</text>
+              <circle cx="254" cy="80" r="16" fill="none" stroke="var(--pink)" stroke-width="2"/>
+              <line x1="254" y1="90" x2="254" y2="78" stroke="var(--pink)" stroke-width="2"/>
+              <polygon points="249,78 259,78 254,70" fill="var(--pink)"/>
+              <text x="282" y="86" font-family="Kalam" font-size="15" fill="var(--pink)">I</text>
+              <text x="291" y="91" font-family="Kalam" font-size="10" fill="var(--pink)">B</text>
+              <line x1="254" y1="96" x2="254" y2="130" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="254" cy="130" r="3.6" fill="var(--yellow)"/>
+              <line x1="254" y1="130" x2="300" y2="130" stroke="var(--yellow)" stroke-width="2"/>
+              <circle cx="304" cy="130" r="4.5" fill="none" stroke="var(--yellow)" stroke-width="2"/>
+              <text x="268" y="114" font-family="Kalam" font-size="16" fill="var(--yellow)">v</text>
+              <text x="278" y="119" font-family="Kalam" font-size="11" fill="var(--yellow)">out</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="180" y1="160" x2="180" y2="224"/>
+              <line x1="180" y1="164" x2="254" y2="164"/>
+              <line x1="180" y1="192" x2="218" y2="192"/>
+              <line x1="180" y1="220" x2="254" y2="220"/>
+              <line x1="166" y1="192" x2="158" y2="192"/>
+              <line x1="166" y1="172" x2="166" y2="212"/>
+              </g>
+              <polygon points="192,216 192,224 202,220" fill="var(--chalk)"/>
+              <line x1="254" y1="164" x2="254" y2="130" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="254" y1="220" x2="254" y2="258" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="166" y1="192" x2="96" y2="192" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="104" y="180" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">V</text>
+              <text x="113" y="185" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">b</text>
+              <circle cx="254" cy="240" r="3.6" fill="var(--pink)"/>
+              <text x="268" y="236" font-family="Kalam" font-size="15" fill="var(--pink)">X</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="180" y1="254" x2="180" y2="318"/>
+              <line x1="180" y1="258" x2="254" y2="258"/>
+              <line x1="180" y1="286" x2="218" y2="286"/>
+              <line x1="180" y1="314" x2="254" y2="314"/>
+              <line x1="166" y1="286" x2="158" y2="286"/>
+              <line x1="166" y1="266" x2="166" y2="306"/>
+              </g>
+              <polygon points="192,310 192,318 202,314" fill="var(--chalk)"/>
+              <line x1="254" y1="314" x2="254" y2="340" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="240" y1="344" x2="268" y2="344" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="245" y1="352" x2="263" y2="352" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="250" y1="360" x2="258" y2="360" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="166" y1="286" x2="96" y2="286" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="100" y="274" font-family="Kalam" font-size="15" fill="var(--yellow)">v</text>
+              <text x="110" y="279" font-family="Kalam" font-size="10" fill="var(--yellow)">in</text>
+              <line x1="344" y1="96" x2="344" y2="164" stroke="var(--yellow)" stroke-width="1.8"/>
+              <polygon points="339,96 349,96 344,86" fill="var(--yellow)"/>
+              <polygon points="339,164 349,164 344,174" fill="var(--yellow)"/>
+              <text x="356" y="134" font-family="Kalam" font-size="14" fill="var(--yellow)">≈ 1 V</text>
+              <line x1="344" y1="232" x2="344" y2="248" stroke="var(--pink)" stroke-width="1.8"/>
+              <polygon points="339,232 349,232 344,224" fill="var(--pink)"/>
+              <polygon points="339,248 349,248 344,256" fill="var(--pink)"/>
+              <text x="356" y="246" font-family="Kalam" font-size="14" fill="var(--pink)">≈ 10 mV</text>
+              <line x1="260" y1="240" x2="336" y2="240" stroke="var(--chalk-faint)" stroke-width="1.2"/>
+              <text x="196" y="152" font-family="Kalam" font-size="15" fill="var(--chalk)">M</text>
+              <text x="205" y="157" font-family="Kalam" font-size="10" fill="var(--chalk)">2</text>
+              <text x="196" y="246" font-family="Kalam" font-size="15" fill="var(--chalk)">M</text>
+              <text x="205" y="251" font-family="Kalam" font-size="10" fill="var(--chalk)">1</text>
+              <text x="440" y="120" font-family="Kalam" font-size="15" fill="var(--chalk)">M2 blinda o dreno de M1</text>
+              <text x="440" y="152" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">a saída balança inteira, mas o nó X</text>
+              <text x="440" y="174" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">balança gm·ro vezes menos que ela</text>
+              <text x="440" y="208" font-family="Kalam" font-size="15" fill="var(--yellow)">⇒ VDS1 fica quase fixa, e o efeito</text>
+              <text x="440" y="230" font-family="Kalam" font-size="15" fill="var(--yellow)">Early de M1 some da conta</text>
+              <text x="440" y="278" font-family="Kalam" font-size="16" fill="var(--chalk)">Rout ≈ gm2 · ro2 · ro1</text>
+              <text x="440" y="308" font-family="Kalam" font-size="16" fill="var(--yellow)">Av ≈ − ( gm ro )²</text>
+              <text x="440" y="348" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">um ganho ao quadrado, pelo preço</text>
+              <text x="440" y="370" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">de uma sobrecarga de excursão</text>
+            </svg>
+            <figcaption>O cascode e a razão de ele funcionar. M<sub>2</sub> é uma porta comum: a entrada dele é a <em>fonte</em>, de baixa impedância. Por isso o nó X quase não se move enquanto a saída balança inteira — e V<sub>DS1</sub> ficando fixa é o mesmo que o efeito Early de M<sub>1</sub> desaparecer.</figcaption>
+          </figure>
+
+          <div class="passo">
+            <div class="cab">a dedução de R<sub>out</sub>, em três linhas</div>
+            <div class="lin"><div class="pq"><b>1 ·</b> A resistência olhando para o dreno de um transistor que tem R<sub>S</sub> na fonte — é o resultado geral da degeneração, deduzido na <a href="#m13-fontecomum">Seção 13.8</a>.</div><div class="ct">R<sub>d</sub> = r<sub>o</sub> + R<sub>S</sub> + g<sub>m</sub>r<sub>o</sub>R<sub>S</sub></div></div>
+            <div class="lin"><div class="pq"><b>2 ·</b> No cascode, quem faz o papel de R<sub>S</sub> para M<sub>2</sub> é a própria r<sub>o1</sub> de M<sub>1</sub>.</div><div class="ct">R<sub>out</sub> = r<sub>o2</sub> + r<sub>o1</sub> + g<sub>m2</sub>r<sub>o2</sub>r<sub>o1</sub></div></div>
+            <div class="lin"><div class="pq"><b>3 ·</b> O terceiro termo é cem vezes maior que os outros dois. Despreze-os.</div><div class="ct"><span class="hand-box">R<sub>out</sub> ≈ <span class="y">(g<sub>m2</sub>r<sub>o2</sub>) · r<sub>o1</sub></span></span></div></div>
+            <div class="lin"><div class="pq"><b>4 ·</b> O ganho é a transcondutância de entrada vezes essa resistência. G<sub>m</sub> continua sendo g<sub>m1</sub>: toda a corrente de M<sub>1</sub> passa por M<sub>2</sub>.</div><div class="ct">A<sub>v</sub> = −g<sub>m1</sub>R<sub>out</sub> ≈ −g<sub>m1</sub>g<sub>m2</sub>r<sub>o1</sub>r<sub>o2</sub></div></div>
+            <div class="lin"><div class="pq">Com transistores iguais, é o ganho intrínseco ao quadrado.</div><div class="ct"><span class="hand-box">|A<sub>v</sub>| ≈ (g<sub>m</sub>r<sub>o</sub>)² ≈ <span class="y">10⁴ = 80 dB</span></span></div></div>
+          </div>
+
+          <div class="intu">
+            <span class="lbl">a mesma coisa dita sem álgebra</span>
+            <p>r<sub>o</sub> existe porque V<sub>DS</sub> modula o canal: quando a tensão no dreno sobe, o canal encurta e a corrente aumenta um pouco. Essa «não-idealidade» é o que limita o ganho.</p>
+            <p>Agora ponha M<sub>2</sub> em cima. A entrada de M<sub>2</sub> é a <em>fonte</em> dele, que é o nó X — e a resistência de entrada de uma porta comum é 1/g<sub>m</sub>, pequena. Quando a saída balança 1 V, X balança 1 V dividido pelo ganho de M<sub>2</sub>, ou seja, uns 10 mV.</p>
+            <p>Mas X é o dreno de M<sub>1</sub>. Logo <strong>V<sub>DS1</sub> praticamente não se mexe</strong> — e o efeito Early de M<sub>1</sub>, que só aparece quando V<sub>DS1</sub> varia, deixa de existir na prática. O cascode não «cancela» r<sub>o1</sub>: ele impede que r<sub>o1</sub> seja solicitada.</p>
+          </div>
+
+          <div class="attn">
+            <span class="tag">o nó X também resolve um problema de frequência</span>
+            O ganho de um estágio cai quando o capacitor porta-dreno de M<sub>1</sub> aparece na entrada multiplicado pelo ganho — o <em class="term">efeito Miller</em>. Num cascode, o ganho <em>de M<sub>1</sub> para X</em> é de apenas −g<sub>m1</sub>/g<sub>m2</sub> ≈ −1, porque X é de baixa impedância.
+            <br><br>
+            Ou seja: o cascode multiplica o ganho total por cem <strong>e</strong> reduz a capacitância vista na entrada quase ao mínimo. É raro um truque de circuito melhorar duas figuras de mérito ao mesmo tempo — e é por isso que o cascode está em praticamente todo amp op CMOS de alto ganho.
+          </div>
+        </section>
+
+        <!-- ============================================================
+             15.3 · O TELESCÓPICO
+             ============================================================ -->
+        <section class="content-section" id="m15-telescopico">
+          <div class="eyebrow">§ · O TELESCÓPICO · O AMP OP DA FIGURA 9.10</div>
+          <h2>Quatro transistores empilhados em cada ramo, e um par diferencial embaixo</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>É o par diferencial do Módulo 13 com um cascode em cima dele e um cascode de carga em cima daquele — tudo num ramo só, como as seções de uma luneta.</p>
+          </div>
+
+                    <figure class="panel">
+            <svg viewBox="0 0 740 520" xmlns="http://www.w3.org/2000/svg">
+              <text x="20" y="24" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">o cascode telescópico — quatro transistores empilhados em cada ramo</text>
+              <line x1="314" y1="54" x2="456" y2="54" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="385" y1="54" x2="385" y2="38" stroke="var(--chalk)" stroke-width="2"/>
+              <polygon points="377,38 393,38 385,24" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="400" y="44" font-family="Kalam" font-size="15" fill="var(--yellow)">V</text>
+              <text x="409" y="49" font-family="Kalam" font-size="10" fill="var(--yellow)">DD</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="240" y1="70" x2="240" y2="134"/>
+              <line x1="240" y1="74" x2="314" y2="74"/>
+              <line x1="240" y1="102" x2="278" y2="102"/>
+              <line x1="240" y1="130" x2="314" y2="130"/>
+              <line x1="226" y1="102" x2="218" y2="102"/>
+              <line x1="226" y1="82" x2="226" y2="122"/>
+              </g>
+              <polygon points="252,70 252,78 242,74" fill="var(--chalk)"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="530" y1="70" x2="530" y2="134"/>
+              <line x1="530" y1="74" x2="456" y2="74"/>
+              <line x1="530" y1="102" x2="492" y2="102"/>
+              <line x1="530" y1="130" x2="456" y2="130"/>
+              <line x1="544" y1="102" x2="552" y2="102"/>
+              <line x1="544" y1="82" x2="544" y2="122"/>
+              </g>
+              <polygon points="518,70 518,78 528,74" fill="var(--chalk)"/>
+              <line x1="226" y1="102" x2="164" y2="102" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="544" y1="102" x2="606" y2="102" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="158" y="107" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">V</text>
+              <text x="167" y="112" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">b3</text>
+              <text x="612" y="107" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">V</text>
+              <text x="621" y="112" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">b3</text>
+              <text x="196" y="88" font-family="Kalam" font-size="15" fill="var(--chalk)">M</text>
+              <text x="205" y="93" font-family="Kalam" font-size="10" fill="var(--chalk)">7</text>
+              <text x="560" y="88" font-family="Kalam" font-size="15" fill="var(--chalk)">M</text>
+              <text x="569" y="93" font-family="Kalam" font-size="10" fill="var(--chalk)">8</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="240" y1="160" x2="240" y2="224"/>
+              <line x1="240" y1="164" x2="314" y2="164"/>
+              <line x1="240" y1="192" x2="278" y2="192"/>
+              <line x1="240" y1="220" x2="314" y2="220"/>
+              <line x1="226" y1="192" x2="218" y2="192"/>
+              <line x1="226" y1="172" x2="226" y2="212"/>
+              </g>
+              <polygon points="252,160 252,168 242,164" fill="var(--chalk)"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="530" y1="160" x2="530" y2="224"/>
+              <line x1="530" y1="164" x2="456" y2="164"/>
+              <line x1="530" y1="192" x2="492" y2="192"/>
+              <line x1="530" y1="220" x2="456" y2="220"/>
+              <line x1="544" y1="192" x2="552" y2="192"/>
+              <line x1="544" y1="172" x2="544" y2="212"/>
+              </g>
+              <polygon points="518,160 518,168 528,164" fill="var(--chalk)"/>
+              <line x1="226" y1="192" x2="164" y2="192" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="544" y1="192" x2="606" y2="192" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="158" y="197" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">V</text>
+              <text x="167" y="202" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">b2</text>
+              <text x="612" y="197" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">V</text>
+              <text x="621" y="202" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">b2</text>
+              <text x="196" y="178" font-family="Kalam" font-size="15" fill="var(--chalk)">M</text>
+              <text x="205" y="183" font-family="Kalam" font-size="10" fill="var(--chalk)">5</text>
+              <text x="560" y="178" font-family="Kalam" font-size="15" fill="var(--chalk)">M</text>
+              <text x="569" y="183" font-family="Kalam" font-size="10" fill="var(--chalk)">6</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="240" y1="250" x2="240" y2="314"/>
+              <line x1="240" y1="254" x2="314" y2="254"/>
+              <line x1="240" y1="282" x2="278" y2="282"/>
+              <line x1="240" y1="310" x2="314" y2="310"/>
+              <line x1="226" y1="282" x2="218" y2="282"/>
+              <line x1="226" y1="262" x2="226" y2="302"/>
+              </g>
+              <polygon points="252,306 252,314 262,310" fill="var(--chalk)"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="530" y1="250" x2="530" y2="314"/>
+              <line x1="530" y1="254" x2="456" y2="254"/>
+              <line x1="530" y1="282" x2="492" y2="282"/>
+              <line x1="530" y1="310" x2="456" y2="310"/>
+              <line x1="544" y1="282" x2="552" y2="282"/>
+              <line x1="544" y1="262" x2="544" y2="302"/>
+              </g>
+              <polygon points="518,306 518,314 508,310" fill="var(--chalk)"/>
+              <line x1="226" y1="282" x2="164" y2="282" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="544" y1="282" x2="606" y2="282" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="158" y="287" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">V</text>
+              <text x="167" y="292" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">b1</text>
+              <text x="612" y="287" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">V</text>
+              <text x="621" y="292" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">b1</text>
+              <text x="196" y="268" font-family="Kalam" font-size="15" fill="var(--chalk)">M</text>
+              <text x="205" y="273" font-family="Kalam" font-size="10" fill="var(--chalk)">3</text>
+              <text x="560" y="268" font-family="Kalam" font-size="15" fill="var(--chalk)">M</text>
+              <text x="569" y="273" font-family="Kalam" font-size="10" fill="var(--chalk)">4</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="240" y1="340" x2="240" y2="404"/>
+              <line x1="240" y1="344" x2="314" y2="344"/>
+              <line x1="240" y1="372" x2="278" y2="372"/>
+              <line x1="240" y1="400" x2="314" y2="400"/>
+              <line x1="226" y1="372" x2="218" y2="372"/>
+              <line x1="226" y1="352" x2="226" y2="392"/>
+              </g>
+              <polygon points="252,396 252,404 262,400" fill="var(--chalk)"/>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="530" y1="340" x2="530" y2="404"/>
+              <line x1="530" y1="344" x2="456" y2="344"/>
+              <line x1="530" y1="372" x2="492" y2="372"/>
+              <line x1="530" y1="400" x2="456" y2="400"/>
+              <line x1="544" y1="372" x2="552" y2="372"/>
+              <line x1="544" y1="352" x2="544" y2="392"/>
+              </g>
+              <polygon points="518,396 518,404 508,400" fill="var(--chalk)"/>
+              <line x1="226" y1="372" x2="164" y2="372" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="544" y1="372" x2="606" y2="372" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="158" y="377" font-family="Kalam" font-size="15" fill="var(--yellow)">v</text>
+              <text x="167" y="382" font-family="Kalam" font-size="10" fill="var(--yellow)">in+</text>
+              <text x="612" y="377" font-family="Kalam" font-size="15" fill="var(--yellow)">v</text>
+              <text x="621" y="382" font-family="Kalam" font-size="10" fill="var(--yellow)">in−</text>
+              <text x="196" y="358" font-family="Kalam" font-size="15" fill="var(--chalk)">M</text>
+              <text x="205" y="363" font-family="Kalam" font-size="10" fill="var(--chalk)">1</text>
+              <text x="560" y="358" font-family="Kalam" font-size="15" fill="var(--chalk)">M</text>
+              <text x="569" y="363" font-family="Kalam" font-size="10" fill="var(--chalk)">2</text>
+              <line x1="314" y1="134" x2="314" y2="164" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="456" y1="134" x2="456" y2="164" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="314" y1="220" x2="314" y2="254" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="456" y1="220" x2="456" y2="254" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="314" y1="310" x2="314" y2="344" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="456" y1="310" x2="456" y2="344" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="314" y1="400" x2="314" y2="430" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="456" y1="400" x2="456" y2="430" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="314" y1="74" x2="314" y2="54" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="456" y1="74" x2="456" y2="54" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="314" cy="237" r="3.6" fill="var(--yellow)"/>
+              <circle cx="456" cy="237" r="3.6" fill="var(--yellow)"/>
+              <line x1="314" y1="237" x2="356" y2="237" stroke="var(--yellow)" stroke-width="2"/>
+              <line x1="456" y1="237" x2="414" y2="237" stroke="var(--yellow)" stroke-width="2"/>
+              <circle cx="360" cy="237" r="4.5" fill="none" stroke="var(--yellow)" stroke-width="2"/>
+              <circle cx="410" cy="237" r="4.5" fill="none" stroke="var(--yellow)" stroke-width="2"/>
+              <text x="348" y="222" font-family="Kalam" font-size="15" fill="var(--yellow)">X</text>
+              <text x="406" y="222" font-family="Kalam" font-size="15" fill="var(--yellow)">Y</text>
+              <text x="358" y="272" font-family="Kalam" font-size="16" fill="var(--yellow)">v</text>
+              <text x="368" y="277" font-family="Kalam" font-size="11" fill="var(--yellow)">out</text>
+              <line x1="314" y1="430" x2="456" y2="430" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="385" y1="430" x2="385" y2="440" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="385" cy="456" r="16" fill="none" stroke="var(--pink)" stroke-width="2"/>
+              <line x1="385" y1="446" x2="385" y2="458" stroke="var(--pink)" stroke-width="2"/>
+              <polygon points="380,458 390,458 385,466" fill="var(--pink)"/>
+              <line x1="385" y1="472" x2="385" y2="486" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="371" y1="490" x2="399" y2="490" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="376" y1="498" x2="394" y2="498" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="381" y1="506" x2="389" y2="506" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="412" y="462" font-family="Kalam" font-size="15" fill="var(--pink)">I</text>
+              <text x="421" y="467" font-family="Kalam" font-size="10" fill="var(--pink)">SS</text>
+              <text x="30" y="112" font-family="Kalam" font-size="13" fill="var(--pink)">fontes de</text>
+              <text x="30" y="130" font-family="Kalam" font-size="13" fill="var(--pink)">corrente pMOS</text>
+              <text x="30" y="202" font-family="Kalam" font-size="13" fill="var(--pink)">cascode pMOS</text>
+              <text x="30" y="220" font-family="Kalam" font-size="13" fill="var(--pink)">da carga</text>
+              <text x="656" y="292" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">cascode</text>
+              <text x="656" y="310" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">nMOS</text>
+              <text x="656" y="382" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">par</text>
+              <text x="656" y="400" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">diferencial</text>
+            </svg>
+            <figcaption>O telescópico. É um circuito do <a href="#m13-config">Módulo 13</a> com dois andares a mais: o par diferencial M<sub>1</sub>–M<sub>2</sub> com a cauda I<sub>SS</sub>, os cascodes nMOS M<sub>3</sub>–M<sub>4</sub>, os cascodes pMOS M<sub>5</sub>–M<sub>6</sub> e as fontes de corrente M<sub>7</sub>–M<sub>8</sub>. V<sub>b1</sub>, V<sub>b2</sub> e V<sub>b3</sub> são polarizações fixas, e nós de mesmo nome estão ligados entre si.</figcaption>
+          </figure>
+
+          <div class="passo">
+            <div class="cab">lendo o circuito de baixo para cima</div>
+            <div class="lin"><div class="pq"><b>M<sub>1</sub>, M<sub>2</sub> e I<sub>SS</sub>.</b> O par diferencial. Converte a diferença de tensão nas portas em uma diferença de corrente nos drenos — e a soma das duas correntes é sempre I<sub>SS</sub>.</div><div class="ct">a transcondutância de entrada: g<sub>m1</sub></div></div>
+            <div class="lin"><div class="pq"><b>M<sub>3</sub> e M<sub>4</sub>.</b> Os cascodes nMOS, com as portas numa polarização fixa V<sub>b1</sub>. Recebem a corrente de sinal pela fonte e a entregam no nó de saída, blindando os drenos de M<sub>1</sub> e M<sub>2</sub>.</div><div class="ct">multiplicam a resistência por g<sub>m3</sub>r<sub>o3</sub></div></div>
+            <div class="lin"><div class="pq"><b>M<sub>5</sub> e M<sub>6</sub>.</b> A mesma ideia do lado pMOS: cascodes que blindam os drenos das fontes de corrente de carga.</div><div class="ct">multiplicam por g<sub>m5</sub>r<sub>o5</sub></div></div>
+            <div class="lin"><div class="pq"><b>M<sub>7</sub> e M<sub>8</sub>.</b> As fontes de corrente pMOS que alimentam os dois ramos — a «carga ativa» que substitui os resistores de dreno.</div><div class="ct">carga de altíssima impedância</div></div>
+            <div class="lin"><div class="pq">O ganho é g<sub>m1</sub> vezes o paralelo das duas resistências que chegam ao nó de saída: a de baixo (olhando para M<sub>3</sub>) e a de cima (olhando para M<sub>5</sub>).</div><div class="ct"><span class="hand-box">A<sub>v</sub> = g<sub>m1</sub> · [ (g<sub>m3</sub>r<sub>o3</sub>r<sub>o1</sub>) <span class="dim">∥</span> (g<sub>m5</sub>r<sub>o5</sub>r<sub>o7</sub>) ]</span></div></div>
+          </div>
+
+          <div class="intu">
+            <span class="lbl">por que «telescópico»</span>
+            <p>Porque os transistores se encaixam uns dentro dos outros ao longo de um único caminho de corrente, como as seções de uma luneta. A corrente que sai da cauda sobe por M<sub>1</sub>, atravessa M<sub>3</sub>, chega à saída, continua por M<sub>5</sub> e termina em M<sub>7</sub> — <strong>um ramo, uma corrente, cinco dispositivos em série</strong>.</p>
+            <p>Essa economia é a grande virtude: para uma dada corrente de cauda, o telescópico é o que consome menos e tem o menor ruído, porque não há nenhum ramo paralelo desperdiçando corrente. Também é o mais rápido, pela mesma razão — menos nós, menos capacitâncias.</p>
+            <p>E é a origem dos seus dois defeitos, que a próxima seção resolve: <strong>a excursão de saída é pequena</strong>, porque cinco dispositivos em série querem cinco sobrecargas de tensão, e <strong>a faixa de modo comum da entrada briga com a da saída</strong>, porque entrada e saída estão no mesmo ramo.</p>
+          </div>
+
+          <div class="attn">
+            <span class="tag">a saída simples — a figura 9.18 do slide</span>
+            O desenho acima tem saída <em>diferencial</em>: o sinal é a diferença entre X e Y. Muitas aplicações querem uma saída referida ao terra, e aí as cargas pMOS deixam de ser duas fontes independentes e viram um <strong>espelho de corrente em cascode</strong>: o ramo da esquerda vira a referência, o da direita entrega a saída.
+            <br><br>
+            As duas versões mostradas no slide diferem só em <em>como o espelho é polarizado</em> — uma usa o próprio nó X como referência de porta, a outra usa uma tensão V<sub>b2</sub> separada. A segunda é melhor: deixa o nó X livre para se acomodar, e com isso preserva o casamento entre os dois ramos. O ganho e a excursão, porém, são os mesmos.
+          </div>
+        </section>
+
+        <!-- ============================================================
+             15.4 · O DOBRADO
+             ============================================================ -->
+        <section class="content-section" id="m15-folded">
+          <div class="eyebrow">§ · O DOBRADO · DESATAR A ENTRADA DA SAÍDA</div>
+          <h2>Dobrar o caminho da corrente para que entrada e saída parem de brigar</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>Em vez de o cascode continuar subindo no mesmo ramo, ele vira para o tipo oposto — e aí a entrada pode estar em qualquer lugar sem comer a excursão da saída.</p>
+          </div>
+
+                    <figure class="panel">
+            <svg viewBox="0 0 740 360" xmlns="http://www.w3.org/2000/svg">
+              <text x="20" y="24" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">o cascode dobrado — a corrente de sinal muda de tipo no meio do caminho</text>
+              <line x1="160" y1="50" x2="245" y2="50" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="245" y1="50" x2="245" y2="36" stroke="var(--chalk)" stroke-width="2"/>
+              <polygon points="237,36 253,36 245,22" fill="none" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="260" y="42" font-family="Kalam" font-size="15" fill="var(--yellow)">V</text>
+              <text x="269" y="47" font-family="Kalam" font-size="10" fill="var(--yellow)">DD</text>
+              <line x1="160" y1="50" x2="160" y2="70" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="160" cy="86" r="16" fill="none" stroke="var(--pink)" stroke-width="2"/>
+              <line x1="160" y1="76" x2="160" y2="88" stroke="var(--pink)" stroke-width="2"/>
+              <polygon points="155,88 165,88 160,96" fill="var(--pink)"/>
+              <line x1="160" y1="102" x2="160" y2="150" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="104" y="92" font-family="Kalam" font-size="15" fill="var(--pink)">I</text>
+              <text x="113" y="97" font-family="Kalam" font-size="10" fill="var(--pink)">1</text>
+              <text x="78" y="112" font-family="Kalam" font-size="13" fill="var(--chalk-faint)">fixa</text>
+              <circle cx="160" cy="150" r="3.6" fill="var(--orange)"/>
+              <text x="150" y="138" font-family="Kalam" font-size="15" fill="var(--orange)">P</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="110" y1="170" x2="110" y2="234"/>
+              <line x1="110" y1="174" x2="160" y2="174"/>
+              <line x1="110" y1="202" x2="148" y2="202"/>
+              <line x1="110" y1="230" x2="160" y2="230"/>
+              <line x1="96" y1="202" x2="88" y2="202"/>
+              <line x1="96" y1="182" x2="96" y2="222"/>
+              </g>
+              <polygon points="122,226 122,234 132,230" fill="var(--chalk)"/>
+              <line x1="160" y1="174" x2="160" y2="150" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="160" y1="230" x2="160" y2="278" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="146" y1="282" x2="174" y2="282" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="151" y1="290" x2="169" y2="290" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="156" y1="298" x2="164" y2="298" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="96" y1="202" x2="40" y2="202" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="44" y="190" font-family="Kalam" font-size="15" fill="var(--yellow)">v</text>
+              <text x="54" y="195" font-family="Kalam" font-size="10" fill="var(--yellow)">in</text>
+              <text x="72" y="224" font-family="Kalam" font-size="15" fill="var(--chalk)">M</text>
+              <text x="81" y="229" font-family="Kalam" font-size="10" fill="var(--chalk)">1</text>
+              <g stroke="var(--chalk)" stroke-width="2" fill="none">
+              <line x1="330" y1="118" x2="330" y2="182"/>
+              <line x1="330" y1="122" x2="280" y2="122"/>
+              <line x1="330" y1="150" x2="292" y2="150"/>
+              <line x1="330" y1="178" x2="280" y2="178"/>
+              <line x1="344" y1="150" x2="352" y2="150"/>
+              <line x1="344" y1="130" x2="344" y2="170"/>
+              </g>
+              <polygon points="318,118 318,126 328,122" fill="var(--chalk)"/>
+              <line x1="280" y1="122" x2="280" y2="150" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="160" y1="150" x2="280" y2="150" stroke="var(--orange)" stroke-width="2.4"/>
+              <line x1="280" y1="178" x2="280" y2="226" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="344" y1="150" x2="396" y2="150" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="402" y="155" font-family="Kalam" font-size="15" fill="var(--chalk-dim)">V</text>
+              <text x="411" y="160" font-family="Kalam" font-size="10" fill="var(--chalk-dim)">b</text>
+              <text x="352" y="104" font-family="Kalam" font-size="15" fill="var(--chalk)">M</text>
+              <text x="361" y="109" font-family="Kalam" font-size="10" fill="var(--chalk)">2</text>
+              <circle cx="280" cy="226" r="3.6" fill="var(--yellow)"/>
+              <line x1="280" y1="226" x2="356" y2="226" stroke="var(--yellow)" stroke-width="2"/>
+              <circle cx="360" cy="226" r="4.5" fill="none" stroke="var(--yellow)" stroke-width="2"/>
+              <text x="296" y="212" font-family="Kalam" font-size="16" fill="var(--yellow)">v</text>
+              <text x="306" y="217" font-family="Kalam" font-size="11" fill="var(--yellow)">out</text>
+              <line x1="280" y1="226" x2="280" y2="246" stroke="var(--chalk)" stroke-width="2"/>
+              <circle cx="280" cy="262" r="16" fill="none" stroke="var(--pink)" stroke-width="2"/>
+              <line x1="280" y1="252" x2="280" y2="264" stroke="var(--pink)" stroke-width="2"/>
+              <polygon points="275,264 285,264 280,272" fill="var(--pink)"/>
+              <line x1="280" y1="278" x2="280" y2="296" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="266" y1="300" x2="294" y2="300" stroke="var(--chalk)" stroke-width="2.4"/>
+              <line x1="271" y1="308" x2="289" y2="308" stroke="var(--chalk)" stroke-width="2"/>
+              <line x1="276" y1="316" x2="284" y2="316" stroke="var(--chalk)" stroke-width="2"/>
+              <text x="226" y="268" font-family="Kalam" font-size="15" fill="var(--pink)">I</text>
+              <text x="235" y="273" font-family="Kalam" font-size="10" fill="var(--pink)">2</text>
+              <polygon points="236,144 236,156 250,150" fill="var(--orange)"/>
+              <text x="166" y="192" font-family="Kalam" font-size="13" fill="var(--orange)">a corrente dobra</text>
+              <text x="440" y="110" font-family="Kalam" font-size="16" fill="var(--yellow)">por que dobrar</text>
+              <text x="440" y="142" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">no telescópico a entrada e a saída</text>
+              <text x="440" y="164" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">dividem o mesmo ramo — e as duas</text>
+              <text x="440" y="186" font-family="Kalam" font-size="14" fill="var(--chalk-dim)">faixas de tensão brigam entre si</text>
+              <text x="440" y="220" font-family="Kalam" font-size="14" fill="var(--chalk)">dobrando, a entrada fica embaixo e a</text>
+              <text x="440" y="242" font-family="Kalam" font-size="14" fill="var(--chalk)">saída em cima, cada uma com a sua</text>
+              <text x="440" y="276" font-family="Kalam" font-size="15" fill="var(--yellow)">excursão:  VDD − 4 Vov   (era 5 Vov)</text>
+              <text x="440" y="306" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">preço: mais um ramo de corrente,</text>
+              <text x="440" y="328" font-family="Kalam" font-size="14" fill="var(--chalk-faint)">logo mais consumo e mais ruído</text>
+            </svg>
+            <figcaption>O cascode dobrado. O dreno de M<sub>1</sub> não sobe para a saída: ele deságua no nó P, que é mantido por I<sub>1</sub>. Quando a corrente de M<sub>1</sub> aumenta, a que sobra para M<sub>2</sub> diminui — o sinal «dobra» de um tipo de transistor para o outro, e com isso a entrada sai do caminho da saída.</figcaption>
+          </figure>
+
+          <div class="passo">
+            <div class="cab">o que exatamente muda</div>
+            <div class="lin"><div class="pq"><b>No telescópico</b> a corrente de M<sub>1</sub> sobe pelo cascode nMOS e chega à saída. Entrada e saída dividem o ramo: o nível de modo comum da entrada empurra o piso da saída.</div><div class="ct">V<sub>out,mín</sub> depende de V<sub>in,CM</sub></div></div>
+            <div class="lin"><div class="pq"><b>No dobrado</b> o dreno de M<sub>1</sub> cai no nó P, alimentado por uma fonte de corrente fixa I<sub>1</sub>. A corrente de sinal de M<sub>1</sub> tem de sair de algum lugar — e sai do cascode pMOS, que a leva <em>para baixo</em>, até a saída.</div><div class="ct">o sinal muda de nMOS para pMOS no nó P</div></div>
+            <div class="lin"><div class="pq">A entrada deixa de estar no caminho da saída. Pode-se até ligar a entrada em V<sub>DD</sub> — ou na própria saída, o que o telescópico não permite.</div><div class="ct"><span class="hand-box"><span class="y">seguidor de ganho unitário vira possível</span></span></div></div>
+            <div class="lin"><div class="pq">E a excursão melhora, porque a cauda saiu da pilha de saída: sobram quatro sobrecargas em vez de cinco.</div><div class="ct">V<sub>DD</sub> − 4V<sub>ov</sub> &nbsp;<span class="dim">contra</span>&nbsp; V<sub>DD</sub> − 5V<sub>ov</sub></div></div>
+          </div>
+
+          <div class="erro">
+            <span class="lbl">o que se paga pela dobra</span>
+            <p><strong>Mais corrente.</strong> A fonte I<sub>1</sub> precisa fornecer a corrente de polarização de M<sub>1</sub> <span class="certo">mais</span> a do ramo de saída. Na prática o consumo quase dobra para o mesmo g<sub>m</sub> de entrada.</p>
+            <p><strong>Mais ruído.</strong> Cada fonte de corrente nova injeta o seu próprio ruído no nó de saída. O telescópico, por ter menos dispositivos ativos no caminho, é intrinsecamente mais silencioso.</p>
+            <p><strong>Mais um polo.</strong> O nó P tem capacitância e impedância moderada (1/g<sub>m</sub> do cascode pMOS). Em alta frequência isso aparece como um polo adicional que o telescópico não tem.</p>
+            <p class="note">A escolha entre os dois é um caso-escola de troca de projeto: o telescópico ganha em consumo, ruído e velocidade; o dobrado ganha em excursão e em flexibilidade de modo comum. Quem precisa de um buffer realimentado em ganho unitário quase sempre acaba no dobrado.</p>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             15.5 · O PREÇO
+             ============================================================ -->
+        <section class="content-section" id="m15-preco">
+          <div class="eyebrow">§ · O PREÇO · CADA ANDAR CUSTA UMA SOBRECARGA</div>
+          <h2>Por que ninguém usa cascode triplo, mesmo valendo 120 dB</h2>
+          <div class="frase">
+            <span class="lbl">em uma frase</span>
+            <p>Transistor em série precisa de V<sub>ov</sub> para ficar saturado, e a excursão de saída é o que sobra da alimentação depois de pagar todos eles.</p>
+          </div>
+
+          <div class="passo">
+            <div class="cab">a contabilidade da excursão, com V<sub>DD</sub> = 1,8 V e V<sub>ov</sub> = 0,2 V em cada dispositivo</div>
+            <div class="lin"><div class="pq"><b>Teto.</b> A saída não pode subir além do que as duas pMOS em série permitem.</div><div class="ct">V<sub>out,máx</sub> = V<sub>DD</sub> − 2V<sub>ov</sub> = 1,4 V</div></div>
+            <div class="lin"><div class="pq"><b>Piso (telescópico).</b> Abaixo da saída estão o cascode nMOS, o transistor de entrada e a cauda — três sobrecargas.</div><div class="ct">V<sub>out,mín</sub> = 3V<sub>ov</sub> = 0,6 V</div></div>
+            <div class="lin"><div class="pq">Sobra:</div><div class="ct"><span class="hand-box">excursão = <span class="y">0,8 V</span> &nbsp;<span class="dim">de 1,8 V disponíveis</span></span></div></div>
+            <div class="lin"><div class="pq"><b>Piso (dobrado).</b> A cauda saiu do ramo; ficam só os dois nMOS do espelho de saída.</div><div class="ct">V<sub>out,mín</sub> = 2V<sub>ov</sub> &nbsp;⇒&nbsp; excursão = <span class="y">1,0 V</span></div></div>
+            <div class="lin"><div class="pq"><b>Triplo.</b> Mais um andar de cada lado: sete sobrecargas no total.</div><div class="ct">excursão = 1,8 − 7·0,2 = <span class="r">0,4 V</span></div></div>
+          </div>
+
+          <table class="spec">
+            <tr><th>topologia</th><th>ganho</th><th>excursão (V<sub>DD</sub> = 1,8 V)</th><th>consumo</th><th>onde se usa</th></tr>
+            <tr><td>fonte comum simples</td><td>g<sub>m</sub>r<sub>o</sub> ≈ 40 dB</td><td>V<sub>DD</sub> − 2V<sub>ov</sub> = 1,4 V</td><td>mínimo</td><td>estágio de saída, buffers</td></tr>
+            <tr><td><b>telescópico</b></td><td>(g<sub>m</sub>r<sub>o</sub>)² ≈ <span style="color:var(--yellow)">80 dB</span></td><td>V<sub>DD</sub> − 5V<sub>ov</sub> = 0,8 V</td><td><span style="color:var(--yellow)">o menor</span></td><td>alta velocidade, baixo ruído</td></tr>
+            <tr><td><b>dobrado</b></td><td>(g<sub>m</sub>r<sub>o</sub>)² ≈ 80 dB</td><td>V<sub>DD</sub> − 4V<sub>ov</sub> = <span style="color:var(--yellow)">1,0 V</span></td><td>≈ o dobro</td><td>buffers realimentados</td></tr>
+            <tr><td>triplo</td><td>(g<sub>m</sub>r<sub>o</sub>)³ ≈ 120 dB</td><td>V<sub>DD</sub> − 7V<sub>ov</sub> = <span style="color:var(--pink)">0,4 V</span></td><td>o menor</td><td>praticamente abandonado</td></tr>
+          </table>
+
+          <div class="attn">
+            <span class="tag">o que a indústria faz no lugar do triplo</span>
+            Empilhar um terceiro andar troca 40 dB de ganho por metade da excursão — um negócio ruim em qualquer tecnologia moderna, onde V<sub>DD</sub> já caiu para perto de 1 V. A solução que venceu chama-se <em class="term">gain boosting</em>, ou cascode regulado.
+            <br><br>
+            A ideia é elegante: em vez de pôr um terceiro transistor para segurar o nó X, põe-se um <strong>pequeno amplificador em realimentação local</strong>, que mede V<sub>X</sub> e corrige a porta do cascode para mantê-lo fixo. O nó X fica ainda mais imóvel do que com um terceiro andar — o ganho sobe para a casa dos 100 a 120 dB — e <em>a pilha continua tendo só dois transistores</em>, então a excursão não muda. Paga-se com área, consumo do amplificador auxiliar e um polo-zero a mais para cuidar na compensação.
+            <br><br>
+            <span class="note">É a mesma lógica da realimentação do <a href="#mod2">Módulo 02</a>, aplicada dentro de um único transistor: se você quer que um nó não se mexa, meça-o e corrija-o, em vez de empilhar mais hardware em cima dele.</span>
+          </div>
+        </section>
+
+        <!-- ============================================================
+             15.6 · RESUMO
+             ============================================================ -->
+        <section class="content-section" id="m15-resumo">
+          <div class="eyebrow">§ · RESUMO · O MÓDULO EM UMA PÁGINA</div>
+          <h2>O que levar daqui</h2>
+
+          <div class="passo">
+            <div class="cab">as cinco linhas</div>
+            <div class="lin"><div class="pq"><b>O teto.</b> Um estágio dá g<sub>m</sub>r<sub>o</sub>, e isso não depende da corrente.</div><div class="ct">g<sub>m</sub>r<sub>o</sub> = 2V<sub>A</sub>/V<sub>ov</sub> ≈ 100</div></div>
+            <div class="lin"><div class="pq"><b>O cascode.</b> Um segundo transistor em cima blinda o dreno do primeiro.</div><div class="ct">R<sub>out</sub> ≈ g<sub>m2</sub>r<sub>o2</sub>r<sub>o1</sub></div></div>
+            <div class="lin"><div class="pq"><b>O ganho.</b> Vira o quadrado do intrínseco — com um polo só.</div><div class="ct">|A<sub>v</sub>| ≈ (g<sub>m</sub>r<sub>o</sub>)² ≈ 80 dB</div></div>
+            <div class="lin"><div class="pq"><b>O telescópico.</b> Tudo num ramo: melhor consumo, ruído e velocidade.</div><div class="ct">excursão V<sub>DD</sub> − 5V<sub>ov</sub></div></div>
+            <div class="lin"><div class="pq"><b>O dobrado.</b> Desata entrada e saída: mais excursão e liberdade de modo comum.</div><div class="ct">excursão V<sub>DD</sub> − 4V<sub>ov</sub>, ao dobro da corrente</div></div>
+          </div>
+
+          <div class="erro">
+            <span class="lbl">as armadilhas</span>
+            <p><strong>Achar que mais corrente dá mais ganho.</strong> g<sub>m</sub> sobe e r<sub>o</sub> desce na <span class="certo">mesma proporção</span>. O ganho intrínseco não se move.</p>
+            <p><strong>Esquecer o r<sub>o1</sub> no R<sub>out</sub> do cascode.</strong> A resistência não é g<sub>m2</sub>r<sub>o2</sub>, é esse produto <span class="certo">multiplicado por r<sub>o1</sub></span> — o cascode amplifica a resistência que já existia embaixo dele.</p>
+            <p><strong>Contar a excursão só pelo lado de cima.</strong> O piso costuma ser o problema maior, porque é onde a cauda e o par de entrada se somam.</p>
+            <p><strong>Pôr o telescópico em ganho unitário.</strong> Não fecha: ligar a saída na entrada exige que as duas faixas de modo comum coincidam, e no telescópico elas <span class="certo">não coincidem</span>. É exatamente para isso que o dobrado existe.</p>
+          </div>
+
+          <div class="attn">
+            <span class="tag">onde este módulo se encaixa — e o que falta</span>
+            O <a href="#mod2">Módulo 02</a> tratou o amp op como uma caixa com ganho A e entrada infinita. Este módulo mostra de que a caixa é feita, e de onde vem aquele A: dois andares de g<sub>m</sub>r<sub>o</sub>, não mais que isso. O «ganho infinito» da análise ideal é, na vida real, 80 dB — dez mil — o que é bastante, mas não é infinito, e é a razão de um amp op real ter erro de ganho finito.
+            <br><br>
+            <strong>Este módulo está incompleto por desenho.</strong> Ele foi montado a partir de duas fotos de slides — as figuras 9.10, 9.18 e 9.19 — e reconstrói a teoria necessária para lê-las. Faltam, entre outras coisas: o espelho de corrente em cascode em detalhe, a resposta em frequência e a compensação, a faixa de modo comum calculada, e o amp op de dois estágios com compensação Miller. À medida que os slides chegarem, cada um vira uma seção nova.
+          </div>
+        </section>
+
+      </div>
+    </div>
+
     <div class="cdlg-back" id="cdlgBack"></div>
     <div class="cdlg" id="cdlg" role="dialog" aria-modal="true" aria-labelledby="cdlgNome" aria-hidden="true">
       <button class="cdlg-x" id="cdlgX" type="button" aria-label="Fechar">×</button>
@@ -19527,7 +20521,7 @@ footer.page-footer{ padding:24px var(--pad-x) 60px; font-family:var(--chalk-font
 
     <footer class="page-footer">
       <span>guias · poli usp</span>
-      <span>módulo 01 · amplificadores &nbsp;·&nbsp; módulo 02 · amp ops &nbsp;·&nbsp; módulo 03 · diodos e zener &nbsp;·&nbsp; módulo 04 · retificadores e fontes &nbsp;·&nbsp; módulo 05 · teste 4 &nbsp;·&nbsp; módulo 06 · exercícios de revisão &nbsp;·&nbsp; módulo 07 · reconhecer circuitos &nbsp;·&nbsp; módulo 08 · p1 2024 &nbsp;·&nbsp; módulo 09 · semicondutores &nbsp;·&nbsp; módulo 10 · equação do diodo &nbsp;·&nbsp; módulo 11 · transistor mos &nbsp;·&nbsp; módulo 12 · polarização &nbsp;·&nbsp; módulo 13 · pequenos sinais &nbsp;·&nbsp; módulo 14 · lógica cmos</span>
+      <span>módulo 01 · amplificadores &nbsp;·&nbsp; módulo 02 · amp ops &nbsp;·&nbsp; módulo 03 · diodos e zener &nbsp;·&nbsp; módulo 04 · retificadores e fontes &nbsp;·&nbsp; módulo 05 · teste 4 &nbsp;·&nbsp; módulo 06 · exercícios de revisão &nbsp;·&nbsp; módulo 07 · reconhecer circuitos &nbsp;·&nbsp; módulo 08 · p1 2024 &nbsp;·&nbsp; módulo 09 · semicondutores &nbsp;·&nbsp; módulo 10 · equação do diodo &nbsp;·&nbsp; módulo 11 · transistor mos &nbsp;·&nbsp; módulo 12 · polarização &nbsp;·&nbsp; módulo 13 · pequenos sinais &nbsp;·&nbsp; módulo 14 · lógica cmos &nbsp;·&nbsp; módulo 15 · amp ops cmos</span>
     </footer>
 
   </div>
