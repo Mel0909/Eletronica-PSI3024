@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O cascode — passo a passo, rastreando cada símbolo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Patrick+Hand&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:      #FCFAF3;
+  --paper-warm: #F5F0E3;
+  --rule:       #E3DCC9;
+  --ink:        #2C2A25;
+  --ink-soft:   #6B6559;
+  --ink-faint:  #9A9384;
+
+  --pencil:     #35618E;
+  --red:        #BE4A32;
+  --green:      #3E7A50;
+  --amber:      #B8801F;
+  --hl:         #FBECA6;
+
+  --read: 850px;
+  --hand: 'Patrick Hand', cursive;
+  --serif: 'Lora', Georgia, serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--serif); font-size:18px; line-height:1.78;
+  -webkit-font-smoothing:antialiased;
+  background-image:linear-gradient(var(--rule) 1px, transparent 1px);
+  background-size:100% 34px;
+  background-attachment:local;
+}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{transition:none!important;} }
+
+.wrap{ max-width:var(--read); margin:0 auto; padding:0 26px 120px; }
+
+header.top{ padding:64px 0 30px; border-bottom:3px double var(--rule); margin-bottom:40px; }
+header.top .kicker{ font-family:var(--hand); font-size:1.25rem; color:var(--red); letter-spacing:.02em; }
+header.top h1{ font-family:var(--serif); font-weight:600; font-size:clamp(1.9rem,4.6vw,2.7rem); line-height:1.24; margin:.15em 0 .35em; }
+header.top p{ color:var(--ink-soft); margin:0; max-width:64ch; }
+.badge{ display:inline-block; font-family:var(--hand); font-size:1.02rem; color:var(--ink-soft);
+        border:2px solid var(--rule); border-radius:99px; padding:.1em .9em; margin-top:18px; background:var(--paper-warm); }
+
+section.step{ margin:0 0 12px; padding:40px 0 12px; }
+section.step + section.step{ border-top:2px dashed var(--rule); }
+.step-num{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:44px; height:44px; border-radius:50%;
+  background:var(--pencil); color:#fff; font-family:var(--hand); font-size:1.5rem;
+  margin-bottom:12px; box-shadow:2px 3px 0 rgba(53,97,142,.22);
+}
+.step h2{ font-family:var(--serif); font-weight:600; font-size:1.62rem; line-height:1.3; margin:.1em 0 .5em; }
+.step h3{ font-family:var(--serif); font-weight:600; font-size:1.16rem; margin:2em 0 .4em; color:var(--pencil); }
+.step h3.first{ margin-top:1.2em; }
+p{ margin:0 0 1.05em; }
+strong{ font-weight:600; }
+em.t{ font-style:normal; background:linear-gradient(transparent 58%, var(--hl) 58%); padding:0 .1em; font-weight:500; }
+code{ font-family:var(--mono); font-size:.9em; background:var(--paper-warm); border:1px solid var(--rule); border-radius:4px; padding:.06em .34em; }
+a{ color:var(--pencil); }
+
+figure.fig{ margin:26px 0 30px; padding:16px 16px 8px; background:#fff;
+            border:2px solid var(--rule); border-radius:12px; box-shadow:3px 4px 0 rgba(44,42,37,.05); }
+figure.fig svg{ width:100%; height:auto; display:block; }
+figure.fig figcaption{ font-size:.93rem; color:var(--ink-soft); font-style:italic; margin-top:10px; padding:0 4px 6px; line-height:1.6; }
+figure.fig .fig-title{ font-family:var(--hand); font-size:1.16rem; color:var(--pencil); margin:0 0 6px; padding:0 4px; }
+
+.note, .warn, .key{ border-radius:10px; padding:16px 20px; margin:24px 0; }
+.note{ background:var(--paper-warm); border-left:5px solid var(--ink-faint); }
+.warn{ background:#FBEFEB; border-left:5px solid var(--red); }
+.key { background:#EEF4EE; border-left:5px solid var(--green); }
+.note .lbl,.warn .lbl,.key .lbl{ display:block; font-family:var(--hand); font-size:1.12rem; margin-bottom:.25em; }
+.note .lbl{ color:var(--ink-soft); } .warn .lbl{ color:var(--red); } .key .lbl{ color:var(--green); }
+.note p:last-child,.warn p:last-child,.key p:last-child{ margin-bottom:0; }
+
+/* ---------- o razão: tinha / veio de / vira ---------- */
+.ledger{ display:grid; grid-template-columns:1fr 1fr 1fr; border:2.5px solid var(--pencil); border-radius:11px;
+         overflow:hidden; margin:26px 0; background:#fff; }
+.ledger > div{ padding:14px 17px; border-right:1px dashed var(--rule); font-size:.95rem; line-height:1.62; }
+.ledger > div:last-child{ border-right:none; }
+.ledger .lh{ display:block; font-family:var(--hand); font-size:1.06rem; margin-bottom:5px; letter-spacing:.01em; }
+.ledger .c1{ background:var(--paper-warm); }
+.ledger .c1 .lh{ color:var(--ink-soft); }
+.ledger .c2 .lh{ color:var(--pencil); }
+.ledger .c3{ background:#EEF4EE; }
+.ledger .c3 .lh{ color:var(--green); }
+.ledger code{ background:#fff; font-size:.86em; }
+.ledger .c3 code{ background:#fff; border-color:#C2D8C8; }
+.ledger ul{ margin:.2em 0 0; padding-left:17px; }
+.ledger li{ margin-bottom:.22em; }
+@media (max-width:700px){
+  .ledger{ grid-template-columns:1fr; }
+  .ledger > div{ border-right:none; border-bottom:1px dashed var(--rule); }
+  .ledger > div:last-child{ border-bottom:none; }
+}
+
+/* ---------- de onde nasce a fórmula ---------- */
+.deriv{ border:2px solid var(--amber); border-radius:11px; background:#FDF9EE; padding:18px 22px; margin:24px 0; }
+.deriv .lbl{ display:block; font-family:var(--hand); font-size:1.12rem; color:#7A5510; margin-bottom:.3em; }
+.deriv ol{ margin:.4em 0 0; padding-left:0; list-style:none; counter-reset:d; }
+.deriv li{ counter-increment:d; position-relative; position:relative; padding-left:38px; margin-bottom:13px; }
+.deriv li::before{ content:counter(d); position:absolute; left:0; top:2px; width:26px; height:26px; border-radius:50%;
+  background:#fff; border:2px solid var(--amber); color:#7A5510; font-family:var(--hand); font-size:.98rem;
+  display:flex; align-items:center; justify-content:center; }
+.deriv .eq{ font-family:var(--mono); font-size:.97rem; display:block; margin-top:.15em; color:var(--ink); }
+.deriv p:last-child{ margin-bottom:0; }
+
+.calc{ background:#fff; border:2px solid var(--rule); border-radius:10px; margin:22px 0; overflow:hidden; }
+.calc .row{ display:flex; gap:0; border-bottom:1px solid var(--rule); }
+.calc .row:last-child{ border-bottom:none; }
+.calc .why{ flex:0 0 44%; padding:13px 16px; background:var(--paper-warm); font-size:.92rem; color:var(--ink-soft); line-height:1.55; }
+.calc .math{ flex:1 1 auto; padding:13px 18px; font-family:var(--mono); font-size:1rem; line-height:1.75; display:flex; align-items:center; }
+.calc .math b{ color:var(--green); font-weight:500; background:linear-gradient(transparent 62%, #D4EBD9 62%); }
+.calc .math .r{ color:var(--red); }
+@media (max-width:640px){ .calc .row{ flex-direction:column; } .calc .why{ flex:none; } }
+
+.big-eq{ font-family:var(--mono); font-size:1.18rem; text-align:center; margin:24px 0;
+         padding:18px 12px; background:#fff; border:2.5px solid var(--pencil); border-radius:12px; }
+.big-eq b{ color:var(--green); font-weight:500; }
+.big-eq .cap{ display:block; font-family:var(--serif); font-size:.86rem; font-style:italic; color:var(--ink-soft); margin-top:8px; }
+
+ol.mini{ counter-reset:m; list-style:none; padding:0; margin:20px 0; }
+ol.mini li{ counter-increment:m; position:relative; padding-left:44px; margin-bottom:16px; }
+ol.mini li::before{
+  content:counter(m); position:absolute; left:0; top:1px;
+  width:30px; height:30px; border-radius:50%; background:var(--paper-warm); border:2px solid var(--pencil);
+  color:var(--pencil); font-family:var(--hand); font-size:1.05rem; display:flex; align-items:center; justify-content:center;
+}
+ul.plain{ padding-left:22px; } ul.plain li{ margin-bottom:.5em; }
+
+.sim{ background:#fff; border:3px solid var(--pencil); border-radius:14px; padding:22px; margin:30px 0;
+      box-shadow:4px 5px 0 rgba(53,97,142,.13); }
+.sim h3{ margin:0 0 4px; color:var(--pencil); font-family:var(--hand); font-size:1.42rem; }
+.sim .hint{ font-size:.9rem; color:var(--ink-soft); margin-bottom:16px; }
+.ctrls{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px 22px; margin-bottom:18px; }
+.ctrl label{ display:flex; justify-content:space-between; align-items:baseline; font-size:.92rem; color:var(--ink-soft); margin-bottom:2px; }
+.ctrl label b{ font-family:var(--mono); font-size:1.02rem; color:var(--ink); font-weight:500; }
+.ctrl input[type=range]{ width:100%; accent-color:var(--pencil); }
+.readout{ display:grid; grid-template-columns:repeat(auto-fit,minmax(118px,1fr)); gap:10px; margin-top:6px; }
+.rd{ background:var(--paper-warm); border:2px solid var(--rule); border-radius:9px; padding:9px 12px; text-align:center; }
+.rd .k{ font-size:.78rem; color:var(--ink-soft); display:block; letter-spacing:.02em; }
+.rd .v{ font-family:var(--mono); font-size:1.14rem; font-weight:500; }
+.rd.out{ border-color:var(--green); background:#EEF4EE; }
+.rd.out .v{ color:var(--green); }
+.status{ margin-top:14px; padding:11px 15px; border-radius:9px; font-size:.94rem; line-height:1.55; }
+.status.ok  { background:#EEF4EE; border-left:5px solid var(--green); color:#2E5B3C; }
+.status.bad { background:#FBEFEB; border-left:5px solid var(--red);   color:#8E3421; }
+.status.warnb{ background:#FDF4E2; border-left:5px solid var(--amber); color:#7A5510; }
+
+details.rev{ margin:18px 0; border:2px solid var(--rule); border-radius:10px; background:#fff; overflow:hidden; }
+details.rev summary{ cursor:pointer; padding:12px 18px; font-family:var(--hand); font-size:1.14rem; color:var(--pencil); background:var(--paper-warm); list-style:none; }
+details.rev summary::-webkit-details-marker{ display:none; }
+details.rev summary::before{ content:"▸ "; }
+details.rev[open] summary::before{ content:"▾ "; }
+details.rev .body{ padding:6px 20px 14px; }
+
+nav.toc{ background:var(--paper-warm); border:2px solid var(--rule); border-radius:12px; padding:20px 24px; margin:0 0 42px; }
+nav.toc b{ font-family:var(--hand); font-size:1.2rem; color:var(--pencil); display:block; margin-bottom:8px; }
+nav.toc ol{ margin:0; padding-left:22px; }
+nav.toc li{ margin-bottom:4px; }
+nav.toc a{ text-decoration:none; color:var(--ink); }
+nav.toc a:hover{ color:var(--pencil); text-decoration:underline; }
+
+table.cmp{ width:100%; border-collapse:collapse; margin:22px 0; font-size:.95rem; }
+table.cmp th, table.cmp td{ border:1px solid var(--rule); padding:9px 12px; text-align:left; vertical-align:top; }
+table.cmp th{ background:var(--paper-warm); font-family:var(--hand); font-size:1.05rem; color:var(--pencil); font-weight:400; }
+table.cmp td.n{ font-family:var(--mono); font-size:.9rem; }
+
+.enun{ background:#fff; border:3px solid var(--ink); border-radius:12px; padding:22px 26px; margin:26px 0; }
+.enun .lbl{ font-family:var(--hand); font-size:1.2rem; color:var(--red); display:block; margin-bottom:6px; }
+.enun ul{ padding-left:20px; margin:.4em 0 1em; }
+.enun li{ margin-bottom:.2em; }
+.enun .ask{ font-family:var(--mono); font-size:.94rem; background:var(--paper-warm); border-radius:8px; padding:12px 16px; margin-top:10px; }
+
+footer.end{ margin-top:60px; padding-top:22px; border-top:3px double var(--rule); font-size:.9rem; color:var(--ink-faint); }
+
+.s-wire{ stroke:var(--pencil); stroke-width:2.2; fill:none; stroke-linecap:round; }
+.s-dev { stroke:var(--ink); stroke-width:2.6; fill:none; stroke-linecap:round; }
+.s-thin{ stroke:var(--ink-faint); stroke-width:1.4; fill:none; }
+.s-red { stroke:var(--red); stroke-width:2.2; fill:none; }
+.t-lbl { font-family:var(--mono); font-size:13px; fill:var(--ink); }
+.t-sm  { font-family:var(--mono); font-size:11.5px; fill:var(--ink-soft); }
+.t-note{ font-family:'Patrick Hand',cursive; font-size:15px; fill:var(--pencil); }
+.t-red { font-family:'Patrick Hand',cursive; font-size:15px; fill:var(--red); }
+.t-grn { font-family:'Patrick Hand',cursive; font-size:15px; fill:var(--green); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div class="kicker">PSI3024 · Módulo 15 — companheiro de estudo</div>
+  <h1>O cascode, passo a passo —<br>rastreando de onde vem cada símbolo</h1>
+  <p>Mesmo exercício de antes, mas agora cada passo diz três coisas antes de qualquer conta: <strong>o que eu já tinha</strong>, <strong>de onde a fórmula veio</strong> e <strong>o que isso vira</strong> para o passo seguinte. Nenhuma fórmula aparece do nada.</p>
+  <span class="badge">Módulo 15 · §15.1 a §15.5 &nbsp;·&nbsp; pré-requisito: Módulo 13 (g<sub>m</sub>, r<sub>o</sub>, degeneração)</span>
+</header>
+
+<nav class="toc">
+  <b>o caminho — cada passo alimenta o próximo</b>
+  <ol>
+    <li><a href="#e0">O enunciado, e o mapa de dependências</a></li>
+    <li><a href="#e1">Passo 1 — g<sub>m</sub>: de onde sai o «2»</a></li>
+    <li><a href="#e2">Passo 2 — r<sub>o</sub>: de onde sai V<sub>A</sub></a></li>
+    <li><a href="#e3">Passo 3 — o produto g<sub>m</sub>r<sub>o</sub>, e o cancelamento de I<sub>D</sub></a></li>
+    <li><a href="#e4">Passo 4 — (a) R<sub>out</sub>: quem é R<sub>S</sub> no cascode</a></li>
+    <li><a href="#e5">Passo 5 — (b) A<sub>v</sub>: por que G<sub>m</sub> = g<sub>m1</sub></a></li>
+    <li><a href="#e6">Passo 6 — (c) excursão: outro ramo da árvore</a></li>
+    <li><a href="#e7">Passo 7 — (d) V<sub>b</sub>: subindo pelo chão</a></li>
+    <li><a href="#e8">O balanço final</a></li>
+    <li><a href="#e9">Mexa nos números</a></li>
+    <li><a href="#e10">Sua vez — três variações</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section class="step" id="e0">
+  <div class="step-num">0</div>
+  <h2>O enunciado, e o mapa de dependências</h2>
+
+  <div class="enun">
+    <span class="lbl">Enunciado</span>
+    <p style="margin-bottom:.6em">O circuito é um <strong>cascode nMOS</strong>: M<sub>1</sub> em fonte comum, M<sub>2</sub> em porta comum montado em cima dele, e como carga uma fonte de corrente feita de um único pMOS. Todos em saturação.</p>
+    <ul>
+      <li><code>I_D = 50 µA</code> — a mesma nos dois nMOS, porque estão em série</li>
+      <li><code>V_ov = 0,2 V</code> em todos os dispositivos</li>
+      <li><code>V_A = 5 V</code> nos nMOS</li>
+      <li><code>V_t = 0,4 V</code> &nbsp;·&nbsp; <code>V_DD = 1,8 V</code></li>
+      <li>efeito de corpo desprezado</li>
+    </ul>
+    <div class="ask">
+      (a) R<sub>out</sub> &nbsp;·&nbsp; (b) A<sub>v</sub> em dB &nbsp;·&nbsp; (c) a excursão de saída &nbsp;·&nbsp; (d) o menor V<sub>b</sub> que mantém M<sub>1</sub> saturado
+    </div>
+  </div>
+
+  <h3 class="first">Antes de calcular: quem depende de quem</h3>
+  <p>Repare numa coisa que normalmente ninguém diz em aula: <strong>há duas árvores separadas aqui dentro</strong>, e elas não conversam. As perguntas (a) e (b) são pequenos sinais e crescem a partir de I<sub>D</sub>, V<sub>ov</sub> e V<sub>A</sub>. As perguntas (c) e (d) são polarização e crescem a partir de V<sub>DD</sub>, V<sub>ov</sub> e V<sub>t</sub> — e <em class="t">não usam g<sub>m</sub> nem r<sub>o</sub> em momento nenhum</em>.</p>
+  <p>O único dado que aparece nas duas árvores é V<sub>ov</sub>. É por isso que V<sub>ov</sub> é o parâmetro central do projeto analógico CMOS: ele é o nó em que ganho e excursão brigam.</p>
+
+  <figure class="fig">
+    <div class="fig-title">o mapa: o que entra, o que vira, e para onde vai</div>
+    <svg viewBox="0 0 700 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mapa de dependências entre os dados do enunciado e as respostas">
+      <defs>
+        <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3.2" orient="auto">
+          <path d="M0,0 L7,3.2 L0,6.4 z" fill="#9A9384"/>
+        </marker>
+      </defs>
+
+      <!-- divisória -->
+      <line x1="432" y1="18" x2="432" y2="452" stroke="#E3DCC9" stroke-width="2" stroke-dasharray="6 5"/>
+      <text class="t-note" x="22" y="32">árvore 1 · pequenos sinais → (a) e (b)</text>
+      <text class="t-note" x="448" y="32">árvore 2 · polarização → (c) e (d)</text>
+
+      <!-- ===== ÁRVORE 1 ===== -->
+      <!-- dados -->
+      <rect x="20"  y="48" width="112" height="36" rx="6" fill="#F5F0E3" stroke="#9A9384" stroke-width="1.6"/>
+      <text class="t-lbl" x="38" y="71">I_D = 50 µA</text>
+      <rect x="146" y="48" width="112" height="36" rx="6" fill="#FBECA6" stroke="#B8801F" stroke-width="2"/>
+      <text class="t-lbl" x="164" y="71">V_ov = 0,2 V</text>
+      <rect x="272" y="48" width="112" height="36" rx="6" fill="#F5F0E3" stroke="#9A9384" stroke-width="1.6"/>
+      <text class="t-lbl" x="292" y="71">V_A = 5 V</text>
+
+      <!-- gm e ro -->
+      <rect x="20"  y="132" width="170" height="44" rx="6" fill="#fff" stroke="#35618E" stroke-width="2.2"/>
+      <text class="t-lbl" x="34" y="150">g_m = 2·I_D / V_ov</text>
+      <text class="t-sm"  x="34" y="167" fill="#3E7A50">= 0,5 mA/V</text>
+      <rect x="214" y="132" width="170" height="44" rx="6" fill="#fff" stroke="#35618E" stroke-width="2.2"/>
+      <text class="t-lbl" x="228" y="150">r_o = V_A / I_D</text>
+      <text class="t-sm"  x="228" y="167" fill="#3E7A50">= 100 kΩ</text>
+
+      <line class="s-thin" x1="70"  y1="84" x2="78"  y2="128" marker-end="url(#ar)"/>
+      <line class="s-thin" x1="196" y1="84" x2="130" y2="128" marker-end="url(#ar)"/>
+      <line class="s-thin" x1="100" y1="86" x2="266" y2="128" marker-end="url(#ar)"/>
+      <line class="s-thin" x1="326" y1="84" x2="320" y2="128" marker-end="url(#ar)"/>
+
+      <!-- gm ro -->
+      <rect x="96" y="216" width="212" height="44" rx="6" fill="#fff" stroke="#35618E" stroke-width="2.2"/>
+      <text class="t-lbl" x="110" y="234">g_m·r_o = 2V_A/V_ov</text>
+      <text class="t-sm"  x="110" y="251" fill="#3E7A50">= 50 &nbsp;(34 dB) — sem I_D!</text>
+      <line class="s-thin" x1="104" y1="176" x2="160" y2="212" marker-end="url(#ar)"/>
+      <line class="s-thin" x1="300" y1="176" x2="246" y2="212" marker-end="url(#ar)"/>
+
+      <!-- Rout -->
+      <rect x="54" y="300" width="296" height="44" rx="6" fill="#fff" stroke="#35618E" stroke-width="2.2"/>
+      <text class="t-lbl" x="68" y="318">R_out = (g_m·r_o) × r_o1</text>
+      <text class="t-sm"  x="68" y="335" fill="#3E7A50">= 50 × 100 kΩ = 5,2 MΩ &nbsp;→ resposta (a)</text>
+      <line class="s-thin" x1="202" y1="260" x2="202" y2="296" marker-end="url(#ar)"/>
+      <path class="s-thin" d="M370 154 C 406 200, 400 270, 356 318" marker-end="url(#ar)"/>
+      <text class="t-sm" x="372" y="238">r_o entra</text>
+      <text class="t-sm" x="372" y="254">de novo</text>
+
+      <!-- Av -->
+      <rect x="40" y="384" width="324" height="44" rx="6" fill="#EEF4EE" stroke="#3E7A50" stroke-width="2.4"/>
+      <text class="t-lbl" x="54" y="402">A_v = −g_m1 × R_out</text>
+      <text class="t-sm"  x="54" y="419" fill="#3E7A50">= −2 600 = 68 dB &nbsp;→ resposta (b)</text>
+      <line class="s-thin" x1="202" y1="344" x2="202" y2="380" marker-end="url(#ar)"/>
+      <path class="s-thin" d="M26 156 C 6 240, 8 340, 36 400" marker-end="url(#ar)"/>
+      <text class="t-sm" x="2" y="272">g_m</text>
+      <text class="t-sm" x="2" y="288">entra</text>
+      <text class="t-sm" x="2" y="304">de novo</text>
+
+      <!-- ===== ÁRVORE 2 ===== -->
+      <rect x="448" y="48" width="104" height="36" rx="6" fill="#F5F0E3" stroke="#9A9384" stroke-width="1.6"/>
+      <text class="t-lbl" x="462" y="71">V_DD = 1,8</text>
+      <rect x="566" y="48" width="104" height="36" rx="6" fill="#FBECA6" stroke="#B8801F" stroke-width="2"/>
+      <text class="t-lbl" x="580" y="71">V_ov = 0,2</text>
+      <rect x="566" y="214" width="104" height="36" rx="6" fill="#F5F0E3" stroke="#9A9384" stroke-width="1.6"/>
+      <text class="t-lbl" x="582" y="237">V_t = 0,4</text>
+
+      <rect x="448" y="132" width="222" height="44" rx="6" fill="#EEF4EE" stroke="#3E7A50" stroke-width="2.4"/>
+      <text class="t-lbl" x="460" y="150">excursão = V_DD − 3·V_ov</text>
+      <text class="t-sm"  x="460" y="167" fill="#3E7A50">= 1,2 V &nbsp;→ resposta (c)</text>
+      <line class="s-thin" x1="498" y1="84" x2="510" y2="128" marker-end="url(#ar)"/>
+      <line class="s-thin" x1="614" y1="84" x2="602" y2="128" marker-end="url(#ar)"/>
+
+      <rect x="448" y="298" width="222" height="44" rx="6" fill="#EEF4EE" stroke="#3E7A50" stroke-width="2.4"/>
+      <text class="t-lbl" x="460" y="316">V_b = V_t + 2·V_ov</text>
+      <text class="t-sm"  x="460" y="333" fill="#3E7A50">= 0,8 V &nbsp;→ resposta (d)</text>
+      <line class="s-thin" x1="618" y1="250" x2="596" y2="294" marker-end="url(#ar)"/>
+      <path class="s-thin" d="M664 86 C 690 150, 690 240, 664 296" marker-end="url(#ar)"/>
+
+      <text class="t-red" x="448" y="392">V_ov é o único dado</text>
+      <text class="t-red" x="448" y="412">que aparece nas duas</text>
+      <text class="t-red" x="448" y="432">árvores — é onde ganho</text>
+      <text class="t-red" x="448" y="452">e excursão brigam.</text>
+    </svg>
+    <figcaption>As caixas cinza são dados do enunciado; as azuis, grandezas que você calcula; as verdes, respostas. Repare que g<sub>m</sub> e r<sub>o</sub> <strong>entram duas vezes</strong> na árvore da esquerda — por isso vale calculá-los uma vez e anotá-los num canto do papel.</figcaption>
+  </figure>
+
+  <figure class="fig">
+    <div class="fig-title">o circuito — e a razão de ele funcionar</div>
+    <svg viewBox="0 0 660 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cascode nMOS: M1 em fonte comum com M2 em porta comum acima, carga de fonte de corrente">
+      <line class="s-wire" x1="215" y1="40" x2="425" y2="40"/>
+      <text class="t-lbl" x="300" y="30">V<tspan baseline-shift="sub" font-size="10">DD</tspan> = 1,8 V</text>
+
+      <line class="s-wire" x1="320" y1="40" x2="320" y2="72"/>
+      <circle class="s-dev" cx="320" cy="96" r="24"/>
+      <line class="s-red" x1="320" y1="82" x2="320" y2="110"/>
+      <path class="s-red" d="M314 104 L320 112 L326 104" stroke-linejoin="round"/>
+      <text class="t-lbl" x="352" y="94">I<tspan baseline-shift="sub" font-size="10">B</tspan></text>
+      <text class="t-sm" x="352" y="110">pMOS, |V_ov| = 0,2</text>
+      <line class="s-wire" x1="320" y1="120" x2="320" y2="170"/>
+
+      <circle fill="#35618E" cx="320" cy="170" r="4.5"/>
+      <line class="s-wire" x1="320" y1="170" x2="392" y2="170"/>
+      <path class="s-wire" d="M386 164 L394 170 L386 176" stroke-linejoin="round"/>
+      <text class="t-lbl" x="398" y="166">v<tspan baseline-shift="sub" font-size="10">out</tspan></text>
+
+      <line class="s-dev" x1="300" y1="196" x2="300" y2="256"/>
+      <line class="s-dev" x1="310" y1="190" x2="310" y2="262"/>
+      <line class="s-dev" x1="310" y1="196" x2="320" y2="196"/>
+      <line class="s-dev" x1="320" y1="196" x2="320" y2="170"/>
+      <line class="s-dev" x1="310" y1="256" x2="320" y2="256"/>
+      <line class="s-dev" x1="320" y1="256" x2="320" y2="290"/>
+      <line class="s-wire" x1="300" y1="226" x2="215" y2="226"/>
+      <text class="t-lbl" x="168" y="231">V<tspan baseline-shift="sub" font-size="10">b</tspan></text>
+      <text class="t-lbl" x="332" y="230">M<tspan baseline-shift="sub" font-size="10">2</tspan></text>
+
+      <circle fill="#BE4A32" cx="320" cy="290" r="4.5"/>
+      <text class="t-lbl" x="332" y="287" fill="#BE4A32">X</text>
+
+      <line class="s-dev" x1="300" y1="322" x2="300" y2="382"/>
+      <line class="s-dev" x1="310" y1="316" x2="310" y2="388"/>
+      <line class="s-dev" x1="310" y1="322" x2="320" y2="322"/>
+      <line class="s-dev" x1="320" y1="322" x2="320" y2="290"/>
+      <line class="s-dev" x1="310" y1="382" x2="320" y2="382"/>
+      <line class="s-dev" x1="320" y1="382" x2="320" y2="418"/>
+      <line class="s-wire" x1="300" y1="352" x2="215" y2="352"/>
+      <text class="t-lbl" x="164" y="357">v<tspan baseline-shift="sub" font-size="10">in</tspan></text>
+      <text class="t-lbl" x="332" y="356">M<tspan baseline-shift="sub" font-size="10">1</tspan></text>
+
+      <line class="s-wire" x1="300" y1="418" x2="340" y2="418"/>
+      <line class="s-wire" x1="307" y1="426" x2="333" y2="426"/>
+      <line class="s-wire" x1="314" y1="434" x2="326" y2="434"/>
+
+      <line class="s-red" x1="256" y1="150" x2="256" y2="190"/>
+      <path class="s-red" d="M252 156 L256 148 L260 156"/>
+      <path class="s-red" d="M252 184 L256 192 L260 184"/>
+      <text class="t-red" x="192" y="145">balança 1 V</text>
+
+      <line class="s-red" x1="256" y1="283" x2="256" y2="297"/>
+      <path class="s-red" d="M252 287 L256 281 L260 287"/>
+      <path class="s-red" d="M252 293 L256 299 L260 293"/>
+      <text class="t-red" x="146" y="294">só 20 mV</text>
+
+      <text class="t-note" x="410" y="226">M₂ é porta comum —</text>
+      <text class="t-note" x="410" y="247">a entrada dele é a fonte,</text>
+      <text class="t-note" x="410" y="268">de impedância 1/g<tspan baseline-shift="sub" font-size="11">m</tspan>.</text>
+      <text class="t-note" x="410" y="300">Por isso X mal se mexe</text>
+      <text class="t-note" x="410" y="321">enquanto v<tspan baseline-shift="sub" font-size="11">out</tspan> balança inteira.</text>
+      <text class="t-red"  x="410" y="353">V<tspan baseline-shift="sub" font-size="11">DS1</tspan> quase fixa</text>
+      <text class="t-red"  x="410" y="374">⇒ Early de M₁ some da conta</text>
+      <text class="t-grn"  x="410" y="406">R<tspan baseline-shift="sub" font-size="11">out</tspan> ≈ g<tspan baseline-shift="sub" font-size="11">m2</tspan>·r<tspan baseline-shift="sub" font-size="11">o2</tspan>·r<tspan baseline-shift="sub" font-size="11">o1</tspan></text>
+    </svg>
+    <figcaption>M<sub>2</sub> não «cancela» r<sub>o1</sub> — ele <strong>impede que r<sub>o1</sub> seja solicitada</strong>. Como r<sub>o</sub> só aparece quando V<sub>DS</sub> varia, segurar V<sub>DS1</sub> parada é o mesmo que apagar o efeito Early de M<sub>1</sub>.</figcaption>
+  </figure>
+</section>
+
+<!-- ============================================================ -->
+<section class="step" id="e1">
+  <div class="step-num">1</div>
+  <h2>g<sub>m</sub> — e de onde sai aquele «2»</h2>
+
+  <div class="ledger">
+    <div class="c1"><span class="lh">o que eu já tinha</span>
+      Só dados brutos do enunciado:
+      <ul><li><code>I_D = 50 µA</code></li><li><code>V_ov = 0,2 V</code></li></ul>
+      Nada calculado ainda.
+    </div>
+    <div class="c2"><span class="lh">de onde vem a fórmula</span>
+      Da <strong>lei quadrática</strong> do MOS em saturação, do Módulo 11. g<sub>m</sub> é a inclinação dessa curva no ponto de polarização — ou seja, uma derivada.
+    </div>
+    <div class="c3"><span class="lh">o que isso vira</span>
+      Um número com unidade de condutância:
+      <code>g_m = 0,5 mA/V</code><br>
+      Vai ser usado <strong>duas vezes</strong>: no passo 3 (produto) e no passo 5 (ganho).
+    </div>
+  </div>
+
+  <div class="deriv">
+    <span class="lbl">a dedução do «2», em três linhas — vale entender uma vez na vida</span>
+    <ol>
+      <li>A corrente do MOS em saturação é quadrática na sobrecarga. Esta é a lei do componente, não uma fórmula de pequenos sinais.
+        <span class="eq">I_D = ½ · k'(W/L) · V_ov²&nbsp;&nbsp;&nbsp;&nbsp;com V_ov ≡ V_GS − V_t</span></li>
+      <li>g<sub>m</sub> é, por definição, quanto a corrente muda quando você mexe um tiquinho na porta. Derive em relação a V<sub>GS</sub> — e como V<sub>ov</sub> = V<sub>GS</sub> − V<sub>t</sub>, derivar em V<sub>GS</sub> é derivar em V<sub>ov</sub>. O expoente 2 desce.
+        <span class="eq">g_m ≡ ∂I_D/∂V_GS = k'(W/L) · V_ov</span></li>
+      <li>Agora divida a linha 2 pela linha 1. O fator <code>k'(W/L)</code> — que você não conhece — <strong>cancela</strong>, e sobra uma fórmula só com grandezas que o enunciado dá.
+        <span class="eq">g_m / I_D = [k'(W/L)V_ov] / [½k'(W/L)V_ov²] = 2/V_ov &nbsp;&nbsp;⟹&nbsp;&nbsp; g_m = 2·I_D / V_ov</span></li>
+    </ol>
+    <p style="margin-top:14px"><strong>Então o «2» é o expoente da lei quadrática que desceu na derivada.</strong> E a razão de a fórmula ser útil é o cancelamento de <code>k'(W/L)</code>: você acha g<sub>m</sub> sem saber nada sobre as dimensões do transistor — só a corrente e a sobrecarga.</p>
+  </div>
+
+  <h3>Agora a conta, devagar</h3>
+  <div class="calc">
+    <div class="row"><div class="why">Escreva a fórmula. Ainda sem números — só para ter certeza de qual grandeza vai em cada lugar.</div>
+      <div class="math">g<sub>m</sub> = 2 · I<sub>D</sub> / V<sub>ov</sub></div></div>
+    <div class="row"><div class="why">Substitua. I<sub>D</sub> veio do enunciado; V<sub>ov</sub> também.</div>
+      <div class="math">g<sub>m</sub> = 2 × 50 µA / 0,2 V</div></div>
+    <div class="row"><div class="why">Faça o numerador primeiro — é só dobrar.</div>
+      <div class="math">2 × 50 µA = <span class="r">100 µA</span></div></div>
+    <div class="row"><div class="why">Divida por 0,2. Dividir por 0,2 é multiplicar por 5 — faça assim, é mais seguro que decimal.</div>
+      <div class="math">100 µA / 0,2 V = 100 × 5 = <b>500 µA/V</b></div></div>
+    <div class="row"><div class="why">Converta para mA/V. É o mesmo número, e vai facilitar o passo 3.</div>
+      <div class="math">500 µA/V = <b>0,5 mA/V</b> &nbsp;(= 0,5 mS)</div></div>
+  </div>
+
+  <div class="note">
+    <span class="lbl">por que converter para mA/V agora</span>
+    <p>Porque <code>mA/V × kΩ</code> dá número puro: <code>0,5 × 100 = 50</code>, sem expoente nenhum. Se você deixar em µA/V e Ω, vai acabar multiplicando <code>500e−6 × 100e3</code> na calculadora e errando o expoente sob pressão. <em class="t">Escolher as unidades antes de multiplicar é parte da resolução</em>, não firula.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="step" id="e2">
+  <div class="step-num">2</div>
+  <h2>r<sub>o</sub> — e de onde sai V<sub>A</sub></h2>
+
+  <div class="ledger">
+    <div class="c1"><span class="lh">o que eu já tinha</span>
+      Dados brutos de novo:
+      <ul><li><code>V_A = 5 V</code></li><li><code>I_D = 50 µA</code></li></ul>
+      Repare: <strong>V<sub>ov</sub> não entra aqui.</strong>
+    </div>
+    <div class="c2"><span class="lh">de onde vem a fórmula</span>
+      Da <strong>modulação do comprimento de canal</strong> (§11.7). Em saturação a corrente deveria ser constante, mas sobe um pouquinho com V<sub>DS</sub>. Essa inclinação residual <em class="t">é</em> 1/r<sub>o</sub>.
+    </div>
+    <div class="c3"><span class="lh">o que isso vira</span>
+      Uma resistência:
+      <code>r_o = 100 kΩ</code><br>
+      Usada <strong>três vezes</strong> adiante: como r<sub>o2</sub>, como r<sub>o1</sub>, e dentro do produto g<sub>m</sub>r<sub>o</sub>.
+    </div>
+  </div>
+
+  <div class="deriv">
+    <span class="lbl">a dedução, e o que V<sub>A</sub> realmente é</span>
+    <ol>
+      <li>A lei quadrática ideal diz que, em saturação, I<sub>D</sub> não depende de V<sub>DS</sub>. Na prática depende um pouco, porque o canal encurta quando o dreno sobe. Modela-se isso com um fator linear:
+        <span class="eq">I_D = ½k'(W/L)V_ov² · (1 + λ·V_DS)</span></li>
+      <li>r<sub>o</sub> é a resistência que esse efeito representa: o inverso da inclinação da curva I<sub>D</sub>×V<sub>DS</sub>.
+        <span class="eq">1/r_o ≡ ∂I_D/∂V_DS = λ · ½k'(W/L)V_ov² ≈ λ · I_D</span></li>
+      <li>Define-se <code>V_A ≡ 1/λ</code> — a <strong>tensão de Early</strong>. Não é uma tensão que exista em lugar nenhum do circuito: é só o inverso de λ, escrito em volts porque dá jeito.
+        <span class="eq">r_o = 1/(λ·I_D) = V_A / I_D</span></li>
+    </ol>
+    <p style="margin-top:14px"><strong>A leitura física:</strong> V<sub>A</sub> grande = λ pequeno = canal pouco modulado = transistor mais parecido com uma fonte de corrente ideal. E V<sub>A</sub> cresce com o comprimento do canal L, porque num canal longo encurtar alguns nanômetros pesa proporcionalmente menos. Por isso o enunciado deu V<sub>A</sub> = 5 V em vez dos 10 V típicos do módulo: <em class="t">é um transistor de canal mais curto</em>.</p>
+  </div>
+
+  <h3>A conta</h3>
+  <div class="calc">
+    <div class="row"><div class="why">A fórmula.</div>
+      <div class="math">r<sub>o</sub> = V<sub>A</sub> / I<sub>D</sub></div></div>
+    <div class="row"><div class="why">Substitua os dois dados.</div>
+      <div class="math">r<sub>o</sub> = 5 V / 50 µA</div></div>
+    <div class="row"><div class="why">Pense em ordem de grandeza: V / µA dá MΩ. 5/50 = 0,1.</div>
+      <div class="math">= 0,1 MΩ = <b>100 kΩ</b></div></div>
+  </div>
+
+  <div class="warn">
+    <span class="lbl">a pegadinha que faz você calcular duas vezes à toa</span>
+    <p>M<sub>1</sub> e M<sub>2</sub> estão <strong>em série</strong> — a mesma corrente atravessa os dois, e o enunciado deu o mesmo V<sub>ov</sub> e o mesmo V<sub>A</sub>. Logo <code>g_m1 = g_m2 = 0,5 mA/V</code> e <code>r_o1 = r_o2 = 100 kΩ</code>. Você calcula <strong>uma vez só</strong> e usa nos dois.</p>
+    <p style="margin-bottom:0">Isso deixa de valer no <em class="t">cascode dobrado</em>, em que o ramo de entrada e o de saída têm correntes diferentes de propósito — e aí o enunciado precisa dar as duas.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="step" id="e3">
+  <div class="step-num">3</div>
+  <h2>O produto g<sub>m</sub>r<sub>o</sub> — onde I<sub>D</sub> desaparece</h2>
+
+  <div class="ledger">
+    <div class="c1"><span class="lh">o que eu já tinha</span>
+      Agora sim, coisas <strong>calculadas</strong>:
+      <ul><li><code>g_m = 0,5 mA/V</code> (passo 1)</li><li><code>r_o = 100 kΩ</code> (passo 2)</li></ul>
+    </div>
+    <div class="c2"><span class="lh">de onde vem</span>
+      Nada novo — é só multiplicar os dois passos anteriores. Mas o <em class="t">significado</em> vem do §15.1: este produto é o <strong>teto de ganho de um estágio</strong>.
+    </div>
+    <div class="c3"><span class="lh">o que isso vira</span>
+      Um número <strong>puro</strong>, sem unidade:
+      <code>g_m·r_o = 50</code><br>
+      É a «moeda» do módulo. R<sub>out</sub> e A<sub>v</sub> vão ser escritos em função dele.
+    </div>
+  </div>
+
+  <h3>A conta, e depois a mágica</h3>
+  <div class="calc">
+    <div class="row"><div class="why">Multiplique os dois resultados anteriores, nas unidades que você escolheu no passo 1.</div>
+      <div class="math">g<sub>m</sub>·r<sub>o</sub> = 0,5 mA/V × 100 kΩ = <b>50</b></div></div>
+    <div class="row"><div class="why">Confira a unidade: mA/V vezes kΩ. Os «m» e os «k» se cancelam, e A/V × Ω = 1.</div>
+      <div class="math">(10⁻³ A/V) × (10³ V/A) = <span class="r">adimensional ✓</span></div></div>
+    <div class="row"><div class="why">Em dB, só para ter noção de tamanho.</div>
+      <div class="math">20·log₁₀(50) ≈ <b>34 dB</b></div></div>
+  </div>
+
+  <div class="deriv">
+    <span class="lbl">agora a parte importante: substitua as fórmulas uma na outra</span>
+    <ol>
+      <li>Pegue as duas expressões dos passos 1 e 2, <strong>sem números</strong>.
+        <span class="eq">g_m = 2·I_D/V_ov&nbsp;&nbsp;&nbsp;&nbsp;r_o = V_A/I_D</span></li>
+      <li>Multiplique literalmente, deixando I<sub>D</sub> aparecer nos dois lugares.
+        <span class="eq">g_m·r_o = (2·I_D / V_ov) × (V_A / I_D)</span></li>
+      <li>I<sub>D</sub> está no numerador de um fator e no denominador do outro. <strong>Corte.</strong>
+        <span class="eq">g_m·r_o = 2·V_A / V_ov</span></li>
+      <li>Confira com os números do enunciado — tem de bater com os 50 que você achou multiplicando.
+        <span class="eq">2 × 5 V / 0,2 V = 10/0,2 = 50 ✓</span></li>
+    </ol>
+  </div>
+
+  <div class="key">
+    <span class="lbl">esta é a frase que a prova quer ouvir</span>
+    <p><strong>O ganho intrínseco não depende da corrente.</strong> Gastar o dobro de I<sub>D</sub> dobra g<sub>m</sub> e corta r<sub>o</sub> pela metade, e o produto não se move. Ganho não se compra com potência — só com <em class="t">canal mais longo</em> (V<sub>A</sub> maior) ou <em class="t">sobrecarga menor</em> (V<sub>ov</sub> menor), e as duas custam velocidade.</p>
+    <p style="margin-bottom:0">Guarde também o número de referência: com V<sub>A</sub> = 10 V e V<sub>ov</sub> = 0,2 V dá 100 (40 dB). Aqui V<sub>A</sub> = 5 V, então dá 50 (34 dB). <em class="t">O «100» do módulo não é constante da natureza</em> — é a conta 2V<sub>A</sub>/V<sub>ov</sub> com valores típicos.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="step" id="e4">
+  <div class="step-num">4</div>
+  <h2>(a) R<sub>out</sub> — e quem faz o papel de R<sub>S</sub></h2>
+
+  <div class="ledger">
+    <div class="c1"><span class="lh">o que eu já tinha</span>
+      <ul>
+        <li><code>g_m2·r_o2 = 50</code> (passo 3)</li>
+        <li><code>r_o1 = 100 kΩ</code> (passo 2)</li>
+      </ul>
+      Mais a <strong>topologia</strong>: M<sub>2</sub> empilhado em cima de M<sub>1</sub>.
+    </div>
+    <div class="c2"><span class="lh">de onde vem a fórmula</span>
+      Da <strong>degeneração de fonte</strong>, §13.8 — fórmula que o Módulo 13 já deduziu. <em class="t">Nenhuma fórmula nova aqui.</em> O cascode é um caso particular dela.
+    </div>
+    <div class="c3"><span class="lh">o que isso vira</span>
+      A resposta de (a):
+      <code>R_out ≈ 5,2 MΩ</code><br>
+      E ela vai direto para o passo 5, multiplicada por g<sub>m1</sub>.
+    </div>
+  </div>
+
+  <h3 class="first">Primeiro: a fórmula que já existia</h3>
+  <p>O Módulo 13 deduziu quanto vale a resistência <em class="t">olhando para o dreno</em> de um transistor que tem alguma resistência R<sub>S</sub> pendurada na fonte. Não precisamos rededuzir; só precisamos lembrar o resultado:</p>
+
+  <div class="big-eq">R<sub>d</sub> &nbsp;=&nbsp; r<sub>o</sub> &nbsp;+&nbsp; R<sub>S</sub> &nbsp;+&nbsp; g<sub>m</sub>·r<sub>o</sub>·R<sub>S</sub>
+    <span class="cap">§13.8 — degeneração de fonte. Os dois primeiros termos são «as resistências em série»; o terceiro é o que a realimentação local acrescenta.</span></div>
+
+  <div class="note">
+    <span class="lbl">por que existe o terceiro termo (a intuição, em duas frases)</span>
+    <p>Se você injeta uma corrente de teste no dreno, ela tem de passar por R<sub>S</sub> e levanta a tensão da fonte. Mas levantar a fonte <em class="t">reduz</em> V<sub>GS</sub>, que reduz a corrente do transistor, que se opõe à sua injeção. É realimentação negativa local — e ela multiplica a resistência vista por aproximadamente o ganho de malha, <code>g_m·r_o</code>.</p>
+  </div>
+
+  <h3>Segundo: o passo que destrava a questão</h3>
+  <p>A fórmula fala em R<sub>S</sub>. No cascode <strong>não há nenhum resistor desenhado</strong> — então a pergunta é: olhando da fonte de M<sub>2</sub> para baixo, o que eu vejo?</p>
+  <p>Vejo o <strong>dreno de M<sub>1</sub></strong>. E a porta de M<sub>1</sub> está no sinal de entrada, que em pequenos sinais para efeito de R<sub>out</sub> está aterrada. Um transistor com a porta aterrada, visto pelo dreno, é simplesmente <code>r_o1</code>.</p>
+
+  <div class="big-eq">R<sub>S</sub> (para M<sub>2</sub>) &nbsp;=&nbsp; r<sub>o1</sub> &nbsp;=&nbsp; 100 kΩ
+    <span class="cap">É só esta identificação. O resto é substituir.</span></div>
+
+  <figure class="fig">
+    <div class="fig-title">a mesma figura, redesenhada como degeneração</div>
+    <svg viewBox="0 0 660 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="M2 com ro1 como resistência de degeneração na fonte">
+      <text class="t-grn" x="268" y="26">R<tspan baseline-shift="sub" font-size="11">out</tspan> olha para cá</text>
+      <line class="s-wire" x1="320" y1="34" x2="320" y2="62"/>
+      <path class="s-wire" d="M314 44 L320 36 L326 44" stroke-linejoin="round"/>
+
+      <line class="s-dev" x1="300" y1="74" x2="300" y2="134"/>
+      <line class="s-dev" x1="310" y1="68" x2="310" y2="140"/>
+      <line class="s-dev" x1="310" y1="74" x2="320" y2="74"/>
+      <line class="s-dev" x1="320" y1="74" x2="320" y2="62"/>
+      <line class="s-dev" x1="310" y1="134" x2="320" y2="134"/>
+      <line class="s-dev" x1="320" y1="134" x2="320" y2="162"/>
+      <line class="s-wire" x1="300" y1="104" x2="226" y2="104"/>
+      <text class="t-lbl" x="182" y="109">V<tspan baseline-shift="sub" font-size="10">b</tspan></text>
+      <text class="t-lbl" x="332" y="108">M<tspan baseline-shift="sub" font-size="10">2</tspan></text>
+      <text class="t-sm"  x="332" y="124">g<tspan baseline-shift="sub" font-size="9">m2</tspan>, r<tspan baseline-shift="sub" font-size="9">o2</tspan></text>
+
+      <rect class="s-red" x="302" y="162" width="36" height="62" rx="3" fill="#FBEFEB"/>
+      <text class="t-lbl" x="350" y="190" fill="#BE4A32">r<tspan baseline-shift="sub" font-size="10">o1</tspan> = 100 kΩ</text>
+      <text class="t-red" x="350" y="208">(é o M₁ visto do dreno)</text>
+      <line class="s-wire" x1="320" y1="224" x2="320" y2="252"/>
+      <line class="s-wire" x1="300" y1="252" x2="340" y2="252"/>
+      <line class="s-wire" x1="307" y1="260" x2="333" y2="260"/>
+      <line class="s-wire" x1="314" y1="268" x2="326" y2="268"/>
+
+      <text class="t-note" x="36" y="150">para M₂, o que está</text>
+      <text class="t-note" x="36" y="171">na fonte é R_S = r_o1</text>
+      <path class="s-thin" d="M196 164 C 230 164, 240 180, 266 187" stroke-dasharray="4 3"/>
+      <path class="s-thin" d="M258 180 L269 187 L257 192"/>
+
+      <text class="t-lbl" x="430" y="80">r_o2 + r_o1 + g_m2·r_o2·r_o1</text>
+      <text class="t-sm"  x="430" y="102">100k + 100k + 50 × 100k</text>
+      <text class="t-sm"  x="430" y="122">= 0,1 M + 0,1 M + 5 M</text>
+      <text class="t-grn" x="430" y="148" font-size="17">≈ 5,2 MΩ</text>
+      <text class="t-red" x="430" y="176">os dois primeiros termos</text>
+      <text class="t-red" x="430" y="194">valem 4 % — por isso</text>
+      <text class="t-red" x="430" y="212">se escreve R_out ≈ 5 MΩ</text>
+    </svg>
+    <figcaption>Não é uma topologia nova: é a degeneração de fonte do Módulo 13, com a resistência de degeneração sendo, ela mesma, a resistência de saída do transistor de baixo.</figcaption>
+  </figure>
+
+  <h3>Terceiro: a conta, termo por termo</h3>
+  <div class="calc">
+    <div class="row"><div class="why">Copie a fórmula de §13.8 trocando R<sub>S</sub> por r<sub>o1</sub>, e os índices de g<sub>m</sub> e r<sub>o</sub> por «2» — é M<sub>2</sub> que está sendo degenerado.</div>
+      <div class="math">R<sub>out</sub> = r<sub>o2</sub> + r<sub>o1</sub> + g<sub>m2</sub>·r<sub>o2</sub>·r<sub>o1</sub></div></div>
+    <div class="row"><div class="why">Olhe o terceiro termo e <strong>agrupe</strong>: g<sub>m2</sub>·r<sub>o2</sub> é o produto do passo 3, que vale 50. Não multiplique três números — multiplique o 50 pelo r<sub>o1</sub>.</div>
+      <div class="math">g<sub>m2</sub>r<sub>o2</sub> · r<sub>o1</sub> = 50 × 100 kΩ = <span class="r">5 MΩ</span></div></div>
+    <div class="row"><div class="why">Agora os dois termos pequenos, só para ver o tamanho deles.</div>
+      <div class="math">r<sub>o2</sub> + r<sub>o1</sub> = 100k + 100k = 0,2 MΩ</div></div>
+    <div class="row"><div class="why">Some tudo. Este é o valor exato.</div>
+      <div class="math">R<sub>out</sub> = 5 M + 0,2 M = <b>5,2 MΩ</b></div></div>
+    <div class="row"><div class="why">E a forma que se usa para raciocinar: os termos pequenos pesam 4 %, dentro do erro dos próprios modelos.</div>
+      <div class="math">R<sub>out</sub> ≈ (g<sub>m</sub>r<sub>o</sub>)·r<sub>o</sub> ≈ <b>5 MΩ</b></div></div>
+  </div>
+
+  <div class="key">
+    <span class="lbl">como ler o resultado em uma frase</span>
+    <p>O cascode <strong>pegou a resistência que já existia embaixo dele (100 kΩ) e a multiplicou por g<sub>m</sub>r<sub>o</sub> (50)</strong>. É literalmente isso que a fórmula diz — e é por isso que ele é chamado de «multiplicador de impedância».</p>
+  </div>
+
+  <div class="warn">
+    <span class="lbl">o erro nº 1 da prova inteira</span>
+    <p>Escrever <code>R_out = g_m2·r_o2 = 50</code>. Isso <strong>não é uma resistência</strong> — é um número puro, não tem ohm nenhum. O r<sub>o1</sub> precisa estar lá. Teste de sanidade: <em class="t">se a sua resposta de (a) não sair em ohms, pare e volte</em>, porque o erro é estrutural, não aritmético.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="step" id="e5">
+  <div class="step-num">5</div>
+  <h2>(b) A<sub>v</sub> — e por que G<sub>m</sub> é só g<sub>m1</sub></h2>
+
+  <div class="ledger">
+    <div class="c1"><span class="lh">o que eu já tinha</span>
+      <ul>
+        <li><code>g_m1 = 0,5 mA/V</code> (passo 1)</li>
+        <li><code>R_out = 5,2 MΩ</code> (passo 4)</li>
+      </ul>
+    </div>
+    <div class="c2"><span class="lh">de onde vem a fórmula</span>
+      Do modelo geral de qualquer amplificador de transcondutância: <code>A_v = −G_m·R_out</code>. A pergunta real é <em class="t">quanto vale G<sub>m</sub></em> nesta topologia.
+    </div>
+    <div class="c3"><span class="lh">o que isso vira</span>
+      A resposta de (b):
+      <code>A_v = −2 600 ≈ 68 dB</code><br>
+      Fim da árvore de pequenos sinais.
+    </div>
+  </div>
+
+  <div class="big-eq">A<sub>v</sub> = −G<sub>m</sub> · R<sub>out</sub> &nbsp;&nbsp;&nbsp;com&nbsp;&nbsp;&nbsp; G<sub>m</sub> = g<sub>m1</sub></div>
+
+  <h3>Por que G<sub>m</sub> = g<sub>m1</sub>, e M<sub>2</sub> não entra</h3>
+  <p>Separe mentalmente as duas funções de um amplificador: <strong>converter tensão em corrente</strong> (isso é G<sub>m</sub>) e <strong>converter essa corrente de volta em tensão</strong> (isso é R<sub>out</sub>).</p>
+  <ol class="mini">
+    <li>Quem recebe a tensão de entrada é a porta de M<sub>1</sub>. Então quem converte tensão em corrente é M<sub>1</sub>, e a conversão vale g<sub>m1</sub>.</li>
+    <li>M<sub>1</sub> e M<sub>2</sub> estão em série. Logo <em class="t">toda</em> a corrente de sinal que M<sub>1</sub> produz atravessa M<sub>2</sub> — não há para onde ela desviar.</li>
+    <li>Portanto M<sub>2</sub> não cria nem destrói corrente de sinal: ele apenas a <strong>transporta</strong> para um nó de impedância muito mais alta. Ele mexe em R<sub>out</sub>, não em G<sub>m</sub>.</li>
+  </ol>
+  <p>Essa separação é o jeito honesto de entender o cascode: <em class="t">ele não amplifica mais — ele entrega a mesma corrente numa resistência cem vezes maior.</em></p>
+
+  <h3>A conta</h3>
+  <div class="calc">
+    <div class="row"><div class="why">Substitua os dois valores que você já tem.</div>
+      <div class="math">|A<sub>v</sub>| = 0,5 mA/V × 5,2 MΩ</div></div>
+    <div class="row"><div class="why">Cuidado com as unidades: mA/V × MΩ. O «m» e o «M» dão 10⁻³ × 10⁶ = 10³.</div>
+      <div class="math">= 0,5 × 5,2 × 10³ = <b>2 600</b></div></div>
+    <div class="row"><div class="why">Em dB. 2600 é 2,6 × 10³, então 20·log(2,6) + 60 ≈ 8,3 + 60.</div>
+      <div class="math">20 log 2600 ≈ <b>68,3 dB</b></div></div>
+    <div class="row"><div class="why">O sinal: fonte comum inverte; porta comum não inverte. O conjunto inverte.</div>
+      <div class="math">A<sub>v</sub> = <span class="r">−</span>2 600</div></div>
+  </div>
+
+  <div class="key">
+    <span class="lbl">a conferência de 5 segundos</span>
+    <p>Com transistores iguais, <code>A_v = g_m1 × (g_m2 r_o2 r_o1) = (g_m r_o)²</code>. Aqui: <code>50² = 2 500</code>, e em dB <code>34 × 2 = 68</code>. <strong>Em decibéis, o cascode simplesmente dobra o ganho intrínseco.</strong> Se a sua resposta não for perto do dobro, você errou em algum lugar — e essa conferência não custa nada.</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">de quebra: o cascode também melhora a banda</span>
+    <p>O ganho de M<sub>1</sub> até o nó X é só <code>−g_m1/g_m2 ≈ −1</code>, porque X é de baixa impedância. Então o capacitor porta-dreno de M<sub>1</sub> quase não é multiplicado na entrada — o <em class="t">efeito Miller</em> praticamente some. Um mesmo truque melhorando ganho <strong>e</strong> banda é raro, e é por isso que o cascode está em quase todo amp op CMOS de alto ganho.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="step" id="e6">
+  <div class="step-num">6</div>
+  <h2>(c) A excursão — mude de árvore</h2>
+
+  <div class="ledger">
+    <div class="c1"><span class="lh">o que eu já tinha</span>
+      Apenas dados brutos, de novo:
+      <ul><li><code>V_DD = 1,8 V</code></li><li><code>V_ov = 0,2 V</code></li></ul>
+      <strong>g<sub>m</sub>, r<sub>o</sub> e A<sub>v</sub> não entram aqui.</strong> Esqueça os passos 1 a 5.
+    </div>
+    <div class="c2"><span class="lh">de onde vem</span>
+      Da <strong>condição de saturação</strong>: <code>V_DS ≥ V_ov</code>. É a fronteira entre tríodo e saturação, do Módulo 11 — não é fórmula de amplificador, é geometria de polarização.
+    </div>
+    <div class="c3"><span class="lh">o que isso vira</span>
+      A resposta de (c):
+      <code>excursão = 1,2 V</code><br>
+      E o piso, 0,4 V, vai servir de conferência no passo 7.
+    </div>
+  </div>
+
+  <div class="key">
+    <span class="lbl">a regra, e de onde ela sai</span>
+    <p>Um MOS só funciona como amplificador se estiver <strong>saturado</strong>, e a condição para isso é <code>V_DS ≥ V_GS − V_t = V_ov</code>. Cada transistor em série com a saída, portanto, <strong>reserva um V<sub>ov</sub> para si</strong>. Conte quantos estão acima da saída e quantos abaixo; o que sobrar no meio é tudo o que o sinal tem para balançar.</p>
+  </div>
+
+  <h3>Contando os dispositivos, um a um</h3>
+  <ol class="mini">
+    <li><strong>Acima da saída:</strong> só o pMOS que faz a fonte de corrente. <em class="t">Um</em> dispositivo ⇒ reserva 0,2 V no topo.</li>
+    <li><strong>Abaixo da saída:</strong> M<sub>2</sub> e M<sub>1</sub>, empilhados. <em class="t">Dois</em> dispositivos ⇒ reservam 0,4 V no chão.</li>
+    <li>Total reservado: três sobrecargas, <code>3 × 0,2 = 0,6 V</code>. O resto, <code>1,8 − 0,6 = 1,2 V</code>, é a excursão.</li>
+  </ol>
+
+  <figure class="fig">
+    <div class="fig-title">o orçamento de excursão — rosa é sobrecarga paga, amarelo é o que sobra</div>
+    <svg viewBox="0 0 660 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Comparação da excursão de saída entre fonte comum e cascode">
+      <line class="s-thin" x1="92" y1="40" x2="92" y2="290"/>
+      <text class="t-sm" x="34" y="45">1,8 V</text>
+      <text class="t-sm" x="46" y="294">0 V</text>
+      <line class="s-thin" x1="86" y1="40" x2="92" y2="40"/>
+      <line class="s-thin" x1="86" y1="290" x2="92" y2="290"/>
+      <line class="s-thin" x1="92" y1="40" x2="600" y2="40" stroke-dasharray="3 4"/>
+      <line class="s-thin" x1="92" y1="290" x2="600" y2="290" stroke-dasharray="3 4"/>
+
+      <rect x="150" y="40"  width="130" height="27.8" fill="#F2C9BF" stroke="#BE4A32" stroke-width="1.5"/>
+      <rect x="150" y="67.8" width="130" height="194.4" fill="#FBECA6" stroke="#B8801F" stroke-width="1.5"/>
+      <rect x="150" y="262.2" width="130" height="27.8" fill="#F2C9BF" stroke="#BE4A32" stroke-width="1.5"/>
+      <text class="t-sm" x="286" y="58">V_ov do pMOS</text>
+      <text class="t-sm" x="286" y="280">V_ov do nMOS</text>
+      <text class="t-lbl" x="183" y="168" font-size="17" fill="#7A5510">1,4 V</text>
+      <text class="t-note" x="156" y="314">fonte comum · 34 dB</text>
+
+      <rect x="400" y="40"  width="130" height="27.8" fill="#F2C9BF" stroke="#BE4A32" stroke-width="1.5"/>
+      <rect x="400" y="67.8" width="130" height="166.6" fill="#FBECA6" stroke="#B8801F" stroke-width="1.5"/>
+      <rect x="400" y="234.4" width="130" height="27.8" fill="#F2C9BF" stroke="#BE4A32" stroke-width="1.5"/>
+      <rect x="400" y="262.2" width="130" height="27.8" fill="#F2C9BF" stroke="#BE4A32" stroke-width="1.5"/>
+      <text class="t-sm" x="536" y="58">V_ov do pMOS</text>
+      <text class="t-sm" x="536" y="252">V_ov de M₂</text>
+      <text class="t-sm" x="536" y="280">V_ov de M₁</text>
+      <text class="t-lbl" x="433" y="158" font-size="17" fill="#7A5510">1,2 V</text>
+      <text class="t-note" x="406" y="314">cascode · 68 dB</text>
+
+      <path class="s-red" d="M300 180 L380 180"/>
+      <path class="s-red" d="M372 174 L382 180 L372 186" stroke-linejoin="round"/>
+      <text class="t-red" x="296" y="170">−0,2 V</text>
+      <text class="t-red" x="296" y="204">+34 dB</text>
+    </svg>
+    <figcaption>O cascode custou <strong>exatamente um V<sub>ov</sub></strong> — 0,2 V de 1,8 V — e em troca dobrou o ganho em dB. É o melhor negócio do módulo, e é por isso que cascode é a primeira resposta em CMOS analógico.</figcaption>
+  </figure>
+
+  <div class="calc">
+    <div class="row"><div class="why">Teto: parta de V<sub>DD</sub> e desconte os dispositivos de cima.</div>
+      <div class="math">V<sub>out,máx</sub> = 1,8 − 1(0,2) = <b>1,6 V</b></div></div>
+    <div class="row"><div class="why">Piso: parta do chão e some os dispositivos de baixo.</div>
+      <div class="math">V<sub>out,mín</sub> = 2(0,2) = <b>0,4 V</b></div></div>
+    <div class="row"><div class="why">A excursão é a faixa entre os dois.</div>
+      <div class="math">1,6 − 0,4 = <b>1,2 V</b></div></div>
+    <div class="row"><div class="why">Comparação: a fonte comum sozinha teria um nMOS só embaixo.</div>
+      <div class="math">1,8 − 0,2 − 0,2 = 1,4 V &nbsp;<span class="r">(0,2 V a mais)</span></div></div>
+  </div>
+
+  <div class="warn">
+    <span class="lbl">duas armadilhas de excursão</span>
+    <p><strong>1. Contar só o lado de cima.</strong> O piso costuma ser o problema maior, porque é onde se empilham cascode, transistor de entrada e — num par diferencial — também a cauda. No telescópico completo são <em class="t">três</em> sobrecargas embaixo, não duas, e é daí que vem o <code>V_DD − 5V_ov</code> do módulo.</p>
+    <p style="margin-bottom:0"><strong>2. Não ler que carga é.</strong> Fonte de corrente <em class="t">ideal</em> ⇒ teto é V<sub>DD</sub> inteiro. Feita de um pMOS ⇒ cobra um V<sub>ov</sub>. Um <strong>cascode</strong> pMOS ⇒ cobra dois. Essa única linha do enunciado muda a resposta sozinha.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="step" id="e7">
+  <div class="step-num">7</div>
+  <h2>(d) V<sub>b</sub> mínimo — subindo pelo chão</h2>
+
+  <div class="ledger">
+    <div class="c1"><span class="lh">o que eu já tinha</span>
+      <ul><li><code>V_t = 0,4 V</code></li><li><code>V_ov = 0,2 V</code></li></ul>
+      V<sub>t</sub> só aparece <strong>agora</strong>, na última pergunta — é o único lugar em que ele é usado.
+    </div>
+    <div class="c2"><span class="lh">de onde vem</span>
+      De duas condições de polarização empilhadas: <code>V_DS1 ≥ V_ov</code> (saturação de M<sub>1</sub>) e <code>V_GS2 = V_t + V_ov</code> (definição de sobrecarga).
+    </div>
+    <div class="c3"><span class="lh">o que isso vira</span>
+      A resposta de (d):
+      <code>V_b = 0,8 V</code><br>
+      E uma conferência cruzada com (c).
+    </div>
+  </div>
+
+  <h3>As duas condições, na ordem em que se usam</h3>
+  <ol class="mini">
+    <li><strong>M<sub>1</sub> tem de continuar saturado.</strong> O dreno de M<sub>1</sub> é o nó X, então a condição <code>V_DS1 ≥ V_ov</code> vira <code>V_X ≥ 0,2 V</code>. Como queremos o V<sub>b</sub> <em class="t">mínimo</em>, trabalhamos no limite: <code>V_X = 0,2 V</code>.</li>
+    <li><strong>M<sub>2</sub> tem de estar conduzindo aquela corrente.</strong> Para isso a porta precisa estar um V<sub>GS</sub> acima da fonte. E a fonte de M<sub>2</sub> <em class="t">é</em> o nó X — é aqui que as duas condições se encontram. <code>V_GS2 = V_t + V_ov = 0,4 + 0,2 = 0,6 V</code>.</li>
+    <li><strong>Some.</strong> A porta está 0,6 V acima de X, e X está 0,2 V acima do chão. <code>V_b = 0,2 + 0,6 = 0,8 V</code>.</li>
+  </ol>
+
+  <figure class="fig">
+    <div class="fig-title">as tensões contínuas, empilhadas do chão para cima</div>
+    <svg viewBox="0 0 660 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Escada de tensões contínuas do cascode">
+      <line class="s-thin" x1="120" y1="30" x2="120" y2="260"/>
+      <g font-family="IBM Plex Mono, monospace" font-size="11.5" fill="#6B6559">
+        <line class="s-thin" x1="114" y1="260" x2="120" y2="260"/><text x="74" y="264">0,0 V</text>
+        <line class="s-thin" x1="114" y1="234" x2="120" y2="234"/><text x="74" y="238">0,2 V</text>
+        <line class="s-thin" x1="114" y1="208" x2="120" y2="208"/><text x="74" y="212">0,4 V</text>
+        <line class="s-thin" x1="114" y1="182" x2="120" y2="182"/><text x="74" y="186">0,6 V</text>
+        <line class="s-thin" x1="114" y1="156" x2="120" y2="156"/><text x="74" y="160">0,8 V</text>
+        <line class="s-thin" x1="114" y1="56"  x2="120" y2="56"/><text x="74"  y="60">1,6 V</text>
+        <line class="s-thin" x1="114" y1="30"  x2="120" y2="30"/><text x="74"  y="34">1,8 V</text>
+      </g>
+
+      <line x1="120" y1="30" x2="600" y2="30" stroke="#9A9384" stroke-width="1.4" stroke-dasharray="3 4"/>
+      <text class="t-sm" x="410" y="26">V_DD</text>
+
+      <line x1="150" y1="234" x2="330" y2="234" stroke="#BE4A32" stroke-width="2.6"/>
+      <text class="t-red" x="340" y="239">V_X = 0,2 V — o mínimo que M₁ aceita</text>
+
+      <line x1="150" y1="156" x2="330" y2="156" stroke="#3E7A50" stroke-width="2.6"/>
+      <text class="t-grn" x="340" y="161">V_b = 0,8 V — a resposta de (d)</text>
+
+      <line class="s-thin" x1="166" y1="156" x2="166" y2="234"/>
+      <path class="s-thin" d="M162 162 L166 154 L170 162"/>
+      <path class="s-thin" d="M162 228 L166 236 L170 228"/>
+      <text class="t-sm" x="176" y="199">V_GS2 = 0,6 V</text>
+
+      <rect x="400" y="56" width="180" height="152" fill="#FBECA6" fill-opacity=".55" stroke="#B8801F" stroke-width="1.5"/>
+      <text class="t-note" x="410" y="104">faixa útil de v_out</text>
+      <text class="t-note" x="410" y="125">1,6 V ─ 0,4 V</text>
+      <text class="t-note" x="410" y="146">= 1,2 V de excursão</text>
+
+      <line x1="400" y1="208" x2="580" y2="208" stroke="#BE4A32" stroke-width="2.2"/>
+      <text class="t-sm" x="400" y="226">V_out,mín = 2 V_ov = 0,4 V</text>
+      <line x1="400" y1="56" x2="580" y2="56" stroke="#BE4A32" stroke-width="2.2"/>
+      <text class="t-sm" x="400" y="50">V_out,máx = V_DD − V_ov = 1,6 V</text>
+    </svg>
+    <figcaption>V<sub>b</sub> fica 0,6 V acima de X, e X fica 0,2 V acima do chão. O piso da saída, 0,4 V, é exatamente V<sub>X</sub> + V<sub>ov</sub> — as respostas (c) e (d) são a mesma escada lida em alturas diferentes.</figcaption>
+  </figure>
+
+  <div class="calc">
+    <div class="row"><div class="why">Condição 1, no limite.</div>
+      <div class="math">V<sub>X,mín</sub> = V<sub>ov</sub> = <span class="r">0,2 V</span></div></div>
+    <div class="row"><div class="why">Condição 2: a sobrecarga é, por definição, V<sub>GS</sub> − V<sub>t</sub>. Então V<sub>GS</sub> = V<sub>t</sub> + V<sub>ov</sub>.</div>
+      <div class="math">V<sub>GS2</sub> = 0,4 + 0,2 = 0,6 V</div></div>
+    <div class="row"><div class="why">A porta é a fonte mais V<sub>GS</sub>.</div>
+      <div class="math">V<sub>b</sub> = 0,2 + 0,6 = <b>0,8 V</b></div></div>
+    <div class="row"><div class="why">Conferência cruzada: com esse V<sub>b</sub>, qual é o menor V<sub>out</sub> que mantém M<sub>2</sub> saturado? Tem de bater com o piso de (c).</div>
+      <div class="math">V<sub>out</sub> ≥ V<sub>X</sub> + V<sub>ov</sub> = 0,4 V ✓</div></div>
+  </div>
+
+  <div class="key">
+    <span class="lbl">a forma geral, boa para decorar</span>
+    <p><code>V_b,mín = V_t + 2·V_ov</code> — um V<sub>ov</sub> para segurar M<sub>1</sub> saturado, mais o V<sub>GS</sub> completo de M<sub>2</sub>. Aqui: <code>0,4 + 0,4 = 0,8 V</code>.</p>
+  </div>
+
+  <div class="note">
+    <span class="lbl">se o enunciado mandar considerar o efeito de corpo</span>
+    <p>A fonte de M<sub>2</sub> está no nó X, acima do substrato — então <code>V_SB2 = V_X ≠ 0</code> e o V<sub>t</sub> de M<sub>2</sub> <em class="t">sobe</em>. V<sub>b</sub> teria de subir junto, e a excursão pioraria um pouco. Se o enunciado não mandar, escreva «efeito de corpo desprezado» na sua resposta — mostra que você sabe que ele existe.</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="step" id="e8">
+  <div class="step-num">8</div>
+  <h2>O balanço final</h2>
+
+  <table class="cmp">
+    <thead><tr><th>grandeza</th><th>fonte comum</th><th>este cascode</th><th>o que mudou</th></tr></thead>
+    <tbody>
+      <tr><td>R<sub>out</sub></td><td class="n">100 kΩ</td><td class="n">5,2 MΩ</td><td>× 50 (= g<sub>m</sub>r<sub>o</sub>)</td></tr>
+      <tr><td>|A<sub>v</sub>|</td><td class="n">50 &nbsp;(34 dB)</td><td class="n">2 600 &nbsp;(68 dB)</td><td>dobrou em dB</td></tr>
+      <tr><td>excursão</td><td class="n">1,4 V</td><td class="n">1,2 V</td><td>−0,2 V = um V<sub>ov</sub></td></tr>
+      <tr><td>consumo</td><td class="n">50 µA</td><td class="n">50 µA</td><td>igual — mesmo ramo</td></tr>
+      <tr><td>polos de alta impedância</td><td class="n">1</td><td class="n">1</td><td>X é de baixa impedância</td></tr>
+    </tbody>
+  </table>
+
+  <div class="key">
+    <span class="lbl">a frase que resume o módulo inteiro</span>
+    <p>O cascode entrega <strong>ganho ao quadrado pelo preço de uma sobrecarga de excursão, sem gastar um microampère a mais e sem criar um polo que atrapalhe a realimentação</strong>. Um terceiro andar levaria a 102 dB, mas cobraria mais dois V<sub>ov</sub> — e aí o negócio deixa de valer. Por isso o triplo cascode foi abandonado em favor do <em class="t">gain boosting</em>, que segura o nó X com um amplificador realimentado em vez de hardware empilhado.</p>
+  </div>
+
+  <h3>O resumo em quatro linhas, na ordem de resolução</h3>
+  <div class="big-eq" style="text-align:left; font-size:1.02rem; line-height:2.1">
+    1 · g<sub>m</sub> = 2I<sub>D</sub>/V<sub>ov</sub> &nbsp;e&nbsp; r<sub>o</sub> = V<sub>A</sub>/I<sub>D</sub> &nbsp;&nbsp;← só dados do enunciado<br>
+    2 · g<sub>m</sub>r<sub>o</sub> = 2V<sub>A</sub>/V<sub>ov</sub> &nbsp;&nbsp;← número puro; I<sub>D</sub> sumiu<br>
+    3 · R<sub>out</sub> = (g<sub>m</sub>r<sub>o</sub>)·r<sub>o1</sub> &nbsp;·&nbsp; A<sub>v</sub> = −g<sub>m1</sub>R<sub>out</sub> &nbsp;&nbsp;← pequenos sinais<br>
+    4 · excursão = V<sub>DD</sub> − (n<sub>cima</sub>+n<sub>baixo</sub>)V<sub>ov</sub> &nbsp;·&nbsp; V<sub>b</sub> = V<sub>t</sub> + 2V<sub>ov</sub> &nbsp;&nbsp;← polarização
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="step" id="e9">
+  <div class="step-num">9</div>
+  <h2>Mexa nos números</h2>
+  <p>A melhor forma de internalizar o passo 3 é ver, com as mãos, que <strong>arrastar I<sub>D</sub> não move o ganho</strong> — enquanto arrastar V<sub>ov</sub> move tudo, nas duas árvores ao mesmo tempo.</p>
+
+  <div class="sim">
+    <h3>cascode — calculadora</h3>
+    <div class="hint">Arraste I<sub>D</sub> e observe g<sub>m</sub> subir, r<sub>o</sub> descer e o ganho <em class="t">não se mexer</em>. Depois arraste V<sub>ov</sub> e veja ganho e excursão andarem em sentidos opostos.</div>
+    <div class="ctrls">
+      <div class="ctrl"><label>I<sub>D</sub> <b><span id="vID">50</span> µA</b></label>
+        <input type="range" id="sID" min="5" max="400" step="5" value="50"></div>
+      <div class="ctrl"><label>V<sub>ov</sub> <b><span id="vOV">0,20</span> V</b></label>
+        <input type="range" id="sOV" min="0.05" max="0.45" step="0.01" value="0.2"></div>
+      <div class="ctrl"><label>V<sub>A</sub> <b><span id="vVA">5,0</span> V</b></label>
+        <input type="range" id="sVA" min="1" max="20" step="0.5" value="5"></div>
+      <div class="ctrl"><label>V<sub>DD</sub> <b><span id="vDD">1,80</span> V</b></label>
+        <input type="range" id="sDD" min="0.9" max="3.3" step="0.05" value="1.8"></div>
+    </div>
+    <div class="readout">
+      <div class="rd"><span class="k">g<sub>m</sub></span><span class="v" id="rGM">—</span></div>
+      <div class="rd"><span class="k">r<sub>o</sub></span><span class="v" id="rRO">—</span></div>
+      <div class="rd"><span class="k">g<sub>m</sub>·r<sub>o</sub></span><span class="v" id="rGR">—</span></div>
+      <div class="rd out"><span class="k">R<sub>out</sub></span><span class="v" id="rROUT">—</span></div>
+      <div class="rd out"><span class="k">|A<sub>v</sub>|</span><span class="v" id="rAV">—</span></div>
+      <div class="rd out"><span class="k">A<sub>v</sub> em dB</span><span class="v" id="rDB">—</span></div>
+      <div class="rd"><span class="k">excursão</span><span class="v" id="rSW">—</span></div>
+      <div class="rd"><span class="k">V<sub>b</sub> mín</span><span class="v" id="rVB">—</span></div>
+    </div>
+    <div class="status ok" id="stat">—</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<section class="step" id="e10">
+  <div class="step-num">10</div>
+  <h2>Sua vez — três variações do mesmo circuito</h2>
+  <p>Mesmos dados do enunciado, salvo onde indicado. Para cada uma, pergunte-se primeiro <em class="t">qual árvore muda</em> — a de pequenos sinais, a de polarização, ou as duas.</p>
+
+  <h3>V1 — a carga vira um cascode pMOS</h3>
+  <p>Troque a fonte de corrente simples por um <strong>cascode pMOS</strong> com os mesmos g<sub>m</sub> e r<sub>o</sub>. Novo A<sub>v</sub> e nova excursão?</p>
+  <details class="rev">
+    <summary>resposta de V1</summary>
+    <div class="body">
+      <p><strong>Mudam as duas árvores.</strong> Na de pequenos sinais, o nó de saída agora tem duas resistências grandes chegando nele — e resistências que chegam ao mesmo nó entram <em class="t">em paralelo</em>:</p>
+      <div class="calc">
+        <div class="row"><div class="why">Cada lado vale 5,2 MΩ; dois iguais em paralelo dão metade.</div>
+          <div class="math">R<sub>out</sub> = 5,2 M ∥ 5,2 M = <b>2,6 MΩ</b></div></div>
+        <div class="row"><div class="why">O ganho cai pela metade — que em dB é −6.</div>
+          <div class="math">|A<sub>v</sub>| = 0,5 m × 2,6 M = 1 300 ≈ <b>62 dB</b></div></div>
+        <div class="row"><div class="why">Na árvore de polarização: agora são dois pMOS em cima e dois nMOS embaixo.</div>
+          <div class="math">1,8 − 2(0,2) − 2(0,2) = <b>1,0 V</b></div></div>
+      </div>
+      <p style="margin-bottom:0"><strong>A lição:</strong> cascodear a carga <em class="t">não aumenta</em> o ganho — ela já era de alta impedância. O cascode pMOS existe para que a carga não <strong>derrube</strong> o ganho. Se ela fosse um pMOS simples com r<sub>o</sub> = 100 kΩ, o paralelo daria ≈ 98 kΩ e o ganho desabaria para ≈ 49 — o cascode nMOS teria sido inútil. <em class="t">Um cascode de um lado só não serve para nada se o outro lado for de baixa impedância.</em></p>
+    </div>
+  </details>
+
+  <h3>V2 — justifique sem contas</h3>
+  <p>Um colega propõe dobrar I<sub>D</sub> para 100 µA «para ganhar mais». O que acontece com R<sub>out</sub>, A<sub>v</sub> e a excursão?</p>
+  <details class="rev">
+    <summary>resposta de V2</summary>
+    <div class="body">
+      <p>Olhe o mapa do passo 0: I<sub>D</sub> só aparece na árvore da esquerda. Então a excursão nem é tocada.</p>
+      <ul class="plain">
+        <li><code>g_m</code> <strong>dobra</strong> → 1,0 mA/V.</li>
+        <li><code>r_o</code> <strong>cai pela metade</strong> → 50 kΩ.</li>
+        <li><code>g_m·r_o</code> <strong>não muda</strong> — continua 50, porque I<sub>D</sub> cancela em 2V<sub>A</sub>/V<sub>ov</sub>.</li>
+        <li><code>R_out</code> <strong>cai pela metade</strong>: <code>50 × 50 kΩ = 2,6 MΩ</code>.</li>
+        <li><code>A_v</code> <strong>não muda</strong>: <code>1,0 m × 2,6 M = 2 600</code>. O g<sub>m</sub> maior compensa exatamente o R<sub>out</sub> menor.</li>
+        <li><code>excursão</code> <strong>não muda</strong> — só depende de V<sub>ov</sub> e V<sub>DD</sub>.</li>
+      </ul>
+      <p style="margin-bottom:0">Gastou-se o dobro da potência e não se ganhou um decibel. O que o colega <em class="t">de fato</em> comprou foi <strong>banda</strong>: g<sub>m</sub> maior com a mesma capacitância é um produto ganho-banda maior. Se a questão pedir «o que melhora?», a resposta é velocidade, não ganho.</p>
+    </div>
+  </details>
+
+  <h3>V3 — a pergunta de topologia</h3>
+  <p>Este cascode vai ser usado como <strong>seguidor de ganho unitário</strong> (saída ligada na entrada por realimentação). Serve? Se não, o que se usa?</p>
+  <details class="rev">
+    <summary>resposta de V3</summary>
+    <div class="body">
+      <p><strong>Não serve.</strong> Num telescópico — ou num cascode simples como este — entrada e saída dividem o mesmo ramo de corrente: o nível de modo comum da entrada empurra o piso da saída. Para fechar ganho unitário, as duas faixas teriam de coincidir, e elas não coincidem: uma começa onde a outra acaba.</p>
+      <p style="margin-bottom:0">A solução é o <strong>cascode dobrado</strong>. O dreno do transistor de entrada deságua num nó P alimentado por fonte de corrente fixa, e o sinal «dobra» para um cascode do tipo oposto, que o leva até a saída. A entrada sai do caminho da saída — pode até ficar em V<sub>DD</sub> — e a cauda sai da pilha de saída, devolvendo um V<sub>ov</sub> de excursão. Paga-se com <em class="t">um ramo de corrente a mais</em> (consumo quase dobra), mais ruído e um polo extra no nó P.</p>
+    </div>
+  </details>
+</section>
+
+<footer class="end">
+  PSI3024 · Eletrônica — companheiro do Módulo 15 (Amp ops CMOS · o cascode). Figuras desenhadas para este material; teoria conforme §15.1 a §15.5 do guia, com as deduções de g<sub>m</sub>, r<sub>o</sub> e degeneração vindas dos Módulos 11 e 13. Números do enunciado escolhidos para fechar em contas de cabeça.
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var el = function(id){ return document.getElementById(id); };
+  var fmt = function(x, d){ return x.toFixed(d).replace('.', ','); };
+
+  function eng(ohms){
+    if (ohms >= 1e6) return fmt(ohms/1e6, 2) + ' MΩ';
+    if (ohms >= 1e3) return fmt(ohms/1e3, 1) + ' kΩ';
+    return fmt(ohms, 0) + ' Ω';
+  }
+
+  function run(){
+    var ID  = parseFloat(el('sID').value) * 1e-6;
+    var VOV = parseFloat(el('sOV').value);
+    var VA  = parseFloat(el('sVA').value);
+    var VDD = parseFloat(el('sDD').value);
+    var VT  = 0.4;
+
+    el('vID').textContent = fmt(ID*1e6, 0);
+    el('vOV').textContent = fmt(VOV, 2);
+    el('vVA').textContent = fmt(VA, 1);
+    el('vDD').textContent = fmt(VDD, 2);
+
+    var gm = 2*ID/VOV;
+    var ro = VA/ID;
+    var gr = gm*ro;
+    var rout = ro + ro + gm*ro*ro;
+    var av = gm*rout;
+    var db = 20*Math.log10(av);
+    var swing = VDD - 3*VOV;
+    var vb = VT + 2*VOV;
+
+    el('rGM').textContent   = fmt(gm*1e3, 2) + ' mA/V';
+    el('rRO').textContent   = eng(ro);
+    el('rGR').textContent   = fmt(gr, 1);
+    el('rROUT').textContent = eng(rout);
+    el('rAV').textContent   = Math.round(av).toLocaleString('pt-BR');
+    el('rDB').textContent   = fmt(db, 1) + ' dB';
+    el('rSW').textContent   = fmt(swing, 2) + ' V';
+    el('rVB').textContent   = fmt(vb, 2) + ' V';
+
+    var s = el('stat');
+    if (swing <= 0) {
+      s.className = 'status bad';
+      s.innerHTML = '<strong>Não fecha.</strong> Três sobrecargas de ' + fmt(VOV,2) + ' V somam ' +
+        fmt(3*VOV,2) + ' V, e a alimentação só tem ' + fmt(VDD,2) +
+        ' V. Não sobra nada para o sinal — é exatamente o muro em que o triplo cascode esbarrou.';
+    } else if (swing < 0.35*VDD) {
+      s.className = 'status warnb';
+      s.innerHTML = '<strong>Aperta.</strong> Sobram só ' + fmt(swing,2) + ' V de ' + fmt(VDD,2) +
+        ' V (' + fmt(100*swing/VDD,0) + ' %) para o sinal. V<sub>ov</sub> grande é o pior dos mundos: ' +
+        'baixá-lo sobe o ganho <em>e</em> devolve excursão — à custa de velocidade.';
+    } else {
+      s.className = 'status ok';
+      s.innerHTML = '<strong>Repare:</strong> g<sub>m</sub>·r<sub>o</sub> = ' + fmt(gr,1) +
+        ' depende só de 2V<sub>A</sub>/V<sub>ov</sub> = ' + fmt(2*VA/VOV,1) +
+        ' — arraste I<sub>D</sub> à vontade que este número, e o ganho em dB, não se movem.';
+    }
+  }
+
+  ['sID','sOV','sVA','sDD'].forEach(function(id){
+    el(id).addEventListener('input', run);
+  });
+  run();
+})();
+</script>
+</body>
+</html>
